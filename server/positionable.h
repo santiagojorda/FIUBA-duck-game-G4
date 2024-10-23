@@ -6,7 +6,7 @@
 
 class Positionable{
 
-private:
+protected:
     Coordinate coordinates;
 
 public:
@@ -14,6 +14,8 @@ public:
     virtual void translate() = 0;
     virtual void translate_x() = 0;
     virtual void translate_y() = 0;
+
+    virtual ~Positionable();
 };
 
 #endif

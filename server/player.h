@@ -4,15 +4,17 @@
 #include <cstdint>
 #include "positionable.h"
 
-class Player : public Positionable {
+class Player : protected Positionable {
 private:
     uint8_t id;
 
 public:
-    Player(uint8_t& id);
+    explicit Player(uint8_t& _id);
     void translate() override;
     void translate_x() override;
     void translate_y() override;
+
+    ~Player();
 };
 
 #endif
