@@ -8,7 +8,7 @@
 #define BAD_ARGUMENTS 1
 #define ARGS_EXPECTED 2
 
-int main(int argc, char* argv[]) {
+int main() {
 
     try {
         Server server;

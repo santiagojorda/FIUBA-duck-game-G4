@@ -9,7 +9,6 @@
 class Sender: public Thread {
 private:
     Queue<GameState_t>& queue;
-
     ProtocolServer& protocol;
 
 public:
