@@ -1,5 +1,5 @@
-#ifndef COORDINATE_H
-#define COORDINATE_H
+#ifndef COMMON_COORDINATE_H_
+#define COMMON_COORDINATE_H_
 
 #include <iostream>
 
@@ -17,24 +17,24 @@ public:
     Coordinate(int _x, int _y, int _h, int _w);
 
     // suma componente a componente
-    Coordinate operator+( const Coordinate &other ) const;
+    Coordinate operator+(const Coordinate& other) const;
 
     // sobrescribe  sumando componente a componente
     Coordinate& operator+=(const Coordinate& other);
 
     // resto componente a componente
-    Coordinate operator-( const Coordinate &other ) const;
+    Coordinate operator-(const Coordinate& other) const;
 
     // sobrescribe restando componente a componente
-    Coordinate& operator-=( const Coordinate &other );
+    Coordinate& operator-=(const Coordinate& other);
 
-    // producto interno de la cordenada 
-    int operator*(const Coordinate& other) const;    
+    // producto interno de la cordenada
+    int operator*(const Coordinate& other) const;
 
-    //multiplica toda la cordenada por el multiplier
+    // multiplica toda la cordenada por el multiplier
     Coordinate operator*(const int& multiplier) const;
 
-    //divide toda la cordenada por el divider
+    // divide toda la cordenada por el divider
     Coordinate operator/(const int& divider) const;
 
     bool operator==(const Coordinate& other) const;
@@ -54,12 +54,10 @@ public:
     int get_w() const;
 
 
-     friend std::ostream& operator<<(std::ostream& os, const Coordinate& view);
+    friend std::ostream& operator<<(std::ostream& os, const Coordinate& view);
 
     ~Coordinate();
 };
 
 
-
-#endif // COORDINATE_H
-
+#endif  // COMMON_COORDINATE_H_

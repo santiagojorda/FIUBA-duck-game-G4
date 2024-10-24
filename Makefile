@@ -12,3 +12,8 @@ all: clean run-tests
 
 clean:
 	rm -Rf build-*/
+
+
+format: .clang-format
+	clang-format -i server/*.cpp server/*.h common/*.cpp common/*.h client/*.cpp client/*.h
+	echo fin

@@ -1,8 +1,9 @@
-#ifndef SENDER_H
-#define SENDER_H
+#ifndef SERVER_SENDER_H_
+#define SERVER_SENDER_H_
 
 #include "../common/queue.h"
 #include "../common/thread.h"
+
 #include "game_state.h"
 #include "protocol_server.h"
 
@@ -12,9 +13,11 @@ private:
     ProtocolServer& protocol;
 
 public:
-    explicit Sender(ProtocolServer& protocol);
+    explicit Sender(ProtocolServer& _protocol, Queue<GameState_t>& _queue);
     void run() override;
     void stop() override;
+
+    ~Sender();
 };
 
-#endif
+#endif  // SERVER_SENDER_H_
