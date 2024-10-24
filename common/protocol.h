@@ -1,5 +1,5 @@
-#ifndef PROTOCOL_H
-#define PROTOCOL_H
+#ifndef COMMON_PROTOCOL_H_
+#define COMMON_PROTOCOL_H_
 
 #include <cstdint>
 #include <string>
@@ -16,16 +16,16 @@ private:
 protected:
     bool was_closed = false;
     void send_string(const std::string& string);
-    // void send_2_bytes(const uint16_t& bytes);
+     void send_2_bytes(const uint16_t& bytes);
     void send_byte(const uint8_t& byte);
     void receive_string(std::string& string);
-    // void receive_2_bytes(uint16_t& bytes);
+     void receive_2_bytes(uint16_t& bytes);
     void receive_byte(uint8_t& byte);
-    
-public: 
+
+public:
     explicit Protocol(char* hostname, char* servname);
     explicit Protocol(Socket&& skt);
     void kill();
 };
 
-#endif
+#endif  // COMMON_PROTOCOL_H_
