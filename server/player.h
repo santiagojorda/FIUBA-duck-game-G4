@@ -2,9 +2,10 @@
 #define PLAYER_H
 
 #include <cstdint>
+
 #include "positionable.h"
 
-class Player : protected Positionable {
+class Player: protected Positionable {
 private:
     uint8_t id;
 

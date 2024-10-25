@@ -2,14 +2,16 @@
 #define GAME_H
 
 #include <list>
+
 #include "../common/thread.h"
-#include "monitor_client.h"
+
+#include "camera.h"
 #include "game_logic.h"
 #include "game_state.h"
-#include "camera.h"
+#include "monitor_client.h"
 #include "player.h"
 
-class Game : public Thread{
+class Game: public Thread {
 private:
     GameLogic game_logic;
     Queue<GameState_t> queue;

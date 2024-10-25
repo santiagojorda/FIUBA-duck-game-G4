@@ -2,12 +2,12 @@
 #define MONITOR_CLIENT_H
 
 #include <mutex>
-#include "monitor.h"
+
 #include "client.h"
+#include "monitor.h"
 
-class MonitorClient : public Monitor<Client> {
+class MonitorClient: public Monitor<Client> {
 private:
-
 public:
     MonitorClient();
     // virtual void broadcast() = 0;

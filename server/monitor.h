@@ -3,7 +3,7 @@
 
 #include <mutex>
 
-template<typename T>
+template <typename T>
 class Monitor {
 private:
     std::list<T> list;

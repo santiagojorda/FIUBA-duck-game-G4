@@ -21,8 +21,8 @@ protected:
     void receive_string(std::string& string);
     // void receive_2_bytes(uint16_t& bytes);
     void receive_byte(uint8_t& byte);
-    
-public: 
+
+public:
     explicit Protocol(char* hostname, char* servname);
     explicit Protocol(Socket&& skt);
     void kill();

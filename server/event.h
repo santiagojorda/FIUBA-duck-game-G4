@@ -3,7 +3,6 @@
 
 class Event {
 private:
-
 public:
     Event();
 };

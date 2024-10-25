@@ -3,9 +3,10 @@
 
 #include "../common/queue.h"
 #include "../common/thread.h"
+
+#include "event.h"
 #include "game_state.h"
 #include "protocol_server.h"
-#include "event.h"
 
 class Receiver: public Thread {
 private:

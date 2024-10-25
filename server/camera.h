@@ -4,6 +4,7 @@
 class Camera {
 private:
     int size;
+
 public:
     Camera();
 };

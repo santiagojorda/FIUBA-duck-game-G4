@@ -2,9 +2,10 @@
 #define POSITIONABLE_H
 
 #include <cstdint>
+
 #include "../common/coordinate.h"
 
-class Positionable{
+class Positionable {
 
 protected:
     Coordinate coordinates;

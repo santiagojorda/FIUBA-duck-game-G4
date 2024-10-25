@@ -1,10 +1,10 @@
 #ifndef ACCEPTOR_H
 #define ACCEPTOR_H
 
-#include "../common/thread.h"
 #include "../common/socket.h"
+#include "../common/thread.h"
 
-class Acceptor : public Thread {
+class Acceptor: public Thread {
 private:
     Socket skt;
 
