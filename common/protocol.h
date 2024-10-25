@@ -21,6 +21,7 @@ protected:
     void receive_string(std::string& string);
     void receive_2_bytes(uint16_t& bytes);
     void receive_byte(uint8_t& byte);
+    void check_is_closed();
 
 public:
     explicit Protocol(char* hostname, char* servname);

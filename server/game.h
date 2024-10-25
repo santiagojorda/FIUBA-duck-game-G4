@@ -19,7 +19,7 @@ private:
     std::list<Player> players;
 
 public:
-    Game(MonitorClient& monitor_client);
+    Game();
     void run() override;
     void stop() override;
 };
