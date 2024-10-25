@@ -10,8 +10,8 @@ private:
 
 public:
     Acceptor();
-    virtual void run() = 0;
-    virtual void stop() = 0;
+    virtual void run() override;
+    virtual void stop() override;
 };
 
 #endif
