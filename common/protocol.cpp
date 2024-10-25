@@ -8,21 +8,21 @@ Protocol::Protocol(char* hostname, char* servname) : skt(hostname, servname) {}
 
 Protocol::Protocol(Socket&& skt) : skt(std::move(skt)) {}
 
-void Protocol::send_byte(const uint8_t& byte) {
-    skt.sendall(&byte, sizeof(byte), &was_closed);
-
+void Protocol::check_is_closed(){
     if (was_closed) {
         throw std::runtime_error("Socket cerrado");
     }
 }
 
+void Protocol::send_byte(const uint8_t& byte) {
+    skt.sendall(&byte, sizeof(byte), &was_closed);
+    check_is_closed();
+}
+
 void Protocol::send_2_bytes(const uint16_t& bytes) {
     uint16_t serial_size = htons(bytes);
     skt.sendall(&serial_size, sizeof(serial_size), &was_closed);
-
-    if (was_closed) {
-        throw std::runtime_error("Socket cerrado");
-    }
+    check_is_closed();
 }
 
 void Protocol::send_string(const std::string& string) {
@@ -30,26 +30,23 @@ void Protocol::send_string(const std::string& string) {
     send_2_bytes(name_size);
     skt.sendall(string.c_str(), name_size, &was_closed);
 
-    if (was_closed) {
-        throw std::runtime_error("Socket cerrado");
-    }
+    check_is_closed();
+
 }
 
 void Protocol::receive_byte(uint8_t& byte) {
     skt.recvall(&byte, sizeof(byte), &was_closed);
 
-    if (was_closed) {
-        throw std::runtime_error("Socket cerrado");
-    }
+    check_is_closed();
+
 }
 
 
 void Protocol::receive_2_bytes(uint16_t& bytes) {
     skt.recvall(&bytes, sizeof(bytes), &was_closed);
     bytes = ntohs(bytes);
-    if (was_closed) {
-        throw std::runtime_error("Socket cerrado");
-    }
+    check_is_closed();
+
 }
 
 void Protocol::receive_string(std::string& string) {
@@ -59,9 +56,8 @@ void Protocol::receive_string(std::string& string) {
     char buffer_name[MAX_LENGTH_BUFFER];
     skt.recvall(buffer_name, string_size, &was_closed);
     string = std::string(buffer_name, string_size);
-    if (was_closed) {
-        throw std::runtime_error("Socket cerrado");
-    }
+    check_is_closed();
+
 }
 
 void Protocol::kill(){

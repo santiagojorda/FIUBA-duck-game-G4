@@ -16,12 +16,13 @@ private:
 protected:
     bool was_closed = false;
     void send_string(const std::string& string);
-     void send_2_bytes(const uint16_t& bytes);
+    void send_2_bytes(const uint16_t& bytes);
     void send_byte(const uint8_t& byte);
     void receive_string(std::string& string);
-     void receive_2_bytes(uint16_t& bytes);
+    void receive_2_bytes(uint16_t& bytes);
     void receive_byte(uint8_t& byte);
-
+    void check_is_closed();
+    
 public:
     explicit Protocol(char* hostname, char* servname);
     explicit Protocol(Socket&& skt);
