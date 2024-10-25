@@ -8,7 +8,8 @@ Receiver::Receiver(Queue<Event*>& _queue, ProtocolServer& _protocol):
 void Receiver::run() {
     while (this->_keep_running) {
         Event* event;
-        // this->protocol.reciver_evert(evect);
+        // this->protocol.reciver_evert(evect); //construyo el evento con los IDs 0 ,1 ,2 .....
+        // mando
         this->queue.push(event);
     }
 }

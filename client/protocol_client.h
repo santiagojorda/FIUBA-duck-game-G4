@@ -17,8 +17,8 @@ public:
     explicit ClientProtocol(Socket& skt);
 
     Coordinate receive_cordinates();
-  /*
-     * envia el mensaje de inicio 
+    /*
+     * envia el mensaje de inicio
      */
     void send_init(const uint8_t& init);
 
