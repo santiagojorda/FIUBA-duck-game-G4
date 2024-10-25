@@ -5,9 +5,7 @@
 
 #include <arpa/inet.h>
 
-Protocol::Protocol(char* hostname, char* servname): skt(hostname, servname) {}
-
-Protocol::Protocol(Socket&& skt): skt(std::move(skt)) {}
+Protocol::Protocol(Socket& socket): skt(socket), was_closed(false) {}
 
 void Protocol::check_is_closed() {
     if (was_closed) {

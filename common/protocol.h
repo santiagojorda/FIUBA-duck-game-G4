@@ -11,10 +11,10 @@
 
 class Protocol {
 private:
-    Socket skt;
+    Socket& skt;
 
 protected:
-    bool was_closed = false;
+    bool was_closed;
     void send_string(const std::string& string);
     void send_2_bytes(const uint16_t& bytes);
     void send_byte(const uint8_t& byte);
@@ -24,8 +24,8 @@ protected:
     void check_is_closed();
 
 public:
-    explicit Protocol(char* hostname, char* servname);
-    explicit Protocol(Socket&& skt);
+    explicit Protocol(Socket& skt);
+    // explicit Protocol(Socket&& skt);
     void kill();
 };
 

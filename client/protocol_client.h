@@ -6,17 +6,19 @@
 
 #include "../common/protocol.h"
 #include "../common/socket.h"
+#include "../common/coordinate.h"
 
-class ClientProtocol {
+class ClientProtocol: public Protocol {
 private:
-    Socket& skt;
-    bool was_closed;
 
 public:
     /*
      * Constructor.
      */
     explicit ClientProtocol(Socket& skt);
+
+    Coordinate receive_cordinates();
+
 
     /*
      * Deshabilitar copias.

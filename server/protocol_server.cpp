@@ -1,7 +1,7 @@
 #include "protocol_server.h"
 
 
-ProtocolServer::ProtocolServer(Socket& skt): Protocol(std::move(skt)) {}
+ProtocolServer::ProtocolServer(Socket& skt): Protocol(skt) {}
 
 void ProtocolServer::send_cordinates(const Coordinate& send) {
     this->send_2_bytes(send.get_x());
