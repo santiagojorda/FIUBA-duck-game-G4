@@ -5,13 +5,13 @@
 #include "../common/thread.h"
 
 #include "acceptor.h"
-#include "monitor_client.h"
+#include "monitor_clients.h"
 
 class AcceptorPlayer: public Acceptor {
 private:
     Socket skt;
 
-    MonitorClient& monitor_client;
+    MonitorClients& monitor_client;
 
     void create_player();
     void listen_new_player();

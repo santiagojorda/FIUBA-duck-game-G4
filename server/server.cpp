@@ -1,6 +1,8 @@
 #include "server.h"
 
-#include "acceptor_game.h"
+#include "acceptor_server.h"
+
+Server::Server() {}
 
 void Server::run() {
 

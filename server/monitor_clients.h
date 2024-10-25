@@ -6,10 +6,10 @@
 #include "client.h"
 #include "monitor.h"
 
-class MonitorClient: public Monitor<Client> {
+class MonitorClients: public Monitor<Client> {
 private:
 public:
-    MonitorClient();
+    MonitorClients();
     // virtual void broadcast() = 0;
     Client new_item() override;
     void add_item(Client& client) override;

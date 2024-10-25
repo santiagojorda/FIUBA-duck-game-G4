@@ -6,10 +6,10 @@
 #include "game.h"
 #include "monitor.h"
 
-class MonitorGame: public Monitor<Game> {
+class MonitorGames: public Monitor<Game> {
 private:
 public:
-    MonitorGame();
+    MonitorGames();
     // virtual void broadcast() = 0;
     Game new_item() override;
     void add_item(Game& client) override;
