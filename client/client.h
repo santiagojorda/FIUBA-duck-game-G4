@@ -24,6 +24,11 @@ public:
     Client(const std::string& hostname, const std::string& servname);
 
     /*
+     * Constructor. para mas jugadores
+     */
+    Client(const std::string& hostname, const std::string& servname, int N_players);
+
+    /*
      * Constructor default.
      */
     Client();

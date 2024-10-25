@@ -4,13 +4,12 @@
 #include <string>
 #include <vector>
 
+#include "../common/coordinate.h"
 #include "../common/protocol.h"
 #include "../common/socket.h"
-#include "../common/coordinate.h"
 
 class ClientProtocol: public Protocol {
 private:
-
 public:
     /*
      * Constructor.
@@ -18,7 +17,10 @@ public:
     explicit ClientProtocol(Socket& skt);
 
     Coordinate receive_cordinates();
-
+  /*
+     * envia el mensaje de inicio 
+     */
+    void send_init(const uint8_t& init);
 
     /*
      * Deshabilitar copias.

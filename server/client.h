@@ -6,12 +6,12 @@
 
 class Client {
 private:
+    Socket skt;
     Receiver receiver;
     Sender sender;
-    Socket skt;
 
 public:
-    Client(Socket&& skt);
+    Client(Socket&& _skt);
     void shutdown();
     bool is_alive();
 };

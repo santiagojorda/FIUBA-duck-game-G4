@@ -9,7 +9,7 @@ void Sender::run() {
     try {
         while (this->_keep_running) {
             GameState_t actual_estate = this->queue.pop();
-            // this->protocol send gameestate
+            this->protocol.send_game_estate(actual_estate);
         }
     } catch (const std::exception& e) {
         std::cerr << e.what() << '\n';

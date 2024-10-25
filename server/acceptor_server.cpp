@@ -2,8 +2,7 @@
 
 #include "monitor_games.h"
 
-AcceptorServer::AcceptorServer(const std::string& servname):
-        skt(servname.c_str()) {}
+AcceptorServer::AcceptorServer(const std::string& servname): skt(servname.c_str()) {}
 
 void AcceptorServer::listen_new_server() {
     Socket skt_new_game = skt.accept();

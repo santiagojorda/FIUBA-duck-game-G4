@@ -10,12 +10,16 @@
 
 class Receiver: public Thread {
 private:
-    Queue<Event*> queue;
+    Queue<Event*>& queue;
     ProtocolServer& protocol;
 
 public:
-    explicit Receiver(ProtocolServer& protocol);
+    explicit Receiver(Queue<Event*>& _queue, ProtocolServer& _protocol);
+
+    // capura los eventos del cliente y los manda al Game
     void run() override;
+
+    // detiene la ejeucion del reciver (no cierra todo)
     void stop() override;
 };
 

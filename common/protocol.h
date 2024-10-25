@@ -25,7 +25,6 @@ protected:
 
 public:
     explicit Protocol(Socket& skt);
-    // explicit Protocol(Socket&& skt);
     void kill();
 };
 
