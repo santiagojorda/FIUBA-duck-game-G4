@@ -1,6 +1,8 @@
 #ifndef ACCEPTOR_GAME_H
 #define ACCEPTOR_GAME_H
 
+#include <string>
+
 #include "acceptor.h"
 #include "../common/thread.h"
 #include "../common/socket.h"
@@ -13,7 +15,7 @@ private:
     void listen_new_game();
 
 public:
-    AcceptorGame();
+    AcceptorGame(const std::string& servaname);
     void run() override;
     void stop() override;
 };
