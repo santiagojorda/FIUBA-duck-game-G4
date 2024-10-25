@@ -2,12 +2,12 @@
 #define MONITOR_GAMES_H
 
 #include <mutex>
-#include "monitor.h"
+
 #include "game.h"
+#include "monitor.h"
 
-class MonitorGame : public Monitor<Game> {
+class MonitorGame: public Monitor<Game> {
 private:
-
 public:
     MonitorGame();
     // virtual void broadcast() = 0;

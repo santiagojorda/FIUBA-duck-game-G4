@@ -17,13 +17,13 @@ int main() {
 
 
         // if (argc == ARGS_EXPECTED) {
-            // char* servname = argv[1];
-            // Server server;
-            // server.run();
-            // return ...
+        // char* servname = argv[1];
+        // Server server;
+        // server.run();
+        // return ...
         // } else {
-            // std::cerr << "Bad call " << argv[0] << " <servname>" << std::endl;
-            // return BAD_ARGUMENTS;
+        // std::cerr << "Bad call " << argv[0] << " <servname>" << std::endl;
+        // return BAD_ARGUMENTS;
         // }
 
     } catch (const std::exception& error) {

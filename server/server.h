@@ -3,11 +3,9 @@
 
 class Server {
 private:
-
 public:
     Server();
     void run();
-
 };
 
 #endif

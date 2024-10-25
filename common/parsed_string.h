@@ -1,9 +1,9 @@
 #ifndef PARSED_STRING_H
 #define PARSED_STRING_H
 
+#include <cstdint>
 #include <string>
 #include <vector>
-#include <cstdint>
 
 
 class ParsedString {

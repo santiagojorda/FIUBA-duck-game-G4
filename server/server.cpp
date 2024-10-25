@@ -2,7 +2,7 @@
 
 #include "acceptor_game.h"
 
-void Server::run(){
+void Server::run() {
 
     // el servidor deberia buscar un slot libre??
     char servname[] = "8081";
@@ -13,8 +13,6 @@ void Server::run(){
     acceptor_game.run();
 
     acceptor_game.join();
-    
+
     acceptor_game.stop();
-
 }
-

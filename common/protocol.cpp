@@ -1,14 +1,15 @@
 #include "protocol.h"
 
 #include <stdexcept>
-#include <arpa/inet.h>
 #include <utility>
 
-Protocol::Protocol(char* hostname, char* servname) : skt(hostname, servname) {}
+#include <arpa/inet.h>
 
-Protocol::Protocol(Socket&& skt) : skt(std::move(skt)) {}
+Protocol::Protocol(char* hostname, char* servname): skt(hostname, servname) {}
 
-void Protocol::check_is_closed(){
+Protocol::Protocol(Socket&& skt): skt(std::move(skt)) {}
+
+void Protocol::check_is_closed() {
     if (was_closed) {
         throw std::runtime_error("Socket cerrado");
     }
@@ -31,14 +32,12 @@ void Protocol::send_string(const std::string& string) {
     skt.sendall(string.c_str(), name_size, &was_closed);
 
     check_is_closed();
-
 }
 
 void Protocol::receive_byte(uint8_t& byte) {
     skt.recvall(&byte, sizeof(byte), &was_closed);
 
     check_is_closed();
-
 }
 
 
@@ -46,7 +45,6 @@ void Protocol::receive_2_bytes(uint16_t& bytes) {
     skt.recvall(&bytes, sizeof(bytes), &was_closed);
     bytes = ntohs(bytes);
     check_is_closed();
-
 }
 
 void Protocol::receive_string(std::string& string) {
@@ -57,11 +55,10 @@ void Protocol::receive_string(std::string& string) {
     skt.recvall(buffer_name, string_size, &was_closed);
     string = std::string(buffer_name, string_size);
     check_is_closed();
-
 }
 
-void Protocol::kill(){
-    if (was_closed){
+void Protocol::kill() {
+    if (was_closed) {
         was_closed = false;
         skt.shutdown(2);
         skt.close();

@@ -5,7 +5,6 @@
 #include <SDL2pp/SDL2pp.hh>
 
 
-
 using namespace SDL2pp;
 
 int main() try {

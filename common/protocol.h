@@ -22,7 +22,7 @@ protected:
     void receive_2_bytes(uint16_t& bytes);
     void receive_byte(uint8_t& byte);
     void check_is_closed();
-    
+
 public:
     explicit Protocol(char* hostname, char* servname);
     explicit Protocol(Socket&& skt);

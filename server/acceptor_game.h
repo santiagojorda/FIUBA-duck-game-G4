@@ -3,11 +3,12 @@
 
 #include <string>
 
-#include "acceptor.h"
-#include "../common/thread.h"
 #include "../common/socket.h"
+#include "../common/thread.h"
 
-class AcceptorGame : public Acceptor {
+#include "acceptor.h"
+
+class AcceptorGame: public Acceptor {
 private:
     Socket skt;
 
