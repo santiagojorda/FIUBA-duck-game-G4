@@ -36,6 +36,8 @@ void Drawer::run() try {
     unsigned int prev_ticks = SDL_GetTicks();  // an unsigned 32-bit value representing the number
                                                // of milliseconds since the SDL library initialized.
 
+    // Recibe game state
+
     // Main loop
     while (true) {  // receiver del cliente
         // Timing: calculate difference between this and previous frame
@@ -50,7 +52,7 @@ void Drawer::run() try {
         // - If Right key is pressed, character would run
         // - If Right key is released, character would stop
         SDL_Event event;
-        while (SDL_PollEvent(&event)) {
+        while (SDL_PollEvent(&event)) { // este es un Sender :)
             if (event.type == SDL_QUIT) {
                 return;
             } else if (event.type == SDL_KEYDOWN) {
