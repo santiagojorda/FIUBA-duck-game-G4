@@ -10,6 +10,9 @@
 #include "game_state.h"
 
 class ProtocolServer: public Protocol {
+private:
+    void send_cordinates(const Coordinate& send);
+
 
 public:
     explicit ProtocolServer(Socket& skt);

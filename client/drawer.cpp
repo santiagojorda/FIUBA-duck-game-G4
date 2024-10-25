@@ -37,7 +37,7 @@ void Drawer::run() try {
                                                // of milliseconds since the SDL library initialized.
 
     // Main loop
-    while (true) {
+    while (true) {  // receiver del cliente
         // Timing: calculate difference between this and previous frame
         // in milliseconds
         unsigned int frame_ticks = SDL_GetTicks();
@@ -147,7 +147,7 @@ void Drawer::run() try {
 
         renderer.Present();
         // Frame limiter: sleep for a little bit to not eat 100% of CPU
-        SDL_Delay(1);
+        SDL_Delay(1);  // esto se va luego, lo actualiza desde el server
     }
 
 } catch (std::exception& e) {
