@@ -36,7 +36,6 @@ void Protocol::send_string(const std::string& string) {
 
 void Protocol::receive_byte(uint8_t& byte) {
     skt.recvall(&byte, sizeof(byte), &was_closed);
-
     check_is_closed();
 }
 
