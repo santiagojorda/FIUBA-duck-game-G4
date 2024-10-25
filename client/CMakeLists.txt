@@ -5,7 +5,8 @@ target_sources(taller_client
     client.cpp
     drawer.cpp
     protocol_client.cpp
-    # ../common/socket.cpp
+    ../common/socket.cpp
+    ../common/liberror.cpp
     PUBLIC
     # .h files
 )

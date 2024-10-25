@@ -3,21 +3,19 @@
 
 #include "client.h"
 
-#define ERROR -1
-#define SUCCESS 0
+#define ARGS_EXPECTED_CLIENT 3
 
-
-int main() {
+int main(int argc, const char* argv[]) {
     try {
-        /*if (argc != ARGS_EXPECTED_CLIENT) {
+        if (argc != ARGS_EXPECTED_CLIENT) {
             std::cerr << "Cantidad de argumentos inválido" << std::endl;
             return ERROR;
         }
 
         std::string hostname = argv[1];
-        std::string servname = argv[2];*/
+        std::string servname = argv[2];
 
-        Client client;
+        Client client(hostname, servname);
         client.run();
         return SUCCESS;
     } catch (const std::exception& e) {

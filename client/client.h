@@ -3,6 +3,7 @@
 
 #include <string>
 
+#include "../common/constants.h"
 #include "../common/socket.h"
 
 #include "drawer.h"
@@ -12,8 +13,8 @@ class Client {
 private:
     const std::string hostname;
     const std::string servicename;
-    // Socket skt;
-    // ClientProtocol protocol;
+    Socket skt;
+    ClientProtocol protocol;
     Drawer drawer;
 
 public:
