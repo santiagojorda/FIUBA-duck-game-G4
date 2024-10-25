@@ -1,5 +1,5 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef SERVER_PLAYER_H_
+#define SERVER_PLAYER_H_
 
 #include <cstdint>
 
@@ -11,6 +11,8 @@ private:
 
 public:
     explicit Player(uint8_t& _id);
+    uint8_t get_id() const;
+    Coordinate get_coordinate() const;
     void translate() override;
     void translate_x() override;
     void translate_y() override;
@@ -18,4 +20,4 @@ public:
     ~Player();
 };
 
-#endif
+#endif  // SERVER_PLAYER_H_

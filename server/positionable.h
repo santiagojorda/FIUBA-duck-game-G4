@@ -1,5 +1,5 @@
-#ifndef POSITIONABLE_H
-#define POSITIONABLE_H
+#ifndef SERVER_POSITIONABLE_H_
+#define SERVER_POSITIONABLE_H_
 
 #include <cstdint>
 
@@ -12,6 +12,9 @@ protected:
 
 public:
     Positionable();
+
+    virtual Coordinate get_coordinate() const;
+
     virtual void translate() = 0;
     virtual void translate_x() = 0;
     virtual void translate_y() = 0;
@@ -19,4 +22,4 @@ public:
     virtual ~Positionable();
 };
 
-#endif
+#endif  // SERVER_POSITIONABLE_H_

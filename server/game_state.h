@@ -1,6 +1,12 @@
-#ifndef GAME_STATE_H
-#define GAME_STATE_H
+#ifndef SERVER_GAME_STATE_H_
+#define SERVER_GAME_STATE_H_
 
-struct GameState_t {};
+#include <vector>
+#include "player.h"
 
-#endif
+struct GameState_t {
+    uint8_t N_players;
+    std::vector<Player> players;
+};
+
+#endif  // SERVER_GAME_STATE_H_
