@@ -4,6 +4,8 @@
 #include "client.h"
 
 #define ARGS_EXPECTED_CLIENT 3
+#define SUCCESS 0
+#define ERROR -1
 
 int main(int argc, const char* argv[]) {
     try {
