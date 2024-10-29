@@ -8,17 +8,16 @@
 
 #include "acceptor.h"
 
-class AcceptorServer: public Acceptor {
+class AcceptorGame: public Acceptor {
 private:
-    Socket skt;
-
-    void create_server();
-    void listen_new_server();
+    void create_game();
+    void listen_new_game();
 
 public:
-    AcceptorServer(const std::string& servaname);
+    AcceptorGame(const std::string& _servname);
     void run() override;
     void stop() override;
+    virtual ~AcceptorGame();
 };
 
-#endif
+#endif  // ACCEPTOR_GAME_H

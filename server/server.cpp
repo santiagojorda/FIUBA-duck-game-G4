@@ -1,8 +1,10 @@
 #include "server.h"
 
-#include "acceptor_server.h"
+#include <iostream>
 
-Server::Server() {}
+#include "lobby.h"
+
+Server::Server() = default;
 
 void Server::run() {
 
@@ -14,7 +16,13 @@ void Server::run() {
     // AcceptorGame acceptor_game(servname, monitor_games);
     // acceptor_game.run();
 
+    std::cout << "finish server" << std::endl;
+    Lobby lobby;
+    lobby.run();
+
     // acceptor_game.join();
 
     // acceptor_game.stop();
 }
+
+Server::~Server() = default;

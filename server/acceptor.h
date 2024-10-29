@@ -5,13 +5,14 @@
 #include "../common/thread.h"
 
 class Acceptor: public Thread {
-private:
+protected:
     Socket skt;
 
 public:
-    Acceptor();
-    virtual void run() override;
-    virtual void stop() override;
+    Acceptor(const std::string& _servname);
+    virtual void run() override = 0;
+    virtual void stop() override = 0;
+    virtual ~Acceptor();
 };
 
 #endif

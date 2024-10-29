@@ -2,10 +2,10 @@
 #define SERVER_H
 
 class Server {
-private:
 public:
     Server();
     void run();
+    ~Server();
 };
 
 #endif

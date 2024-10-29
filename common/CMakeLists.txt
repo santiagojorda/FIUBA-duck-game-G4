@@ -1,11 +1,12 @@
+file(GLOB_RECURSE SOURCES_COMMON "*.cpp")
+file(GLOB_RECURSE  "*.h")
+
 target_sources(taller_common
     PRIVATE
     # .cpp files
-    parsed_string.cpp
-    resolver.cpp
-    resolvererror.cpp
+    ${SOURCES_COMMON}
 
     PUBLIC
     # .h files
-    parsed_string.h
+    ${SOURCES_HEDER_COMMON}
     )

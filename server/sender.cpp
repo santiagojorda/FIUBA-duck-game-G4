@@ -1,8 +1,8 @@
 #include "sender.h"
 
 
-Sender::Sender(ProtocolServer& _protocol, Queue<GameState_t>& _queue):
-        protocol(std::ref(_protocol)), queue(std::ref(_queue)), Thread() {}
+Sender::Sender(Queue<GameState_t>& _queue, ProtocolServer& _protocol):
+        queue(std::ref(_queue)), protocol(std::ref(_protocol)) {}
 
 
 void Sender::run() {
@@ -17,3 +17,5 @@ void Sender::run() {
 }
 
 void Sender::stop() { Thread::stop(); }
+
+Sender::~Sender() {}

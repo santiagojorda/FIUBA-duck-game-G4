@@ -13,7 +13,7 @@ private:
     ProtocolServer& protocol;
 
 public:
-    explicit Sender(ProtocolServer& _protocol, Queue<GameState_t>& _queue);
+    explicit Sender(Queue<GameState_t>& _queue, ProtocolServer& _protocol);
     void run() override;
     void stop() override;
 

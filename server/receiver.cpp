@@ -1,8 +1,8 @@
 #include "receiver.h"
 
 
-Receiver::Receiver(Queue<Event*>& _queue, ProtocolServer& _protocol):
-        queue(_queue), protocol(_protocol), Thread() {}
+Receiver::Receiver(Queue<Event*>& _queue, ProtocolServer& _protocol, std::list<int>& _players_id):
+        queue(_queue), protocol(_protocol), players_id(_players_id) {}
 
 
 void Receiver::run() {
