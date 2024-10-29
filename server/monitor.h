@@ -16,6 +16,7 @@ public:
     virtual void add_item(T& t) = 0;
     virtual void delete_item(T& t) = 0;
     virtual void shutdown() = 0;
+    virtual ~Monitor();
 };
 
 #endif

@@ -6,6 +6,7 @@ private:
 public:
     Server();
     void run();
+    ~Server();
 };
 
 #endif

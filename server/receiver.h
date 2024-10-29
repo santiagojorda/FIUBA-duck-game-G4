@@ -1,7 +1,7 @@
 #ifndef RECEIVER_H
 #define RECEIVER_H
 
-#include <vector>
+#include <list>
 
 #include "../common/queue.h"
 #include "../common/thread.h"
@@ -13,12 +13,12 @@
 
 class Receiver: public Thread {
 private:
-    std::vector<int&> ids_players;  // <- tiene que venir del CLient
     Queue<Event*>& queue;
     ProtocolServer& protocol;
+    std::list<int> players_id;  // <- tiene que venir del CLient
 
 public:
-    explicit Receiver(Queue<Event*>& _queue, ProtocolServer& _protocol);
+    explicit Receiver(Queue<Event*>& _queue, ProtocolServer& _protocol, std::list<int>& _players_id);
 
     // PROPONGO QUE CUANDO INICE SE LE PASEN LOS  Y LOS IDS
     // explicit Receiver(Queue<Event*>& _queue, ProtocolServer& _protocol);

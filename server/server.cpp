@@ -1,6 +1,6 @@
 #include "server.h"
 
-#include "acceptor_game.h"
+#include "lobby.h"
 
 Server::Server() {}
 
@@ -13,6 +13,8 @@ void Server::run() {
 
     // AcceptorGame acceptor_game(servname, monitor_games);
     // acceptor_game.run();
+    
+    Lobby lobby;
 
     // acceptor_game.join();
 

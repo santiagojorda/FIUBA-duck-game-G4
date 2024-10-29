@@ -17,11 +17,14 @@ private:
     Queue<GameState_t> queue;
     MonitorClients& monitor_client;
     std::list<Player> players;
+    Queue<Event*>& queue_event;
+    Queue<GameState_t>& queue_gamestate;
 
 public:
-    Game();
+    Game(std::list<int>& _players_id, MonitorClients& _monitor_client, Queue<Event*>& _queue_event, Queue<GameState_t>& _queue_gamestate);
     void run() override;
     void stop() override;
+    ~Game();
 };
 
 #endif

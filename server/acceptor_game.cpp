@@ -1,17 +1,19 @@
 #include "acceptor_game.h"
 
 #include "protocol_server.h"
+#include "game.h"
+#include "lobby.h"
+#include <list>
 
 AcceptorGame::AcceptorGame(const std::string& _servname) : skt(_servname.c_str()) {}
 
-void AcceptorGame::listen_new_game(){
+void AcceptorGame::listen_new_game(){ // famoso lobby ??
     Socket new_skt = skt.accept();
 
     ProtocolServer protocol(new_skt);
     uint8_t count_players = protocol.receive_count_players();
 
-    Game game()
-
+    Lobby lobby(count_players);
 }
 
 void AcceptorGame::run(){
