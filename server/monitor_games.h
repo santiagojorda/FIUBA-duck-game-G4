@@ -11,7 +11,7 @@ private:
 public:
     MonitorGames();
     // virtual void broadcast() = 0;
-    Game new_item() override;
+    // Game new_item() override;
     void add_item(Game& client) override;
     void delete_item(Game& client) override;
     void shutdown() override;
