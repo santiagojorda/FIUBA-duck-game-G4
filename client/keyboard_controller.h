@@ -14,6 +14,13 @@ public:
 
 
     // el is_running y moving_left luego se van
+    /*
+     * Event processing:
+     * - If window is closed, or Q or Escape buttons are pressed, quit the application.
+     * - If Right key is pressed, character would run.
+     * - If Right key is released, character would stop.
+     */
+
     void procesar_comando(SDL_Event& event, bool& is_running, bool& is_moving_left);
 };
 
