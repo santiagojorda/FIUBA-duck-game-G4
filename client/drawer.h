@@ -8,15 +8,10 @@
 
 class Drawer {
 private:
-    /*
-     * Event processing:
-     * - If window is closed, or Q or Escape buttons are pressed, quit the application.
-     * - If Right key is pressed, character would run.
-     * - If Right key is released, character would stop.
-     */
-
     KeyboardController keyboard_controller;
-    void run_command(SDL_Event& event, bool& is_running, bool& is_moving_left);
+    void controlar_movimiento_pato(bool& is_running, bool& is_moving_left, float& position,
+                                   unsigned int& frame_delta, int& run_phase,
+                                   unsigned int& frame_tricks);
 
 public:
     /*

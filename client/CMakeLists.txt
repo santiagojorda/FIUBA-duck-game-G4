@@ -12,4 +12,5 @@ target_sources(taller_client
     ../common/liberror.cpp
     PUBLIC
     # .h files
+    keyboard_controller.h
 )
