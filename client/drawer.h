@@ -4,6 +4,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2pp/SDL2pp.hh>
 
+#include "keyboard_controller.h"
+
 class Drawer {
 private:
     /*
@@ -13,6 +15,7 @@ private:
      * - If Right key is released, character would stop.
      */
 
+    KeyboardController keyboard_controller;
     void run_command(SDL_Event& event, bool& is_running, bool& is_moving_left);
 
 public:

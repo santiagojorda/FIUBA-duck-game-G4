@@ -21,7 +21,7 @@
 
 using namespace SDL2pp;
 
-Drawer::Drawer() {}
+Drawer::Drawer(): keyboard_controller() {}
 
 void Drawer::run() try {
     SDL sdl(SDL_INIT_VIDEO);
@@ -63,7 +63,7 @@ void Drawer::run() try {
 
 
         SDL_Event event;
-        run_command(event, is_running, is_moving_left);
+        keyboard_controller.procesar_comando(event, is_running, is_moving_left);
 
         // Update game state for this frame:
         // if character is runnung, move it to the right
@@ -144,36 +144,4 @@ void Drawer::run() try {
 
 } catch (std::exception& e) {
     std::cerr << e.what() << std::endl;
-}
-
-void Drawer::run_command(SDL_Event& event, bool& is_running, bool& is_moving_left) {
-    while (SDL_PollEvent(&event)) {  // este es un Sender :)
-        if (event.type == SDL_QUIT) {
-            throw std::runtime_error("Cierre del juego");
-        } else if (event.type == SDL_KEYDOWN) {
-            switch (event.key.keysym.sym) {
-                case SDLK_ESCAPE:
-                    throw std::runtime_error("Cierre del juego");
-                case SDLK_q:
-                    return;
-                case SDLK_RIGHT:
-                    is_running = true;
-                    is_moving_left = false;
-                    break;
-                case SDLK_LEFT:
-                    is_running = true;
-                    is_moving_left = true;
-                    break;
-            }
-        } else if (event.type == SDL_KEYUP) {
-            switch (event.key.keysym.sym) {
-                case SDLK_RIGHT:
-                    is_running = false;
-                    break;
-                case SDLK_LEFT:
-                    is_running = false;
-                    break;
-            }
-        }
-    }
 }
