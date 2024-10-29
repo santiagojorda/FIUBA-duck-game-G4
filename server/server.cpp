@@ -1,6 +1,6 @@
 #include "server.h"
 
-#include "acceptor_server.h"
+#include "acceptor_game.h"
 
 Server::Server() {}
 

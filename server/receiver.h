@@ -13,7 +13,7 @@
 
 class Receiver: public Thread {
 private:
-    std::vector<int>& ids_players;  // <- tiene que venir del CLient
+    std::vector<int&> ids_players;  // <- tiene que venir del CLient
     Queue<Event*>& queue;
     ProtocolServer& protocol;
 

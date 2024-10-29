@@ -9,12 +9,13 @@
 class Client {
 private:
     Socket skt;
+    ProtocolServer protocol;
     Receiver receiver;
     Sender sender;
     std::vector<int> ids_players;
 
 public:
-    Client(Socket&& _skt);
+    Client(Socket&& _skt, Queue<GameState_t>& _queue_gamestate, Queue<Event*>& _queue_event);
     void shutdown();
     bool is_alive();
 };

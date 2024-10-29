@@ -18,3 +18,9 @@ void ProtocolServer::send_game_estate(const GameState_t& estate) {
         this->send_cordinates(estate.players[i].get_coordinate());
     }
 }
+
+uint8_t ProtocolServer::receive_count_players(){
+    uint8_t count_players = 0;
+    receive_byte(count_players);
+    return count_players;
+}
