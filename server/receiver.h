@@ -18,7 +18,8 @@ private:
     std::list<int> players_id;  // <- tiene que venir del CLient
 
 public:
-    explicit Receiver(Queue<Event*>& _queue, ProtocolServer& _protocol, std::list<int>& _players_id);
+    explicit Receiver(Queue<Event*>& _queue, ProtocolServer& _protocol,
+                      std::list<int>& _players_id);
 
     // PROPONGO QUE CUANDO INICE SE LE PASEN LOS  Y LOS IDS
     // explicit Receiver(Queue<Event*>& _queue, ProtocolServer& _protocol);

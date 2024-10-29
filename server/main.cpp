@@ -11,8 +11,8 @@
 int main() {
 
     try {
-        // Server server;
-        // server.run();
+        Server server;
+        server.run();
         return SUCCESS;
 
 

@@ -10,7 +10,7 @@ private:
     uint8_t id;
 
 public:
-    explicit Player(uint8_t& _id);
+    explicit Player(uint8_t _id);
     uint8_t get_id() const;
     Coordinate get_coordinate() const override;
     void translate() override;

@@ -15,7 +15,8 @@ private:
     // std::vector<int> players_id;
 
 public:
-    Client(Socket&& _skt, Queue<GameState_t>& _queue_gamestate, Queue<Event*>& _queue_event, std::list<int>& _players_id);
+    Client(Socket&& _skt, Queue<GameState_t>& _queue_gamestate, Queue<Event*>& _queue_event,
+           std::list<int>& _players_id);
     void shutdown();
     bool is_alive();
 };

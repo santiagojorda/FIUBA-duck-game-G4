@@ -3,7 +3,7 @@
 const int SPEED = 1;
 
 
-Player::Player(uint8_t& _id): id(_id), Positionable() {}
+Player::Player(uint8_t _id): id(_id) {}
 
 uint8_t Player::get_id() const { return this->id; }
 
