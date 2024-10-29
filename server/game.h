@@ -5,7 +5,7 @@
 
 #include "../common/thread.h"
 
-#include "camera.h"
+// #include "camera.h"
 #include "game_logic.h"
 #include "game_state.h"
 #include "monitor_clients.h"

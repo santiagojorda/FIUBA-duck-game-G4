@@ -8,10 +8,10 @@ enum N_players { ONE_PLAYER = 1, TWO_PLAYER, MAX_PLAYER = 2 };
 Client::Client(const std::string& hostname, const std::string& servname):
         hostname(hostname),
         servicename(servname),
-        // skt(hostname.c_str(), servname.c_str()),
-        // protocol(skt),
+        skt(hostname.c_str(), servname.c_str()),
+        protocol(skt),
         drawer() {
-    // this->protocol.send_init(ONE_PLAYER);
+    this->protocol.send_init(ONE_PLAYER);
 }
 
 /**

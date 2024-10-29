@@ -6,7 +6,8 @@ private:
     int size;
 
 public:
-    Camera();
+    Camera() {};
+    ~Camera() {};
 };
 
 #endif
