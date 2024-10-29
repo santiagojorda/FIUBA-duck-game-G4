@@ -11,11 +11,11 @@ Lobby::Lobby():
         queue_gamestate(),
         game(players_id, monitor_clients, queue_event, queue_gamestate) {}
 
-void Lobby::run(){
+void Lobby::run() {
     AcceptorClients acceptor_clients(monitor_clients, queue_gamestate, queue_event, players_id);
     acceptor_clients.run();
     game.run();
-    
+
     game.join();
     acceptor_clients.join();
 }

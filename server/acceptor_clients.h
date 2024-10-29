@@ -14,8 +14,6 @@
 
 class AcceptorClients: public Acceptor {
 private:
-    Socket skt;
-
     MonitorClients& monitor;
     Queue<GameState_t>& queue_gamestate;
     Queue<Event*>& queue_event;
@@ -29,6 +27,7 @@ public:
                     Queue<Event*>& _queue_event, std::list<int>& _players_id);
     void run() override;
     void stop() override;
+    ~AcceptorClients();
 };
 
 #endif

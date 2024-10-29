@@ -5,6 +5,7 @@ class GameLogic {
 private:
 public:
     GameLogic();
+    ~GameLogic();
 };
 
 #endif

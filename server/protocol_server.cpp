@@ -22,3 +22,5 @@ uint8_t ProtocolServer::receive_count_players() {
     receive_byte(count_players);
     return count_players;
 }
+
+ProtocolServer::~ProtocolServer() {}

@@ -10,8 +10,6 @@
 
 class AcceptorGame: public Acceptor {
 private:
-    Socket skt;
-
     void create_game();
     void listen_new_game();
 
@@ -19,6 +17,7 @@ public:
     AcceptorGame(const std::string& _servname);
     void run() override;
     void stop() override;
+    virtual ~AcceptorGame();
 };
 
-#endif
+#endif  // ACCEPTOR_GAME_H

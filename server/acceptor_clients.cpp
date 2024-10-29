@@ -10,7 +10,7 @@
 
 AcceptorClients::AcceptorClients(MonitorClients& _monitor, Queue<GameState_t>& _queue_gamestate,
                                  Queue<Event*>& _queue_event, std::list<int>& _players_id):
-        skt(SERVNAME),
+        Acceptor(SERVNAME),
         monitor(_monitor),
         queue_gamestate(_queue_gamestate),
         queue_event(_queue_event),
@@ -49,3 +49,5 @@ void AcceptorClients::run() {
 }
 
 void AcceptorClients::stop() { Thread::stop(); }
+
+AcceptorClients::~AcceptorClients() { Acceptor::~Acceptor(); }

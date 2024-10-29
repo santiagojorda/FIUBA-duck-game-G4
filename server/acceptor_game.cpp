@@ -6,7 +6,7 @@
 #include "lobby.h"
 #include "protocol_server.h"
 
-AcceptorGame::AcceptorGame(const std::string& _servname): skt(_servname.c_str()) {}
+AcceptorGame::AcceptorGame(const std::string& _servname): Acceptor(_servname) {}
 
 void AcceptorGame::listen_new_game() {  // famoso lobby ??
     Socket new_skt = skt.accept();
@@ -27,7 +27,9 @@ void AcceptorGame::run() {
     } catch (...) {}
 }
 
-void Acceptor::stop() {
+void AcceptorGame::stop() {
     skt.shutdown(2);
     skt.close();
 }
+
+AcceptorGame::~AcceptorGame() { Acceptor::~Acceptor(); }

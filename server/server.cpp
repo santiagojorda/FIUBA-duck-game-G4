@@ -1,7 +1,8 @@
 #include "server.h"
 
-#include "lobby.h"
 #include <iostream>
+
+#include "lobby.h"
 
 Server::Server() = default;
 
