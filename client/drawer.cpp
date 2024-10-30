@@ -34,8 +34,15 @@ using namespace SDL2pp;
 
 Drawer::Drawer(): keyboard_controller() {}
 
+/**
+ * Recibo
+ * tipo de arma
+ * tipode jugador
+ * tipo de disparo
+ *
+ */
 
-void Drawer::run() try {
+void Drawer::run(Queue<std::vector<uint8_t>>& commands, Queue<std::vector<Coordinate>>& positions) try {
     SDL sdl(SDL_INIT_VIDEO);
 
     Window window(GAME_TITLE, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH,
@@ -69,7 +76,21 @@ void Drawer::run() try {
                                                // of milliseconds since the SDL library initialized.
 
 
+    
     while (true) {  // receiver del cliente
+
+        // intento desencolar las coordenadas que me devuelve el servidor
+
+        std::vector<Coordinate> position;
+        
+        // agregarlo en un bucle luego
+        positions.try_pop(position);
+        //while (commands_client_pendientes.try_pop(message)) {
+        //if (game_logic.ejecutar_comando(message.object_id)) {
+            //process_pick_up(message, mensajes_a_enviar);
+        //}
+        //}
+
         // Timing: calculate difference between this and previous frame
         // in milliseconds
         unsigned int frame_ticks = SDL_GetTicks();
@@ -155,8 +176,7 @@ void Drawer::run() try {
                       Rect((int)position, center_y - (TILE_SIZE - 2), TILE_SIZE, TILE_SIZE), 0.0,
                       SDL2pp::NullOpt, flip);
 
-        // ---------------------------- Draw ALA DEL PATO ENCIMA DEL
-        // PATO----------------------------
+        // ------------------ Draw ALA DEL PATO ENCIMA DEL PATO ------------------
 
         renderer.Copy(ala_duck, Rect(ALA_INITIAL_X, ALA_INITIAL_Y + (16 * 5), 16, 16),
                       Rect((int)position + 7, center_y - (TILE_SIZE) + 15, 20, 20), 0.0,

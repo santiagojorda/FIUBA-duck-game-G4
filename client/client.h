@@ -3,8 +3,11 @@
 
 #include <string>
 
+#include "../common/queue.h"
 #include "../common/socket.h"
 
+#include "client_receiver.h"
+#include "client_sender.h"
 #include "drawer.h"
 #include "protocol_client.h"
 
@@ -15,6 +18,10 @@ private:
     Socket skt;
     ClientProtocol protocol;
     Drawer drawer;
+    Queue<std::vector<uint8_t>> commands;
+    Queue<std::vector<Coordinate>> positions;
+    ClientReceiver receiver;
+    ClientSender sender;
 
 public:
     /*

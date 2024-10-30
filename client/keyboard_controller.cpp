@@ -2,6 +2,12 @@
 
 KeyboardController::KeyboardController() {}
 
+/*
+    Protocol enviar
+
+    0 o 1
+    <HEADER_JUGADOR> <id_jugador>,<id_movimiento>... <etc>
+*/
 
 void KeyboardController::procesar_comando(SDL_Event& event, bool& is_running,
                                           bool& is_moving_left) {
