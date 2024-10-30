@@ -2,6 +2,7 @@
 
 #include <chrono>
 
+#include "event_player.h"
 #include "player.h"
 
 
@@ -19,15 +20,15 @@ void Game::run() {
 
     try {
 
-        // while(_keep_running){
-        Event* event;
-        while (this->queue_event.try_pop(event)) {
-            /* code */
+        while (_keep_running) {
+            Event* event;  // aca hay que ver si usar eventPlayer directo
+            while (this->queue_event.try_pop(event)) {
+                throw std::exception();
+            }
+
+
+            std::this_thread::sleep_for(std::chrono::milliseconds(33));  // en principio
         }
-
-
-        std::this_thread::sleep_for(std::chrono::milliseconds(33));  // en principio
-        // }
 
     } catch (...) {}
 }

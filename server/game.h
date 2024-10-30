@@ -16,7 +16,7 @@ private:
     GameLogic game_logic;
     std::list<Player> players;
     MonitorClients& monitor_client;
-    Queue<Event*>& queue_event;
+    Queue<Event*>& queue_event;  //<- para charalar
     Queue<GameState_t>& queue_gamestate;
 
 public:
