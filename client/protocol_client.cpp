@@ -12,9 +12,28 @@ Coordinate ClientProtocol::receive_cordinates() {
     this->receive_2_bytes(h);
     uint16_t w;
     this->receive_2_bytes(w);
-
     return Coordinate(x, y, h, w);
 }
 
+void ClientProtocol::send_action(int& id_jugador, ActionCommand& type_action) {  // pasarle action
+    std::vector<uint8_t> vector_data;
+    vector_data.push_back(HEADER_CLIENT);  // 1 byte
+    vector_data.push_back(id_jugador);     // 1 byte
+    vector_data.push_back(type_action);    // 1 byte
+    this->skt.sendall(vector_data.data(), vector_data.size(), &this->was_closed);
+}
+
+void ClientProtocol::receiver_players(std::vector<Coordinate>& coordenadas) {
+    uint8_t cantidad_players;
+    this->receive_byte(cantidad_players);
+    // guardar vector las coordenadas
+    for (size_t i = 0; i < cantidad_players; i++) {
+        Coordinate coordinate = this->receive_cordinates();
+        coordenadas.push_back(coordinate);
+    }
+
+    // uint8_t camara;
+    // this->receive_byte(camara);
+}
 
 void ClientProtocol::send_init(const uint8_t& init) { this->send_byte(init); }

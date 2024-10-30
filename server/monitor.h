@@ -10,7 +10,7 @@ private:
     std::mutex mtx;
 
 public:
-    Monitor() {}    
+    Monitor() {}
     // virtual void broadcast() = 0;
     // virtual T new_item() = 0;
     virtual void add_item(T& t) = 0;

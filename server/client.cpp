@@ -16,11 +16,9 @@ Client::Client(Socket&& _skt, Queue<GameState_t>& _queue_gamestate, Queue<Event*
     */
 }
 
-bool Client::is_alive(){
-    return receiver.is_alive() && sender.is_alive();
-}
+bool Client::is_alive() { return receiver.is_alive() && sender.is_alive(); }
 
-void Client::shutdown(){
+void Client::shutdown() {
     skt.shutdown(2);
     skt.close();
 }

@@ -10,10 +10,8 @@
 #define MAX_LENGTH_BUFFER 512
 
 class Protocol {
-private:
-    Socket& skt;
-
 protected:
+    Socket& skt;
     bool was_closed;
     void send_string(const std::string& string);
     void send_2_bytes(const uint16_t& bytes);
