@@ -1,16 +1,17 @@
 #include "receiver.h"
 
+#include "event_factory.h"
 
 Receiver::Receiver(Queue<Event*>& _queue, ProtocolServer& _protocol, std::list<int>& _players_id):
         queue(_queue), protocol(_protocol), players_id(_players_id) {}
 
 
 void Receiver::run() {
+    EventFactory factory;
     while (this->_keep_running) {
-        Event* event;
-        // this->protocol.reciver_evert(evect); //construyo el evento con los IDs 0 ,1 ,2 .....
-        // mando
-        this->queue.push(event);
+        uint8_t id_player, id_event = 0;
+        this->protocol.receive_event(id_player, id_event);
+        this->queue.push(factory.get_event(id_player, id_event));
     }
 }
 

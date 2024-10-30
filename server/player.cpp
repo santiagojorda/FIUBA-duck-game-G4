@@ -12,8 +12,8 @@ void Player::translate() { /*que hacmeos aca?*/
 }
 
 
-void Player::translate_x() { this->coordinates += Coordinate(2, 0, 0, 0) * SPEED; }
-void Player::translate_y() { this->coordinates += Coordinate(0, 2, 0, 0) * SPEED; }
+void Player::translate_x(int pasos) { this->coordinates += Coordinate(pasos, 0, 0, 0) * SPEED; }
+void Player::translate_y(int pasos) { this->coordinates += Coordinate(0, 2, 0, 0) * SPEED; }
 
 
 Player::~Player() { Positionable::~Positionable(); }

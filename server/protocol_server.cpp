@@ -23,4 +23,14 @@ uint8_t ProtocolServer::receive_count_players() {
     return count_players;
 }
 
+void ProtocolServer::receive_event(uint8_t& id_player, uint8_t& id_event) {
+    uint8_t code_client = 0;
+    this->receive_byte(code_client);
+    if (code_client == 0xA) {
+        this->receive_byte(id_player);
+        this->receive_byte(id_event);
+    }
+}
+
+
 ProtocolServer::~ProtocolServer() {}

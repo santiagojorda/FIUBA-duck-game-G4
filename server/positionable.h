@@ -16,8 +16,8 @@ public:
     virtual Coordinate get_coordinate() const;
 
     virtual void translate() = 0;
-    virtual void translate_x() = 0;
-    virtual void translate_y() = 0;
+    virtual void translate_x(int pasos) = 0;
+    virtual void translate_y(int pasos) = 0;
 
     virtual ~Positionable();
 };
