@@ -14,15 +14,23 @@ bool GamePhysics::vertical_touch(const Coordinate& a, const Coordinate& target) 
     return collision_point(a.get_y(), target.get_y(), target.get_y() + target.get_h());
 }
 
-bool GamePhysics::inside(const Coordinate& a, const Coordinate& b) {
+bool GamePhysics::horizontal_touch(const Rectangle& a, const Rectangle& target) {
+    return collision_point(a.get_x_min(), target.get_x_min(), target.get_x_max());
+}
+
+bool GamePhysics::vertical_touch(const Rectangle& a, const Rectangle& target) {
+    return collision_point(a.get_y_min(), target.get_y_min(), target.get_y_max());
+}
+
+bool GamePhysics::inside(const Rectangle& a, const Rectangle& b) {
     return this->horizontal_touch(a, b) && this->vertical_touch(a, b);
 }
 
-bool GamePhysics::collision(const Coordinate& a, const Coordinate& b) {
+bool GamePhysics::collision(const Rectangle& a, const Rectangle& b) {
     return this->inside(a, b) || this->inside(b, a);
 }
 
 
-void GamePhysics::faling(Coordinate& coordinate, uint iter_frame) {
-    coordinate += Coordinate(0, (G_FORCE / 2) * iter_frame * iter_frame, 0, 0);
+void GamePhysics::faling(Positionable& target, uint iter_frame) {
+    target.translate_y(iter_frame * iter_frame * (G_FORCE / 2));
 }

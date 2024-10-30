@@ -7,7 +7,7 @@
 
 #include "../common/action_commands.h"
 
-#include "event.h"
+#include "event_player.h"
 
 class EventFactory {
 private:
