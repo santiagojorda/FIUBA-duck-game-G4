@@ -5,6 +5,7 @@ class Event {
 private:
 public:
     Event();
+    virtual ~Event();
 };
 
-#endif
+#endif  // EVENT_H

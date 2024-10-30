@@ -1,6 +1,9 @@
 #include "game.h"
 
+#include <chrono>
+
 #include "player.h"
+
 
 Game::Game(std::list<int>& _players_id, MonitorClients& _monitor_client,
            Queue<Event*>& _queue_event, Queue<GameState_t>& _queue_gamestate):
@@ -17,7 +20,13 @@ void Game::run() {
     try {
 
         // while(_keep_running){
+        Event* event;
+        while (this->queue_event.try_pop(event)) {
+            /* code */
+        }
 
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(33));  // en principio
         // }
 
     } catch (...) {}

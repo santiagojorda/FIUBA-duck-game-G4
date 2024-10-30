@@ -18,7 +18,10 @@ public:
     explicit ProtocolServer(Socket& skt);
 
     void send_game_estate(const GameState_t& estate);
+
     uint8_t receive_count_players();
+
+    void receive_event(uint8_t& id_player, uint8_t& id_event);
 
     ~ProtocolServer();
 };

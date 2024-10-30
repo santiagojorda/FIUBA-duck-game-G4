@@ -14,8 +14,8 @@ public:
     uint8_t get_id() const;
     Coordinate get_coordinate() const override;
     void translate() override;
-    void translate_x() override;
-    void translate_y() override;
+    void translate_x(int pasos) override;
+    void translate_y(int pasos) override;
 
     ~Player();
 };
