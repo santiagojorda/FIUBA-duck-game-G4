@@ -11,11 +11,12 @@ Client::Client(const std::string& hostname, const std::string& servname):
         servicename(servname),
         skt(hostname.c_str(), servname.c_str()),
         protocol(skt),
-        drawer(),
         commands(),
         positions(),
         receiver(protocol, positions),
-        sender(protocol, commands) {
+        sender(protocol, commands),
+        drawer(commands, positions) {
+
     this->protocol.send_init(ONE_PLAYER);
 }
 
@@ -41,15 +42,14 @@ void Client::run() {
     // Starteo los receiver y sender
     receiver.start();
     sender.start();
-    try {
-        while (true) {
-            drawer.run(commands, positions);
-        }
-    } catch (const std::exception& e) {
-        // cierra  el juego , revisar luego
-        std::cerr << e.what() << '\n';
-    }
-
+    // try {
+    //     while (true) {
+    drawer.run();
+    //    }
+    //} catch (const std::exception& e) {
+    // cierra  el juego , revisar luego
+    //    std::cerr << e.what() << '\n';
+    //}
 
     //}
 }

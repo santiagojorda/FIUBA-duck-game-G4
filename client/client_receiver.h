@@ -22,7 +22,7 @@ public:
 
     virtual ~ClientReceiver();
 
-    void receiver_data(std::vector<Coordinate>& coordenadas);
+    // void receiver_data(std::vector<Coordinate>& coordenadas);
 };
 
 #endif  // CLIENT_RECEIVER_H

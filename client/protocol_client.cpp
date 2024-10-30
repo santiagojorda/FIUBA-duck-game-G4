@@ -23,9 +23,11 @@ void ClientProtocol::send_action(int& id_jugador, ActionCommand& type_action) { 
     this->skt.sendall(vector_data.data(), vector_data.size(), &this->was_closed);
 }
 
-void ClientProtocol::receiver_players(std::vector<Coordinate>& coordenadas) {
+std::vector<Coordinate> ClientProtocol::receiver_players_() {
     uint8_t cantidad_players;
     this->receive_byte(cantidad_players);
+
+    std::vector<Coordinate> coordenadas;
     // guardar vector las coordenadas
     for (size_t i = 0; i < cantidad_players; i++) {
         Coordinate coordinate = this->receive_cordinates();
@@ -34,6 +36,10 @@ void ClientProtocol::receiver_players(std::vector<Coordinate>& coordenadas) {
 
     // uint8_t camara;
     // this->receive_byte(camara);
+    return coordenadas;
 }
 
-void ClientProtocol::send_init(const uint8_t& init) { this->send_byte(init); }
+void ClientProtocol::send_init(const uint8_t& init) {
+    // envia cantidad de jugadores
+    this->send_byte(init);
+}

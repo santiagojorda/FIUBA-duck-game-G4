@@ -17,11 +17,11 @@ private:
     const std::string servicename;
     Socket skt;
     ClientProtocol protocol;
-    Drawer drawer;
     Queue<std::vector<uint8_t>> commands;
     Queue<std::vector<Coordinate>> positions;
     ClientReceiver receiver;
     ClientSender sender;
+    Drawer drawer;
 
 public:
     /*
