@@ -5,7 +5,7 @@
 
 #include "positionable.h"
 
-class Player: protected Positionable {
+class Player: public Positionable {
 private:
     uint8_t id;
 
@@ -17,7 +17,7 @@ public:
     void translate_x(int pasos) override;
     void translate_y(int pasos) override;
 
-    ~Player();
+    virtual ~Player();
 };
 
 #endif  // SERVER_PLAYER_H_

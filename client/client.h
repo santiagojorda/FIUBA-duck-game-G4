@@ -12,8 +12,8 @@ class Client {
 private:
     const std::string hostname;
     const std::string servicename;
-    // Socket skt;
-    // ClientProtocol protocol;
+    Socket skt;
+    ClientProtocol protocol;
     Drawer drawer;
 
 public:
