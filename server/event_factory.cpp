@@ -13,6 +13,7 @@ EventFactory::EventFactory() {
 }
 
 Event* EventFactory::get_event(uint8_t id_event, uint8_t id_player) {
+    std::cout << id_player << std::endl; // para que no tire warning
     this->map_event[id_event]->set_id(id_event);
     return this->map_event[id_event];
 }

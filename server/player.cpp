@@ -9,10 +9,12 @@ uint8_t Player::get_id() const { return this->id; }
 void Player::translate() { /*que hacmeos aca?*/ }
 
 void Player::translate_x(int pasos) {
+    std::cout << pasos << std::endl; // para que no tire warning
     Rectangle new_pos(this->space.get_coordinates() + Coordinate(2, 0, 0, 0) * SPEED);
     this->space = new_pos;
 }
 void Player::translate_y(int pasos) {
+    std::cout << pasos << std::endl; // para que no tire warning
     Rectangle new_pos(this->space.get_coordinates() + Coordinate(0, 2, 0, 0) * SPEED);
     this->space = new_pos;
 }

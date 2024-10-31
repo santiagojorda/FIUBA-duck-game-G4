@@ -17,13 +17,9 @@ public:
 
     virtual void transform_player(Player& player) = 0;
 
-    const uint8_t& set_id() const;
+    const uint8_t& get_id() const;  // Cambiado a get_id
 
     virtual ~EventPlayer();
 };
-
-EventPlayer::EventPlayer() {}
-
-EventPlayer::~EventPlayer() {}
 
 #endif  // EVENT_PLAYER_H

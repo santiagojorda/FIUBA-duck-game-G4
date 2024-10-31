@@ -1,9 +1,7 @@
-
 #ifndef EVENT_MOVE_LEFT_H
 #define EVENT_MOVE_LEFT_H
 
 #include "event_player.h"
-
 
 class EventMoveLeft: public EventPlayer {
 private:
@@ -14,6 +12,5 @@ public:
 
     ~EventMoveLeft();
 };
-
 
 #endif  // EVENT_MOVE_LEFT_H
