@@ -5,7 +5,7 @@
 
 template <typename T>
 class Monitor {
-private:
+protected:
     std::list<T> list;
     std::mutex mtx;
 

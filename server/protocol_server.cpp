@@ -9,11 +9,12 @@ void ProtocolServer::send_cordinates(const Coordinate& send) {
     this->send_2_bytes(send.get_w());
 }
 
-void ProtocolServer::send_game_estate(const GameState_t& estate) {
-    this->send_byte(estate.N_players);
-    for (uint8_t i = 0; i < estate.N_players; i++) {
-        this->send_byte(estate.players[i].get_id());
-        this->send_cordinates(estate.players[i].get_coordinate());
+void ProtocolServer::send_game_state(const GameState_t& state) {
+    this->send_byte(state.N_players);
+
+    for(Player player : state.players){
+        this->send_byte(player.get_id());
+        this->send_cordinates(player.get_coordinate());
     }
 }
 

@@ -6,5 +6,4 @@ Coordinate Positionable::get_coordinate() const { return this->space.get_coordin
 
 Rectangle Positionable::get_rectangle() const { return this->space; }
 
-
 Positionable::~Positionable() {}

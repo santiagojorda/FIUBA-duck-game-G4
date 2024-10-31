@@ -17,7 +17,7 @@ private:
 public:
     explicit ProtocolServer(Socket& skt);
 
-    void send_game_estate(const GameState_t& estate);
+    void send_game_state(const GameState_t& state);
 
     uint8_t receive_count_players();
 

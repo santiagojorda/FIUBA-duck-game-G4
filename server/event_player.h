@@ -5,25 +5,22 @@
 
 #include "event.h"
 #include "player.h"
+#include "game_logic.h"
 
-class EventPalyer: public Event {
+class EventPlayer: public Event {
 protected:
-    uint8_t id_player;
+    uint8_t player_id;
 
 public:
-    EventPalyer();
+    EventPlayer();
 
-    void set_id(const uint8_t& id_player);
+    void set_id(const uint8_t& _player_id);
 
-    virtual void transform_player(Player& player) = 0;
+    // virtual void transform_player(Player& player) = 0;
 
-    const uint8_t& set_id() const;
-
-    virtual ~EventPalyer();
+    // const uint8_t& set_id() const;
+    
+    virtual ~EventPlayer();
 };
-
-EventPalyer::EventPalyer() {}
-
-EventPalyer::~EventPalyer() {}
 
 #endif  // EVENT_PLAYER_H

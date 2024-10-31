@@ -10,6 +10,7 @@ private:
     uint8_t id;
 
 public:
+    Player();
     explicit Player(uint8_t _id);
     uint8_t get_id() const;
     void translate() override;

@@ -13,12 +13,16 @@
 
 class Game: public Thread {
 private:
-    GameLogic game_logic;
     std::list<Player> players;
+    GameLogic game_logic;
     MonitorClients& monitor_client;
     Queue<Event*>& queue_event;  //<- para charalar
     Queue<GameState_t>& queue_gamestate;
 
+    void sleep();
+    void execute_new_events();
+    void broadcast_gamestate();
+    GameState_t get_gamestate();
 public:
     Game(std::list<int>& _players_id, MonitorClients& _monitor_client, Queue<Event*>& _queue_event,
          Queue<GameState_t>& _queue_gamestate);

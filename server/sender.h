@@ -15,6 +15,7 @@ private:
 public:
     explicit Sender(Queue<GameState_t>& _queue, ProtocolServer& _protocol);
     void run() override;
+    void send(GameState_t& game_state);
     void stop() override;
 
     ~Sender();

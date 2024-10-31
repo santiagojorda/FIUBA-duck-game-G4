@@ -4,12 +4,13 @@
 #include "event_player.h"
 
 
-class EventMoveRight: public EventPalyer {
+class EventMoveRight: public EventPlayer {
 private:
 public:
     EventMoveRight();
 
-    virtual void transform_player(Player& player) override;
+    // virtual void transform_player(Player& player) override;
+    void execute(GameLogic& game_logic) override;
 
     ~EventMoveRight();
 };

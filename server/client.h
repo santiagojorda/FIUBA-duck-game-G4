@@ -18,6 +18,7 @@ public:
     Client(Socket&& _skt, Queue<GameState_t>& _queue_gamestate, Queue<Event*>& _queue_event,
            std::list<int>& _players_id);
     void shutdown();
+    void send_gamestate(GameState_t& game_state);
     bool is_alive();
 };
 

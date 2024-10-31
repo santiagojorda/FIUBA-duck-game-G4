@@ -17,6 +17,7 @@ public:
     void add_item(Client& client) override;
     void delete_item(Client& client) override;
     void shutdown() override;
+    void broadcast(GameState_t gamestate);
     ~MonitorClients();
 };
 

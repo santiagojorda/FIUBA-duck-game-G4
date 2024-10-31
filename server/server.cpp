@@ -18,7 +18,6 @@ void Server::run() {
 
     Lobby lobby;
     lobby.run();
-    std::cout << "finish server" << std::endl;
 
     // acceptor_game.join();
 
