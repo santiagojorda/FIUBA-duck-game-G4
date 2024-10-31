@@ -6,12 +6,12 @@
 #include "event.h"
 #include "player.h"
 
-class EventPalyer: public Event {
+class EventPlayer: public Event {
 protected:
     uint8_t id_player;
 
 public:
-    EventPalyer();
+    EventPlayer();
 
     void set_id(const uint8_t& id_player);
 
@@ -19,11 +19,11 @@ public:
 
     const uint8_t& set_id() const;
 
-    virtual ~EventPalyer();
+    virtual ~EventPlayer();
 };
 
-EventPalyer::EventPalyer() {}
+EventPlayer::EventPlayer() {}
 
-EventPalyer::~EventPalyer() {}
+EventPlayer::~EventPlayer() {}
 
 #endif  // EVENT_PLAYER_H

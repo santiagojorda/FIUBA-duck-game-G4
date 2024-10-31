@@ -11,7 +11,7 @@
 
 class EventFactory {
 private:
-    std::map<uint8_t, EventPalyer*> map_event;
+    std::map<uint8_t, EventPlayer*> map_event;
 
 public:
     EventFactory();

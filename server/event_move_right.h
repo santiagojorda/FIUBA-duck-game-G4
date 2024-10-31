@@ -4,7 +4,7 @@
 #include "event_player.h"
 
 
-class EventMoveRight: public EventPalyer {
+class EventMoveRight: public EventPlayer {
 private:
 public:
     EventMoveRight();
