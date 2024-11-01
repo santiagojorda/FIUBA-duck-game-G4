@@ -12,7 +12,9 @@ void Sender::run() {
             this->protocol.send_game_state(actual_estate);
         }
     } catch (const std::exception& e) {
-        std::cerr << e.what() << '\n';
+        std::cerr << "Sender: " << e.what() << '\n';
+    } catch (...) {
+        std::cerr << "error en el sender" << '\n';
     }
 }
 

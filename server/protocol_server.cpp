@@ -1,5 +1,7 @@
 #include "protocol_server.h"
 
+#define BYTE_CLIENT 0xA
+
 ProtocolServer::ProtocolServer(Socket& skt): Protocol(skt) {}
 
 void ProtocolServer::send_cordinates(const Coordinate& send) {
@@ -27,7 +29,7 @@ uint8_t ProtocolServer::receive_count_players() {
 void ProtocolServer::receive_event(uint8_t& id_player, uint8_t& id_event) {
     uint8_t code_client = 0;
     this->receive_byte(code_client);
-    if (code_client == 0xA) {
+    if (code_client == BYTE_CLIENT) {
         this->receive_byte(id_player);
         this->receive_byte(id_event);
     }

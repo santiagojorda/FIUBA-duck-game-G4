@@ -6,19 +6,19 @@
 #include "../common/queue.h"
 #include "../common/thread.h"
 
-#include "event.h"
+#include "event_player.h"
 #include "game_state.h"
 #include "protocol_server.h"
 
 
 class Receiver: public Thread {
 private:
-    Queue<Event*>& queue;
+    Queue<EventPlayer*>& queue;
     ProtocolServer& protocol;
     std::list<int> players_id;  // <- tiene que venir del CLient
 
 public:
-    explicit Receiver(Queue<Event*>& _queue, ProtocolServer& _protocol,
+    explicit Receiver(Queue<EventPlayer*>& _queue, ProtocolServer& _protocol,
                       std::list<int>& _players_id);
 
     // PROPONGO QUE CUANDO INICE SE LE PASEN LOS  Y LOS IDS

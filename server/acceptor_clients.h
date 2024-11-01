@@ -8,7 +8,7 @@
 #include "../common/thread.h"
 
 #include "acceptor.h"
-#include "event.h"
+#include "event_player.h"
 #include "game_state.h"
 #include "monitor_clients.h"
 
@@ -16,7 +16,7 @@ class AcceptorClients: public Acceptor {
 private:
     MonitorClients& monitor;
     Queue<GameState_t>& queue_gamestate;
-    Queue<Event*>& queue_event;
+    Queue<EventPlayer*>& queue_event;
     std::list<int>& players_id;
 
     void create_client();
@@ -24,7 +24,7 @@ private:
 
 public:
     AcceptorClients(MonitorClients& monitor, Queue<GameState_t>& _queue_gamestate,
-                    Queue<Event*>& _queue_event, std::list<int>& _players_id);
+                    Queue<EventPlayer*>& _queue_event, std::list<int>& _players_id);
     void run() override;
     void stop() override;
     ~AcceptorClients();

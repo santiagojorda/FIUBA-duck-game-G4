@@ -3,11 +3,11 @@
 
 #include <cstdint>
 
-#include "event.h"
+// #include "event.h"
 #include "player.h"
 #include "game_logic.h"
 
-class EventPlayer: public Event {
+class EventPlayer {
 protected:
     uint8_t player_id;
 
@@ -19,6 +19,8 @@ public:
     // virtual void transform_player(Player& player) = 0;
 
     // const uint8_t& set_id() const;
+
+    virtual void execute(GameLogic& game_logic) = 0;
     
     virtual ~EventPlayer();
 };

@@ -12,6 +12,10 @@ Client::Client(const std::string& hostname, const std::string& servname):
         protocol(skt),
         drawer() {
     this->protocol.send_init(ONE_PLAYER);
+    
+    protocol.send_init(0xA);
+    protocol.send_init(0);
+    protocol.send_init(0);
 }
 
 /**

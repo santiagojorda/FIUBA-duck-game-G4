@@ -1,7 +1,7 @@
 #include "game.h"
 
 #include <chrono>
-
+#include <iostream>
 #include "event_player.h"
 #include "player.h"
 
@@ -9,7 +9,7 @@
 
 
 Game::Game(std::list<int>& _players_id, MonitorClients& _monitor_client,
-           Queue<Event*>& _queue_event, Queue<GameState_t>& _queue_gamestate):
+           Queue<EventPlayer*>& _queue_event, Queue<GameState_t>& _queue_gamestate):
         game_logic(players),
         monitor_client(_monitor_client),
         queue_event(_queue_event),
@@ -24,13 +24,13 @@ void Game::sleep(){
 }
 
 void Game::execute_new_events(){
-    Event* event = nullptr;
+    EventPlayer* event = nullptr;
     while (queue_event.try_pop(event)){
         if (event != nullptr){
             event->execute(game_logic); // *(1) creo que deberia devolver un gamestate
         }
-        delete event; // ver logica de events
-        // event = nullptr;
+        // delete event; // ver logica de events
+        event = nullptr;
     }
 }
 
@@ -65,15 +65,18 @@ void Game::run() {
             // *(2) o podria procesar todos los mensajes en la cola y luego enviar un gamestate como broadcast_gamestate
             broadcast_gamestate();
             
-            auto delta_chorno = chrono_now - chrono_prev;
-            if (delta_chorno < std::chrono::milliseconds(MILISECONDS_30_FPS)){
+            chrono_now = get_actual_milliseconds();
+            auto delta_chrono = chrono_now - chrono_prev;
+            if (delta_chrono < std::chrono::milliseconds(MILISECONDS_30_FPS)){
                 sleep();
             }
             chrono_prev = get_actual_milliseconds();
         }
         stop();
-
+    } catch (std::exception& e) {
+        std::cout << "Game: " << e.what() << std::endl;
     } catch (...) {
+        std::cout << "Hubo un error en el game loop" << std::endl;
         stop();
     }
 }

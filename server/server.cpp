@@ -15,7 +15,7 @@ void Server::run() {
 
     // AcceptorGame acceptor_game(servname, monitor_games);
     // acceptor_game.run();
-
+    std::cout << "Iniciando server" << std::endl;
     Lobby lobby;
     lobby.run();
 

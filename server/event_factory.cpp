@@ -12,7 +12,7 @@ EventFactory::EventFactory() {
     // this->map_event[MOVE_LEFT] = ;
 }
 
-Event* EventFactory::get_event(uint8_t id_event) {
+EventPlayer* EventFactory::get_event(uint8_t id_event) {
     this->map_event[id_event]->set_id(id_event);
     return this->map_event[id_event];
 }

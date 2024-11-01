@@ -2,6 +2,8 @@
 
 #include "acceptor_clients.h"
 
+#include <iostream>
+
 #define MAX_EVENTS_QUEUE 100
 
 Lobby::Lobby():
@@ -13,11 +15,10 @@ Lobby::Lobby():
 
 void Lobby::run() {
     AcceptorClients acceptor_clients(monitor_clients, queue_gamestate, queue_event, players_id);
-    acceptor_clients.run();
-    game.run();
-
-    game.join();
+    acceptor_clients.start();
     acceptor_clients.join();
+    game.start();
+    game.join();  
 }
 
 // void Lobby::init_player_list(){

@@ -15,7 +15,7 @@ private:
 public:
     EventFactory();
 
-    Event* get_event(uint8_t id_event);
+    EventPlayer* get_event(uint8_t id_event);
 
     ~EventFactory();
 };
