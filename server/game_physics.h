@@ -42,7 +42,7 @@ public:
     bool collision(const Rectangle& a, const Rectangle& b);
 
 
-    void faling(Positionable& target, uint iter_frame);
+    void falling(Positionable& target, uint iter_frame);
 
     ~GamePhysics();
 };

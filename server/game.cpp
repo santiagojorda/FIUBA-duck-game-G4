@@ -29,7 +29,7 @@ void Game::execute_new_events(){
         if (event != nullptr){
             event->execute(game_logic); // *(1) creo que deberia devolver un gamestate
         }
-        delete event;
+        delete event; // ver logica de events
         // event = nullptr;
     }
 }
@@ -46,7 +46,17 @@ GameState_t Game::get_gamestate(){
     return game_state;
 }
 
+auto Game::get_actual_milliseconds(){
+    return std::chrono::high_resolution_clock::now();
+}
+
 void Game::run() {
+
+    // int chrono_prev; 
+    // int chrono_now; 
+
+    auto chrono_now = get_actual_milliseconds();
+    auto chrono_prev = chrono_now; 
 
     try {
 
@@ -54,7 +64,12 @@ void Game::run() {
             execute_new_events();
             // *(2) o podria procesar todos los mensajes en la cola y luego enviar un gamestate como broadcast_gamestate
             broadcast_gamestate();
-            sleep();
+            
+            auto delta_chorno = chrono_now - chrono_prev;
+            if (delta_chorno < std::chrono::milliseconds(MILISECONDS_30_FPS)){
+                sleep();
+            }
+            chrono_prev = get_actual_milliseconds();
         }
         stop();
 

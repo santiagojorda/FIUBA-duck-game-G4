@@ -14,6 +14,7 @@ void Player::translate_x(int pasos) {
     Rectangle new_pos(this->space.get_coordinates() + Coordinate(pasos, 0, 0, 0) * SPEED);
     this->space = new_pos;
 }
+
 void Player::translate_y(int pasos) {
     Rectangle new_pos(this->space.get_coordinates() + Coordinate(0, pasos, 0, 0) * SPEED);
     this->space = new_pos;
