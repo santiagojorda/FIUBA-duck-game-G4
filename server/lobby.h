@@ -10,12 +10,12 @@
 #include "game.h"
 #include "game_state.h"
 #include "monitor_clients.h"
-
+#include "list_players_id.h"
 
 class Lobby {
 private:
     MonitorClients monitor_clients;
-    std::list<int> players_id;
+    ListPlayersID players_id;
     Queue<EventPlayer*> queue_event;
     Queue<GameState_t> queue_gamestate;
     Game game;

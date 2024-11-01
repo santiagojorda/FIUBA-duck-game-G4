@@ -4,11 +4,9 @@ MonitorClients::MonitorClients()  {}
 MonitorClients::~MonitorClients() {}
 
 void MonitorClients::add_item(Socket&& _skt, Queue<GameState_t>& _queue_gamestate, Queue<EventPlayer*>& _queue_event,
-           std::list<int>& _players_id) {
+           ListPlayersID& _players_id) {
     std::lock_guard<std::mutex> lock(mtx);
-    // Client client(std::move(_skt), _queue_gamestate, _queue_event, _players_id);
-    // client.run();
-    
+
     list.emplace_back(std::move(_skt), _queue_gamestate, _queue_event, _players_id);    
 }
 

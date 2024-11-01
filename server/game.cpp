@@ -8,7 +8,7 @@
 #define MILISECONDS_30_FPS 33
 
 
-Game::Game(std::list<int>& _players_id, MonitorClients& _monitor_client,
+Game::Game(ListPlayersID& _players_id, MonitorClients& _monitor_client,
            Queue<EventPlayer*>& _queue_event, Queue<GameState_t>& _queue_gamestate):
         game_logic(players),
         monitor_client(_monitor_client),

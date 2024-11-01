@@ -10,7 +10,7 @@
 #define SERVNAME "8080"
 
 AcceptorClients::AcceptorClients(MonitorClients& _monitor, Queue<GameState_t>& _queue_gamestate,
-                                 Queue<EventPlayer*>& _queue_event, std::list<int>& _players_id):
+                                 Queue<EventPlayer*>& _queue_event, ListPlayersID& _players_id):
         Acceptor(SERVNAME),
         monitor(_monitor),
         queue_gamestate(_queue_gamestate),
@@ -23,7 +23,7 @@ void AcceptorClients::listen_new_client() {
     ProtocolServer protocol(new_skt);
     uint8_t count_players = protocol.receive_count_players();
 
-    std::list<int> player_client_id;
+    ListPlayersID player_client_id;
 
     for (int i = 0; i < count_players; i++) {
         int id = players_id.size();

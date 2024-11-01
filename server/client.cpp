@@ -3,7 +3,7 @@
 #include <list>
 
 Client::Client(Socket&& _skt, Queue<GameState_t>& _queue_gamestate, Queue<EventPlayer*>& _queue_event,
-               std::list<int>& _players_id):
+               ListPlayersID& _players_id):
         skt(std::move(_skt)),
         protocol(skt),
         receiver(_queue_event, protocol, _players_id),

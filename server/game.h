@@ -11,6 +11,7 @@
 #include "monitor_clients.h"
 #include "player.h"
 #include "event_player.h"
+#include "list_players_id.h"
 
 class Game: public Thread {
 private:
@@ -26,7 +27,7 @@ private:
     GameState_t get_gamestate();
     auto get_actual_milliseconds();
 public:
-    Game(std::list<int>& _players_id, MonitorClients& _monitor_client, Queue<EventPlayer*>& _queue_event,
+    Game(ListPlayersID& _players_id, MonitorClients& _monitor_client, Queue<EventPlayer*>& _queue_event,
          Queue<GameState_t>& _queue_gamestate);
     void run() override;
     void stop() override;

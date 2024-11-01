@@ -7,9 +7,8 @@
 class EventMoveRight: public EventPlayer {
 private:
 public:
-    EventMoveRight();
+    EventMoveRight(uint8_t& _player_id);
 
-    // virtual void transform_player(Player& player) override;
     void execute(GameLogic& game_logic) override;
 
     ~EventMoveRight();

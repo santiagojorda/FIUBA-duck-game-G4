@@ -11,20 +11,21 @@
 #include "event_player.h"
 #include "game_state.h"
 #include "monitor_clients.h"
+#include "list_players_id.h"
 
 class AcceptorClients: public Acceptor {
 private:
     MonitorClients& monitor;
     Queue<GameState_t>& queue_gamestate;
     Queue<EventPlayer*>& queue_event;
-    std::list<int>& players_id;
+    ListPlayersID& players_id;
 
     void create_client();
     void listen_new_client();
 
 public:
     AcceptorClients(MonitorClients& monitor, Queue<GameState_t>& _queue_gamestate,
-                    Queue<EventPlayer*>& _queue_event, std::list<int>& _players_id);
+                    Queue<EventPlayer*>& _queue_event, ListPlayersID& _players_id);
     void run() override;
     void stop() override;
     ~AcceptorClients();

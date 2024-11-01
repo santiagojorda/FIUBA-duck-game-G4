@@ -6,6 +6,7 @@
 #include "receiver.h"
 #include "sender.h"
 #include "event_player.h"
+#include "list_players_id.h"
 
 class Client {
 private:
@@ -17,7 +18,7 @@ private:
 
 public:
     Client(Socket&& _skt, Queue<GameState_t>& _queue_gamestate, Queue<EventPlayer*>& _queue_event,
-           std::list<int>& _players_id);
+           ListPlayersID& _players_id);
     void shutdown();
     void send_gamestate(GameState_t& game_state);
     bool is_alive();
