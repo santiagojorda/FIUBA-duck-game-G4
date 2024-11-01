@@ -11,13 +11,13 @@ class ClientSender: public Thread {
 private:
     ClientProtocol& protocol;
     // El client es el dueño de la queue
-    Queue<std::vector<uint8_t>>& commands;
+    Queue<uint8_t>& commands;
 
 public:
     /*
      * Constructor.
      */
-    ClientSender(ClientProtocol& protocol, Queue<std::vector<uint8_t>>& commands);
+    ClientSender(ClientProtocol& protocol, Queue<uint8_t>& commands);
 
     virtual void run() override;
 

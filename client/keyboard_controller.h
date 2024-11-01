@@ -4,13 +4,16 @@
 #include <SDL2/SDL.h>
 #include <SDL2pp/SDL2pp.hh>
 
+#include "../common/queue.h"
+
 class KeyboardController {
 private:
+    Queue<uint8_t>& commands;
 public:
     /*
      * Constructor.
      */
-    KeyboardController();
+    KeyboardController(Queue<uint8_t>& _commands);
 
 
     // el is_running y moving_left luego se van

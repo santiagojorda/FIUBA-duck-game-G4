@@ -17,7 +17,7 @@ private:
     const std::string servicename;
     Socket skt;
     ClientProtocol protocol;
-    Queue<std::vector<uint8_t>> commands;
+    Queue<uint8_t> commands;
     Queue<std::vector<Coordinate>> positions;
     ClientReceiver receiver;
     ClientSender sender;

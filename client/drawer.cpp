@@ -32,8 +32,7 @@
 
 using namespace SDL2pp;
 
-Drawer::Drawer(Queue<std::vector<uint8_t>>& commands, Queue<std::vector<Coordinate>>& positions):
-        keyboard_controller(), commands(commands), positions(positions) {
+Drawer::Drawer(Queue<uint8_t>& commands, Queue<std::vector<Coordinate>>& positions): commands(commands), positions(positions),   keyboard_controller(commands) {
 
     std::cout << "drawer constructor\n";
 }

@@ -1,6 +1,8 @@
 #include "keyboard_controller.h"
 
-KeyboardController::KeyboardController() {}
+#include "../common/action_commands.h"
+
+KeyboardController::KeyboardController(Queue<uint8_t>& _commands) : commands(_commands) {}
 
 /*
     Protocol enviar
@@ -28,10 +30,12 @@ void KeyboardController::procesar_comando(SDL_Event& event, bool& is_running,
                 case SDLK_RIGHT:  // flecha hacia la derecha
                     is_running = true;
                     is_moving_left = false;
+                    this->commands.push(MOVE_RIGHT);
                     break;
                 case SDLK_LEFT:  // flecha hacia la izquierda
                     is_running = true;
                     is_moving_left = true;
+                    this->commands.push(MOVE_LEFT);
                     break;
                 case SDLK_UP:  // flecha hacia arriba para saltar
                     std::cout << "Saltar" << std::endl;

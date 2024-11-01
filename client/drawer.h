@@ -11,9 +11,9 @@
 
 class Drawer {
 private:
-    KeyboardController keyboard_controller;
-    Queue<std::vector<uint8_t>>& commands;
+    Queue<uint8_t>& commands;
     Queue<std::vector<Coordinate>>& positions;
+    KeyboardController keyboard_controller;
 
     void controlar_movimiento_pato(bool& is_running, bool& is_moving_left,
                                    std::vector<Coordinate>& position, unsigned int& frame_delta,
@@ -23,7 +23,7 @@ public:
     /*
      * Constructor.
      */
-    Drawer(Queue<std::vector<uint8_t>>& commands, Queue<std::vector<Coordinate>>& positions);
+    Drawer(Queue<uint8_t>& commands, Queue<std::vector<Coordinate>>& positions);
 
     /*
      *

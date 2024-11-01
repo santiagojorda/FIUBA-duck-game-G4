@@ -15,7 +15,7 @@ Coordinate ClientProtocol::receive_cordinates() {
     return Coordinate(x, y, h, w);
 }
 
-void ClientProtocol::send_action(int& id_jugador, ActionCommand& type_action) {  // pasarle action
+void ClientProtocol::send_action(int& id_jugador, uint8_t& type_action) {  // pasarle action
     std::vector<uint8_t> vector_data;
     vector_data.push_back(HEADER_CLIENT);  // 1 byte
     vector_data.push_back(id_jugador);     // 1 byte
