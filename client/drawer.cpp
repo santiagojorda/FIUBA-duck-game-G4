@@ -33,7 +33,10 @@
 using namespace SDL2pp;
 
 Drawer::Drawer(Queue<std::vector<uint8_t>>& commands, Queue<std::vector<Coordinate>>& positions):
-        keyboard_controller(), commands(commands), positions(positions) {}
+        keyboard_controller(), commands(commands), positions(positions) {
+
+    std::cout << "drawer constructor\n";
+}
 
 /**
  * Recibo
@@ -73,8 +76,8 @@ void Drawer::run() try {
     // int run_phase = -1;  // run animation phase
     // float position = 0.0;  // player position
 
-    // unsigned int prev_ticks = SDL_GetTicks();  // an unsigned 32-bit value representing the number
-                                               // of milliseconds since the SDL library initialized.
+    // unsigned int prev_ticks = SDL_GetTicks();  // an unsigned 32-bit value representing the
+    // number of milliseconds since the SDL library initialized.
 
 
     while (true) {  // receiver del cliente
@@ -140,15 +143,17 @@ void Drawer::run() try {
         // Segundo Rect (x, y, w, h): le indicamos en que parte de la pantalla aparece,
         // y el tamaño
 
-        renderer.Copy(sprites,
-                      Rect(src_x, src_y, SIZE_DUCK_SPRITE, SIZE_DUCK_SPRITE),  // position en Sprite
-                      Rect(position[0].get_x(), position[0].get_y(), TILE_SIZE,
-                           TILE_SIZE),  // position en pantalla
-                      0.0,              // no rotation
-                      SDL2pp::NullOpt,  // no center for rotation
-                      flip              // flip horizontally if moving left
-        );
-
+        if (position.size() > 0) {
+            renderer.Copy(
+                    sprites,
+                    Rect(src_x, src_y, SIZE_DUCK_SPRITE, SIZE_DUCK_SPRITE),  // position en Sprite
+                    Rect(position[0].get_x(), position[0].get_y(), TILE_SIZE,
+                         TILE_SIZE),  // position en pantalla
+                    0.0,              // no rotation
+                    SDL2pp::NullOpt,  // no center for rotation
+                    flip              // flip horizontally if moving left
+            );
+        }
         /*
         // ---------------------------- Draw PISTOLA ENCIMA DEL PATO----------------------------
 
@@ -161,7 +166,7 @@ void Drawer::run() try {
         renderer.Copy(ala_duck, Rect(ALA_INITIAL_X, ALA_INITIAL_Y + (16 * 5), 16, 16),
                       Rect((int)position + 7, center_y - (TILE_SIZE) + 15, 20, 20), 0.0,
                       SDL2pp::NullOpt, flip);
-        */    
+        */
 
         renderer.Present();
 
@@ -178,7 +183,7 @@ void Drawer::run() try {
     std::cerr << e.what() << std::endl;
 }
 
-/** 
+/**
 void Drawer::controlar_movimiento_pato(bool& is_running, bool& is_moving_left,
                                        std::vector<Coordinate>& position, unsigned int& frame_delta,
                                        int& run_phase, unsigned int& frame_ticks) {

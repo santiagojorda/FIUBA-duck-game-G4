@@ -15,7 +15,11 @@ void ClientReceiver::run() {
     }
 }
 
-ClientReceiver::~ClientReceiver() { this->join(); }
+ClientReceiver::~ClientReceiver() {
+    if (this->is_alive()) {
+        this->join();
+    }
+}
 
 /*
 void ClientReceiver::receiver_data(std::vector<Coordinate>& coordenadas) {

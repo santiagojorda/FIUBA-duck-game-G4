@@ -19,4 +19,8 @@ void ClientSender::run() {
     }
 }
 
-ClientSender::~ClientSender() { this->join(); }
+ClientSender::~ClientSender() {
+    if (this->is_alive()) {
+        this->join();
+    }
+}
