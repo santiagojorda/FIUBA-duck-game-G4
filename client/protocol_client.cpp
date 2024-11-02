@@ -23,23 +23,25 @@ void ClientProtocol::send_action(int& id_jugador, uint8_t& type_action) {  // pa
     this->skt.sendall(vector_data.data(), vector_data.size(), &this->was_closed);
 }
 
-std::vector<Coordinate> ClientProtocol::receiver_players_() {
+std::vector<PlayerPosition_t> ClientProtocol::receiver_players_() {
     uint8_t cantidad_players;
     this->receive_byte(cantidad_players);
 
-    std::vector<Coordinate> coordenadas;  // mapa  -> clave: id jugador , valor : position
+    std::vector<PlayerPosition_t> players_positions;
     // guardar vector las coordenadas
     for (size_t i = 0; i < cantidad_players; i++) {
         uint8_t id_player;
         this->receive_byte(id_player);
 
         Coordinate coordinate = this->receive_cordinates();
-        coordenadas.push_back(coordinate);
+
+        PlayerPosition_t player_position{id_player, coordinate};
+        players_positions.push_back(player_position);
     }
 
     // uint8_t camara;
     // this->receive_byte(camara);
-    return coordenadas;
+    return players_positions;
 }
 
 void ClientProtocol::send_init(const uint8_t& init) {

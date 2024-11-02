@@ -6,11 +6,10 @@
 #include "client.h"
 #include "event_player.h"
 #include "list_players_id.h"
-
-#include "queue_game_state.h"
 #include "queue_event_player.h"
+#include "queue_game_state.h"
 
-class MonitorClients{
+class MonitorClients {
 private:
     // cppcheck-suppress unusedStructMember
     std::list<Client> list;
@@ -19,14 +18,15 @@ private:
 
 public:
     MonitorClients();
-    
-    // void add_item(Socket&& _skt, QueueGameState& _queue_gamestate, QueueEventPlayer& _queue_event,
+
+    // void add_item(Socket&& _skt, QueueGameState& _queue_gamestate, QueueEventPlayer&
+    // _queue_event,
     //        ListPlayersID& _client_players_id);
 
     template <typename... Args>
-    void add_item(Args&&... args){
+    void add_item(Args&&... args) {
         std::lock_guard<std::mutex> lock(mtx);
-        list.emplace_back(std::forward<Args>(args)...);    
+        list.emplace_back(std::forward<Args>(args)...);
     }
 
     void delete_item(Client& client);

@@ -1,12 +1,13 @@
 #include "client_receiver.h"
 
-ClientReceiver::ClientReceiver(ClientProtocol& protocol, Queue<std::vector<Coordinate>>& positions):
+ClientReceiver::ClientReceiver(ClientProtocol& protocol,
+                               Queue<std::vector<PlayerPosition_t>>& positions):
         protocol(protocol), positions(positions) {}
 
 void ClientReceiver::run() {
     try {
         while (this->is_alive()) {
-            std::vector<Coordinate> coordinates = protocol.receiver_players_();
+            std::vector<PlayerPosition_t> coordinates = protocol.receiver_players_();
             positions.push(coordinates);
         }
     } catch (const std::exception& e) {

@@ -9,6 +9,7 @@
 #include "client_receiver.h"
 #include "client_sender.h"
 #include "drawer.h"
+#include "player_position.h"
 #include "protocol_client.h"
 
 class Client {
@@ -20,7 +21,7 @@ private:
     Socket skt;
     ClientProtocol protocol;
     Queue<uint8_t> commands;
-    Queue<std::vector<Coordinate>> positions;
+    Queue<std::vector<PlayerPosition_t>> positions;
     ClientReceiver receiver;
     ClientSender sender;
     Drawer drawer;

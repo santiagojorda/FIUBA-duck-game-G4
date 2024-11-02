@@ -9,6 +9,8 @@
 #include "../common/protocol.h"
 #include "../common/socket.h"
 
+#include "player_position.h"
+
 class ClientProtocol: public Protocol {
 private:
     Coordinate receive_cordinates();
@@ -32,12 +34,7 @@ public:
     /*
      *
      */
-    void receiver_players(std::vector<Coordinate>& coordenadas);
-
-    /*
-     *
-     */
-    std::vector<Coordinate> receiver_players_();
+    std::vector<PlayerPosition_t> receiver_players_();
 
     /*
      * Deshabilitar copias.

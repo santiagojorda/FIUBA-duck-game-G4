@@ -32,7 +32,7 @@
 
 using namespace SDL2pp;
 
-Drawer::Drawer(Queue<uint8_t>& commands, Queue<std::vector<Coordinate>>& positions):
+Drawer::Drawer(Queue<uint8_t>& commands, Queue<std::vector<PlayerPosition_t>>& positions):
         commands(commands), positions(positions), keyboard_controller(commands) {
 
     std::cout << "drawer constructor\n";
@@ -79,13 +79,20 @@ void Drawer::run() try {
     // unsigned int prev_ticks = SDL_GetTicks();  // an unsigned 32-bit value representing the
     // number of milliseconds since the SDL library initialized.
 
-    std::vector<Coordinate> position;
+    std::vector<PlayerPosition_t> position;
+
+    // SDL_Event event_init;
+    //  Se envia la tecla que presionó el usuario
+
+    // keyboard_controller.procesar_comando(event_init, is_running, is_moving_left);
 
     while (true) {  // receiver del cliente
+        // position = positions.pop();
 
         while (positions.try_pop(position)) {
+
+
             std::cout.clear();
-            std::cout << "this: " << position[0] << std::endl;
             // TODO: agregarlo en un bucle luego
             // intento desencolar las coordenadas que me devuelve el servidor
             // positions.try_pop(position);  // Recibo posición inicial
@@ -134,10 +141,11 @@ void Drawer::run() try {
             // Player is running and run animation phase
             // EN BASE AL SPRITE
             int src_x = DUCK_INITIAL_X, src_y = DUCK_INITIAL_Y;  // by default, standing sprite
-                                                                 /*if (is_running) {
-                                                                    src_x = DUCK_INITIAL_X + SIZE_DUCK_SPRITE * run_phase;
-                                                                    // src_y = DUCK_INITIAL_Y;
-                                                                }*/
+
+            /*if (is_running) {
+                src_x = DUCK_INITIAL_X + SIZE_DUCK_SPRITE * run_phase;
+                // src_y = DUCK_INITIAL_Y;
+            }*/
 
             // Flip the sprite if moving left
             SDL_RendererFlip flip = is_moving_left ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
@@ -152,7 +160,8 @@ void Drawer::run() try {
                 renderer.Copy(sprites,
                               Rect(src_x, src_y, SIZE_DUCK_SPRITE,
                                    SIZE_DUCK_SPRITE),  // position en Sprite
-                              Rect(position[0].get_x(), position[0].get_y(), TILE_SIZE,
+                              Rect(position[0].coordinate.get_x(), position[0].coordinate.get_y(),
+                                   TILE_SIZE,
                                    TILE_SIZE),  // position en pantalla
                               0.0,              // no rotation
                               SDL2pp::NullOpt,  // no center for rotation

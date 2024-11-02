@@ -4,19 +4,20 @@
 #include "../common/queue.h"
 #include "../common/thread.h"
 
+#include "player_position.h"
 #include "protocol_client.h"
 
 class ClientReceiver: public Thread {
 private:
     ClientProtocol& protocol;
     // El client es el dueño de la queue
-    Queue<std::vector<Coordinate>>& positions;
+    Queue<std::vector<PlayerPosition_t>>& positions;
 
 public:
     /*
      * Constructor.
      */
-    ClientReceiver(ClientProtocol& protocol, Queue<std::vector<Coordinate>>& positions);
+    ClientReceiver(ClientProtocol& protocol, Queue<std::vector<PlayerPosition_t>>& positions);
 
     virtual void run() override;
 
