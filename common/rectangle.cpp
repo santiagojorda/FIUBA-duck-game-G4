@@ -13,6 +13,12 @@ Rectangle::Rectangle(Coordinate coordinate):
 Rectangle::Rectangle(int x_min, int y_min, int x_max, int y_max):
         points(x_min, y_min, x_max, y_max) {}
 
+Rectangle::Rectangle(const Rectangle& _other) : Rectangle(_other.get_coordinates()) {}
+
+Rectangle& Rectangle::operator=(const Rectangle& _other){
+    this->points = _other.points;
+    return *this;
+}
 
 bool Rectangle::operator==(const Rectangle& other) const {
     int this_area = length_x(this->points) * length_y(this->points);

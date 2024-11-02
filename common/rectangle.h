@@ -15,8 +15,11 @@ public:
     */
     explicit Rectangle(Coordinate _points);
 
-
     Rectangle(int x_min, int y_min, int x_max, int y_max);
+
+    Rectangle(const Rectangle& _other);
+
+    Rectangle& operator=(const Rectangle& _other);
 
     /*
     /  compara  tamaño de los rectangulos

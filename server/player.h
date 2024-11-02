@@ -13,6 +13,7 @@ private:
 public:
     Player();
     explicit Player(uint8_t _id);
+    Player& operator=(const Player& _other);
     uint8_t get_id() const;
     void translate() override;
     void translate_x(int pasos) override;

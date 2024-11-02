@@ -20,6 +20,10 @@ public:
 
     Coordinate(int _x, int _y, int _h, int _w);
 
+    Coordinate(const Coordinate& _other);
+
+    Coordinate& operator=(const Coordinate& _other);
+
     // suma componente a componente
     Coordinate operator+(const Coordinate& other) const;
 

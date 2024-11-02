@@ -3,6 +3,7 @@
 
 #include <list>
 
+#include "list_players.h"
 #include "player.h"
 
 struct GameState_t {
@@ -10,7 +11,7 @@ struct GameState_t {
     uint8_t N_players;
     
     // cppcheck-suppress unusedStructMember
-    std::list<Player> players;
+    ListPlayers players;
 };
 
 #endif  // SERVER_GAME_STATE_H_
