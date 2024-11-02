@@ -8,16 +8,13 @@
 #define MILISECONDS_30_FPS 33
 
 
-Game::Game(ListPlayersID& _players_id, MonitorClients& _monitor_client,
+Game::Game(ListPlayers& _players, MonitorClients& _monitor_client,
            Queue<EventPlayer*>& _queue_event, Queue<GameState_t>& _queue_gamestate):
+        players(_players),
         game_logic(players),
         monitor_client(_monitor_client),
         queue_event(_queue_event),
-        queue_gamestate(_queue_gamestate) {
-    for (int player_id: _players_id) {
-        players.emplace_back(player_id);
-    }
-}
+        queue_gamestate(_queue_gamestate) {}
 
 void Game::sleep(){
     std::this_thread::sleep_for(std::chrono::milliseconds(MILISECONDS_30_FPS));
@@ -51,9 +48,6 @@ auto Game::get_actual_milliseconds(){
 }
 
 void Game::run() {
-
-    // int chrono_prev; 
-    // int chrono_now; 
 
     auto chrono_now = get_actual_milliseconds();
     auto chrono_prev = chrono_now; 

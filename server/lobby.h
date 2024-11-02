@@ -16,12 +16,13 @@ class Lobby {
 private:
     MonitorClients monitor_clients;
     ListPlayersID players_id;
+    ListPlayers players;
     Queue<EventPlayer*> queue_event;
     Queue<GameState_t> queue_gamestate;
-    Game game;
 
-    // void init_player_list();
-
+    void init_players();
+    void init_game();
+    void accept_clients();
 public:
     Lobby();
     void run();

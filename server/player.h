@@ -7,6 +7,7 @@
 
 class Player: public Positionable {
 private:
+    // cppcheck-suppress unusedStructMember
     uint8_t id;
 
 public:
@@ -16,7 +17,6 @@ public:
     void translate() override;
     void translate_x(int pasos) override;
     void translate_y(int pasos) override;
-
     virtual ~Player();
 };
 

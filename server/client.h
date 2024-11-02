@@ -14,13 +14,12 @@ private:
     ProtocolServer protocol;
     Receiver receiver;
     Sender sender;
-    // std::vector<int> players_id;
 
 public:
     Client(Socket&& _skt, Queue<GameState_t>& _queue_gamestate, Queue<EventPlayer*>& _queue_event,
            ListPlayersID& _players_id);
     void shutdown();
-    void send_gamestate(GameState_t& game_state);
+    void send_gamestate(const GameState_t& game_state);
     bool is_alive();
 };
 

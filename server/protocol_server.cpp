@@ -14,7 +14,7 @@ void ProtocolServer::send_cordinates(const Coordinate& send) {
 void ProtocolServer::send_game_state(const GameState_t& state) {
     this->send_byte(state.N_players);
 
-    for(Player player : state.players){
+    for(const Player& player : state.players){
         this->send_byte(player.get_id());
         this->send_cordinates(player.get_coordinate());
     }

@@ -6,7 +6,10 @@
 #include "player.h"
 
 struct GameState_t {
+    // cppcheck-suppress unusedStructMember
     uint8_t N_players;
+    
+    // cppcheck-suppress unusedStructMember
     std::list<Player> players;
 };
 

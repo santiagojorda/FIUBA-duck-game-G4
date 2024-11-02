@@ -20,4 +20,5 @@ void Player::translate_y(int pasos) {
     this->space = new_pos;
 }
 
+
 Player::~Player() { Positionable::~Positionable(); }

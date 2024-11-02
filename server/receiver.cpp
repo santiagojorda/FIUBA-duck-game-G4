@@ -11,7 +11,7 @@ void Receiver::init_factories(){
     }
 }
 
-void Receiver::push_event(uint8_t& _player_id, uint8_t& _event_id) {
+void Receiver::push_event(const uint8_t& _player_id,const  uint8_t& _event_id) {
     if(_player_id < factories.size()){
         EventPlayer* event = factories[_player_id].get_event(_event_id);
         if(event){
@@ -23,11 +23,10 @@ void Receiver::push_event(uint8_t& _player_id, uint8_t& _event_id) {
 void Receiver::run() {
 
     try{
-        uint8_t player_id, event_id;
         this->init_factories();
         while (this->_keep_running) {
-            player_id = 0;
-            event_id = 0;
+            uint8_t player_id = 0;
+            uint8_t event_id = 0;
             this->protocol.receive_event(player_id, event_id);
             this->push_event(player_id, event_id);
         }
@@ -39,6 +38,3 @@ void Receiver::run() {
     }
     stop();
 }
-
-
-void Receiver::stop() { Thread::stop(); }

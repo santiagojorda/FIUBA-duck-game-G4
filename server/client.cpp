@@ -11,14 +11,9 @@ Client::Client(Socket&& _skt, Queue<GameState_t>& _queue_gamestate, Queue<EventP
         
         receiver.start();
         sender.start();
-    // protocol.receive();
-    /*
-    // rec -> te da la cantidad de ids , despues game te los comparte
-    /
-    */
 }
 
-void Client::send_gamestate(GameState_t& game_state){
+void Client::send_gamestate(const GameState_t& game_state){
     sender.send(game_state);
 }
 

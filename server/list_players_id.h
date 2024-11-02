@@ -1,5 +1,5 @@
-#ifndef LIST_PLAYERS
-#define LIST_PLAYERS
+#ifndef LIST_PLAYERS_ID
+#define LIST_PLAYERS_ID
 
 #include <list>
 

@@ -14,7 +14,7 @@ private:
     void listen_new_game();
 
 public:
-    AcceptorGame(const std::string& _servname);
+    explicit AcceptorGame(const std::string& _servname);
     void run() override;
     void stop() override;
     virtual ~AcceptorGame();

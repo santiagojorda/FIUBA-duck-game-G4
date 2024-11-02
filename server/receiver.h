@@ -17,26 +17,19 @@ class Receiver: public Thread {
 private:
     Queue<EventPlayer*>& queue;
     ProtocolServer& protocol;
-    ListPlayersID players_id;  // <- tiene que venir del CLient
+    ListPlayersID players_id; 
+    // cppcheck-suppress unusedStructMember
     std::vector<EventFactory> factories;
 
     void init_factories();
-    void push_event(uint8_t& _player_id, uint8_t& _event_id);
+    void push_event(const uint8_t& _player_id,const  uint8_t& _event_id);
 
 
 public: 
     explicit Receiver(Queue<EventPlayer*>& _queue, ProtocolServer& _protocol,
                       ListPlayersID& _players_id);
 
-    // PROPONGO QUE CUANDO INICE SE LE PASEN LOS  Y LOS IDS
-    // explicit Receiver(Queue<Event*>& _queue, ProtocolServer& _protocol);
-
-
-    // capura los eventos del cliente y los manda al Game
     void run() override;
-
-    // detiene la ejeucion del reciver (no cierra todo)
-    void stop() override;
 };
 
 #endif

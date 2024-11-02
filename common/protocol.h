@@ -14,7 +14,9 @@ private:
     Socket& skt;
 
 protected:
+    // cppcheck-suppress unusedStructMember
     bool was_closed;
+    
     void send_string(const std::string& string);
     void send_2_bytes(const uint16_t& bytes);
     void send_byte(const uint8_t& byte);

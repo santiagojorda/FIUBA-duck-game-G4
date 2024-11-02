@@ -12,18 +12,14 @@ void AcceptorGame::listen_new_game() {  // famoso lobby ??
     Socket new_skt = skt.accept();
 
     ProtocolServer protocol(new_skt);
-    // uint8_t count_players = protocol.receive_count_players();
-
-    // Lobby lobby(count_players);
 }
 
 void AcceptorGame::run() {
     try {
-        // while(true){
-
-        // }
-
+        // hay que ver cuantos clientes puede aceptar
+        // while(true){ 
         listen_new_game();
+        // }
     } catch (...) {}
 }
 

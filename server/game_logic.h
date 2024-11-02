@@ -3,18 +3,19 @@
 
 #include <list>
 #include "player.h"
+#include "list_players.h"
 
 class GameLogic {
 private:
-    std::list<Player>& players;
+    ListPlayers& players;
     void get_player(Player& player, uint8_t player_id);
 
 public:
-    GameLogic(std::list<Player>& _players);
+    explicit GameLogic(ListPlayers& _players);
     void move_left_player(uint8_t player_id);
     void move_right_player(uint8_t player_id);
 
-    Player get_player(uint8_t player_id);
+    Player& get_player(const uint8_t& player_id);
     ~GameLogic();
 };
 

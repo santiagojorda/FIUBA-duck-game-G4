@@ -4,7 +4,6 @@
 #include <mutex>
 
 #include "client.h"
-#include "monitor.h"
 
 #include "event_player.h"
 #include "list_players_id.h"
@@ -12,7 +11,9 @@
 class MonitorClients{
 private:
 
+    // cppcheck-suppress unusedStructMember
     std::list<Client> list;
+    // cppcheck-suppress unusedStructMember
     std::mutex mtx;
     
 public:

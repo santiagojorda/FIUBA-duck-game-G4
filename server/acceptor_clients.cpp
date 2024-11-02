@@ -23,20 +23,16 @@ void AcceptorClients::listen_new_client() {
     ProtocolServer protocol(new_skt);
     uint8_t count_players = protocol.receive_count_players();
 
-    ListPlayersID player_client_id;
+    ListPlayersID client_players_id;
 
-    for (int i = 0; i < count_players; i++) {
-        int id = players_id.size();
+    for (uint8_t i = 0; i < count_players; i++) {
+        uint8_t id = players_id.size();
         players_id.emplace_back(id);
-        player_client_id.emplace_back(id);
+        client_players_id.emplace_back(id);
     }
 
+    monitor.add_item(std::move(new_skt), queue_gamestate, queue_event, client_players_id);
 
-    // posible monitor de ids
-    // Client new_client(std::move(new_skt), queue_gamestate, queue_event, player_client_id);
-    monitor.add_item(std::move(new_skt), queue_gamestate, queue_event, player_client_id);
-
-    // Client client(new_skt, queue_gamestate, queue_event); // enviar las dos colas
 }
 
 void AcceptorClients::run() {

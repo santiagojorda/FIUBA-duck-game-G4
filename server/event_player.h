@@ -8,10 +8,11 @@
 
 class EventPlayer {
 protected:
+    // cppcheck-suppress unusedStructMember
     uint8_t& player_id;
 
 public:
-    EventPlayer(uint8_t& player_id);
+    explicit EventPlayer(uint8_t& player_id);
 
     virtual void execute(GameLogic& game_logic) = 0;
     

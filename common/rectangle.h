@@ -13,7 +13,7 @@ public:
     /*
     / Inicia con el siguiente formato (x, y , x+w, y+h )
     */
-    Rectangle(Coordinate _points);
+    explicit Rectangle(Coordinate _points);
 
 
     Rectangle(int x_min, int y_min, int x_max, int y_max);

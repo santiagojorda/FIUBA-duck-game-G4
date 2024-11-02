@@ -6,9 +6,13 @@
 
 class Coordinate {
 private:
+    // cppcheck-suppress unusedStructMember
     int x;
+    // cppcheck-suppress unusedStructMember
     int y;
+    // cppcheck-suppress unusedStructMember
     int h;
+    // cppcheck-suppress unusedStructMember
     int w;
 
 public:
