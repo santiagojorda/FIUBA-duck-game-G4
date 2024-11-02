@@ -6,13 +6,13 @@
 #include "../common/thread.h"
 
 // #include "camera.h"
+#include "event_player.h"
 #include "game_logic.h"
 #include "game_state.h"
+#include "list_players.h"
+#include "list_players_id.h"
 #include "monitor_clients.h"
 #include "player.h"
-#include "event_player.h"
-#include "list_players_id.h"
-#include "list_players.h"
 
 class Game: public Thread {
 private:
@@ -27,6 +27,7 @@ private:
     void broadcast_gamestate();
     GameState_t get_gamestate();
     auto get_actual_milliseconds();
+
 public:
     Game(ListPlayers& _players, MonitorClients& _monitor_client, Queue<EventPlayer*>& _queue_event,
          Queue<GameState_t>& _queue_gamestate);

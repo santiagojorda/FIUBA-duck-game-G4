@@ -2,7 +2,7 @@
 
 #include "../common/action_commands.h"
 
-KeyboardController::KeyboardController(Queue<uint8_t>& _commands) : commands(_commands) {}
+KeyboardController::KeyboardController(Queue<uint8_t>& _commands): commands(_commands) {}
 
 /*
     Protocol enviar

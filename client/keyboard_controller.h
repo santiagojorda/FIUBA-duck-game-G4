@@ -9,6 +9,7 @@
 class KeyboardController {
 private:
     Queue<uint8_t>& commands;
+
 public:
     /*
      * Constructor.

@@ -4,22 +4,20 @@
 #include <mutex>
 
 #include "client.h"
-
 #include "event_player.h"
 #include "list_players_id.h"
 
-class MonitorClients{
+class MonitorClients {
 private:
-
     // cppcheck-suppress unusedStructMember
     std::list<Client> list;
     // cppcheck-suppress unusedStructMember
     std::mutex mtx;
-    
+
 public:
     MonitorClients();
-    void add_item(Socket&& _skt, Queue<GameState_t>& _queue_gamestate, Queue<EventPlayer*>& _queue_event,
-           ListPlayersID& _players_id);
+    void add_item(Socket&& _skt, Queue<GameState_t>& _queue_gamestate,
+                  Queue<EventPlayer*>& _queue_event, ListPlayersID& _players_id);
     void delete_item(Client& client);
     void shutdown();
     void broadcast(GameState_t gamestate);

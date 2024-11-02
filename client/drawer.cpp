@@ -32,7 +32,8 @@
 
 using namespace SDL2pp;
 
-Drawer::Drawer(Queue<uint8_t>& commands, Queue<std::vector<Coordinate>>& positions): commands(commands), positions(positions),   keyboard_controller(commands) {
+Drawer::Drawer(Queue<uint8_t>& commands, Queue<std::vector<Coordinate>>& positions):
+        commands(commands), positions(positions), keyboard_controller(commands) {
 
     std::cout << "drawer constructor\n";
 }
@@ -78,104 +79,111 @@ void Drawer::run() try {
     // unsigned int prev_ticks = SDL_GetTicks();  // an unsigned 32-bit value representing the
     // number of milliseconds since the SDL library initialized.
 
+    std::vector<Coordinate> position;
 
     while (true) {  // receiver del cliente
 
-        std::vector<Coordinate> position;
-        // TODO: agregarlo en un bucle luego
-        // intento desencolar las coordenadas que me devuelve el servidor
-        positions.try_pop(position);  // Recibo posición inicial
+        while (positions.try_pop(position)) {
+            std::cout.clear();
+            std::cout << "this: " << position[0] << std::endl;
+            // TODO: agregarlo en un bucle luego
+            // intento desencolar las coordenadas que me devuelve el servidor
+            // positions.try_pop(position);  // Recibo posición inicial
 
 
-        // If player passes past the right or left side of the window, wrap
-        /*if (position > renderer.GetOutputWidth()) {
-            position = -TILE_SIZE;  // wrap from the right
-        } else if (position < -TILE_SIZE) {
-            position = renderer.GetOutputWidth();  // wrap from the left
-        }*/
+            // If player passes past the right or left side of the window, wrap
+            /*if (position > renderer.GetOutputWidth()) {
+                position = -TILE_SIZE;  // wrap from the right
+            } else if (position < -TILE_SIZE) {
+                position = renderer.GetOutputWidth();  // wrap from the left
+            }*/
 
-        // Clear screen
-        renderer.Clear();
+            // Clear screen
+            renderer.Clear();
 
-        // ---------------------------- Draw BACKGROUND ----------------------------
-        renderer.Copy(background,
-                      Rect(0, 0, renderer.GetOutputWidth(), renderer.GetOutputHeight()));
+            // ---------------------------- Draw BACKGROUND ----------------------------
+            renderer.Copy(background,
+                          Rect(0, 0, renderer.GetOutputWidth(), renderer.GetOutputHeight()));
 
-        // ---------------------------- Draw PISO TILESET ----------------------------
+            // ---------------------------- Draw PISO TILESET ----------------------------
 
-        int center_y = renderer.GetOutputHeight() / 2;  // Y coordinate of window center
-        int center_x = renderer.GetOutputWidth() / 2;
+            int center_y = renderer.GetOutputHeight() / 2;  // Y coordinate of window center
+            int center_x = renderer.GetOutputWidth() / 2;
 
-        // Cantidad de tiles que se necesitan de forma horizontal
-        int num_tiles_x = renderer.GetOutputWidth() / TILE_SIZE + 1;
+            // Cantidad de tiles que se necesitan de forma horizontal
+            int num_tiles_x = renderer.GetOutputWidth() / TILE_SIZE + 1;
 
-        for (int i = 0; i < num_tiles_x; ++i) {
-            // Lo multiplico por 3 porque solo estoy tomando el 3 tileset en x, pero es de la fila 1
-            // => y = 0
-            // TILE_SIZE - 42 motivo: el tamaño del pato menos ojimetro
-            renderer.Copy(floor,
-                          Rect(SIZE_FLOOR_SPRITE * 3, 0, SIZE_FLOOR_SPRITE, SIZE_FLOOR_SPRITE),
-                          Rect(i * TILE_SIZE, center_y - (TILE_SIZE - 42), TILE_SIZE, TILE_SIZE));
+            for (int i = 0; i < num_tiles_x; ++i) {
+                // Lo multiplico por 3 porque solo estoy tomando el 3 tileset en x, pero es de la
+                // fila 1
+                // => y = 0
+                // TILE_SIZE - 42 motivo: el tamaño del pato menos ojimetro
+                renderer.Copy(
+                        floor, Rect(SIZE_FLOOR_SPRITE * 3, 0, SIZE_FLOOR_SPRITE, SIZE_FLOOR_SPRITE),
+                        Rect(i * TILE_SIZE, center_y - (TILE_SIZE - 42), TILE_SIZE, TILE_SIZE));
+            }
+
+            // ---------------------------- Draw PISTOLA ----------------------------
+            int magnum_x = 1;
+            int magnum_y = 47;
+            renderer.Copy(pistol_magnum, Rect(magnum_x, magnum_y, 32, 32),
+                          Rect(center_x, center_y - 41, TILE_SIZE, TILE_SIZE));
+
+
+            // ---------------------------- Draw Player ----------------------------
+            // Player is running and run animation phase
+            // EN BASE AL SPRITE
+            int src_x = DUCK_INITIAL_X, src_y = DUCK_INITIAL_Y;  // by default, standing sprite
+                                                                 /*if (is_running) {
+                                                                    src_x = DUCK_INITIAL_X + SIZE_DUCK_SPRITE * run_phase;
+                                                                    // src_y = DUCK_INITIAL_Y;
+                                                                }*/
+
+            // Flip the sprite if moving left
+            SDL_RendererFlip flip = is_moving_left ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+
+            // Primer Rect (x, y, w, h): (x, y) toman una coordenada de la imagen (w, h) le
+            // indicamos el alto y ancho Segundo Rect (x, y, w, h): le indicamos en que parte de la
+            // pantalla aparece, y el tamaño
+
+
+
+            if (position.size() > 0) {
+
+                renderer.Copy(sprites,
+                              Rect(src_x, src_y, SIZE_DUCK_SPRITE,
+                                   SIZE_DUCK_SPRITE),  // position en Sprite
+                              Rect(position[0].get_x(), position[0].get_y(), TILE_SIZE,
+                                   TILE_SIZE),  // position en pantalla
+                              0.0,              // no rotation
+                              SDL2pp::NullOpt,  // no center for rotation
+                              flip              // flip horizontally if moving left
+                );
+            }
+            /*
+            // ---------------------------- Draw PISTOLA ENCIMA DEL PATO----------------------------
+
+            renderer.Copy(pistol_magnum, Rect(magnum_x, magnum_y, 32, 32),
+                          Rect((int)position, center_y - (TILE_SIZE - 2), TILE_SIZE, TILE_SIZE),
+            0.0, SDL2pp::NullOpt, flip);
+
+            // ------------------ Draw ALA DEL PATO ENCIMA DEL PATO ------------------
+
+            renderer.Copy(ala_duck, Rect(ALA_INITIAL_X, ALA_INITIAL_Y + (16 * 5), 16, 16),
+                          Rect((int)position + 7, center_y - (TILE_SIZE) + 15, 20, 20), 0.0,
+                          SDL2pp::NullOpt, flip);
+            */
+
+            renderer.Present();
+
+            SDL_Event event;
+
+            // Se envia la tecla que presionó el usuario
+            keyboard_controller.procesar_comando(event, is_running, is_moving_left);
+
+            // Frame limiter: sleep for a little bit to not eat 100% of CPU
+            SDL_Delay(1);  // esto se va luego, lo actualiza desde el server
         }
-
-        // ---------------------------- Draw PISTOLA ----------------------------
-        int magnum_x = 1;
-        int magnum_y = 47;
-        renderer.Copy(pistol_magnum, Rect(magnum_x, magnum_y, 32, 32),
-                      Rect(center_x, center_y - 41, TILE_SIZE, TILE_SIZE));
-
-
-        // ---------------------------- Draw Player ----------------------------
-        // Player is running and run animation phase
-        // EN BASE AL SPRITE
-        int src_x = DUCK_INITIAL_X, src_y = DUCK_INITIAL_Y;  // by default, standing sprite
-                                                             /*if (is_running) {
-                                                                src_x = DUCK_INITIAL_X + SIZE_DUCK_SPRITE * run_phase;
-                                                                // src_y = DUCK_INITIAL_Y;
-                                                            }*/
-
-        // Flip the sprite if moving left
-        SDL_RendererFlip flip = is_moving_left ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
-
-        // Primer Rect (x, y, w, h): (x, y) toman una coordenada de la imagen (w, h) le indicamos el
-        // alto y ancho
-        // Segundo Rect (x, y, w, h): le indicamos en que parte de la pantalla aparece,
-        // y el tamaño
-
-        if (position.size() > 0) {
-            renderer.Copy(
-                    sprites,
-                    Rect(src_x, src_y, SIZE_DUCK_SPRITE, SIZE_DUCK_SPRITE),  // position en Sprite
-                    Rect(position[0].get_x(), position[0].get_y(), TILE_SIZE,
-                         TILE_SIZE),  // position en pantalla
-                    0.0,              // no rotation
-                    SDL2pp::NullOpt,  // no center for rotation
-                    flip              // flip horizontally if moving left
-            );
-        }
-        /*
-        // ---------------------------- Draw PISTOLA ENCIMA DEL PATO----------------------------
-
-        renderer.Copy(pistol_magnum, Rect(magnum_x, magnum_y, 32, 32),
-                      Rect((int)position, center_y - (TILE_SIZE - 2), TILE_SIZE, TILE_SIZE), 0.0,
-                      SDL2pp::NullOpt, flip);
-
-        // ------------------ Draw ALA DEL PATO ENCIMA DEL PATO ------------------
-
-        renderer.Copy(ala_duck, Rect(ALA_INITIAL_X, ALA_INITIAL_Y + (16 * 5), 16, 16),
-                      Rect((int)position + 7, center_y - (TILE_SIZE) + 15, 20, 20), 0.0,
-                      SDL2pp::NullOpt, flip);
-        */
-
-        renderer.Present();
-
-        SDL_Event event;
-
-        // Se envia la tecla que presionó el usuario
-        keyboard_controller.procesar_comando(event, is_running, is_moving_left);
-
-        // Frame limiter: sleep for a little bit to not eat 100% of CPU
-        SDL_Delay(1);  // esto se va luego, lo actualiza desde el server
     }
 
 } catch (std::exception& e) {

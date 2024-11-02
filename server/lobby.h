@@ -9,8 +9,8 @@
 #include "event_player.h"
 #include "game.h"
 #include "game_state.h"
-#include "monitor_clients.h"
 #include "list_players_id.h"
+#include "monitor_clients.h"
 
 class Lobby {
 private:
@@ -23,6 +23,7 @@ private:
     void init_players();
     void init_game();
     void accept_clients();
+
 public:
     Lobby();
     void run();

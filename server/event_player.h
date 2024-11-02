@@ -3,8 +3,8 @@
 
 #include <cstdint>
 
-#include "player.h"
 #include "game_logic.h"
+#include "player.h"
 
 class EventPlayer {
 protected:
@@ -15,7 +15,7 @@ public:
     explicit EventPlayer(uint8_t& player_id);
 
     virtual void execute(GameLogic& game_logic) = 0;
-    
+
     virtual ~EventPlayer();
 };
 

@@ -9,7 +9,4 @@ uint8_t id
 */
 
 
-
-
-
-#endif //CLIENT_EVENT_H
+#endif  // CLIENT_EVENT_H

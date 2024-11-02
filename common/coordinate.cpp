@@ -6,7 +6,7 @@ Coordinate::Coordinate() {}
 
 Coordinate::Coordinate(int _x, int _y, int _h, int _w): x(_x), y(_y), h(_h), w(_w) {}
 
-Coordinate& Coordinate::operator=(const Coordinate& _other){
+Coordinate& Coordinate::operator=(const Coordinate& _other) {
     this->x = _other.x;
     this->y = _other.y;
     this->h = _other.h;
@@ -14,7 +14,8 @@ Coordinate& Coordinate::operator=(const Coordinate& _other){
     return *this;
 }
 
-Coordinate::Coordinate(const Coordinate& _other) : Coordinate(_other.x, _other.y, _other.h, _other.w) {}
+Coordinate::Coordinate(const Coordinate& _other):
+        Coordinate(_other.x, _other.y, _other.h, _other.w) {}
 
 
 Coordinate Coordinate::operator+(const Coordinate& other) const {

@@ -1,9 +1,9 @@
 #include "acceptor_clients.h"
 
+#include <iostream>
 #include <list>
 
 #include "client.h"
-#include <iostream>
 #include "monitor_clients.h"
 #include "protocol_server.h"
 
@@ -32,10 +32,9 @@ void AcceptorClients::listen_new_client() {
         uint8_t id = players_id.size();
         players_id.emplace_back(id);
         client_players_id.emplace_back(id);
-    }   
+    }
 
     monitor.add_item(std::move(new_skt), queue_gamestate, queue_event, client_players_id);
-
 }
 
 void AcceptorClients::run() {

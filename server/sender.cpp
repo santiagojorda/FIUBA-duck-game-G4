@@ -18,8 +18,6 @@ void Sender::run() {
     }
 }
 
-void Sender::send(const GameState_t& game_state){
-    queue.try_push(game_state);
-}
+void Sender::send(const GameState_t& game_state) { queue.try_push(game_state); }
 
 Sender::~Sender() {}

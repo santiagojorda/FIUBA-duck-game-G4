@@ -3,10 +3,10 @@
 
 #include <vector>
 
-#include "receiver.h"
-#include "sender.h"
 #include "event_player.h"
 #include "list_players_id.h"
+#include "receiver.h"
+#include "sender.h"
 
 class Client {
 private:

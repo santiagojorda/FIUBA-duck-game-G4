@@ -2,8 +2,9 @@
 #define GAME_LOGIC_H
 
 #include <list>
-#include "player.h"
+
 #include "list_players.h"
+#include "player.h"
 
 class GameLogic {
 private:
