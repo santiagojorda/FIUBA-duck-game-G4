@@ -1,4 +1,3 @@
-
 #ifndef EVENT_MOVE_LEFT_H
 #define EVENT_MOVE_LEFT_H
 
@@ -14,6 +13,5 @@ public:
 
     ~EventMoveLeft();
 };
-
 
 #endif  // EVENT_MOVE_LEFT_H

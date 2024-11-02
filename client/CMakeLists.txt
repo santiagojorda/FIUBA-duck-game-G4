@@ -1,16 +1,12 @@
+file(GLOB_RECURSE SOURCES_CLIENT "*.cpp")
+file(GLOB_RECURSE SOURCES_HEDER_CLIENT "*.h")
+
 target_sources(taller_client
     PRIVATE
     # .cpp files
-    main.cpp
-    client.cpp
-    drawer.cpp
-    keyboard_controller.cpp
-    protocol_client.cpp
-    ../common/protocol.cpp
-    ../common/coordinate.cpp
-    ../common/socket.cpp
-    ../common/liberror.cpp
+   ${SOURCES_CLIENT}
+   
     PUBLIC
     # .h files
-    keyboard_controller.h
-)
+    ${SOURCES_HEDER_CLIENT}
+    )

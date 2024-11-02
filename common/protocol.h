@@ -10,7 +10,7 @@
 #define MAX_LENGTH_BUFFER 512
 
 class Protocol {
-private:
+protected:
     Socket& skt;
 
 protected:

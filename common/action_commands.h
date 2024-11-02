@@ -1,6 +1,11 @@
 #ifndef ACTION_COMMANDS_H
 #define ACTION_COMMANDS_H
 
+enum HeaderProtocol {
+    HEADER_CLIENT = 0xA,
+    HEADER_SERVER = 0xB,
+};
+
 enum ActionCommand {
     MOVE_LEFT,        // Moverse a la izquierda
     MOVE_RIGHT,       // Moverse a la derecha
