@@ -14,6 +14,8 @@ public:
     explicit GameLogic(ListPlayers& _players);
     void move_left_player(uint8_t player_id);
     void move_right_player(uint8_t player_id);
+    void crouch_player(uint8_t player_id);
+    void jump_player(uint8_t player_id);
 
     Player& get_player(const uint8_t& player_id);
     ~GameLogic();

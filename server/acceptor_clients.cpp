@@ -21,6 +21,9 @@ void AcceptorClients::listen_new_client() {
     Socket new_skt = skt.accept();
 
     ProtocolServer protocol(new_skt);
+
+    // chequear si se envia un dummy para inicializar el game y cortar el acceptor
+
     uint8_t count_players = protocol.receive_count_players();
 
     ListPlayersID client_players_id;
@@ -29,7 +32,7 @@ void AcceptorClients::listen_new_client() {
         uint8_t id = players_id.size();
         players_id.emplace_back(id);
         client_players_id.emplace_back(id);
-    }
+    }   
 
     monitor.add_item(std::move(new_skt), queue_gamestate, queue_event, client_players_id);
 
