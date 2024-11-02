@@ -9,8 +9,8 @@
 
 #define SERVNAME "8080"
 
-AcceptorClients::AcceptorClients(MonitorClients& _monitor, Queue<GameState_t>& _queue_gamestate,
-                                 Queue<EventPlayer*>& _queue_event, ListPlayersID& _players_id):
+AcceptorClients::AcceptorClients(MonitorClients& _monitor, QueueGameState& _queue_gamestate,
+                                 QueueEventPlayer& _queue_event, ListPlayersID& _players_id):
         Acceptor(SERVNAME),
         monitor(_monitor),
         queue_gamestate(_queue_gamestate),

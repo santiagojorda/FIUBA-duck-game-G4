@@ -10,7 +10,7 @@
 
 
 Game::Game(ListPlayers& _players, MonitorClients& _monitor_client,
-           Queue<EventPlayer*>& _queue_event, Queue<GameState_t>& _queue_gamestate):
+           QueueEventPlayer& _queue_event, QueueGameState& _queue_gamestate):
         players(_players),
         game_logic(players),
         monitor_client(_monitor_client),
