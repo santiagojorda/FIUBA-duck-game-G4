@@ -27,12 +27,12 @@ std::vector<Coordinate> ClientProtocol::receiver_players_() {
     uint8_t cantidad_players;
     this->receive_byte(cantidad_players);
 
-    std::vector<Coordinate> coordenadas; // mapa  -> clave: id jugador , valor : position
+    std::vector<Coordinate> coordenadas;  // mapa  -> clave: id jugador , valor : position
     // guardar vector las coordenadas
     for (size_t i = 0; i < cantidad_players; i++) {
         uint8_t id_player;
         this->receive_byte(id_player);
-        
+
         Coordinate coordinate = this->receive_cordinates();
         coordenadas.push_back(coordinate);
     }

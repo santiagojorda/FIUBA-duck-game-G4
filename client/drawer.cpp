@@ -147,7 +147,6 @@ void Drawer::run() try {
             // pantalla aparece, y el tamaño
 
 
-
             if (position.size() > 0) {
 
                 renderer.Copy(sprites,
@@ -175,15 +174,11 @@ void Drawer::run() try {
             */
 
             renderer.Present();
-
-            SDL_Event event;
-
-            // Se envia la tecla que presionó el usuario
-            keyboard_controller.procesar_comando(event, is_running, is_moving_left);
-
-            // Frame limiter: sleep for a little bit to not eat 100% of CPU
-            SDL_Delay(1);  // esto se va luego, lo actualiza desde el server
         }
+
+        SDL_Event event;
+        // Se envia la tecla que presionó el usuario
+        keyboard_controller.procesar_comando(event, is_running, is_moving_left);
     }
 
 } catch (std::exception& e) {

@@ -5,6 +5,9 @@
 #include <SDL2pp/SDL2pp.hh>
 
 #include "../common/queue.h"
+#include "../common/socket.h"
+
+#include "protocol_client.h"
 
 class KeyboardController {
 private:

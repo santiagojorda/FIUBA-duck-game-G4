@@ -25,6 +25,10 @@ void AcceptorClients::listen_new_client() {
     // chequear si se envia un dummy para inicializar el game y cortar el acceptor
 
     uint8_t count_players = protocol.receive_count_players();
+    if (count_players == 0xFF) {
+        this->stop();
+        return;
+    }
 
     ListPlayersID client_players_id;
 
@@ -39,9 +43,9 @@ void AcceptorClients::listen_new_client() {
 
 void AcceptorClients::run() {
     try {
-        // while(_keep_running){
-        listen_new_client();
-        // }
+        while (_keep_running) {
+            listen_new_client();
+        }
     } catch (const std::exception& e) {
         std::cerr << e.what() << '\n';
     } catch (...) {

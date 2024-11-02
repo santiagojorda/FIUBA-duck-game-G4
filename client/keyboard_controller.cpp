@@ -38,6 +38,7 @@ void KeyboardController::procesar_comando(SDL_Event& event, bool& is_running,
                     this->commands.push(MOVE_LEFT);
                     break;
                 case SDLK_UP:  // flecha hacia arriba para saltar
+                    this->commands.push(JUMP);
                     std::cout << "Saltar" << std::endl;
                     break;
                 case SDLK_SPACE:  // disparar espacio
@@ -50,7 +51,22 @@ void KeyboardController::procesar_comando(SDL_Event& event, bool& is_running,
                     std::cout << "Apuntando hacia arriba" << std::endl;
                     break;
                 case SDLK_DOWN:  // flecha hacia abajo para agacharse
+                    this->commands.push(CROUCH);
                     std::cout << "Agacharse" << std::endl;
+                    break;
+                case SDLK_m:  // tecla m : Iniciar juego
+                    try {
+                        /* code */
+                        std::cout << "Presiono m" << std::endl;
+
+                        Socket skt("localhost", "8080");
+                        ClientProtocol protocol(skt);
+                        protocol.send_init(0xFF);
+                        std::cout << "iniciar juego" << std::endl;
+                    } catch (const std::exception& e) {
+                        std::cerr << "error en case " << e.what() << '\n';
+                    }
+
                     break;
             }
             // Este evento ocurre cuando la tecla es liberada
