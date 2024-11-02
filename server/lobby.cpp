@@ -1,13 +1,10 @@
 #include "lobby.h"
 
 #include <iostream>
+
 #include "acceptor_clients.h"
 
-Lobby::Lobby():
-        monitor_clients(),
-        players_id(),
-        queue_event(),
-        queue_gamestate() {}
+Lobby::Lobby(): monitor_clients(), players_id(), queue_event(), queue_gamestate() {}
 
 void Lobby::accept_clients() {
     AcceptorClients acceptor_clients(monitor_clients, queue_gamestate, queue_event, players_id);

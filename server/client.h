@@ -5,11 +5,10 @@
 
 #include "event_player.h"
 #include "list_players_id.h"
-#include "receiver.h"
-#include "sender.h"
-
 #include "queue_event_player.h"
 #include "queue_game_state.h"
+#include "receiver.h"
+#include "sender.h"
 
 class Client {
 private:

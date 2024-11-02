@@ -9,8 +9,8 @@
 #define MILISECONDS_30_FPS 33
 
 
-Game::Game(ListPlayers& _players, MonitorClients& _monitor_client,
-           QueueEventPlayer& _queue_event, QueueGameState& _queue_gamestate):
+Game::Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEventPlayer& _queue_event,
+           QueueGameState& _queue_gamestate):
         players(_players),
         game_logic(players),
         monitor_client(_monitor_client),

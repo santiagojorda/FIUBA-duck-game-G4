@@ -8,10 +8,10 @@
 
 #include "acceptor.h"
 #include "event_player.h"
-#include "monitor_clients.h"
 #include "list_players_id.h"
-#include "queue_game_state.h"
+#include "monitor_clients.h"
 #include "queue_event_player.h"
+#include "queue_game_state.h"
 
 class AcceptorClients: public Acceptor {
 private:
