@@ -29,7 +29,7 @@ public:
     /*
      * envia el mensaje de inicio
      */
-    void send_action(int& id_jugador, uint8_t& type_action);
+    void send_action(uint8_t& id_jugador, ActionCommand& type_action);
 
     /*
      *

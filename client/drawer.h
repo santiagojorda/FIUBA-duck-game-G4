@@ -11,7 +11,7 @@
 
 class Drawer {
 private:
-    Queue<uint8_t>& commands;
+    Queue<ClientEvent_t>& commands;
     Queue<std::vector<PlayerPosition_t>>& positions;
     KeyboardController keyboard_controller;
 
@@ -24,7 +24,7 @@ public:
     /*
      * Constructor.
      */
-    Drawer(Queue<uint8_t>& commands, Queue<std::vector<PlayerPosition_t>>& positions);
+    Drawer(Queue<ClientEvent_t>& commands, Queue<std::vector<PlayerPosition_t>>& positions);
 
     /*
      *

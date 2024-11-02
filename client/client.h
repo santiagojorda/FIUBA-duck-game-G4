@@ -20,7 +20,7 @@ private:
     const std::string servicename;
     Socket skt;
     ClientProtocol protocol;
-    Queue<uint8_t> commands;
+    Queue<ClientEvent_t> commands;
     Queue<std::vector<PlayerPosition_t>> positions;
     ClientReceiver receiver;
     ClientSender sender;

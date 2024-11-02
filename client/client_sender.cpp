@@ -1,6 +1,6 @@
 #include "client_sender.h"
 
-ClientSender::ClientSender(ClientProtocol& protocol, Queue<uint8_t>& commands):
+ClientSender::ClientSender(ClientProtocol& protocol, Queue<ClientEvent_t>& commands):
         protocol(protocol), commands(commands) {}
 
 
@@ -8,10 +8,8 @@ void ClientSender::run() {
     try {
         while (this->is_alive()) {
             // if (this->protocol.is_closed()) {}
-            uint8_t message_to_send = this->commands.pop();
-            int id = 0;
-            this->protocol.send_action(id, message_to_send);
-            message_to_send = id++;
+            ClientEvent_t message_to_send = this->commands.pop();
+            this->protocol.send_action(message_to_send.id_player, message_to_send.action);
         }
     } catch (const ClosedQueue& e) {
         this->_is_alive = false;

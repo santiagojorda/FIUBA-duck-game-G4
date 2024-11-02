@@ -4,20 +4,20 @@
 #include "../common/queue.h"
 #include "../common/thread.h"
 
+#include "client_event.h"
 #include "protocol_client.h"
-
 
 class ClientSender: public Thread {
 private:
     ClientProtocol& protocol;
     // El client es el dueño de la queue
-    Queue<uint8_t>& commands;
+    Queue<ClientEvent_t>& commands;
 
 public:
     /*
      * Constructor.
      */
-    ClientSender(ClientProtocol& protocol, Queue<uint8_t>& commands);
+    ClientSender(ClientProtocol& protocol, Queue<ClientEvent_t>& commands);
 
     virtual void run() override;
 
