@@ -8,6 +8,9 @@
 #include "event_player.h"
 #include "list_players_id.h"
 
+#include "queue_game_state.h"
+#include "queue_event_player.h"
+
 class MonitorClients{
 private:
 
@@ -18,8 +21,16 @@ private:
     
 public:
     MonitorClients();
-    void add_item(Socket&& _skt, Queue<GameState_t>& _queue_gamestate, Queue<EventPlayer*>& _queue_event,
-           ListPlayersID& _players_id);
+    
+    // void add_item(Socket&& _skt, QueueGameState& _queue_gamestate, QueueEventPlayer& _queue_event,
+    //        ListPlayersID& _client_players_id);
+
+    template <typename... Args>
+    void add_item(Args&&... args){
+        std::lock_guard<std::mutex> lock(mtx);
+        list.emplace_back(std::forward<Args>(args)...);    
+    }
+
     void delete_item(Client& client);
     void shutdown();
     void broadcast(GameState_t gamestate);

@@ -1,15 +1,12 @@
 #include "lobby.h"
 
-#include "acceptor_clients.h"
-
 #include <iostream>
-
-#define MAX_EVENTS_QUEUE 100
+#include "acceptor_clients.h"
 
 Lobby::Lobby():
         monitor_clients(),
         players_id(),
-        queue_event(MAX_EVENTS_QUEUE),
+        queue_event(),
         queue_gamestate() {}
 
 void Lobby::accept_clients(){
