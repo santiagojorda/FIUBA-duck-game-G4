@@ -4,14 +4,11 @@
 #include <list>
 
 #include "client.h"
-#include "monitor_clients.h"
 #include "protocol_server.h"
-
-#define SERVNAME "8080"
 
 AcceptorClients::AcceptorClients(MonitorClients& _monitor, QueueGameState& _queue_gamestate,
                                  QueueEventPlayer& _queue_event, ListPlayersID& _players_id):
-        Acceptor(SERVNAME),
+        skt(SERVNAME),
         monitor(_monitor),
         queue_gamestate(_queue_gamestate),
         queue_event(_queue_event),
@@ -56,4 +53,4 @@ void AcceptorClients::run() {
 
 void AcceptorClients::stop() { Thread::stop(); }
 
-AcceptorClients::~AcceptorClients() { Acceptor::~Acceptor(); }
+AcceptorClients::~AcceptorClients() { Thread::~Thread(); }
