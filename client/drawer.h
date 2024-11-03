@@ -7,6 +7,7 @@
 #include "../common/coordinate.h"
 #include "../common/queue.h"
 
+#include "drawer_duck.h"
 #include "keyboard_controller.h"
 
 class Drawer {

@@ -19,6 +19,7 @@
 #define CANT_ANIMATION_RUN 6  // para la fase de animacion
 
 // FLOOR
+
 #define SIZE_FLOOR_SPRITE 16
 
 // VELOCIDAD: si lo aumento, aumenta la velocidad
@@ -32,7 +33,7 @@
 #define ALA_INITIAL_X 1
 #define ALA_INITIAL_Y 518
 
-#define FACTOR_ZOOM 3
+#define FACTOR_ZOOM 1
 
 using namespace SDL2pp;
 
@@ -61,8 +62,9 @@ void Drawer::run() try {
     main_texture.SetBlendMode(SDL_BLENDMODE_BLEND);
 
 
+    DrawerDuck drawer_duck(renderer);
     // Load sprites image as a new texture
-    Texture sprites(renderer, DATA_PATH "/DuckGame-YellowDuck.png");
+    //Texture sprites(renderer, DATA_PATH "/DuckGame-YellowDuck.png");
 
     // Load background image as a new texture
     Texture background(renderer, DATA_PATH "/background.png");
@@ -80,14 +82,10 @@ void Drawer::run() try {
     // podemos calcular el tiempo transcurrido desde la última actualización de animación, lo que te
     // permite cambiar de fase de animación solo después de un cierto intervalo, sin depender de
     // un bucle
-    auto last_animation_time = std::chrono::high_resolution_clock::now();  // tiempo inicial
-    const std::chrono::milliseconds animation_interval(100);  // 100ms entre cuadros de animación
 
     // Game state
     bool is_running = false;
     bool is_moving_left = false;
-    unsigned int run_phase = 0;  // fase de animación
-
     std::vector<PlayerPosition_t> position;
 
     // SDL_Event event_init;
@@ -138,40 +136,11 @@ void Drawer::run() try {
             // ---------------------------- Animación del Pato ----------------------------
 
 
-            auto now = std::chrono::high_resolution_clock::now();
-            /**
-             * chequeamos que el pato está corriendo y el tiempo que pasó entre la última animación
-             *  y el tiempo actual. si superó el intervalo, se actualiza la animación y
-             * el tiempo de la última animación para aplicar el mismo ciclos en los siguientes
-             * sprites.
-             */
-            if (is_running && now - last_animation_time >= animation_interval) {
-                /**
-                 * El valor de run_phase representa el índice de la
-                 * fase actual de animación. Cada vez que pasa el intervalo de tiempo, run_phase se
-                 * incrementa y se ajusta usando el operador módulo (% CANT_ANIMATION_RUN) para
-                 * ciclar entre los frames de animación disponibles.
-                 *
-                 */
-                run_phase = (run_phase + 1) % CANT_ANIMATION_RUN;
-                last_animation_time = now;  // actualizar el tiempo de última animación
-            } else if (!is_running) {
-                run_phase = 0;  // fijar en el primer cuadro si no se mueve
-            }
-
-            int src_x = DUCK_INITIAL_X + SIZE_DUCK_SPRITE * run_phase;  // Sprite actual
-            int src_y = DUCK_INITIAL_Y;
-
             // para varios patos
             for (const auto& pos: position) {
-                renderer.Copy(sprites,
-                              Rect(src_x, src_y, SIZE_DUCK_SPRITE,
-                                   SIZE_DUCK_SPRITE),  // position en Sprite
-                              Rect(pos.coordinate.get_x(), pos.coordinate.get_y(), TILE_SIZE,
-                                   TILE_SIZE),  // position en pantalla
-                              0.0,              // no rotation
-                              SDL2pp::NullOpt,  // no center for rotation
-                              is_moving_left ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
+                drawer_duck.set_position(pos.coordinate.get_x(), pos.coordinate.get_y());
+                drawer_duck.update_animation(is_running);
+                drawer_duck.draw(renderer, is_moving_left);
             }
 
             // Cambiar el render target de vuelta a la pantalla
