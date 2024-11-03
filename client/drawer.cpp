@@ -32,6 +32,8 @@
 #define ALA_INITIAL_X 1
 #define ALA_INITIAL_Y 518
 
+#define FACTOR_ZOOM 3
+
 using namespace SDL2pp;
 
 Drawer::Drawer(Queue<ClientEvent_t>& commands, Queue<std::vector<PlayerPosition_t>>& positions):
@@ -52,7 +54,12 @@ void Drawer::run() try {
                   WINDOW_HEIGHT, SDL_WINDOW_RESIZABLE);
 
     Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
+
     // Crear la textura principal como un render target
+    Texture main_texture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WINDOW_WIDTH,
+                         WINDOW_HEIGHT);
+    main_texture.SetBlendMode(SDL_BLENDMODE_BLEND);
+
 
     // Load sprites image as a new texture
     Texture sprites(renderer, DATA_PATH "/DuckGame-YellowDuck.png");
@@ -93,10 +100,12 @@ void Drawer::run() try {
 
         while (positions.try_pop(position)) {
 
+            // Cambiamos el render target a main_texture
+            SDL_SetRenderTarget(renderer.Get(), main_texture.Get());
 
             renderer.Clear();
 
-            
+
             // ---------------------------- Draw BACKGROUND ----------------------------
             renderer.Copy(background,
                           Rect(0, 0, renderer.GetOutputWidth(), renderer.GetOutputHeight()));
@@ -125,11 +134,6 @@ void Drawer::run() try {
             renderer.Copy(pistol_magnum, Rect(magnum_x, magnum_y, 32, 32),
                           Rect(center_x, center_y - 41, TILE_SIZE, TILE_SIZE));
 
-
-            // ---------------------------- Draw Player ----------------------------
-            // Primer Rect (x, y, w, h): (x, y) toman una coordenada de la imagen (w, h) le
-            // indicamos el alto y ancho Segundo Rect (x, y, w, h): le indicamos en que parte de la
-            // pantalla aparece, y el tamaño
 
             // ---------------------------- Animación del Pato ----------------------------
 
@@ -170,20 +174,29 @@ void Drawer::run() try {
                               is_moving_left ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
             }
 
-            /*
-            // ---------------------------- Draw PISTOLA ENCIMA DEL PATO----------------------------
+            // Cambiar el render target de vuelta a la pantalla
+            SDL_SetRenderTarget(renderer.Get(), nullptr);
 
-            renderer.Copy(pistol_magnum, Rect(magnum_x, magnum_y, 32, 32),
-                          Rect((int)position, center_y - (TILE_SIZE - 2), TILE_SIZE, TILE_SIZE),
-            0.0, SDL2pp::NullOpt, flip);
+            // Calcular el tamaño de destino para zoom
+            int dest_width = WINDOW_WIDTH * FACTOR_ZOOM;  // Ajusta el factor de zoom como prefieras
+            int dest_height = WINDOW_HEIGHT * FACTOR_ZOOM;
 
-            // ------------------ Draw ALA DEL PATO ENCIMA DEL PATO ------------------
+            int dest_x = 0, dest_y = 0;
+            if (FACTOR_ZOOM != 1.0) {
+                // calculamos dest_x y dest_y basados en la posición del pato
+                // Si el factor de zoom no es 1, centramos el zoom en la posición del pato
+                // si no hago esto:el zoom podría aparecer desplazado o desalineado respecto al pato
+                // tomamos la posición del pato para centrar el zoom en este
+                int duck_x = position[0].coordinate.get_x();
+                int duck_y = position[0].coordinate.get_y();
 
-            renderer.Copy(ala_duck, Rect(ALA_INITIAL_X, ALA_INITIAL_Y + (16 * 5), 16, 16),
-                          Rect((int)position + 7, center_y - (TILE_SIZE) + 15, 20, 20), 0.0,
-                          SDL2pp::NullOpt, flip);
-            */
+                dest_x = WINDOW_WIDTH / 2 - (duck_x * FACTOR_ZOOM);
+                dest_y = WINDOW_HEIGHT / 2 - (duck_y * FACTOR_ZOOM);
+            }
 
+            renderer.Clear();
+            renderer.Copy(main_texture, SDL2pp::NullOpt,
+                          Rect(dest_x, dest_y, dest_width, dest_height));
             renderer.Present();
         }
 
