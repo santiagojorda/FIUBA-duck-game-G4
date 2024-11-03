@@ -15,6 +15,7 @@ DrawerDuck::DrawerDuck(SDL2pp::Renderer& renderer):
         x(0),
         y(0),
         run_phase(0),
+        is_moving_left(false),
         last_animation_time(std::chrono::high_resolution_clock::now()),
         animation_interval(100) {}
 
@@ -28,12 +29,12 @@ void DrawerDuck::update_animation(bool isRunning) {
     }
 }
 
-void DrawerDuck::draw(SDL2pp::Renderer& renderer, bool is_moving_left) {
+void DrawerDuck::draw(SDL2pp::Renderer& renderer) {
     int src_x = DUCK_INITIAL_X + SIZE_DUCK_SPRITE * run_phase;
     int src_y = DUCK_INITIAL_Y;
     renderer.Copy(texture, SDL2pp::Rect(src_x, src_y, SIZE_DUCK_SPRITE, SIZE_DUCK_SPRITE),
                   SDL2pp::Rect(x, y, TILE_SIZE, TILE_SIZE), 0.0, SDL2pp::NullOpt,
-                  is_moving_left ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
+                  this->is_moving_left ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
 }
 
 void DrawerDuck::set_position(int new_X, int new_Y) {
@@ -41,6 +42,7 @@ void DrawerDuck::set_position(int new_X, int new_Y) {
     y = new_Y;
 }
 
+void DrawerDuck::set_is_moving_left(bool is_moving_left) { this->is_moving_left = is_moving_left; }
 /**
  *     // Variables de animación
     // podemos calcular el tiempo transcurrido desde la última actualización de animación, lo que te

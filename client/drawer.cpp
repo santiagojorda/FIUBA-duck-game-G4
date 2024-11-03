@@ -61,10 +61,8 @@ void Drawer::run() try {
                          WINDOW_HEIGHT);
     main_texture.SetBlendMode(SDL_BLENDMODE_BLEND);
 
-
+    // Por ahora tenemos 1 pato
     DrawerDuck drawer_duck(renderer);
-    // Load sprites image as a new texture
-    //Texture sprites(renderer, DATA_PATH "/DuckGame-YellowDuck.png");
 
     // Load background image as a new texture
     Texture background(renderer, DATA_PATH "/background.png");
@@ -77,11 +75,6 @@ void Drawer::run() try {
 
     // Load ala pato image as a new texture
     Texture ala_duck(renderer, DATA_PATH "/DuckGame-YellowDuck.png");
-
-    // Variables de animación
-    // podemos calcular el tiempo transcurrido desde la última actualización de animación, lo que te
-    // permite cambiar de fase de animación solo después de un cierto intervalo, sin depender de
-    // un bucle
 
     // Game state
     bool is_running = false;
@@ -102,7 +95,6 @@ void Drawer::run() try {
             SDL_SetRenderTarget(renderer.Get(), main_texture.Get());
 
             renderer.Clear();
-
 
             // ---------------------------- Draw BACKGROUND ----------------------------
             renderer.Copy(background,
@@ -133,14 +125,12 @@ void Drawer::run() try {
                           Rect(center_x, center_y - 41, TILE_SIZE, TILE_SIZE));
 
 
-            // ---------------------------- Animación del Pato ----------------------------
-
-
-            // para varios patos
+            // ---------------------------- Draw Pato ----------------------------
             for (const auto& pos: position) {
                 drawer_duck.set_position(pos.coordinate.get_x(), pos.coordinate.get_y());
+                drawer_duck.set_is_moving_left(is_moving_left);
                 drawer_duck.update_animation(is_running);
-                drawer_duck.draw(renderer, is_moving_left);
+                drawer_duck.draw(renderer);
             }
 
             // Cambiar el render target de vuelta a la pantalla
