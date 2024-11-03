@@ -52,6 +52,7 @@ void Drawer::run() try {
                   WINDOW_HEIGHT, SDL_WINDOW_RESIZABLE);
 
     Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
+    // Crear la textura principal como un render target
 
     // Load sprites image as a new texture
     Texture sprites(renderer, DATA_PATH "/DuckGame-YellowDuck.png");
@@ -92,16 +93,10 @@ void Drawer::run() try {
 
         while (positions.try_pop(position)) {
 
-            // If player passes past the right or left side of the window, wrap
-            /*if (position > renderer.GetOutputWidth()) {
-                position = -TILE_SIZE;  // wrap from the right
-            } else if (position < -TILE_SIZE) {
-                position = renderer.GetOutputWidth();  // wrap from the left
-            }*/
 
-            // Clear screen
             renderer.Clear();
 
+            
             // ---------------------------- Draw BACKGROUND ----------------------------
             renderer.Copy(background,
                           Rect(0, 0, renderer.GetOutputWidth(), renderer.GetOutputHeight()));
@@ -163,19 +158,18 @@ void Drawer::run() try {
             int src_x = DUCK_INITIAL_X + SIZE_DUCK_SPRITE * run_phase;  // Sprite actual
             int src_y = DUCK_INITIAL_Y;
 
-            if (position.size() > 0) {
+            // para varios patos
+            for (const auto& pos: position) {
                 renderer.Copy(sprites,
                               Rect(src_x, src_y, SIZE_DUCK_SPRITE,
                                    SIZE_DUCK_SPRITE),  // position en Sprite
-                              Rect(position[0].coordinate.get_x(), position[0].coordinate.get_y(),
-                                   TILE_SIZE,
+                              Rect(pos.coordinate.get_x(), pos.coordinate.get_y(), TILE_SIZE,
                                    TILE_SIZE),  // position en pantalla
                               0.0,              // no rotation
                               SDL2pp::NullOpt,  // no center for rotation
-                              is_moving_left ? SDL_FLIP_HORIZONTAL :
-                                               SDL_FLIP_NONE  // flip horizontally if moving left
-                );
+                              is_moving_left ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
             }
+
             /*
             // ---------------------------- Draw PISTOLA ENCIMA DEL PATO----------------------------
 

@@ -1,0 +1,7 @@
+ // Esto sirve por si pasa la pantalla entonces muere
+            // If player passes past the right or left side of the window, wrap
+            /*if (position > renderer.GetOutputWidth()) {
+                position = -TILE_SIZE;  // wrap from the right
+            } else if (position < -TILE_SIZE) {
+                position = renderer.GetOutputWidth();  // wrap from the left
+            }*/
