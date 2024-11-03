@@ -14,13 +14,13 @@ void Player::translate() { /*que hacmeos aca?*/ }
 
 void Player::translate_x(int pasos) {
     Rectangle new_pos(this->space.get_coordinates() + Coordinate(pasos * SPEED, 0, 0, 0));
-    std::cout << new_pos.get_coordinates() << std::endl;
+    // std::cout << new_pos.get_coordinates() << std::endl;
     this->space = new_pos;
 }
 
 void Player::translate_y(int pasos) {
     Rectangle new_pos(this->space.get_coordinates() + Coordinate(0, pasos * SPEED, 0, 0));
-    std::cout << new_pos.get_coordinates() << std::endl;
+    // std::cout << new_pos.get_coordinates() << std::endl;
     this->space = new_pos;
 }
 

@@ -6,6 +6,8 @@
 #include "client.h"
 #include "protocol_server.h"
 
+#include "vector_player_id.h"
+
 AcceptorClients::AcceptorClients(MonitorClients& _monitor, QueueGameState& _queue_gamestate,
                                  QueueEventPlayer& _queue_event, ListPlayersID& _players_id):
         skt(SERVNAME),
@@ -27,7 +29,7 @@ void AcceptorClients::listen_new_client() {
         return;
     }
 
-    ListPlayersID client_players_id;
+    VectorPlayerID client_players_id;
 
     for (uint8_t i = 0; i < count_players; i++) {
         uint8_t id = players_id.size();

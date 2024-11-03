@@ -8,7 +8,7 @@ void GameLogic::apply_gravity(){
 
     for(Player& player: players){
         Coordinate coordinates = player.get_coordinate();
-        if (coordinates.get_y() < 200){
+        if (coordinates.get_y() < 200){ // piso
             physics.falling(player, 1);
         }
     }

@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "event_player.h"
-#include "list_players_id.h"
+#include "vector_player_id.h"
 #include "queue_event_player.h"
 #include "queue_game_state.h"
 #include "receiver.h"
@@ -19,7 +19,7 @@ private:
 
 public:
     Client(Socket&& _skt, QueueGameState& _queue_gamestate, QueueEventPlayer& _queue_event,
-           ListPlayersID& _players_id);
+           VectorPlayerID& _players_id);
     void shutdown();
     void send_gamestate(const GameState_t& game_state);
     bool is_alive();

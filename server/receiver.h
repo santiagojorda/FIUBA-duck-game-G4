@@ -9,7 +9,7 @@
 #include "event_factory.h"
 #include "event_player.h"
 #include "game_state.h"
-#include "list_players_id.h"
+#include "vector_player_id.h"
 #include "protocol_server.h"
 
 
@@ -17,7 +17,7 @@ class Receiver: public Thread {
 private:
     Queue<EventPlayer*>& queue;
     ProtocolServer& protocol;
-    ListPlayersID players_id;
+    VectorPlayerID players_id; // interna 0-1
     // cppcheck-suppress unusedStructMember
     std::vector<EventFactory> factories;
 
@@ -27,7 +27,7 @@ private:
 
 public:
     explicit Receiver(Queue<EventPlayer*>& _queue, ProtocolServer& _protocol,
-                      ListPlayersID& _players_id);
+                      VectorPlayerID& _players_id);
 
     void run() override;
 };
