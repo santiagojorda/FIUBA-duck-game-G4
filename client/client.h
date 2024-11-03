@@ -14,10 +14,6 @@
 
 class Client {
 private:
-    // cppcheck-suppress unusedStructMember
-    const std::string hostname;
-    // cppcheck-suppress unusedStructMember
-    const std::string servicename;
     Socket skt;
     ClientProtocol protocol;
     Queue<ClientEvent_t> commands;
