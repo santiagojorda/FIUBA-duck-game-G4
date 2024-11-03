@@ -11,19 +11,20 @@
 
 class Drawer {
 private:
-    Queue<uint8_t>& commands;
-    Queue<std::vector<Coordinate>>& positions;
+    Queue<ClientEvent_t>& commands;
+    Queue<std::vector<PlayerPosition_t>>& positions;
     KeyboardController keyboard_controller;
 
     void controlar_movimiento_pato(bool& is_running, bool& is_moving_left,
-                                   std::vector<Coordinate>& position, unsigned int& frame_delta,
-                                   int& run_phase, unsigned int& frame_tricks);
+                                   std::vector<PlayerPosition_t>& position,
+                                   unsigned int& frame_delta, int& run_phase,
+                                   unsigned int& frame_tricks);
 
 public:
     /*
      * Constructor.
      */
-    Drawer(Queue<uint8_t>& commands, Queue<std::vector<Coordinate>>& positions);
+    Drawer(Queue<ClientEvent_t>& commands, Queue<std::vector<PlayerPosition_t>>& positions);
 
     /*
      *

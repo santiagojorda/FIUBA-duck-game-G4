@@ -9,18 +9,15 @@
 #include "client_receiver.h"
 #include "client_sender.h"
 #include "drawer.h"
+#include "player_position.h"
 #include "protocol_client.h"
 
 class Client {
 private:
-    // cppcheck-suppress unusedStructMember
-    const std::string hostname;
-    // cppcheck-suppress unusedStructMember
-    const std::string servicename;
     Socket skt;
     ClientProtocol protocol;
-    Queue<uint8_t> commands;
-    Queue<std::vector<Coordinate>> positions;
+    Queue<ClientEvent_t> commands;
+    Queue<std::vector<PlayerPosition_t>> positions;
     ClientReceiver receiver;
     ClientSender sender;
     Drawer drawer;

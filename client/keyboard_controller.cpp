@@ -2,7 +2,9 @@
 
 #include "../common/action_commands.h"
 
-KeyboardController::KeyboardController(Queue<uint8_t>& _commands): commands(_commands) {}
+KeyboardController::KeyboardController(Queue<ClientEvent_t>& _commands): commands(_commands) {}
+
+enum PlayerKeyboard { PLAYER_1, PLAYER_2 };
 
 /*
     Protocol enviar
@@ -19,6 +21,8 @@ void KeyboardController::procesar_comando(SDL_Event& event, bool& is_running,
             throw std::runtime_error("Cierre del juego");
         }
 
+        ClientEvent_t client_event;
+
         // Este evento ocurre cuando una tecla es presionada
         if (event.type == SDL_KEYDOWN) {
             switch (event.key.keysym.sym) {
@@ -30,15 +34,18 @@ void KeyboardController::procesar_comando(SDL_Event& event, bool& is_running,
                 case SDLK_RIGHT:  // flecha hacia la derecha
                     is_running = true;
                     is_moving_left = false;
-                    this->commands.push(MOVE_RIGHT);
+                    client_event = {PLAYER_1, MOVE_RIGHT};
+                    this->commands.push(client_event);
                     break;
                 case SDLK_LEFT:  // flecha hacia la izquierda
                     is_running = true;
                     is_moving_left = true;
-                    this->commands.push(MOVE_LEFT);
+                    client_event = {PLAYER_1, MOVE_LEFT};
+                    this->commands.push(client_event);
                     break;
                 case SDLK_UP:  // flecha hacia arriba para saltar
-                    this->commands.push(JUMP);
+                    client_event = {PLAYER_1, JUMP};
+                    this->commands.push(client_event);
                     std::cout << "Saltar" << std::endl;
                     break;
                 case SDLK_SPACE:  // disparar espacio
@@ -51,7 +58,8 @@ void KeyboardController::procesar_comando(SDL_Event& event, bool& is_running,
                     std::cout << "Apuntando hacia arriba" << std::endl;
                     break;
                 case SDLK_DOWN:  // flecha hacia abajo para agacharse
-                    this->commands.push(CROUCH);
+                    client_event = {PLAYER_1, CROUCH};
+                    this->commands.push(client_event);
                     std::cout << "Agacharse" << std::endl;
                     break;
                 case SDLK_m:  // tecla m : Iniciar juego

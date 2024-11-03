@@ -1,5 +1,7 @@
 #include "drawer.h"
 
+#include <chrono>
+
 // Game
 #define GAME_TITLE "Duck Game"
 
@@ -32,11 +34,8 @@
 
 using namespace SDL2pp;
 
-Drawer::Drawer(Queue<uint8_t>& commands, Queue<std::vector<Coordinate>>& positions):
-        commands(commands), positions(positions), keyboard_controller(commands) {
-
-    std::cout << "drawer constructor\n";
-}
+Drawer::Drawer(Queue<ClientEvent_t>& commands, Queue<std::vector<PlayerPosition_t>>& positions):
+        commands(commands), positions(positions), keyboard_controller(commands) {}
 
 /**
  * Recibo
@@ -69,27 +68,29 @@ void Drawer::run() try {
     // Load ala pato image as a new texture
     Texture ala_duck(renderer, DATA_PATH "/DuckGame-YellowDuck.png");
 
+    // Variables de animación
+    // podemos calcular el tiempo transcurrido desde la última actualización de animación, lo que te
+    // permite cambiar de fase de animación solo después de un cierto intervalo, sin depender de
+    // un bucle
+    auto last_animation_time = std::chrono::high_resolution_clock::now();  // tiempo inicial
+    const std::chrono::milliseconds animation_interval(100);  // 100ms entre cuadros de animación
+
     // Game state
     bool is_running = false;
     bool is_moving_left = false;
+    unsigned int run_phase = 0;  // fase de animación
 
-    // int run_phase = -1;  // run animation phase
-    // float position = 0.0;  // player position
+    std::vector<PlayerPosition_t> position;
 
-    // unsigned int prev_ticks = SDL_GetTicks();  // an unsigned 32-bit value representing the
-    // number of milliseconds since the SDL library initialized.
+    // SDL_Event event_init;
+    //  Se envia la tecla que presionó el usuario
 
-    std::vector<Coordinate> position;
+    // keyboard_controller.procesar_comando(event_init, is_running, is_moving_left);
 
     while (true) {  // receiver del cliente
+        // position = positions.pop();
 
         while (positions.try_pop(position)) {
-            std::cout.clear();
-            std::cout << "this: " << position[0] << std::endl;
-            // TODO: agregarlo en un bucle luego
-            // intento desencolar las coordenadas que me devuelve el servidor
-            // positions.try_pop(position);  // Recibo posición inicial
-
 
             // If player passes past the right or left side of the window, wrap
             /*if (position > renderer.GetOutputWidth()) {
@@ -131,32 +132,48 @@ void Drawer::run() try {
 
 
             // ---------------------------- Draw Player ----------------------------
-            // Player is running and run animation phase
-            // EN BASE AL SPRITE
-            int src_x = DUCK_INITIAL_X, src_y = DUCK_INITIAL_Y;  // by default, standing sprite
-                                                                 /*if (is_running) {
-                                                                    src_x = DUCK_INITIAL_X + SIZE_DUCK_SPRITE * run_phase;
-                                                                    // src_y = DUCK_INITIAL_Y;
-                                                                }*/
-
-            // Flip the sprite if moving left
-            SDL_RendererFlip flip = is_moving_left ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
-
             // Primer Rect (x, y, w, h): (x, y) toman una coordenada de la imagen (w, h) le
             // indicamos el alto y ancho Segundo Rect (x, y, w, h): le indicamos en que parte de la
             // pantalla aparece, y el tamaño
 
+            // ---------------------------- Animación del Pato ----------------------------
+
+
+            auto now = std::chrono::high_resolution_clock::now();
+            /**
+             * chequeamos que el pato está corriendo y el tiempo que pasó entre la última animación
+             *  y el tiempo actual. si superó el intervalo, se actualiza la animación y
+             * el tiempo de la última animación para aplicar el mismo ciclos en los siguientes
+             * sprites.
+             */
+            if (is_running && now - last_animation_time >= animation_interval) {
+                /**
+                 * El valor de run_phase representa el índice de la
+                 * fase actual de animación. Cada vez que pasa el intervalo de tiempo, run_phase se
+                 * incrementa y se ajusta usando el operador módulo (% CANT_ANIMATION_RUN) para
+                 * ciclar entre los frames de animación disponibles.
+                 *
+                 */
+                run_phase = (run_phase + 1) % CANT_ANIMATION_RUN;
+                last_animation_time = now;  // actualizar el tiempo de última animación
+            } else if (!is_running) {
+                run_phase = 0;  // fijar en el primer cuadro si no se mueve
+            }
+
+            int src_x = DUCK_INITIAL_X + SIZE_DUCK_SPRITE * run_phase;  // Sprite actual
+            int src_y = DUCK_INITIAL_Y;
 
             if (position.size() > 0) {
-
                 renderer.Copy(sprites,
                               Rect(src_x, src_y, SIZE_DUCK_SPRITE,
                                    SIZE_DUCK_SPRITE),  // position en Sprite
-                              Rect(position[0].get_x(), position[0].get_y(), TILE_SIZE,
+                              Rect(position[0].coordinate.get_x(), position[0].coordinate.get_y(),
+                                   TILE_SIZE,
                                    TILE_SIZE),  // position en pantalla
                               0.0,              // no rotation
                               SDL2pp::NullOpt,  // no center for rotation
-                              flip              // flip horizontally if moving left
+                              is_moving_left ? SDL_FLIP_HORIZONTAL :
+                                               SDL_FLIP_NONE  // flip horizontally if moving left
                 );
             }
             /*
@@ -184,25 +201,3 @@ void Drawer::run() try {
 } catch (std::exception& e) {
     std::cerr << e.what() << std::endl;
 }
-
-/**
-void Drawer::controlar_movimiento_pato(bool& is_running, bool& is_moving_left,
-                                       std::vector<Coordinate>& position, unsigned int& frame_delta,
-                                       int& run_phase, unsigned int& frame_ticks) {
-    // TODO: solo 1 jugador, luego fixearlo a 2 jugadores
-    if (is_running) {
-        for (Coordinate& coord: position) {
-            if (is_moving_left) {
-                position -= frame_delta * VELOCIDAD_SPRITES;  // move left
-            } else {
-                position += frame_delta * VELOCIDAD_SPRITES;  // move right
-            }
-        }
-
-
-        // animation phase. frame_ticks es la posicion actual dividido la cantidad de imagenes
-        run_phase = (frame_ticks / 100) % CANT_ANIMATION_RUN;
-    } else {
-        run_phase = 0;
-    }
-}*/

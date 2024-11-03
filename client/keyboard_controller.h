@@ -7,17 +7,17 @@
 #include "../common/queue.h"
 #include "../common/socket.h"
 
+#include "client_event.h"
 #include "protocol_client.h"
-
 class KeyboardController {
 private:
-    Queue<uint8_t>& commands;
+    Queue<ClientEvent_t>& commands;
 
 public:
     /*
      * Constructor.
      */
-    KeyboardController(Queue<uint8_t>& _commands);
+    KeyboardController(Queue<ClientEvent_t>& _commands);
 
 
     // el is_running y moving_left luego se van
