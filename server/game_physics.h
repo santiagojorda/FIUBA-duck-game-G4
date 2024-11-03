@@ -47,9 +47,5 @@ public:
     ~GamePhysics();
 };
 
-GamePhysics::GamePhysics() {}
-
-GamePhysics::~GamePhysics() {}
-
 
 #endif  // GAME_PHYSICS_H

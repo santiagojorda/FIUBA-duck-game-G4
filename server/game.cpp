@@ -53,6 +53,7 @@ void Game::run() {
             execute_new_events();
             // *(2) o podria procesar todos los mensajes en la cola y luego enviar un gamestate como
             // broadcast_gamestate
+            game_logic.apply_gravity();
             broadcast_gamestate();
 
             chrono_now = get_actual_milliseconds();
