@@ -9,6 +9,9 @@
 #define WINDOW_HEIGHT 500
 #define WINDOW_WIDTH 800
 
+// FLOOR
+#define SIZE_FLOOR_SPRITE 16
+
 // TAMAÑO TILESET EN LA PANTALLA
 #define TILE_SIZE 50  // 50x50 // Size of the tile in pixels after scaling
 
@@ -44,8 +47,8 @@ void Drawer::run() try {
                          WINDOW_HEIGHT);
     main_texture.SetBlendMode(SDL_BLENDMODE_BLEND);
 
-    // Por ahora tenemos 1 pato
-    DrawerDuck drawer_duck(renderer);
+    // vector para manejar múltiples patos
+    std::vector<std::shared_ptr<DrawerDuck>> drawer_ducks;
 
     // Load background image as a new texture
     Texture background(renderer, DATA_PATH "/background.png");
@@ -73,10 +76,8 @@ void Drawer::run() try {
         // position = positions.pop();
 
         while (positions.try_pop(position)) {
-
             // Cambiamos el render target a main_texture
             SDL_SetRenderTarget(renderer.Get(), main_texture.Get());
-
             renderer.Clear();
 
             // ---------------------------- Draw BACKGROUND ----------------------------
@@ -84,13 +85,11 @@ void Drawer::run() try {
                           Rect(0, 0, renderer.GetOutputWidth(), renderer.GetOutputHeight()));
 
             // ---------------------------- Draw PISO TILESET ----------------------------
-
             int center_y = renderer.GetOutputHeight() / 2;  // Y coordinate of window center
             int center_x = renderer.GetOutputWidth() / 2;
 
             // Cantidad de tiles que se necesitan de forma horizontal
             int num_tiles_x = renderer.GetOutputWidth() / TILE_SIZE + 1;
-
             for (int i = 0; i < num_tiles_x; ++i) {
                 // Lo multiplico por 3 porque solo estoy tomando el 3 tileset en x, pero es de la
                 // fila 1
@@ -107,13 +106,23 @@ void Drawer::run() try {
             renderer.Copy(pistol_magnum, Rect(magnum_x, magnum_y, 32, 32),
                           Rect(center_x, center_y - 41, TILE_SIZE, TILE_SIZE));
 
+            // ---------------------------- Draw Patos ----------------------------
+            if (drawer_ducks.size() != position.size()) {
+                drawer_ducks.resize(position.size());
+                for (size_t i = 0; i < position.size(); ++i) {
+                    if (!drawer_ducks[i]) {
+                        drawer_ducks[i] = std::make_shared<DrawerDuck>(renderer);
+                    }
+                }
+            }
 
-            // ---------------------------- Draw Pato ----------------------------
-            for (const auto& pos: position) {
-                drawer_duck.set_position(pos.coordinate.get_x(), pos.coordinate.get_y());
-                drawer_duck.set_is_moving_left(is_moving_left);
-                drawer_duck.update_animation(is_running);
-                drawer_duck.draw(renderer);
+            for (size_t i = 0; i < position.size(); ++i) {
+                int duck_x = position[i].coordinate.get_x();
+                int duck_y = position[i].coordinate.get_y();
+                drawer_ducks[i]->set_position(duck_x, duck_y);
+                drawer_ducks[i]->set_is_moving_left(is_moving_left);
+                drawer_ducks[i]->update_animation(is_running);
+                drawer_ducks[i]->draw(renderer);
             }
 
             // Cambiar el render target de vuelta a la pantalla
