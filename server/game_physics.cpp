@@ -2,6 +2,8 @@
 
 const int G_FORCE = 10;
 
+GamePhysics::GamePhysics() {}
+
 bool collision_point(const int collision_point, const int collision_min, const int collision_max) {
     return (collision_min <= collision_point) && (collision_point <= collision_max);
 }
@@ -30,7 +32,9 @@ bool GamePhysics::collision(const Rectangle& a, const Rectangle& b) {
     return this->inside(a, b) || this->inside(b, a);
 }
 
-
 void GamePhysics::falling(Positionable& target, uint iter_frame) {
     target.translate_y(iter_frame * iter_frame * (G_FORCE / 2));
 }
+
+GamePhysics::~GamePhysics() {}
+

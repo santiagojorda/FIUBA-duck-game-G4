@@ -6,15 +6,17 @@
 #include "../common/socket.h"
 #include "../common/thread.h"
 
-#include "acceptor.h"
 #include "event_player.h"
 #include "list_players_id.h"
 #include "monitor_clients.h"
 #include "queue_event_player.h"
 #include "queue_game_state.h"
 
-class AcceptorClients: public Acceptor {
+#define SERVNAME "8080"
+
+class AcceptorClients: public Thread {
 private:
+    Socket skt;
     MonitorClients& monitor;
     QueueGameState& queue_gamestate;
     QueueEventPlayer& queue_event;

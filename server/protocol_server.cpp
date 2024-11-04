@@ -17,7 +17,7 @@ void ProtocolServer::send_game_state(const GameState_t& state) {
     for (const Player& player: state.players) {
         this->send_byte(player.get_id());
         this->send_cordinates(player.get_coordinate());
-        std::cout << "player coordinate: " << player.get_coordinate() << std::endl;
+        // std::cout << "player coordinate: " << player.get_coordinate() << std::endl;
     }
 }
 

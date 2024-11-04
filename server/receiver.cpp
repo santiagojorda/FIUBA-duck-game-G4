@@ -3,7 +3,7 @@
 #include "event_factory.h"
 
 Receiver::Receiver(Queue<EventPlayer*>& _queue, ProtocolServer& _protocol,
-                   ListPlayersID& _players_id):
+                   VectorPlayerID& _players_id):
         queue(_queue), protocol(_protocol), players_id(_players_id) {}
 
 void Receiver::init_factories() {
@@ -29,7 +29,10 @@ void Receiver::run() {
             uint8_t player_id = 0;
             uint8_t event_id = 0;
             this->protocol.receive_event(player_id, event_id);
-            this->push_event(player_id, event_id);
+
+            // buscar en la lista
+            // players_id.begin()
+            this->push_event(players_id[player_id], event_id);
         }
 
     } catch (const std::exception& e) {

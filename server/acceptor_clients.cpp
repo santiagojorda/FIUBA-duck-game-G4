@@ -4,14 +4,13 @@
 #include <list>
 
 #include "client.h"
-#include "monitor_clients.h"
 #include "protocol_server.h"
 
-#define SERVNAME "8080"
+#include "vector_player_id.h"
 
 AcceptorClients::AcceptorClients(MonitorClients& _monitor, QueueGameState& _queue_gamestate,
                                  QueueEventPlayer& _queue_event, ListPlayersID& _players_id):
-        Acceptor(SERVNAME),
+        skt(SERVNAME),
         monitor(_monitor),
         queue_gamestate(_queue_gamestate),
         queue_event(_queue_event),
@@ -30,7 +29,7 @@ void AcceptorClients::listen_new_client() {
         return;
     }
 
-    ListPlayersID client_players_id;
+    VectorPlayerID client_players_id;
 
     for (uint8_t i = 0; i < count_players; i++) {
         uint8_t id = players_id.size();
@@ -56,4 +55,4 @@ void AcceptorClients::run() {
 
 void AcceptorClients::stop() { Thread::stop(); }
 
-AcceptorClients::~AcceptorClients() { Acceptor::~Acceptor(); }
+AcceptorClients::~AcceptorClients() { Thread::~Thread(); }
