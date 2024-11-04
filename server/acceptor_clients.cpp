@@ -5,7 +5,6 @@
 
 #include "client.h"
 #include "protocol_server.h"
-
 #include "vector_player_id.h"
 
 AcceptorClients::AcceptorClients(MonitorClients& _monitor, QueueGameState& _queue_gamestate,

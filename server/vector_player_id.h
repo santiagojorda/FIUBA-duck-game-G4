@@ -1,9 +1,9 @@
 #ifndef VECTOR_PLAYERS_ID
 #define VECTOR_PLAYERS_ID
 
-#include <vector>
-#include <cstdint>
 #include <algorithm>
+#include <cstdint>
+#include <vector>
 
 class VectorPlayerID: public std::vector<uint8_t> {
 private:

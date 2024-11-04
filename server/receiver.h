@@ -9,15 +9,15 @@
 #include "event_factory.h"
 #include "event_player.h"
 #include "game_state.h"
-#include "vector_player_id.h"
 #include "protocol_server.h"
+#include "vector_player_id.h"
 
 
 class Receiver: public Thread {
 private:
     Queue<EventPlayer*>& queue;
     ProtocolServer& protocol;
-    VectorPlayerID players_id; // interna 0-1
+    VectorPlayerID players_id;  // interna 0-1
     // cppcheck-suppress unusedStructMember
     std::vector<EventFactory> factories;
 

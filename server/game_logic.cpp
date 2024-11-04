@@ -4,11 +4,11 @@
 
 GameLogic::GameLogic(ListPlayers& _players): players(_players), physics() {}
 
-void GameLogic::apply_gravity(){
+void GameLogic::apply_gravity() {
 
-    for(Player& player: players){
+    for (Player& player: players) {
         Coordinate coordinates = player.get_coordinate();
-        if (coordinates.get_y() < 200){ // piso
+        if (coordinates.get_y() < 200) {  // piso
             physics.falling(player, 1);
         }
     }

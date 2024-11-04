@@ -12,23 +12,6 @@
 // TAMAÑO TILESET EN LA PANTALLA
 #define TILE_SIZE 50  // 50x50 // Size of the tile in pixels after scaling
 
-// (X,Y) DEL PATO PARA ESTAR QUIETO Y CAMINAR DEL SPRITE
-#define DUCK_INITIAL_X 1
-#define DUCK_INITIAL_Y 11
-#define SIZE_DUCK_SPRITE 32
-#define CANT_ANIMATION_RUN 6  // para la fase de animacion
-
-// FLOOR
-
-#define SIZE_FLOOR_SPRITE 16
-
-// VELOCIDAD: si lo aumento, aumenta la velocidad
-#define VELOCIDAD_SPRITES 0.2
-
-// POSICION INICIAL JUGADOR : en realidad lo recibo del servidor :)
-#define POSITION_PLAYER_X
-#define POSITION_PLAYER_Y
-
 // ALA DEL PATO en SPRITE -> las alas empiezan desde Y= 518, voy a suponer que miden 16x16
 #define ALA_INITIAL_X 1
 #define ALA_INITIAL_Y 518

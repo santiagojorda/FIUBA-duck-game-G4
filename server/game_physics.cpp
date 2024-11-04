@@ -37,4 +37,3 @@ void GamePhysics::falling(Positionable& target, uint iter_frame) {
 }
 
 GamePhysics::~GamePhysics() {}
-
