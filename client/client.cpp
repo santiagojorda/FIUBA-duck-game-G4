@@ -40,14 +40,5 @@ void Client::run() {
     // Starteo los receiver y sender
     receiver.start();
     sender.start();
-    // try {
-    //     while (true) {
     drawer.run();
-    //    }
-    //} catch (const std::exception& e) {
-    // cierra  el juego , revisar luego
-    //    std::cerr << e.what() << '\n';
-    //}
-
-    //}
 }

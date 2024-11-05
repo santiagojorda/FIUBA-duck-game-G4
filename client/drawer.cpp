@@ -9,28 +9,17 @@
 #define WINDOW_HEIGHT 500
 #define WINDOW_WIDTH 800
 
-// TAMAÑO TILESET EN LA PANTALLA
-#define TILE_SIZE 50  // 50x50 // Size of the tile in pixels after scaling
-
-// (X,Y) DEL PATO PARA ESTAR QUIETO Y CAMINAR DEL SPRITE
-#define DUCK_INITIAL_X 1
-#define DUCK_INITIAL_Y 11
-#define SIZE_DUCK_SPRITE 32
-#define CANT_ANIMATION_RUN 6  // para la fase de animacion
-
 // FLOOR
 #define SIZE_FLOOR_SPRITE 16
 
-// VELOCIDAD: si lo aumento, aumenta la velocidad
-#define VELOCIDAD_SPRITES 0.2
-
-// POSICION INICIAL JUGADOR : en realidad lo recibo del servidor :)
-#define POSITION_PLAYER_X
-#define POSITION_PLAYER_Y
+// TAMAÑO TILESET EN LA PANTALLA
+#define TILE_SIZE 50  // 50x50 // Size of the tile in pixels after scaling
 
 // ALA DEL PATO en SPRITE -> las alas empiezan desde Y= 518, voy a suponer que miden 16x16
 #define ALA_INITIAL_X 1
 #define ALA_INITIAL_Y 518
+
+#define FACTOR_ZOOM 1
 
 using namespace SDL2pp;
 
@@ -53,8 +42,13 @@ void Drawer::run() try {
 
     Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-    // Load sprites image as a new texture
-    Texture sprites(renderer, DATA_PATH "/DuckGame-YellowDuck.png");
+    // Crear la textura principal como un render target
+    Texture main_texture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WINDOW_WIDTH,
+                         WINDOW_HEIGHT);
+    main_texture.SetBlendMode(SDL_BLENDMODE_BLEND);
+
+    // vector para manejar múltiples patos
+    std::vector<std::shared_ptr<DrawerDuck>> drawer_ducks;
 
     // Load background image as a new texture
     Texture background(renderer, DATA_PATH "/background.png");
@@ -68,18 +62,9 @@ void Drawer::run() try {
     // Load ala pato image as a new texture
     Texture ala_duck(renderer, DATA_PATH "/DuckGame-YellowDuck.png");
 
-    // Variables de animación
-    // podemos calcular el tiempo transcurrido desde la última actualización de animación, lo que te
-    // permite cambiar de fase de animación solo después de un cierto intervalo, sin depender de
-    // un bucle
-    auto last_animation_time = std::chrono::high_resolution_clock::now();  // tiempo inicial
-    const std::chrono::milliseconds animation_interval(100);  // 100ms entre cuadros de animación
-
     // Game state
     bool is_running = false;
     bool is_moving_left = false;
-    unsigned int run_phase = 0;  // fase de animación
-
     std::vector<PlayerPosition_t> position;
 
     // SDL_Event event_init;
@@ -91,15 +76,8 @@ void Drawer::run() try {
         // position = positions.pop();
 
         while (positions.try_pop(position)) {
-
-            // If player passes past the right or left side of the window, wrap
-            /*if (position > renderer.GetOutputWidth()) {
-                position = -TILE_SIZE;  // wrap from the right
-            } else if (position < -TILE_SIZE) {
-                position = renderer.GetOutputWidth();  // wrap from the left
-            }*/
-
-            // Clear screen
+            // Cambiamos el render target a main_texture
+            SDL_SetRenderTarget(renderer.Get(), main_texture.Get());
             renderer.Clear();
 
             // ---------------------------- Draw BACKGROUND ----------------------------
@@ -107,13 +85,11 @@ void Drawer::run() try {
                           Rect(0, 0, renderer.GetOutputWidth(), renderer.GetOutputHeight()));
 
             // ---------------------------- Draw PISO TILESET ----------------------------
-
             int center_y = renderer.GetOutputHeight() / 2;  // Y coordinate of window center
             int center_x = renderer.GetOutputWidth() / 2;
 
             // Cantidad de tiles que se necesitan de forma horizontal
             int num_tiles_x = renderer.GetOutputWidth() / TILE_SIZE + 1;
-
             for (int i = 0; i < num_tiles_x; ++i) {
                 // Lo multiplico por 3 porque solo estoy tomando el 3 tileset en x, pero es de la
                 // fila 1
@@ -130,66 +106,48 @@ void Drawer::run() try {
             renderer.Copy(pistol_magnum, Rect(magnum_x, magnum_y, 32, 32),
                           Rect(center_x, center_y - 41, TILE_SIZE, TILE_SIZE));
 
-
-            // ---------------------------- Draw Player ----------------------------
-            // Primer Rect (x, y, w, h): (x, y) toman una coordenada de la imagen (w, h) le
-            // indicamos el alto y ancho Segundo Rect (x, y, w, h): le indicamos en que parte de la
-            // pantalla aparece, y el tamaño
-
-            // ---------------------------- Animación del Pato ----------------------------
-
-
-            auto now = std::chrono::high_resolution_clock::now();
-            /**
-             * chequeamos que el pato está corriendo y el tiempo que pasó entre la última animación
-             *  y el tiempo actual. si superó el intervalo, se actualiza la animación y
-             * el tiempo de la última animación para aplicar el mismo ciclos en los siguientes
-             * sprites.
-             */
-            if (is_running && now - last_animation_time >= animation_interval) {
-                /**
-                 * El valor de run_phase representa el índice de la
-                 * fase actual de animación. Cada vez que pasa el intervalo de tiempo, run_phase se
-                 * incrementa y se ajusta usando el operador módulo (% CANT_ANIMATION_RUN) para
-                 * ciclar entre los frames de animación disponibles.
-                 *
-                 */
-                run_phase = (run_phase + 1) % CANT_ANIMATION_RUN;
-                last_animation_time = now;  // actualizar el tiempo de última animación
-            } else if (!is_running) {
-                run_phase = 0;  // fijar en el primer cuadro si no se mueve
+            // ---------------------------- Draw Patos ----------------------------
+            if (drawer_ducks.size() != position.size()) {
+                drawer_ducks.resize(position.size());
+                for (size_t i = 0; i < position.size(); ++i) {
+                    if (!drawer_ducks[i]) {
+                        drawer_ducks[i] = std::make_shared<DrawerDuck>(renderer);
+                    }
+                }
             }
 
-            int src_x = DUCK_INITIAL_X + SIZE_DUCK_SPRITE * run_phase;  // Sprite actual
-            int src_y = DUCK_INITIAL_Y;
-
-            if (position.size() > 0) {
-                renderer.Copy(sprites,
-                              Rect(src_x, src_y, SIZE_DUCK_SPRITE,
-                                   SIZE_DUCK_SPRITE),  // position en Sprite
-                              Rect(position[0].coordinate.get_x(), position[0].coordinate.get_y(),
-                                   TILE_SIZE,
-                                   TILE_SIZE),  // position en pantalla
-                              0.0,              // no rotation
-                              SDL2pp::NullOpt,  // no center for rotation
-                              is_moving_left ? SDL_FLIP_HORIZONTAL :
-                                               SDL_FLIP_NONE  // flip horizontally if moving left
-                );
+            for (size_t i = 0; i < position.size(); ++i) {
+                int duck_x = position[i].coordinate.get_x();
+                int duck_y = position[i].coordinate.get_y();
+                drawer_ducks[i]->set_position(duck_x, duck_y);
+                drawer_ducks[i]->set_is_moving_left(is_moving_left);
+                drawer_ducks[i]->update_animation(is_running);
+                drawer_ducks[i]->draw(renderer);
             }
-            /*
-            // ---------------------------- Draw PISTOLA ENCIMA DEL PATO----------------------------
 
-            renderer.Copy(pistol_magnum, Rect(magnum_x, magnum_y, 32, 32),
-                          Rect((int)position, center_y - (TILE_SIZE - 2), TILE_SIZE, TILE_SIZE),
-            0.0, SDL2pp::NullOpt, flip);
+            // Cambiar el render target de vuelta a la pantalla
+            SDL_SetRenderTarget(renderer.Get(), nullptr);
 
-            // ------------------ Draw ALA DEL PATO ENCIMA DEL PATO ------------------
+            // Calcular el tamaño de destino para zoom
+            int dest_width = WINDOW_WIDTH * FACTOR_ZOOM;  // Ajusta el factor de zoom como prefieras
+            int dest_height = WINDOW_HEIGHT * FACTOR_ZOOM;
 
-            renderer.Copy(ala_duck, Rect(ALA_INITIAL_X, ALA_INITIAL_Y + (16 * 5), 16, 16),
-                          Rect((int)position + 7, center_y - (TILE_SIZE) + 15, 20, 20), 0.0,
-                          SDL2pp::NullOpt, flip);
-            */
+            int dest_x = 0, dest_y = 0;
+            if (FACTOR_ZOOM != 1.0) {
+                // calculamos dest_x y dest_y basados en la posición del pato
+                // Si el factor de zoom no es 1, centramos el zoom en la posición del pato
+                // si no hago esto:el zoom podría aparecer desplazado o desalineado respecto al pato
+                // tomamos la posición del pato para centrar el zoom en este
+                int duck_x = position[0].coordinate.get_x();
+                int duck_y = position[0].coordinate.get_y();
 
+                dest_x = WINDOW_WIDTH / 2 - (duck_x * FACTOR_ZOOM);
+                dest_y = WINDOW_HEIGHT / 2 - (duck_y * FACTOR_ZOOM);
+            }
+
+            renderer.Clear();
+            renderer.Copy(main_texture, SDL2pp::NullOpt,
+                          Rect(dest_x, dest_y, dest_width, dest_height));
             renderer.Present();
         }
 

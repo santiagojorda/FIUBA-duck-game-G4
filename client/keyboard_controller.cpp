@@ -54,7 +54,7 @@ void KeyboardController::procesar_comando(SDL_Event& event, bool& is_running,
                 case SDLK_e:  // recoger o soltar un arma/objeto
                     std::cout << "Tomar/soltar objeto" << std::endl;
                     break;
-                case SDLK_w:  // apuntar hacia arriba
+                case SDLK_f:  // apuntar hacia arriba
                     std::cout << "Apuntando hacia arriba" << std::endl;
                     break;
                 case SDLK_DOWN:  // flecha hacia abajo para agacharse
@@ -64,7 +64,6 @@ void KeyboardController::procesar_comando(SDL_Event& event, bool& is_running,
                     break;
                 case SDLK_m:  // tecla m : Iniciar juego
                     try {
-                        /* code */
                         std::cout << "Presiono m" << std::endl;
 
                         Socket skt("localhost", "8080");
@@ -75,6 +74,29 @@ void KeyboardController::procesar_comando(SDL_Event& event, bool& is_running,
                         std::cerr << "error en case " << e.what() << '\n';
                     }
 
+                    break;
+                // Controles para PLAYER 2
+                case SDLK_d:  // tecla D para derecha
+                    is_running = true;
+                    is_moving_left = false;
+                    client_event = {PLAYER_2, MOVE_RIGHT};
+                    this->commands.push(client_event);
+                    break;
+                case SDLK_a:  // tecla A para izquierda
+                    is_running = true;
+                    is_moving_left = true;
+                    client_event = {PLAYER_2, MOVE_LEFT};
+                    this->commands.push(client_event);
+                    break;
+                case SDLK_w:  // tecla W para saltar
+                    client_event = {PLAYER_2, JUMP};
+                    this->commands.push(client_event);
+                    std::cout << "Saltar (Jugador 2)" << std::endl;
+                    break;
+                case SDLK_s:  // tecla S para agacharse
+                    client_event = {PLAYER_2, CROUCH};
+                    this->commands.push(client_event);
+                    std::cout << "Agacharse (Jugador 2)" << std::endl;
                     break;
             }
             // Este evento ocurre cuando la tecla es liberada
