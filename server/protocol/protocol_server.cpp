@@ -33,6 +33,8 @@ void ProtocolServer::receive_event(uint8_t& id_player, uint8_t& id_event) {
     if (code_client == BYTE_CLIENT) {
         this->receive_byte(id_player);
         this->receive_byte(id_event);
+        // std::cout << "Player: " << (int)id_player << " receive " << (int)id_event << " event" <<
+        // std::endl;
     }
 }
 

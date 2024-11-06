@@ -23,8 +23,8 @@
 
 using namespace SDL2pp;
 
-Drawer::Drawer(Queue<ClientEvent_t>& commands, Queue<std::vector<PlayerPosition_t>>& positions):
-        commands(commands), positions(positions), keyboard_controller(commands) {}
+Drawer::Drawer(Queue<ClientEvent_t>& commands, Queue<std::vector<PlayerPosition_t>>& game_state):
+        commands(commands), game_state(game_state), keyboard_controller(commands) {}
 
 /**
  * Recibo
@@ -50,17 +50,23 @@ void Drawer::run() try {
     // vector para manejar múltiples patos
     std::vector<std::shared_ptr<DrawerDuck>> drawer_ducks;
 
+
+    std::vector<std::shared_ptr<DrawerWeapon>> drawer_weapons;
+
+    // Inicializar DrawerWeapon y agregarlo al vector
+    drawer_weapons.push_back(std::make_shared<DrawerWeapon>(renderer));
+
+
     // Load background image as a new texture
     Texture background(renderer, DATA_PATH "/background.png");
 
     // Load tileset image as a new texture
     Texture floor(renderer, DATA_PATH "/NatureTileset.png");
 
-    // Load pistol image as a new texture
-    Texture pistol_magnum(renderer, DATA_PATH "/DuckGame-Pistol.png");
-
     // Load ala pato image as a new texture
     Texture ala_duck(renderer, DATA_PATH "/DuckGame-YellowDuck.png");
+
+    ZoomHandler zoom_handler;
 
     // Game state
     bool is_running = false;
@@ -73,9 +79,9 @@ void Drawer::run() try {
     // keyboard_controller.procesar_comando(event_init, is_running, is_moving_left);
 
     while (true) {  // receiver del cliente
-        // position = positions.pop();
+        // position = game_state.pop();
 
-        while (positions.try_pop(position)) {
+        while (game_state.try_pop(position)) {
             // Cambiamos el render target a main_texture
             SDL_SetRenderTarget(renderer.Get(), main_texture.Get());
             renderer.Clear();
@@ -101,10 +107,9 @@ void Drawer::run() try {
             }
 
             // ---------------------------- Draw PISTOLA ----------------------------
-            int magnum_x = 1;
-            int magnum_y = 47;
-            renderer.Copy(pistol_magnum, Rect(magnum_x, magnum_y, 32, 32),
-                          Rect(center_x, center_y - 41, TILE_SIZE, TILE_SIZE));
+            // Llamar a set_position en DrawerWeapon
+            drawer_weapons[0]->set_position(center_x, center_y - 41);
+            drawer_weapons[0]->draw(renderer);
 
             // ---------------------------- Draw Patos ----------------------------
             if (drawer_ducks.size() != position.size()) {
@@ -127,27 +132,10 @@ void Drawer::run() try {
 
             // Cambiar el render target de vuelta a la pantalla
             SDL_SetRenderTarget(renderer.Get(), nullptr);
-
-            // Calcular el tamaño de destino para zoom
-            int dest_width = WINDOW_WIDTH * FACTOR_ZOOM;  // Ajusta el factor de zoom como prefieras
-            int dest_height = WINDOW_HEIGHT * FACTOR_ZOOM;
-
-            int dest_x = 0, dest_y = 0;
-            if (FACTOR_ZOOM != 1.0) {
-                // calculamos dest_x y dest_y basados en la posición del pato
-                // Si el factor de zoom no es 1, centramos el zoom en la posición del pato
-                // si no hago esto:el zoom podría aparecer desplazado o desalineado respecto al pato
-                // tomamos la posición del pato para centrar el zoom en este
-                int duck_x = position[0].coordinate.get_x();
-                int duck_y = position[0].coordinate.get_y();
-
-                dest_x = WINDOW_WIDTH / 2 - (duck_x * FACTOR_ZOOM);
-                dest_y = WINDOW_HEIGHT / 2 - (duck_y * FACTOR_ZOOM);
-            }
-
+            zoom_handler.calculate_zoom(position);
             renderer.Clear();
-            renderer.Copy(main_texture, SDL2pp::NullOpt,
-                          Rect(dest_x, dest_y, dest_width, dest_height));
+            // Aplicar zoom y centrar usando ZoomHandler
+            zoom_handler.apply_zoom(renderer, main_texture);
             renderer.Present();
         }
 
