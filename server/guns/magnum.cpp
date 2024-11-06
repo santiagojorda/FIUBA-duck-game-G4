@@ -1,5 +1,8 @@
 #include "magnum.h"
 
-void Magnum::shoot(){
+Magnum::Magnum() : Gun(MAX_AMMO) {}
+
+void Magnum::shoot(Player player){
+    (void)player;
     
 }

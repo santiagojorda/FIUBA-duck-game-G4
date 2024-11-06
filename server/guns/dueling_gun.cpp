@@ -1,5 +1,7 @@
 #include "dueling_gun.h"
 
-void DuelingGun::shoot(){
-    
+DuelingGun::DuelingGun() : Gun(MAX_AMMO) {}
+
+void DuelingGun::shoot(Player player){
+    (void)player;
 }

@@ -11,7 +11,7 @@ private:
 public:
     ListPlayers() {}
 
-    void addPlayer(const Player& _player) { this->push_back(_player); }
+    void addPlayer(const Player& player) { this->push_back(player); }
 
     ListPlayers(const ListPlayers& _list): std::list<Player>(_list) {}
 
