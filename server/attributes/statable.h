@@ -12,6 +12,8 @@ protected:
     uint8_t iter_state;
     
 public:
+    Statable();
+    ~Statable();
 };
 
 #endif

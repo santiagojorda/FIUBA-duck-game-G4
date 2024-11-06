@@ -4,12 +4,15 @@
 #include <cstdint>
 
 #include "../attributes/positionable.h"
-#include "../attributes/statable.h"
+// #include "../attributes/statable.h"
+#include "../attributes/equippable.h"
+#include "../player/inventory.h"
 
-class Player: public Positionable, public Statable {
+class Player: public Positionable {
 private:
     // cppcheck-suppress unusedStructMember
     uint8_t id;
+    Inventory inventory;
 
 public:
     Player();
@@ -19,7 +22,8 @@ public:
     void translate() override;
     void translate_x(int pasos) override;
     void translate_y(int pasos) override;
-    void move_back(int tiles);
+    // void move_back(int tiles);
+    void equip(Equippable* item);
     virtual ~Player();
 };
 

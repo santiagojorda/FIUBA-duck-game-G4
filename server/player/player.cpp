@@ -4,7 +4,7 @@
 
 const int SPEED = 1;
 
-Player::Player() {}
+Player::Player() : inventory() {}
 
 Player::Player(uint8_t _id): Positionable(), id(_id) {}
 
@@ -30,5 +30,10 @@ Player& Player::operator=(const Player& _other) {
     this->space = _other.space;
     return *this;
 }
+
+void Player::equip(Equippable* item){
+    inventory.equip(item);
+}
+
 
 Player::~Player() { Positionable::~Positionable(); }
