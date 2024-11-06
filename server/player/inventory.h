@@ -19,6 +19,9 @@ public:
     void equip(Gun* new_gun);
     void equip(Armor* new_armor);
     void equip(Helmet* new_helmet);
+    Gun* get_gun();
+    Armor* get_armor();
+    Helmet* get_helmet();
     ~Inventory();
 };
 

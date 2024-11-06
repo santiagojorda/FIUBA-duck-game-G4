@@ -35,5 +35,13 @@ void Player::equip(Equippable* item){
     inventory.equip(item);
 }
 
+void Player::move_back(uint8_t tiles){
+    (void)tiles;
+}
+Gun* Player::get_gun() { return inventory.get_gun(); }
+Armor* Player::get_armor() {return inventory.get_armor();}
+Helmet* Player::get_helmet() {return inventory.get_helmet();}
+
+
 
 Player::~Player() { Positionable::~Positionable(); }
