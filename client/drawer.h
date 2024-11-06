@@ -9,6 +9,7 @@
 
 #include "drawer_duck.h"
 #include "keyboard_controller.h"
+#include "zoom_handler.h"
 
 class Drawer {
 private:

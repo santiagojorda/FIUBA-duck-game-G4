@@ -33,7 +33,7 @@ void Receiver::run() {
             // buscar en la lista
             // players_id.begin()
             uint8_t id = players_id[player_id];
-            std::cout << "Player: " << (int)id << " event: " << int(event_id) << std::endl; 
+            std::cout << "Player: " << (int)id << " event: " << int(event_id) << std::endl;
 
             this->push_event(player_id, event_id);
         }
