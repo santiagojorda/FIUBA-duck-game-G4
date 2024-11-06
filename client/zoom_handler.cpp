@@ -15,7 +15,7 @@ void ZoomHandler::calculate_zoom(const std::vector<PlayerPosition_t>& position) 
     // Calcular el tamaño de destino para zoom
     dest_width = WINDOW_WIDTH * FACTOR_ZOOM;  // Ajusta el factor de zoom como prefieras
     dest_height = WINDOW_HEIGHT * FACTOR_ZOOM;
-    
+
     if (FACTOR_ZOOM != 1.0) {
         // calculamos dest_x y dest_y basados en la posición del pato
         // Si el factor de zoom no es 1, centramos el zoom en la posición del pato
