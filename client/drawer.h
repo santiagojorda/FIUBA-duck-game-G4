@@ -14,7 +14,7 @@
 class Drawer {
 private:
     Queue<ClientEvent_t>& commands;
-    Queue<std::vector<PlayerPosition_t>>& positions;
+    Queue<std::vector<PlayerPosition_t>>& game_state;
     KeyboardController keyboard_controller;
 
     void controlar_movimiento_pato(bool& is_running, bool& is_moving_left,
@@ -26,7 +26,7 @@ public:
     /*
      * Constructor.
      */
-    Drawer(Queue<ClientEvent_t>& commands, Queue<std::vector<PlayerPosition_t>>& positions);
+    Drawer(Queue<ClientEvent_t>& commands, Queue<std::vector<PlayerPosition_t>>& game_state);
 
     /*
      *

@@ -23,8 +23,8 @@
 
 using namespace SDL2pp;
 
-Drawer::Drawer(Queue<ClientEvent_t>& commands, Queue<std::vector<PlayerPosition_t>>& positions):
-        commands(commands), positions(positions), keyboard_controller(commands) {}
+Drawer::Drawer(Queue<ClientEvent_t>& commands, Queue<std::vector<PlayerPosition_t>>& game_state):
+        commands(commands), game_state(game_state), keyboard_controller(commands) {}
 
 /**
  * Recibo
@@ -75,9 +75,9 @@ void Drawer::run() try {
     // keyboard_controller.procesar_comando(event_init, is_running, is_moving_left);
 
     while (true) {  // receiver del cliente
-        // position = positions.pop();
+        // position = game_state.pop();
 
-        while (positions.try_pop(position)) {
+        while (game_state.try_pop(position)) {
             // Cambiamos el render target a main_texture
             SDL_SetRenderTarget(renderer.Get(), main_texture.Get());
             renderer.Clear();
