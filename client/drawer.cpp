@@ -50,14 +50,18 @@ void Drawer::run() try {
     // vector para manejar múltiples patos
     std::vector<std::shared_ptr<DrawerDuck>> drawer_ducks;
 
+
+    std::vector<std::shared_ptr<DrawerWeapon>> drawer_weapons;
+
+    // Inicializar DrawerWeapon y agregarlo al vector
+    drawer_weapons.push_back(std::make_shared<DrawerWeapon>(renderer));
+
+
     // Load background image as a new texture
     Texture background(renderer, DATA_PATH "/background.png");
 
     // Load tileset image as a new texture
     Texture floor(renderer, DATA_PATH "/NatureTileset.png");
-
-    // Load pistol image as a new texture
-    Texture pistol_magnum(renderer, DATA_PATH "/DuckGame-Pistol.png");
 
     // Load ala pato image as a new texture
     Texture ala_duck(renderer, DATA_PATH "/DuckGame-YellowDuck.png");
@@ -103,10 +107,9 @@ void Drawer::run() try {
             }
 
             // ---------------------------- Draw PISTOLA ----------------------------
-            int magnum_x = 1;
-            int magnum_y = 47;
-            renderer.Copy(pistol_magnum, Rect(magnum_x, magnum_y, 32, 32),
-                          Rect(center_x, center_y - 41, TILE_SIZE, TILE_SIZE));
+            // Llamar a set_position en DrawerWeapon
+            drawer_weapons[0]->set_position(center_x, center_y - 41);
+            drawer_weapons[0]->draw(renderer);
 
             // ---------------------------- Draw Patos ----------------------------
             if (drawer_ducks.size() != position.size()) {

@@ -8,6 +8,7 @@
 #include "../common/queue.h"
 
 #include "drawer_duck.h"
+#include "drawer_weapon.h"
 #include "keyboard_controller.h"
 #include "zoom_handler.h"
 
