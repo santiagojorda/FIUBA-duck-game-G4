@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "acceptor_clients.h"
+#include "client/acceptor_clients.h"
 
 Lobby::Lobby(): monitor_clients(), players_id(), queue_event(), queue_gamestate() {}
 

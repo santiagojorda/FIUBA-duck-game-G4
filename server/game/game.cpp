@@ -3,8 +3,8 @@
 #include <chrono>
 #include <iostream>
 
-#include "event_player.h"
-#include "player.h"
+#include "../events/event_player.h"
+#include "../player/player.h"
 
 #define MILISECONDS_30_FPS 33
 

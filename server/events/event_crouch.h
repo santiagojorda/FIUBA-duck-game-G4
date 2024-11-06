@@ -2,7 +2,6 @@
 #define EVENT_CROUCH_H
 
 #include "event_player.h"
-#include "game_logic.h"
 
 class EventCrouch: public EventPlayer {
 private:

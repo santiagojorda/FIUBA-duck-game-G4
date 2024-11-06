@@ -1,9 +1,9 @@
 #ifndef GAME_PHYSICS_H
 #define GAME_PHYSICS_H
 
-#include "../common/coordinate.h"
+#include "../../common/coordinate.h"
 
-#include "positionable.h"
+#include "../positionable.h"
 
 class GamePhysics {
 private:

@@ -3,12 +3,12 @@
 
 #include <vector>
 
-#include "event_player.h"
-#include "queue_event_player.h"
-#include "queue_game_state.h"
+#include "../events/event_player.h"
+#include "../events/queue_event_player.h"
+#include "../queue_game_state.h"
 #include "receiver.h"
 #include "sender.h"
-#include "vector_player_id.h"
+#include "../player/vector_player_id.h"
 
 class Client {
 private:

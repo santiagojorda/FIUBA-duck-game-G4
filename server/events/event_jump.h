@@ -2,7 +2,6 @@
 #define EVENT_JUMP_H
 
 #include "event_player.h"
-#include "game_logic.h"
 
 class EventJump: public EventPlayer {
 private:

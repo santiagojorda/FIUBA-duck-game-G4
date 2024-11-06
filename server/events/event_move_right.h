@@ -3,7 +3,6 @@
 
 #include "event_player.h"
 
-
 class EventMoveRight: public EventPlayer {
 private:
 public:

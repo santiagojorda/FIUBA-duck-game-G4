@@ -4,8 +4,8 @@
 #include <list>
 
 #include "client.h"
-#include "protocol_server.h"
-#include "vector_player_id.h"
+#include "../protocol/protocol_server.h"
+#include "../player/vector_player_id.h"
 
 AcceptorClients::AcceptorClients(MonitorClients& _monitor, QueueGameState& _queue_gamestate,
                                  QueueEventPlayer& _queue_event, ListPlayersID& _players_id):

@@ -3,14 +3,14 @@
 
 #include <list>
 
-#include "../common/socket.h"
-#include "../common/thread.h"
+#include "../../common/socket.h"
+#include "../../common/thread.h"
 
-#include "event_player.h"
-#include "list_players_id.h"
+#include "../events/event_player.h"
+#include "../player/list_players_id.h"
 #include "monitor_clients.h"
-#include "queue_event_player.h"
-#include "queue_game_state.h"
+#include "../events/queue_event_player.h"
+#include "../queue_game_state.h"
 
 #define SERVNAME "8080"
 

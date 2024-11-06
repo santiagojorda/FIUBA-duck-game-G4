@@ -1,11 +1,11 @@
 #ifndef SERVER_SENDER_H_
 #define SERVER_SENDER_H_
 
-#include "../common/queue.h"
-#include "../common/thread.h"
+#include "../../common/queue.h"
+#include "../../common/thread.h"
 
-#include "game_state.h"
-#include "protocol_server.h"
+#include "../game/game_state.h"
+#include "../protocol/protocol_server.h"
 
 class Sender: public Thread {
 private:

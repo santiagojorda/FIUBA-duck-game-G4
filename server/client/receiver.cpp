@@ -1,8 +1,6 @@
 #include "receiver.h"
 
-#include "event_factory.h"
-
-Receiver::Receiver(Queue<EventPlayer*>& _queue, ProtocolServer& _protocol,
+Receiver::Receiver(QueueEventPlayer& _queue, ProtocolServer& _protocol,
                    VectorPlayerID& _players_id):
         queue(_queue), protocol(_protocol), players_id(_players_id) {}
 

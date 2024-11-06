@@ -3,13 +3,13 @@
 
 #include <list>
 
-#include "../common/thread.h"
+#include "../../common/thread.h"
 
 #include "game_logic.h"
-#include "list_players.h"
-#include "monitor_clients.h"
-#include "queue_event_player.h"
-#include "queue_game_state.h"
+#include "../player/list_players.h"
+#include "../client/monitor_clients.h"
+#include "../events/queue_event_player.h"
+#include "../queue_game_state.h"
 
 class Game: public Thread {
 private:

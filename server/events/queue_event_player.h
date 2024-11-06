@@ -1,7 +1,7 @@
 #ifndef QUEUE_EVENT_PLAYER
 #define QUEUE_EVENT_PLAYER
 
-#include "../common/queue.h"
+#include "../../common/queue.h"
 
 #include "event_player.h"
 

@@ -3,10 +3,10 @@
 
 #include <list>
 
-#include "game.h"
-#include "list_players_id.h"
-#include "monitor_clients.h"
-#include "queue_event_player.h"
+#include "game/game.h"
+#include "player/list_players_id.h"
+#include "client/monitor_clients.h"
+#include "events/queue_event_player.h"
 #include "queue_game_state.h"
 
 class Lobby {

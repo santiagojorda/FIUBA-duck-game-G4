@@ -4,8 +4,8 @@
 #include <list>
 
 #include "game_physics.h"
-#include "list_players.h"
-#include "player.h"
+#include "../player/list_players.h"
+#include "../player/player.h"
 
 class GameLogic {
 private:

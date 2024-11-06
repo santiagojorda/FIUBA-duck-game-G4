@@ -3,8 +3,8 @@
 
 #include <list>
 
-#include "list_players.h"
-#include "player.h"
+#include "../player/list_players.h"
+#include "../player/player.h"
 
 struct GameState_t {
     // cppcheck-suppress unusedStructMember

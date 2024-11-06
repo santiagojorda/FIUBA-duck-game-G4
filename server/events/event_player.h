@@ -3,8 +3,8 @@
 
 #include <cstdint>
 
-#include "game_logic.h"
-#include "player.h"
+#include "../game/game_logic.h"
+#include "../player/player.h"
 
 class EventPlayer {
 protected:
