@@ -2,7 +2,6 @@
 #define PLAYER_POSITION_H
 
 #include <cstdint>
-
 #include "../common/coordinate.h"
 
 struct PlayerPosition_t {
