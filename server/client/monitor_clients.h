@@ -7,7 +7,7 @@
 #include "../events/event_player.h"
 #include "../player/list_players_id.h"
 #include "../events/queue_event_player.h"
-#include "../queue_game_state.h"
+#include "../game/queue_game_state.h"
 
 class MonitorClients {
 private:

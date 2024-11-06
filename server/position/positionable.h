@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-#include "../common/rectangle.h"
+#include "../../common/rectangle.h"
 
 class Positionable {
 

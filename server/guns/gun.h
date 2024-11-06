@@ -1,7 +1,7 @@
 #ifndef GUN
 #define GUN  
 
-#include "../positionable.h"
+#include "../position/positionable.h"
 
 class Gun : public Positionable {
 private:

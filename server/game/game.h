@@ -9,7 +9,7 @@
 #include "../player/list_players.h"
 #include "../client/monitor_clients.h"
 #include "../events/queue_event_player.h"
-#include "../queue_game_state.h"
+#include "queue_game_state.h"
 
 class Game: public Thread {
 private:

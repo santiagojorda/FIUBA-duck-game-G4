@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-#include "../positionable.h"
+#include "../position/positionable.h"
 
 class Player: public Positionable {
 private:

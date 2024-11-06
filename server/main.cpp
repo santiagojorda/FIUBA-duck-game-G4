@@ -1,7 +1,7 @@
 #include <exception>
 #include <iostream>
 
-#include "server.h"
+#include "lobby/lobby.h"
 
 #define ERROR -1
 #define SUCCESS 0
@@ -11,8 +11,9 @@
 int main() {
 
     try {
-        Server server;
-        server.run();
+        std::cout << "Iniciando server" << std::endl;
+        Lobby lobby;
+        lobby.run();
         return SUCCESS;
 
 

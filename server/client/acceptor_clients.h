@@ -10,7 +10,7 @@
 #include "../player/list_players_id.h"
 #include "monitor_clients.h"
 #include "../events/queue_event_player.h"
-#include "../queue_game_state.h"
+#include "../game/queue_game_state.h"
 
 #define SERVNAME "8080"
 

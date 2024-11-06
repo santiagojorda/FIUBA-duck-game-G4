@@ -5,7 +5,7 @@
 
 #include "../events/event_player.h"
 #include "../events/queue_event_player.h"
-#include "../queue_game_state.h"
+#include "../game/queue_game_state.h"
 #include "receiver.h"
 #include "sender.h"
 #include "../player/vector_player_id.h"
