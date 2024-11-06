@@ -1,5 +1,7 @@
 #include "sniper.h"
 
-void Sniper::shoot(){
-    
+Sniper::Sniper() : Gun(MAX_AMMO) {}
+
+void Sniper::shoot(Player player){
+    (void)player;
 }

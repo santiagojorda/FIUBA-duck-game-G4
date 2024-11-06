@@ -4,7 +4,7 @@
 
 const int SPEED = 1;
 
-Player::Player() {}
+Player::Player() : inventory() {}
 
 Player::Player(uint8_t _id): Positionable(), id(_id) {}
 
@@ -30,5 +30,18 @@ Player& Player::operator=(const Player& _other) {
     this->space = _other.space;
     return *this;
 }
+
+void Player::equip(Equippable* item){
+    inventory.equip(item);
+}
+
+void Player::move_back(uint8_t tiles){
+    (void)tiles;
+}
+Gun* Player::get_gun() { return inventory.get_gun(); }
+Armor* Player::get_armor() {return inventory.get_armor();}
+Helmet* Player::get_helmet() {return inventory.get_helmet();}
+
+
 
 Player::~Player() { Positionable::~Positionable(); }

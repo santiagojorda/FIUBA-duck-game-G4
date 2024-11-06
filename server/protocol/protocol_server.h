@@ -20,7 +20,7 @@ public:
 
     uint8_t receive_count_players();
 
-    void receive_event(uint8_t& id_player, uint8_t& id_event);
+    void receive_event(uint8_t& player_id, uint8_t& event_id);
 
     ~ProtocolServer();
 };

@@ -1,13 +1,13 @@
-#ifndef DUELING_GUN
-#define DUELING_GUN
+#ifndef GRANADE
+#define GRANADE
 
 #include "gun.h"
 
 #define MAX_AMMO 1
 
-class DuelingGun : public Gun {
+class Granade : public Gun {
 public:
-    DuelingGun();
+    Granade();
     void shoot(Player player) override;
 };
 

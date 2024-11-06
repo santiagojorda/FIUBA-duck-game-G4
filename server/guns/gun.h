@@ -1,15 +1,21 @@
 #ifndef GUN
 #define GUN  
 
-#include "../position/positionable.h"
+#include "../attributes/positionable.h"
+#include "../attributes/statable.h"
+#include "../attributes/equippable.h"
+#include "../player/player.h"
 
-class Gun : public Positionable {
+class Player;
+
+class Gun : public Positionable, public Equippable {
 private:
-
-    uint16_t ammo; 
+    uint8_t ammo; 
 
 public:
-    virtual void shoot() = 0;
+    explicit Gun(uint8_t _ammo);
+    virtual void shoot(Player player) = 0;
+    void equip(Inventory* inventory) override;
 };
 
 #endif

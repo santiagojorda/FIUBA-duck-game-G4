@@ -1,5 +1,7 @@
 #include "pew_pew_laser.h"
 
-void PewPewLaser::shoot(){
-    
+PewPewLaser::PewPewLaser() : Gun(MAX_AMMO) {}
+
+void PewPewLaser::shoot(Player player){
+    (void)player;
 }

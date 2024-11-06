@@ -8,9 +8,9 @@ private:
 public:
     ListPlayersID() {}
 
-    void addPlayer(const uint8_t& _player_id) { this->push_back(_player_id); }
+    void addPlayer(const uint8_t& player_id) { this->push_back(player_id); }
 
-    void removePlayer(const uint8_t& _player_id) { this->remove(_player_id); }
+    void removePlayer(const uint8_t& player_id) { this->remove(player_id); }
 
     ~ListPlayersID() {}
 };

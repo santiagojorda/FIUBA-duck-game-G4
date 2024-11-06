@@ -3,7 +3,7 @@
 
 #include "../../common/coordinate.h"
 
-#include "../position/positionable.h"
+#include "../attributes/positionable.h"
 
 class GamePhysics {
 private:

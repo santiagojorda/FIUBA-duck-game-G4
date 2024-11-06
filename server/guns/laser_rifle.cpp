@@ -1,5 +1,8 @@
 #include "laser_rifle.h"
 
-void LaserRifle::shoot(){
+LaserRifle::LaserRifle() : Gun(MAX_AMMO) {}
+
+void LaserRifle::shoot(Player player){
+    (void)player;
     
 }

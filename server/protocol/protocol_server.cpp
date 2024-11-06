@@ -17,7 +17,6 @@ void ProtocolServer::send_game_state(const GameState_t& state) {
     for (const Player& player: state.players) {
         this->send_byte(player.get_id());
         this->send_cordinates(player.get_coordinate());
-        // std::cout << "player coordinate: " << player.get_coordinate() << std::endl;
     }
 }
 
@@ -27,14 +26,12 @@ uint8_t ProtocolServer::receive_count_players() {
     return count_players;
 }
 
-void ProtocolServer::receive_event(uint8_t& id_player, uint8_t& id_event) {
+void ProtocolServer::receive_event(uint8_t& player_id, uint8_t& event_id) {
     uint8_t code_client = 0;
     this->receive_byte(code_client);
     if (code_client == BYTE_CLIENT) {
-        this->receive_byte(id_player);
-        this->receive_byte(id_event);
-        // std::cout << "Player: " << (int)id_player << " receive " << (int)id_event << " event" <<
-        // std::endl;
+        this->receive_byte(player_id);
+        this->receive_byte(event_id);
     }
 }
 

@@ -3,9 +3,12 @@
 
 #include "gun.h"
 
+#define MAX_AMMO 2
+
 class Shotgun : public Gun {
 public:
-    void shoot() override;
+    Shotgun();
+    void shoot(Player player) override;
 };
 
 #endif
