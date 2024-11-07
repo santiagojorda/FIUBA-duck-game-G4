@@ -4,13 +4,13 @@
 #include <SDL2/SDL.h>
 #include <SDL2pp/SDL2pp.hh>
 
-#include "../common/coordinate.h"
-#include "../common/queue.h"
+#include "../../common/coordinate.h"
+#include "../../common/queue.h"
 
 #include "drawer_duck.h"
 #include "drawer_weapon.h"
-#include "keyboard_controller.h"
-#include "zoom_handler.h"
+#include "../keyboard_controller.h"
+#include "../zoom/zoom_handler.h"
 
 class Drawer {
 private:

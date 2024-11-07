@@ -4,12 +4,12 @@
 #include <string>
 #include <vector>
 
-#include "../common/action_commands.h"
-#include "../common/coordinate.h"
-#include "../common/protocol.h"
-#include "../common/socket.h"
+#include "../../common/action_commands.h"
+#include "../../common/coordinate.h"
+#include "../../common/protocol.h"
+#include "../../common/socket.h"
 
-#include "player_position.h"
+#include "../player_position.h"
 
 class ClientProtocol: public Protocol {
 private:

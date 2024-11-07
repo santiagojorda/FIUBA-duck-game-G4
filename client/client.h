@@ -8,9 +8,9 @@
 
 #include "client_receiver.h"
 #include "client_sender.h"
-#include "drawer.h"
+#include "drawers/drawer.h"
 #include "player_position.h"
-#include "protocol_client.h"
+#include "protocol/protocol_client.h"
 
 class Client {
 private:

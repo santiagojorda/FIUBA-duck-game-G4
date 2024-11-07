@@ -5,7 +5,7 @@
 
 #include <SDL2pp/SDL2pp.hh>
 
-#include "player_position.h"
+#include "../player_position.h"
 
 class ZoomHandler {
 private:

@@ -2,7 +2,6 @@
 
 ClientProtocol::ClientProtocol(Socket& skt): Protocol(skt) {}
 
-
 Coordinate ClientProtocol::receive_cordinates() {
     uint16_t x;
     this->receive_2_bytes(x);

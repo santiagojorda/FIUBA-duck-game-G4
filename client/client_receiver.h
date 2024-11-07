@@ -5,7 +5,7 @@
 #include "../common/thread.h"
 
 #include "player_position.h"
-#include "protocol_client.h"
+#include "protocol/protocol_client.h"
 
 class ClientReceiver: public Thread {
 private:

@@ -8,7 +8,7 @@
 #include "../common/socket.h"
 
 #include "client_event.h"
-#include "protocol_client.h"
+#include "protocol/protocol_client.h"
 class KeyboardController {
 private:
     Queue<ClientEvent_t>& commands;

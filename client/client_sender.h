@@ -5,7 +5,7 @@
 #include "../common/thread.h"
 
 #include "client_event.h"
-#include "protocol_client.h"
+#include "protocol/protocol_client.h"
 
 class ClientSender: public Thread {
 private:
