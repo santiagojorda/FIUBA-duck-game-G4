@@ -3,9 +3,9 @@
 
 #include "../common/queue.h"
 #include "../common/thread.h"
+#include "protocol/protocol_client.h"
 
 #include "client_event.h"
-#include "protocol/protocol_client.h"
 
 class ClientSender: public Thread {
 private:

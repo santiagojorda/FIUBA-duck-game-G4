@@ -5,12 +5,12 @@
 
 #include "../common/queue.h"
 #include "../common/socket.h"
+#include "drawers/drawer.h"
+#include "protocol/protocol_client.h"
 
 #include "client_receiver.h"
 #include "client_sender.h"
-#include "drawers/drawer.h"
 #include "player_position.h"
-#include "protocol/protocol_client.h"
 
 class Client {
 private:

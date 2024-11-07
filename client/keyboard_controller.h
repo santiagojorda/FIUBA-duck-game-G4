@@ -6,9 +6,9 @@
 
 #include "../common/queue.h"
 #include "../common/socket.h"
+#include "protocol/protocol_client.h"
 
 #include "client_event.h"
-#include "protocol/protocol_client.h"
 class KeyboardController {
 private:
     Queue<ClientEvent_t>& commands;

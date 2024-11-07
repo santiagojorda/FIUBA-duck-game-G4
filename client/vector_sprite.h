@@ -5,16 +5,12 @@
 
 #include "sprite.h"
 
-class VectorSprite: public std::vector<srprite_t> {
+class VectorSprite: public std::vector<sprite_t> {
 private:
 public:
     VectorSprite();
     ~VectorSprite();
 };
-
-VectorSprite::VectorSprite() {}
-
-VectorSprite::~VectorSprite() {}
 
 
 #endif  // VECTOR_SPRITE_H

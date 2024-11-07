@@ -6,7 +6,7 @@
 #include "sprite.h"
 
 struct throwable_t {
-    srprite_t throwable;
+    sprite_t throwable;
     uint8_t frame;
     uint8_t state;
 };
@@ -17,10 +17,6 @@ public:
     VectorThrowable();
     ~VectorThrowable();
 };
-
-VectorThrowable::VectorThrowable() {}
-
-VectorThrowable::~VectorThrowable() {}
 
 
 #endif  // VECTOR_THROWABLE_h

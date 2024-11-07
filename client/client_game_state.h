@@ -7,17 +7,17 @@
 
 
 struct bullet_t {
-    srprite_t bullet;
+    sprite_t bullet;
     uint8_t frame;
 };
 
 struct box_t {
-    srprite_t box;
+    sprite_t box;
     uint8_t frame;
 };
 
 struct client_game_state_t {
-    VecotorPlayers players;
+    VectorPlayers players;
     std::vector<bullet_t> bullets;
     VectorThrowable throwable;
     std::vector<box_t> boxs;
