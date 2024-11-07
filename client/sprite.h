@@ -2,6 +2,7 @@
 #define SPRITE_H
 
 #include <cstdint>
+
 #include "../common/coordinate.h"
 
 struct srprite_t {
@@ -10,5 +11,4 @@ struct srprite_t {
 };
 
 
-
-#endif //SPRITE_H
+#endif  // SPRITE_H

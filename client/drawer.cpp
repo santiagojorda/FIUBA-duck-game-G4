@@ -24,7 +24,7 @@
 using namespace SDL2pp;
 
 Drawer::Drawer(Queue<ClientEvent_t>& commands, Queue<std::vector<PlayerPosition_t>>& game_state):
-        commands(commands), game_state(game_state), keyboard_controller(commands) {}
+        commands(commands), game_state(game_state), keyboard_controller(commands, 1) {}
 
 /**
  * Recibo

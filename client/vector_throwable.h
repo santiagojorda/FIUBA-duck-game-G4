@@ -2,6 +2,7 @@
 #define VECTOR_THROWABLE_h
 
 #include <vector>
+
 #include "sprite.h"
 
 struct throwable_t {
@@ -10,25 +11,16 @@ struct throwable_t {
     uint8_t state;
 };
 
-class VectorThrowable : public std::vector<throwable_t>{
+class VectorThrowable: public std::vector<throwable_t> {
 private:
-
 public:
     VectorThrowable();
     ~VectorThrowable();
 };
 
-VectorThrowable::VectorThrowable(){ }
+VectorThrowable::VectorThrowable() {}
 
-VectorThrowable::~VectorThrowable()
-{
-}
+VectorThrowable::~VectorThrowable() {}
 
 
-
-
-
-
-
-
-#endif //VECTOR_THROWABLE_h
+#endif  // VECTOR_THROWABLE_h

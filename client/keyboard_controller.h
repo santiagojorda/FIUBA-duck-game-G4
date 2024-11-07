@@ -12,12 +12,21 @@
 class KeyboardController {
 private:
     Queue<ClientEvent_t>& commands;
+    int num_players;
+
+    void procesar_keyup(SDL_Event& event, bool& is_running);
+
+    void procesar_keydown(SDL_Event& event, bool& is_running, bool& is_moving_left);
+
+    void procesar_accion_player_1(SDL_Event& event, bool& is_running, bool& is_moving_left);
+
+    void procesar_accion_player_2(SDL_Event& event, bool& is_running, bool& is_moving_left);
 
 public:
     /*
      * Constructor.
      */
-    KeyboardController(Queue<ClientEvent_t>& _commands);
+    KeyboardController(Queue<ClientEvent_t>& _commands, int num_players);
 
 
     // el is_running y moving_left luego se van

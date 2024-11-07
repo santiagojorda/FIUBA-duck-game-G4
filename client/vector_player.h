@@ -2,6 +2,7 @@
 #define VECTOR_PLAYER_H
 
 #include <vector>
+
 #include "sprite.h"
 
 struct player_t {
@@ -20,7 +21,6 @@ struct inventory_t {
 
 class VecotorPlayers: public std::vector<player_t> {
 private:
-    
 public:
     VecotorPlayers();
     ~VecotorPlayers();
@@ -30,4 +30,4 @@ VecotorPlayers::VecotorPlayers() {}
 
 VecotorPlayers::~VecotorPlayers() {}
 
-#endif //VECTOR_PLAYER_H
+#endif  // VECTOR_PLAYER_H
