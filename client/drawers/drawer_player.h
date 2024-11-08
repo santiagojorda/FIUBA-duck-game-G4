@@ -14,7 +14,7 @@ private:
     SDL2pp::Texture texture;
 
 public:
-    DrawerPlayer(player_t player, SDL2pp::Renderer& renderer);
+    DrawerPlayer(player_t _player, SDL2pp::Renderer& renderer);
     void draw(SDL2pp::Renderer& renderer);
 };
 
