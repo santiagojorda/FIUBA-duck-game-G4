@@ -11,8 +11,9 @@ class ZoomHandler {
 private:
     int dest_x;
     int dest_y;
-    int dest_width;
-    int dest_height;
+    float factor_zoom;
+    int dest_width; // para ajustar el factor del zoom
+    int dest_height; // para ajustar el factor del zoom
 
 public:
     /*
