@@ -2,6 +2,9 @@
 
 #include <chrono>
 
+//FPS
+#define MILISECONDS_30_FPS 33
+
 // Game
 #define GAME_TITLE "Duck Game"
 
@@ -78,17 +81,20 @@ void Drawer::run() try {
 
     // keyboard_controller.procesar_comando(event_init, is_running, is_moving_left);
 
-    while (true) {  // receiver del cliente
-        // position = game_state.pop();
+    auto chrono_now = std::chrono::high_resolution_clock::now(); 
+    auto chrono_prev = chrono_now;
 
-        while (game_state.try_pop(position)) {
+    while (true) {  // receiver del cliente
+
+        while (game_state.try_pop(position)) { }
+
             // Cambiamos el render target a main_texture
             SDL_SetRenderTarget(renderer.Get(), main_texture.Get());
             renderer.Clear();
 
             // ---------------------------- Draw BACKGROUND ----------------------------
             renderer.Copy(background,
-                          Rect(0, 0, renderer.GetOutputWidth(), renderer.GetOutputHeight()));
+                            Rect(0, 0, renderer.GetOutputWidth(), renderer.GetOutputHeight()));
 
             // ---------------------------- Draw PISO TILESET ----------------------------
             int center_y = renderer.GetOutputHeight() / 2;  // Y coordinate of window center
@@ -137,7 +143,14 @@ void Drawer::run() try {
             // Aplicar zoom y centrar usando ZoomHandler
             zoom_handler.apply_zoom(renderer, main_texture);
             renderer.Present();
-        }
+    
+            chrono_now = std::chrono::high_resolution_clock::now();
+            auto delta_chrono = (chrono_now - chrono_prev);
+            if (delta_chrono <  std::chrono::milliseconds(MILISECONDS_30_FPS)) {
+                std::this_thread::sleep_for(std::chrono::milliseconds(MILISECONDS_30_FPS));
+            }
+            
+        chrono_prev =  std::chrono::high_resolution_clock::now(); 
 
         SDL_Event event;
         // Se envia la tecla que presionó el usuario
