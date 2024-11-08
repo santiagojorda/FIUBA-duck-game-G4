@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-#include "../common/coordinate.h"
+#include "../../common/coordinate.h"
 
 struct sprite_t {
     uint8_t id_texture;  // tipo de textura -> enum del tipo de arma, piso, pato, etc. lo tomo y lo

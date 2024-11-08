@@ -1,7 +1,5 @@
 #include "keyboard_controller.h"
 
-#include "../common/action_commands.h"
-
 KeyboardController::KeyboardController(Queue<ClientEvent_t>& _commands, int _num_players):
         commands(_commands), num_players(_num_players) {}
 

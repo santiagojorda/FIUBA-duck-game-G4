@@ -9,7 +9,7 @@
 
 #include "drawer_duck.h"
 #include "drawer_weapon.h"
-#include "../keyboard_controller.h"
+#include "../keyboard/keyboard_controller.h"
 #include "../zoom/zoom_handler.h"
 
 class Drawer {

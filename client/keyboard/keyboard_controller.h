@@ -4,11 +4,13 @@
 #include <SDL2/SDL.h>
 #include <SDL2pp/SDL2pp.hh>
 
-#include "../common/queue.h"
-#include "../common/socket.h"
-#include "protocol/protocol_client.h"
+#include "../../common/queue.h"
+#include "../../common/socket.h"
+#include "../protocol/protocol_client.h"
+#include "../../common/action_commands.h"
 
-#include "client_event.h"
+#include "../client_event.h"
+
 class KeyboardController {
 private:
     Queue<ClientEvent_t>& commands;
