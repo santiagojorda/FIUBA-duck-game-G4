@@ -7,6 +7,7 @@
 
 class Projectile : public Positionable, public Statable {
 private:
+    // cppcheck-suppress unusedStructMember
     uint8_t range_tiles;
 public:
     Projectile(uint8_t _range_tiles); 

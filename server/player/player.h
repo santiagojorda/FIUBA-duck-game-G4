@@ -7,6 +7,7 @@
 #include "../attributes/statable.h"
 #include "../attributes/equippable.h"
 #include "../player/inventory.h"
+#include "../guns/list_projectiles.h"
 
 class Player: public Positionable, public Statable {
 private:
@@ -27,6 +28,7 @@ public:
     Gun* get_gun();
     Armor* get_armor();
     Helmet* get_helmet();
+    ListProjectiles shoot();
     void equip(Equippable* item);
     virtual ~Player();
 };

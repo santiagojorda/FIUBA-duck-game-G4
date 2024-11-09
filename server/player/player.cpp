@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "../guns/gun.h"
+
 const int SPEED = 1;
 
 Player::Player() : inventory() {}
@@ -35,6 +37,16 @@ void Player::equip(Equippable* item){
 
 void Player::move_back(uint8_t tiles){
     (void)tiles;
+}
+
+ListProjectiles Player::shoot() {
+    Gun* gun = inventory.get_gun();
+    if (!gun){
+        return ListProjectiles();
+    }
+
+    Coordinate actual_position = get_coordinate();
+    return gun->shoot(actual_position);
 }
 
 Gun* Player::get_gun() { return inventory.get_gun(); }
