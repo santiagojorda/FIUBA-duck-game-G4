@@ -7,7 +7,7 @@
 
 class Bullet : public Projectile {
 public:
-    explicit Bullet(uint8_t _range_tiles);
+    explicit Bullet(ProjectileRange _range_tiles);
 };
 
 #endif

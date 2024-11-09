@@ -35,7 +35,6 @@ void Game::broadcast_gamestate() { monitor_client.broadcast(get_gamestate()); }
 GameState_t Game::get_gamestate() {
     GameState_t game_state;
 
-    game_state.N_players = players.size();
     game_state.players = players;
     return game_state;
 }

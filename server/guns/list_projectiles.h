@@ -1,14 +1,20 @@
 #ifndef LIST_PROJECTILES
 #define LIST_PROJECTILES
 
-#include <cstdint>
 #include <list>
 
-class ListProjectiles: public std::list<uint8_t> {
-private:
+class Projectile;
+
+class ListProjectiles: public std::list<Projectile*> {
 public:
     ListProjectiles() {}
-    ~ListProjectiles() {}
+    void add_projectile(Projectile* new_projectile) { this->push_back(new_projectile);};
+    void remove_projectile(Projectile* new_projectile) { this->remove(new_projectile);};
+    ~ListProjectiles() {
+        // for (auto* projectile : *this){
+        //     delete projectile;
+        // }
+    }
 };
 
 #endif

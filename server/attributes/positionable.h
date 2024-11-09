@@ -7,6 +7,10 @@
 
 class Positionable {
 
+private:
+    uint8_t id = 0;
+    uint8_t texture_id = 0;
+
 protected:
     Rectangle space;
 
@@ -21,7 +25,8 @@ public:
     virtual void translate() = 0;
     virtual void translate_x(int pasos) = 0;
     virtual void translate_y(int pasos) = 0;
-
+    uint8_t get_id();
+    uint8_t get_texture_id();
     virtual ~Positionable();
 };
 

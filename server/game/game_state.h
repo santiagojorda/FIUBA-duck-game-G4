@@ -8,9 +8,6 @@
 
 struct GameState_t {
     // cppcheck-suppress unusedStructMember
-    uint8_t N_players;
-
-    // cppcheck-suppress unusedStructMember
     ListPlayers players;
 };
 

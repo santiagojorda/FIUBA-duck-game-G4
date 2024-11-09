@@ -10,5 +10,4 @@ public:
     LaserRifle();
     ListProjectiles shoot(Coordinate& shooter_position) override;
 };
-
 #endif

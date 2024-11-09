@@ -6,12 +6,14 @@
 #include "../attributes/statable.h"
 
 class Projectile : public Positionable, public Statable {
-private:
-    // cppcheck-suppress unusedStructMember
-    uint8_t range_tiles;
+protected:
+    ProjectileRange range_tiles;
+
 public:
-    Projectile(uint8_t _range_tiles); 
-    explicit Projectile(uint8_t _range_tiles, Coordinate _coordinate); 
+    Projectile();
+    explicit Projectile(ProjectileRange _range_tiles); 
+    explicit Projectile(ProjectileRange _range_tiles, Coordinate _coordinate); 
+    void set_projectile_range(ProjectileRange _range_tiles);
 };
 
 #endif

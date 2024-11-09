@@ -7,12 +7,14 @@
 
 class Statable {
 
-protected:
-    uint8_t state;
-    uint8_t iter_state;
+private:
+    uint8_t state = 0;
+    uint8_t iter_frame = 0;
     
 public:
     Statable();
+    uint8_t get_state();
+    uint8_t get_frame();
     ~Statable();
 };
 
