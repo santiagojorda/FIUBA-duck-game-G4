@@ -8,7 +8,7 @@
 class LaserRifle : public Gun {
 public:
     LaserRifle();
-    void shoot(Player player) override;
+    ListProjectiles shoot(Coordinate& shooter_position) override;
 };
 
 #endif

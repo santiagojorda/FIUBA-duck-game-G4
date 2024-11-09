@@ -2,7 +2,7 @@
 
 Magnum::Magnum() : Gun(MAX_AMMO) {}
 
-void Magnum::shoot(Player player){
-    (void)player;
-    
+ListProjectiles Magnum::shoot(Coordinate& shooter_position) {
+    (void)shooter_position;
+    return ListProjectiles();
 }

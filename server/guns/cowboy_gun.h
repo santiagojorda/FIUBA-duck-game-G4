@@ -8,7 +8,7 @@
 class CowboyGun : public Gun {
 public:
     CowboyGun();
-    void shoot(Player player) override;
+    ListProjectiles shoot(Coordinate& shooter_position) override ;
 };
 
 #endif

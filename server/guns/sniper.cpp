@@ -2,6 +2,7 @@
 
 Sniper::Sniper() : Gun(MAX_AMMO) {}
 
-void Sniper::shoot(Player player){
-    (void)player;
+ListProjectiles Sniper::shoot(Coordinate& shooter_position) {
+    (void)shooter_position;
+    return ListProjectiles();
 }

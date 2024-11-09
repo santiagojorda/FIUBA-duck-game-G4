@@ -2,6 +2,7 @@
 
 AK47::AK47() : Gun(MAX_AMMO) {}
 
-void AK47::shoot(Player player){
-    (void)player;
+ListProjectiles AK47::shoot(Coordinate& shooter_position) {
+    (void)shooter_position;
+    return ListProjectiles();
 }

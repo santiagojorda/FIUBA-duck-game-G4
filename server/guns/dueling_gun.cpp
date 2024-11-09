@@ -2,6 +2,7 @@
 
 DuelingGun::DuelingGun() : Gun(MAX_AMMO) {}
 
-void DuelingGun::shoot(Player player){
-    (void)player;
+ListProjectiles DuelingGun::shoot(Coordinate& shooter_position) {
+    (void)shooter_position;
+    return ListProjectiles();
 }

@@ -15,13 +15,11 @@ void Player::translate() { /*que hacmeos aca?*/
 
 void Player::translate_x(int pasos) {
     Rectangle new_pos(this->space.get_coordinates() + Coordinate(pasos * SPEED, 0, 0, 0));
-    // std::cout << new_pos.get_coordinates() << std::endl;
     this->space = new_pos;
 }
 
 void Player::translate_y(int pasos) {
     Rectangle new_pos(this->space.get_coordinates() + Coordinate(0, pasos * SPEED, 0, 0));
-    // std::cout << new_pos.get_coordinates() << std::endl;
     this->space = new_pos;
 }
 
@@ -38,6 +36,7 @@ void Player::equip(Equippable* item){
 void Player::move_back(uint8_t tiles){
     (void)tiles;
 }
+
 Gun* Player::get_gun() { return inventory.get_gun(); }
 Armor* Player::get_armor() {return inventory.get_armor();}
 Helmet* Player::get_helmet() {return inventory.get_helmet();}

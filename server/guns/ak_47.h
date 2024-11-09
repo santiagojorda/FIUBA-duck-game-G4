@@ -8,7 +8,7 @@
 class AK47 : public Gun {
 public:
     AK47();
-    void shoot(Player player) override;
+    ListProjectiles shoot(Coordinate& shooter_position) override;
 };
 
 #endif

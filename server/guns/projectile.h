@@ -7,7 +7,10 @@
 
 class Projectile : public Positionable, public Statable {
 private:
+    uint8_t range_tiles;
 public:
+    Projectile(uint8_t _range_tiles); 
+    explicit Projectile(uint8_t _range_tiles, Coordinate _coordinate); 
 };
 
 #endif

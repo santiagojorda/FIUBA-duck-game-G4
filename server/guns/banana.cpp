@@ -1,7 +1,8 @@
 #include "banana.h"
 
-Banana::Banana() : Gun(MAX_AMMO) {}
+Banana::Banana() : Gun(MAX_AMMO), Projectile(MAX_RANGE_TILES) {}
 
-void Banana::shoot(Player player){
-    (void)player;
+ListProjectiles Banana::shoot(Coordinate& shooter_position) {
+    (void)shooter_position;
+    return ListProjectiles();
 }

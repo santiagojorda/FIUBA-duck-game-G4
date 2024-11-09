@@ -8,7 +8,7 @@
 class Sniper : public Gun {
 public:
     Sniper();
-    void shoot(Player player) override;
+    ListProjectiles shoot(Coordinate& shooter_position) override;
 };
 
 #endif

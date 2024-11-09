@@ -2,6 +2,7 @@
 
 CowboyGun::CowboyGun() : Gun(MAX_AMMO) {}
 
-void CowboyGun::shoot(Player player){
-    (void)player;
+ListProjectiles CowboyGun::shoot(Coordinate& shooter_position) {
+    (void)shooter_position;
+    return ListProjectiles();
 }

@@ -12,6 +12,7 @@ protected:
 
 public:
     Positionable();
+    Positionable(Coordinate& _coordinate);
 
     virtual Coordinate get_coordinate() const;
 

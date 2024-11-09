@@ -2,6 +2,7 @@
 
 Shotgun::Shotgun() : Gun(MAX_AMMO) {}
 
-void Shotgun::shoot(Player player){
-    (void)player;
+ListProjectiles Shotgun::shoot(Coordinate& shooter_position) {
+    (void)shooter_position;
+    return ListProjectiles();
 }

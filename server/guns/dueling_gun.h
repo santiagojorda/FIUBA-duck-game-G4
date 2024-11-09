@@ -8,7 +8,7 @@
 class DuelingGun : public Gun {
 public:
     DuelingGun();
-    void shoot(Player player) override;
+    ListProjectiles shoot(Coordinate& shooter_position) override;
 };
 
 #endif

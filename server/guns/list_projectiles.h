@@ -1,19 +1,19 @@
-#ifndef LIST_PLAYERS_ID
-#define LIST_PLAYERS_ID
+#ifndef LIST_PROJECTILES
+#define LIST_PROJECTILES
 
-#include <list>
 #include <cstdint>
+#include <list>
 
-class ListPlayersID: public std::list<uint8_t> {
+class ListProjectiles: public std::list<uint8_t> {
 private:
 public:
-    ListPlayersID() {}
+    ListProjectiles() {}
 
     void addPlayer(const uint8_t& player_id) { this->push_back(player_id); }
 
     void removePlayer(const uint8_t& player_id) { this->remove(player_id); }
 
-    ~ListPlayersID() {}
+    ~ListProjectiles() {}
 };
 
 #endif

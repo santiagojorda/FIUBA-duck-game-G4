@@ -7,6 +7,8 @@
 #include "../protocol/protocol_server.h"
 #include "../player/vector_player_id.h"
 
+#define BYTE_START_GAME 0xFF
+
 AcceptorClients::AcceptorClients(MonitorClients& _monitor, QueueGameState& _queue_gamestate,
                                  QueueEventPlayer& _queue_event, ListPlayersID& _players_id):
         skt(SERVNAME),
@@ -23,7 +25,7 @@ void AcceptorClients::listen_new_client() {
     // chequear si se envia un dummy para inicializar el game y cortar el acceptor
 
     uint8_t count_players = protocol.receive_count_players();
-    if (count_players == 0xFF) {
+    if (count_players == BYTE_START_GAME) {
         this->stop();
         return;
     }

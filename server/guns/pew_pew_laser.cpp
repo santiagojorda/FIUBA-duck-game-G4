@@ -2,6 +2,7 @@
 
 PewPewLaser::PewPewLaser() : Gun(MAX_AMMO) {}
 
-void PewPewLaser::shoot(Player player){
-    (void)player;
+ListProjectiles PewPewLaser::shoot(Coordinate& shooter_position) {
+    (void)shooter_position;
+    return ListProjectiles();
 }
