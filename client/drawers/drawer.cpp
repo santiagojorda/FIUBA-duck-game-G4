@@ -83,7 +83,7 @@ void Drawer::run() try {
                       Rect(0, 0, renderer.GetOutputWidth(), renderer.GetOutputHeight()));
 
         // ---------------------------- Draw Patos ----------------------------
-        // En realidad esto deberia hacerse una sola vez: deberia tener 1 try pop para inicializar
+        // En realidad esto deberia hacerse una sola vez: deberia tener 1 pop para inicializar
         // el juego, y todos los vectores en cuestion. Luego tener el ciclo que actualiza cada
         // drawer
         if (drawer_ducks.size() != _game_state.players.size()) {
@@ -95,6 +95,12 @@ void Drawer::run() try {
                 }
             }
         }
+
+        // map de drawers :)
+
+        // draw recibe player  y renderer
+        // drwers id player, renderer -> id. draw render player :)
+        
 
         for (size_t i = 0; i < _game_state.players.size(); ++i) {
             player_t player = _game_state.players[i];  // recibo el player actualizado
