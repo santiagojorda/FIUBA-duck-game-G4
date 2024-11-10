@@ -4,6 +4,4 @@
 
 Armor::Armor() {}
 
-void Armor::equip(Inventory* inventory) {
-    inventory->equip(this);
-};
+void Armor::equip(Inventory* inventory) { inventory->equip(this); };

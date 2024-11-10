@@ -1,8 +1,6 @@
 #include "granade.h"
 
-Granade::Granade() : 
-    Gun(MAX_AMMO, ShootingRecoil::NONE, ProjectileRange::MEDIUM), 
-    Projectile() {}
+Granade::Granade(): Gun(MAX_AMMO, ShootingRecoil::NONE, ProjectileRange::MEDIUM), Projectile() {}
 
 ListProjectiles Granade::shoot(Coordinate& shooter_position) {
     (void)shooter_position;

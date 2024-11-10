@@ -3,10 +3,11 @@
 
 #include <list>
 
-#include "game_physics.h"
+#include "../map/map.h"
 #include "../player/list_players.h"
 #include "../player/player.h"
-#include "../map/map.h"
+
+#include "game_physics.h"
 
 class GameLogic {
 private:

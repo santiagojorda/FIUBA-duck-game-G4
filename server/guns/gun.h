@@ -1,24 +1,25 @@
 #ifndef GUN
-#define GUN  
+#define GUN
 
 #include <cstdint>
 
+#include "../../common/coordinate.h"
+#include "../attributes/equippable.h"
 #include "../attributes/positionable.h"
 #include "../attributes/statable.h"
-#include "../attributes/equippable.h"
-#include "list_projectiles.h"
 #include "../player/inventory.h"
-#include "../../common/coordinate.h"
-#include "shooring_recoil.h"
-#include "projectile_range.h"
 
-class Gun : public Positionable, public Equippable {
+#include "list_projectiles.h"
+#include "projectile_range.h"
+#include "shooring_recoil.h"
+
+class Gun: public Positionable, public Equippable {
 protected:
     // cppcheck-suppress unusedStructMember
-    uint8_t ammo; 
+    uint8_t ammo;
     ShootingRecoil recoil;
     ProjectileRange projectile_range;
-    
+
 public:
     explicit Gun(uint8_t _ammo, ShootingRecoil _recoil, ProjectileRange _projectile_range);
     virtual ListProjectiles shoot(Coordinate& shooter_position) = 0;

@@ -3,7 +3,6 @@
 
 #include "../../common/queue.h"
 #include "../../common/thread.h"
-
 #include "../game/game_state.h"
 #include "../protocol/protocol_server.h"
 

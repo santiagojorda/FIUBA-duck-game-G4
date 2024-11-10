@@ -3,11 +3,6 @@
 
 #include <cstdint>
 
-enum class Direction : uint8_t { 
-    UP, 
-    RIGHT, 
-    LEFT,
-    DOWN 
-};
+enum class Direction : uint8_t { UP, RIGHT, LEFT, DOWN };
 
 #endif

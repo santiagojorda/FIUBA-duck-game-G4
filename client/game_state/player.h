@@ -15,8 +15,8 @@ struct inventory_t {
 struct player_t {
     sprite_t sprite;
     uint8_t is_looking;
-    uint8_t state; // si esta parado o bla , con este elijo la animacion
-    uint8_t frame; // que parte de la animacion
+    uint8_t state;  // si esta parado o bla , con este elijo la animacion
+    uint8_t frame;  // que parte de la animacion
     inventory_t inventory;
 };
 

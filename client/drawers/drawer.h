@@ -6,11 +6,11 @@
 
 #include "../../common/coordinate.h"
 #include "../../common/queue.h"
+#include "../keyboard/keyboard_controller.h"
+#include "../zoom/zoom_handler.h"
 
 #include "drawer_duck.h"
 #include "drawer_weapon.h"
-#include "../keyboard/keyboard_controller.h"
-#include "../zoom/zoom_handler.h"
 
 class Drawer {
 private:

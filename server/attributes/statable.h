@@ -10,7 +10,7 @@ class Statable {
 private:
     uint8_t state = 0;
     uint8_t iter_frame = 0;
-    
+
 public:
     Statable();
     uint8_t get_state();
@@ -19,4 +19,3 @@ public:
 };
 
 #endif
- 

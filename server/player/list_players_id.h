@@ -1,8 +1,8 @@
 #ifndef LIST_PLAYERS_ID
 #define LIST_PLAYERS_ID
 
-#include <list>
 #include <cstdint>
+#include <list>
 
 class ListPlayersID: public std::list<uint8_t> {
 private:

@@ -2,11 +2,7 @@
 
 #include <iostream>
 
-GameLogic::GameLogic(ListPlayers& _players, Map& _map): 
-    players(_players), 
-    map(_map),
-    physics()
-    {}
+GameLogic::GameLogic(ListPlayers& _players, Map& _map): players(_players), map(_map), physics() {}
 
 void GameLogic::apply_gravity() {
 

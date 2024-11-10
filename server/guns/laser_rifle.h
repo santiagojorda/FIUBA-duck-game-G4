@@ -5,7 +5,7 @@
 
 #define MAX_AMMO 10
 
-class LaserRifle : public Gun {
+class LaserRifle: public Gun {
 public:
     LaserRifle();
     ListProjectiles shoot(Coordinate& shooter_position) override;

@@ -3,9 +3,10 @@
 #include <iostream>
 #include <list>
 
-#include "client.h"
-#include "../protocol/protocol_server.h"
 #include "../player/vector_player_id.h"
+#include "../protocol/protocol_server.h"
+
+#include "client.h"
 
 #define BYTE_START_GAME 0xFF
 

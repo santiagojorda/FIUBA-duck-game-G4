@@ -3,11 +3,12 @@
 
 #include <mutex>
 
-#include "client.h"
 #include "../events/event_player.h"
-#include "../player/list_players_id.h"
 #include "../events/queue_event_player.h"
 #include "../game/queue_game_state.h"
+#include "../player/list_players_id.h"
+
+#include "client.h"
 
 class MonitorClients {
 private:

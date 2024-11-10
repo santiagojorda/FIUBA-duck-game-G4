@@ -21,36 +21,33 @@ void ProtocolServer::send_inventory(Inventory& inventory) {
 }
 
 void ProtocolServer::send_gun(Gun* gun) {
-    if(gun){
+    if (gun) {
         send_byte(true);
         send_byte(gun->get_id());
         send_byte(gun->get_ammo());
-    }
-    else{
+    } else {
         send_byte(false);
     }
 }
 
 void ProtocolServer::send_armor(Armor* armor) {
-    if(armor){
+    if (armor) {
         send_byte(true);
         send_byte(armor->get_texture_id());
-    }
-    else{
+    } else {
         send_byte(false);
     }
 }
 void ProtocolServer::send_helmet(Helmet* helmet) {
-    if(helmet){
+    if (helmet) {
         send_byte(true);
         send_byte(helmet->get_texture_id());
-    }
-    else{
+    } else {
         send_byte(false);
     }
 }
 
-void ProtocolServer::send_players_state(GameState_t& state){
+void ProtocolServer::send_players_state(GameState_t& state) {
     uint8_t count_players = state.players.size();
     send_byte(count_players);
     for (Player& player: state.players) {
@@ -63,55 +60,55 @@ void ProtocolServer::send_players_state(GameState_t& state){
     }
 }
 
-void ProtocolServer::send_projectiles_state(GameState_t& state){
-    (void)state;    
-    uint16_t count_projectiles = 0;  
+void ProtocolServer::send_projectiles_state(GameState_t& state) {
+    (void)state;
+    uint16_t count_projectiles = 0;
     send_2_bytes(count_projectiles);
-    if(count_projectiles > 0){
-        send_byte(0); // texture_id
-        send_cordinates(Coordinate()); // posicion del escenario
-        send_byte(0); // frame
+    if (count_projectiles > 0) {
+        send_byte(0);                   // texture_id
+        send_cordinates(Coordinate());  // posicion del escenario
+        send_byte(0);                   // frame
     }
 }
 
 
-void ProtocolServer::send_throwables_state(GameState_t& state){
-    (void)state;    
-    uint8_t count_throwables = 0;  
+void ProtocolServer::send_throwables_state(GameState_t& state) {
+    (void)state;
+    uint8_t count_throwables = 0;
     send_byte(count_throwables);
-    if(count_throwables > 0){
-        send_byte(0); // texture_id
-        send_cordinates(Coordinate()); // posicion de la bomba
-        send_byte(0); // frame
-        send_byte(0); // state
+    if (count_throwables > 0) {
+        send_byte(0);                   // texture_id
+        send_cordinates(Coordinate());  // posicion de la bomba
+        send_byte(0);                   // frame
+        send_byte(0);                   // state
     }
 }
 
-void ProtocolServer::send_boxes_state(GameState_t& state){
-    (void)state;    
-    uint8_t count_boxes = 0;  
-    send_byte(count_boxes);//
-    if(count_boxes > 0){
-        send_byte(0); // texture_id
-        send_cordinates(Coordinate()); // posicion del escenario
-        send_byte(0); // frame
+void ProtocolServer::send_boxes_state(GameState_t& state) {
+    (void)state;
+    uint8_t count_boxes = 0;
+    send_byte(count_boxes);  //
+    if (count_boxes > 0) {
+        send_byte(0);                   // texture_id
+        send_cordinates(Coordinate());  // posicion del escenario
+        send_byte(0);                   // frame
     }
 }
 
-void ProtocolServer::send_scenario_state(GameState_t& state){
-    (void)state;   
-    uint8_t count_map_items = 0;  
-    send_byte(count_map_items);//
-    if(count_map_items > 0){
-        send_byte(0); // texture_id
-        send_cordinates(Coordinate()); // posicion del escenario
+void ProtocolServer::send_scenario_state(GameState_t& state) {
+    (void)state;
+    uint8_t count_map_items = 0;
+    send_byte(count_map_items);  //
+    if (count_map_items > 0) {
+        send_byte(0);                   // texture_id
+        send_cordinates(Coordinate());  // posicion del escenario
     }
 }
 
-void ProtocolServer::send_camera_state(GameState_t& state){
-    (void)state;    
-    send_2_bytes(0); // zoom_min
-    send_2_bytes(0); // zoom_max
+void ProtocolServer::send_camera_state(GameState_t& state) {
+    (void)state;
+    send_2_bytes(0);  // zoom_min
+    send_2_bytes(0);  // zoom_max
 }
 
 void ProtocolServer::send_game_state(GameState_t& state) {

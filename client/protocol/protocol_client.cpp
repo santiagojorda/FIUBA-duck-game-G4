@@ -15,7 +15,7 @@ Coordinate ClientProtocol::receive_cordinates() {
 }
 
 sprite_t ClientProtocol::receive_sprite() {
-    uint8_t id_texture; // es el "id_player"
+    uint8_t id_texture;  // es el "id_player"
     this->receive_byte(id_texture);
     Coordinate coordinate = receive_cordinates();
 
@@ -59,14 +59,15 @@ void ClientProtocol::send_init(const uint8_t& init) {
 
 inventory_t ClientProtocol::receive_inventory() {
     // HEADER
-    uint8_t header; // es el "id_player"
+    uint8_t header;  // es el "id_player"
     this->receive_byte(header);
     sprite_t weapon;
     uint8_t ammo;
 
     if (header != 0) {
         weapon = receive_sprite();
-        this->receive_byte(ammo); // TODO: refactorizar los receive -> hacerlos por referencia y no con returns.
+        this->receive_byte(ammo);  // TODO: refactorizar los receive -> hacerlos por referencia y no
+                                   // con returns.
     }
 
     sprite_t armor;
@@ -81,7 +82,7 @@ inventory_t ClientProtocol::receive_inventory() {
         helmet = receive_sprite();
     }
 
-    return inventory_t{weapon, ammo, armor, helmet}; 
+    return inventory_t{weapon, ammo, armor, helmet};
 }
 
 // -----------------------------------------------------------------------------------------------
@@ -93,16 +94,16 @@ VectorPlayers ClientProtocol::receive_players() {
     VectorPlayers players_positions;
 
     for (size_t i = 0; i < cantidad_players; i++) {
-        sprite_t sprite = receive_sprite(); 
+        sprite_t sprite = receive_sprite();
 
         uint8_t is_looking;
         this->receive_byte(is_looking);
 
         // estos 2 sirven para controlar la animación
-        uint8_t state; // accion del pato : running, jump, etc. si es 0x0 no hace nada
+        uint8_t state;  // accion del pato : running, jump, etc. si es 0x0 no hace nada
         this->receive_byte(state);
 
-        uint8_t frame; // elegir la animacion
+        uint8_t frame;  // elegir la animacion
         this->receive_byte(frame);
 
         inventory_t inventory = receive_inventory();
@@ -124,15 +125,16 @@ VectorPlayers ClientProtocol::receive_players() {
 };
 
  */
-std::vector<bullet_t> ClientProtocol::receive_bullets(){ // balas -> recibo cantidad y sigo leyendo
+std::vector<bullet_t>
+        ClientProtocol::receive_bullets() {  // balas -> recibo cantidad y sigo leyendo
     uint8_t cantidad_bullets;
     this->receive_byte(cantidad_bullets);
 
     std::vector<bullet_t> bullets;
 
     for (size_t i = 0; i < cantidad_bullets; i++) {
-        sprite_t sprite = receive_sprite(); 
-        uint8_t frame; // elegir la animacion
+        sprite_t sprite = receive_sprite();
+        uint8_t frame;  // elegir la animacion
         this->receive_byte(frame);
         bullet_t bullet{sprite, frame};
         bullets.push_back(bullet);
@@ -141,15 +143,15 @@ std::vector<bullet_t> ClientProtocol::receive_bullets(){ // balas -> recibo cant
     return bullets;
 }
 
-VectorThrowable ClientProtocol::receive_throwables(){
+VectorThrowable ClientProtocol::receive_throwables() {
     uint8_t cantidad_throwables;
     this->receive_byte(cantidad_throwables);
 
     VectorThrowable throwables;
 
     for (size_t i = 0; i < cantidad_throwables; i++) {
-        sprite_t sprite = receive_sprite(); 
-        uint8_t frame; // elegir la animacion
+        sprite_t sprite = receive_sprite();
+        uint8_t frame;  // elegir la animacion
         this->receive_byte(frame);
         uint8_t state;
         this->receive_byte(state);
@@ -166,8 +168,8 @@ std::vector<box_t> ClientProtocol::receive_boxes() {
 
     std::vector<box_t> boxes;
     for (size_t i = 0; i < cantidad_boxes; i++) {
-        sprite_t sprite = receive_sprite(); 
-        uint8_t frame; // elegir la animacion
+        sprite_t sprite = receive_sprite();
+        uint8_t frame;  // elegir la animacion
         this->receive_byte(frame);
         box_t box{sprite, frame};
         boxes.push_back(box);
@@ -176,12 +178,12 @@ std::vector<box_t> ClientProtocol::receive_boxes() {
     return boxes;
 }
 
-VectorSprite ClientProtocol::receive_floor_sprites(){
+VectorSprite ClientProtocol::receive_floor_sprites() {
     uint8_t cantidad_floor_sprites;
     this->receive_byte(cantidad_floor_sprites);
 
     VectorSprite sprites;
- 
+
     for (size_t i = 0; i < cantidad_floor_sprites; i++) {
         uint8_t id_texture;
         this->receive_byte(id_texture);
@@ -193,7 +195,7 @@ VectorSprite ClientProtocol::receive_floor_sprites(){
     return sprites;
 }
 
-zoom_t ClientProtocol::receive_zoom_details(){
+zoom_t ClientProtocol::receive_zoom_details() {
     uint16_t zoom_min;
     this->receive_2_bytes(zoom_min);
     uint16_t zoom_max;

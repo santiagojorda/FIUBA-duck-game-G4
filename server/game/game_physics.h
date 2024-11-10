@@ -2,7 +2,6 @@
 #define GAME_PHYSICS_H
 
 #include "../../common/coordinate.h"
-
 #include "../attributes/positionable.h"
 
 class GamePhysics {

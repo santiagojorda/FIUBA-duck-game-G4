@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-class Inventory; // forward declaration -> para que no haya circularidad de inclusiones
+class Inventory;  // forward declaration -> para que no haya circularidad de inclusiones
 
 class Equippable {
 public:
@@ -12,4 +12,3 @@ public:
 };
 
 #endif
- 

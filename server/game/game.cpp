@@ -4,8 +4,8 @@
 #include <iostream>
 
 #include "../events/event_player.h"
-#include "../player/player.h"
 #include "../map/ground.h"
+#include "../player/player.h"
 
 #define MILISECONDS_30_FPS 33
 
@@ -17,11 +17,10 @@ Game::Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEventPla
         game_logic(players, map),
         monitor_client(_monitor_client),
         queue_event(_queue_event),
-        queue_gamestate(_queue_gamestate)
-        {   
-            Ground* ground = new Ground(Coordinate(0, 200, 200, 100)); // lea del yaml
-            map.add(ground);
-        }
+        queue_gamestate(_queue_gamestate) {
+    Ground* ground = new Ground(Coordinate(0, 200, 200, 100));  // lea del yaml
+    map.add(ground);
+}
 
 void Game::sleep() { std::this_thread::sleep_for(std::chrono::milliseconds(MILISECONDS_30_FPS)); }
 
