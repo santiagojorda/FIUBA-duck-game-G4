@@ -5,7 +5,7 @@
 
 #define MAX_AMMO 30
 
-class AK47 : public Gun {
+class AK47: public Gun {
 public:
     AK47();
     ListProjectiles shoot(Coordinate& shooter_position) override;

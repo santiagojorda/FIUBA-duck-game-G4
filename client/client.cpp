@@ -10,10 +10,10 @@ Client::Client(const std::string& hostname, const std::string& servname):
         skt(hostname.c_str(), servname.c_str()),
         protocol(skt),
         commands(),
-        positions(),
-        receiver(protocol, positions),
+        game_state(),
+        receiver(protocol, game_state),
         sender(protocol, commands),
-        drawer(commands, positions) {
+        drawer(commands, game_state) {
 
     this->protocol.send_init(ONE_PLAYER);
 }
@@ -23,10 +23,10 @@ Client::Client(const std::string& hostname, const std::string& servname, int N_p
         skt(hostname.c_str(), servname.c_str()),
         protocol(skt),
         commands(),
-        positions(),
-        receiver(protocol, positions),
+        game_state(),
+        receiver(protocol, game_state),
         sender(protocol, commands),
-        drawer(commands, positions) {
+        drawer(commands, game_state) {
 
     this->protocol.send_init(N_players > MAX_PLAYER ? MAX_PLAYER : N_players);
 }

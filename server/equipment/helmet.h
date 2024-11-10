@@ -8,7 +8,6 @@ class Helmet: public Positionable, public Equippable {
 public:
     Helmet();
     void equip(Inventory* inventory) override;
-
 };
 
 #endif

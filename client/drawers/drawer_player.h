@@ -6,6 +6,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2pp/SDL2pp.hh>
 #include <SDL2pp/Texture.hh>
+
 #include "../game_state/player.h"
 
 class DrawerPlayer {
@@ -15,7 +16,10 @@ private:
 
 public:
     DrawerPlayer(player_t _player, SDL2pp::Renderer& renderer);
+
     void draw(SDL2pp::Renderer& renderer);
+    
+    void update_player(const player_t& update_player); // quizas polimorfismo, asi el padre tiene 1 type y los hijos lo usan como quieran
 };
 
 #endif  // DRAWER_PLAYER_H

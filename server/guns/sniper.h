@@ -5,7 +5,7 @@
 
 #define MAX_AMMO 6
 
-class Sniper : public Gun {
+class Sniper: public Gun {
 public:
     Sniper();
     ListProjectiles shoot(Coordinate& shooter_position) override;

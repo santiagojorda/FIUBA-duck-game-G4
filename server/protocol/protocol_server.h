@@ -6,7 +6,6 @@
 
 #include "../../common/protocol.h"
 #include "../../common/socket.h"
-
 #include "../game/game_state.h"
 
 class ProtocolServer: public Protocol {

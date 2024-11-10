@@ -2,8 +2,8 @@
 #define VECTOR_PLAYER_H
 
 #include <vector>
-#include "player.h"
 
+#include "player.h"
 #include "sprite.h"
 
 class VectorPlayers: public std::vector<player_t> {

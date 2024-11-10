@@ -15,5 +15,7 @@ clean:
 
 
 format: .clang-format
-	clang-format -i server/*.cpp server/*.h common/*.cpp common/*.h client/*.cpp client/*.h
+	find server -name "*.cpp" -o -name "*.h" -exec clang-format -i {} +
+	find common -name "*.cpp" -o -name "*.h" -exec clang-format -i {} +
+	find client -name "*.cpp" -o -name "*.h" -exec clang-format -i {} +
 	echo fin

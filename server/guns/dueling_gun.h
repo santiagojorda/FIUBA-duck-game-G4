@@ -5,7 +5,7 @@
 
 #define MAX_AMMO 1
 
-class DuelingGun : public Gun {
+class DuelingGun: public Gun {
 public:
     DuelingGun();
     ListProjectiles shoot(Coordinate& shooter_position) override;

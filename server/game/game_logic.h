@@ -3,9 +3,10 @@
 
 #include <list>
 
-#include "game_physics.h"
 #include "../player/list_players.h"
 #include "../player/player.h"
+
+#include "game_physics.h"
 
 class GameLogic {
 private:

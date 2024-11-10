@@ -5,11 +5,10 @@
 
 #define MAX_AMMO 12
 
-class PewPewLaser : public Gun {
+class PewPewLaser: public Gun {
 public:
     PewPewLaser();
     ListProjectiles shoot(Coordinate& shooter_position) override;
-
 };
 
 #endif
