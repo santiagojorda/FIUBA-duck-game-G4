@@ -10,10 +10,12 @@
 #include "../client/monitor_clients.h"
 #include "../events/queue_event_player.h"
 #include "queue_game_state.h"
+#include "../map/map.h"
 
 class Game: public Thread {
 private:
     ListPlayers players;
+    Map map;
     GameLogic game_logic;
     MonitorClients& monitor_client;
     QueueEventPlayer& queue_event;  //<- para charalar

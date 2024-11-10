@@ -23,6 +23,7 @@ private:
     void send_boxes_state(GameState_t& state);
     void send_scenario_state(GameState_t& state);
     void send_camera_state(GameState_t& state);
+    void send_throwables_state(GameState_t& state);
 
 public:
     explicit ProtocolServer(Socket& skt);

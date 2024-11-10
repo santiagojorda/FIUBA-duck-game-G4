@@ -5,16 +5,24 @@
 
 class Projectile;
 
-class ListProjectiles: public std::list<Projectile*> {
+class ListProjectiles{ 
+private:
+    std::list<Projectile*> projectiles;
 public:
     ListProjectiles() {}
-    void add_projectile(Projectile* new_projectile) { this->push_back(new_projectile);};
-    void remove_projectile(Projectile* new_projectile) { this->remove(new_projectile);};
-    ~ListProjectiles() {
-        // for (auto* projectile : *this){
-        //     delete projectile;
-        // }
+    void add(Projectile* new_projectile) { projectiles.push_back(new_projectile);};
+    void remove(Projectile* projectile) { 
+        (void)projectile;
+        // ver
+    };
+
+    void clear(){
+        // for (Projectile* item : projectiles){
+        //     (v)
+        //     // delete item;
+        // }    
     }
+    ~ListProjectiles() { clear();}
 };
 
 #endif

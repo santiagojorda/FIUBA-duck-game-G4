@@ -51,6 +51,8 @@ void ProtocolServer::send_helmet(Helmet* helmet) {
 }
 
 void ProtocolServer::send_players_state(GameState_t& state){
+    uint8_t count_players = state.players.size();
+    send_byte(count_players);
     for (Player& player: state.players) {
         send_byte(player.get_id());
         send_cordinates(player.get_coordinate());
@@ -64,11 +66,24 @@ void ProtocolServer::send_players_state(GameState_t& state){
 void ProtocolServer::send_projectiles_state(GameState_t& state){
     (void)state;    
     uint16_t count_projectiles = 0;  
-    send_2_bytes(count_projectiles);//
+    send_2_bytes(count_projectiles);
     if(count_projectiles > 0){
+        send_byte(0); // texture_id
         send_cordinates(Coordinate()); // posicion del escenario
         send_byte(0); // frame
+    }
+}
+
+
+void ProtocolServer::send_throwables_state(GameState_t& state){
+    (void)state;    
+    uint8_t count_throwables = 0;  
+    send_byte(count_throwables);
+    if(count_throwables > 0){
         send_byte(0); // texture_id
+        send_cordinates(Coordinate()); // posicion de la bomba
+        send_byte(0); // frame
+        send_byte(0); // state
     }
 }
 
@@ -77,22 +92,22 @@ void ProtocolServer::send_boxes_state(GameState_t& state){
     uint8_t count_boxes = 0;  
     send_byte(count_boxes);//
     if(count_boxes > 0){
+        send_byte(0); // texture_id
         send_cordinates(Coordinate()); // posicion del escenario
         send_byte(0); // frame
-        // send_byte(0); // texture_id
     }
 }
 
 void ProtocolServer::send_scenario_state(GameState_t& state){
     (void)state;   
-    uint8_t count_scenarios = 0;  
-    send_byte(count_scenarios);//
-    if(count_scenarios > 0){
-        send_cordinates(Coordinate()); // posicion del escenario
+    uint8_t count_map_items = 0;  
+    send_byte(count_map_items);//
+    if(count_map_items > 0){
         send_byte(0); // texture_id
+        send_cordinates(Coordinate()); // posicion del escenario
     }
-
 }
+
 void ProtocolServer::send_camera_state(GameState_t& state){
     (void)state;    
     send_2_bytes(0); // zoom_min
@@ -100,9 +115,9 @@ void ProtocolServer::send_camera_state(GameState_t& state){
 }
 
 void ProtocolServer::send_game_state(GameState_t& state) {
-    send_byte(state.players.size());
     send_players_state(state);
     send_projectiles_state(state);
+    send_throwables_state(state);
     send_boxes_state(state);
     send_scenario_state(state);
     send_camera_state(state);
