@@ -1,6 +1,7 @@
 #include <exception>
 #include <iostream>
 #include <QApplication>
+#include "lobby/principal_screen.h"
 
 #include "client.h"
 
@@ -10,13 +11,12 @@
 
 int main(int argc, char* argv[]) {
     try {
-        
         QApplication a(argc, argv);
-        /*LobbyClient w;
-        w.show();
+        PrincipalScreen principal_screen;
+        principal_screen.show_screen();
         int qt_status = a.exec();
         std::cout << qt_status << std::endl;
-*/
+
         // QApplication app(argc, argv);
         // return app.exec();
         /*if (argc != ARGS_EXPECTED_CLIENT) {
