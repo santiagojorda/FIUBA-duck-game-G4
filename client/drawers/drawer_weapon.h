@@ -4,10 +4,11 @@
 #include <SDL2/SDL.h>
 #include <SDL2pp/SDL2pp.hh>
 #include <SDL2pp/Texture.hh>
+#include <map>
 
 #include "drawable.h"
 
-class DrawerWeapon: public Drawable {
+class DrawerWeapon {
 private:
     SDL2pp::Texture texture;
     int x;
@@ -15,7 +16,7 @@ private:
 
 public:
     DrawerWeapon(SDL2pp::Renderer& renderer);
-    void draw(SDL2pp::Renderer& renderer) override;
+    void draw(SDL2pp::Renderer& renderer);
     void set_position(int x, int y);
 };
 

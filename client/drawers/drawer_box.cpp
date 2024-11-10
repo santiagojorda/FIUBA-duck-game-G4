@@ -25,5 +25,4 @@ void DrawerBox::draw(SDL2pp::Renderer& renderer) {
                                TILE_SIZE));
 }
 
-
 void DrawerBox::update_box(const box_t& updated_box) { box = updated_box; }
