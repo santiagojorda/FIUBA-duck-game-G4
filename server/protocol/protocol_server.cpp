@@ -108,13 +108,24 @@ void ProtocolServer::send_camera_state(GameState_t& state) {
     send_2_bytes(0);  // zoom_max
 }
 
+
+void ProtocolServer::send_map_weapons_state(GameState_t& state) {
+    (void)state;
+    uint8_t count_map_weapons = 0;
+    send_byte(count_map_weapons);  //
+    if (count_map_weapons > 0) {
+        send_byte(0);                   // texture_id
+        send_cordinates(Coordinate());  // posicion del escenario
+    }
+}
+
 void ProtocolServer::send_game_state(GameState_t& state) {
     send_players_state(state);
     send_projectiles_state(state);
     send_throwables_state(state);
     send_boxes_state(state);
     send_scenario_state(state);
-    // send weapons (las del ecenario)
+    send_map_weapons_state(state);
     // send_camera_state(state);
 }
 
