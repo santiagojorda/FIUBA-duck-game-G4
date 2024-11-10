@@ -2,7 +2,7 @@
 
 #include <chrono>
 
-//FPS
+// FPS
 #define MILISECONDS_30_FPS 33
 
 // Game
@@ -68,63 +68,65 @@ void Drawer::run() try {
     bool is_moving_left = false;
     client_game_state_t _game_state;
 
-    auto chrono_now = std::chrono::high_resolution_clock::now(); 
+    auto chrono_now = std::chrono::high_resolution_clock::now();
     auto chrono_prev = chrono_now;
 
     while (true) {  // receiver del cliente
 
-        while (game_state.try_pop(_game_state)) { }
+        while (game_state.try_pop(_game_state)) {}
 
-            // Cambiamos el render target a main_texture
-            SDL_SetRenderTarget(renderer.Get(), main_texture.Get());
-            renderer.Clear();
+        // Cambiamos el render target a main_texture
+        SDL_SetRenderTarget(renderer.Get(), main_texture.Get());
+        renderer.Clear();
 
-            // ---------------------------- Draw BACKGROUND ----------------------------
-            renderer.Copy(background,
-                            Rect(0, 0, renderer.GetOutputWidth(), renderer.GetOutputHeight()));
+        // ---------------------------- Draw BACKGROUND ----------------------------
+        renderer.Copy(background,
+                      Rect(0, 0, renderer.GetOutputWidth(), renderer.GetOutputHeight()));
 
-            // ---------------------------- Draw Patos ----------------------------
-            // En realidad esto deberia hacerse una sola vez: deberia tener 1 try pop para inicializar
-            // el juego, y todos los vectores en cuestion. Luego tener el ciclo que actualiza cada drawer
-            if (drawer_ducks.size() != _game_state.players.size()) {
-                drawer_ducks.resize(_game_state.players.size());
-                for (size_t i = 0; i < _game_state.players.size(); ++i) {
-                    if (!drawer_ducks[i]) {
-                        player_t player = _game_state.players[i];
-                        drawer_ducks[i] = std::make_shared<DrawerPlayer>(player, renderer);
-                    }
+        // ---------------------------- Draw Patos ----------------------------
+        // En realidad esto deberia hacerse una sola vez: deberia tener 1 try pop para inicializar
+        // el juego, y todos los vectores en cuestion. Luego tener el ciclo que actualiza cada
+        // drawer
+        if (drawer_ducks.size() != _game_state.players.size()) {
+            drawer_ducks.resize(_game_state.players.size());
+            for (size_t i = 0; i < _game_state.players.size(); ++i) {
+                if (!drawer_ducks[i]) {
+                    player_t player = _game_state.players[i];
+                    drawer_ducks[i] = std::make_shared<DrawerPlayer>(player, renderer);
                 }
             }
+        }
 
-            for (size_t i = 0; i < _game_state.players.size(); ++i) {
-                player_t player = _game_state.players[i]; // recibo el player actualizado
-                // CONSULTA: update player ?? o le paso el nuevo player por parámetro ?? o lo busco el player en el drawer_ducks??
-                drawer_ducks[i]->update_player(player);
-                drawer_ducks[i]->draw(renderer);
-                //drawer_ducks[i].draw(renderer, player);
-                /*int duck_x = position[i].coordinate.get_x();
-                int duck_y = position[i].coordinate.get_y();
-                drawer_ducks[i]->set_position(duck_x, duck_y);
-                drawer_ducks[i]->set_is_moving_left(is_moving_left);
-                drawer_ducks[i]->update_animation(is_running);
-                drawer_ducks[i]->draw(renderer);*/
-            }
+        for (size_t i = 0; i < _game_state.players.size(); ++i) {
+            player_t player = _game_state.players[i];  // recibo el player actualizado
+            // CONSULTA: update player ?? o le paso el nuevo player por parámetro ?? o lo busco el
+            // player en el drawer_ducks??
+            drawer_ducks[i]->update_player(player);
+            drawer_ducks[i]->draw(renderer);
+            // drawer_ducks[i].draw(renderer, player);
+            /*int duck_x = position[i].coordinate.get_x();
+            int duck_y = position[i].coordinate.get_y();
+            drawer_ducks[i]->set_position(duck_x, duck_y);
+            drawer_ducks[i]->set_is_moving_left(is_moving_left);
+            drawer_ducks[i]->update_animation(is_running);
+            drawer_ducks[i]->draw(renderer);*/
+        }
 
-            // Cambiar el render target de vuelta a la pantalla
-            SDL_SetRenderTarget(renderer.Get(), nullptr);
-            //zoom_handler.calculate_zoom(position);
-            renderer.Clear();
-            // Aplicar zoom y centrar usando ZoomHandler
-            // zoom_handler.apply_zoom(renderer, main_texture);
-            renderer.Present();
-    
-            chrono_now = std::chrono::high_resolution_clock::now();
-            auto delta_chrono = (chrono_now - chrono_prev);
-            if (delta_chrono <  std::chrono::milliseconds(MILISECONDS_30_FPS)) {
-                std::this_thread::sleep_for(std::chrono::milliseconds(MILISECONDS_30_FPS));
-            }
-            
-        chrono_prev =  std::chrono::high_resolution_clock::now(); 
+        // Cambiar el render target de vuelta a la pantalla
+        SDL_SetRenderTarget(renderer.Get(), nullptr);
+        // zoom_handler.calculate_zoom(position);
+        renderer.Clear();
+        // Aplicar zoom y centrar usando ZoomHandler
+        // zoom_handler.apply_zoom(renderer, main_texture);
+        renderer.Present();
+
+        chrono_now = std::chrono::high_resolution_clock::now();
+        auto delta_chrono = (chrono_now - chrono_prev);
+        if (delta_chrono < std::chrono::milliseconds(MILISECONDS_30_FPS)) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(MILISECONDS_30_FPS));
+        }
+
+        chrono_prev = std::chrono::high_resolution_clock::now();
 
         //  Se envia la tecla que presionó el usuario
         SDL_Event event;
