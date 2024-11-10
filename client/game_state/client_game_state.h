@@ -1,10 +1,10 @@
 #ifndef CLIENT_GAME_STATE_H
 #define CLIENT_GAME_STATE_H
 
+#include "elements.h"
 #include "vector_player.h"
 #include "vector_sprite.h"
 #include "vector_throwable.h"
-#include "elements.h"
 
 struct client_game_state_t {
     VectorPlayers players;

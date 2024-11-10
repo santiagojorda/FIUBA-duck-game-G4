@@ -25,7 +25,7 @@ enum TEXTURE_WEAPONS {
 // DuckGame-Laser.png -> pew pew laser
 // DuckGame-MachineGuns.png ->  AK_47
 // DuckGame-Pistol.png ->  pistola cowboy, magnum, supongo que la pistol es la pistola de duelos
-// DuckGame-MoreWeapons.png -> sniper, 
+// DuckGame-MoreWeapons.png -> sniper,
 
 static std::map<uint8_t, std::string> textures = {
     {GRANADA, DATA_PATH "/DuckGame-Grenades.png "}, // ok

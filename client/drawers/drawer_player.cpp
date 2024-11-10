@@ -4,7 +4,6 @@
 
 #include "../../common/orientations.h"
 #include "../game_state/player.h"
-#include "../game_state/player.h"
 
 
 // TAMAÑO TILESET EN LA PANTALLA

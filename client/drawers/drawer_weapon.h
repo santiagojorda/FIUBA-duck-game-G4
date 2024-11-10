@@ -1,10 +1,11 @@
 #ifndef DRAWER_WEAPON_H
 #define DRAWER_WEAPON_H
 
+#include <map>
+
 #include <SDL2/SDL.h>
 #include <SDL2pp/SDL2pp.hh>
 #include <SDL2pp/Texture.hh>
-#include <map>
 
 #include "drawable.h"
 
