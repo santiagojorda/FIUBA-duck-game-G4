@@ -3,6 +3,7 @@
 #include <chrono>
 
 // FPS
+// FPS
 #define MILISECONDS_30_FPS 33
 
 // Game
@@ -26,7 +27,7 @@
 
 using namespace SDL2pp;
 
-Drawer::Drawer(Queue<ClientEvent_t>& commands, Queue<std::vector<PlayerPosition_t>>& game_state):
+Drawer::Drawer(Queue<ClientEvent_t>& commands, Queue<client_game_state_t>& game_state):
         commands(commands), game_state(game_state), keyboard_controller(commands, 1) {}
 
 /**
@@ -50,43 +51,28 @@ void Drawer::run() try {
                          WINDOW_HEIGHT);
     main_texture.SetBlendMode(SDL_BLENDMODE_BLEND);
 
-    // vector para manejar múltiples patos
-    std::vector<std::shared_ptr<DrawerDuck>> drawer_ducks;
-
+    std::vector<std::shared_ptr<DrawerPlayer>> drawer_ducks;
 
     std::vector<std::shared_ptr<DrawerWeapon>> drawer_weapons;
 
-    // Inicializar DrawerWeapon y agregarlo al vector
-    drawer_weapons.push_back(std::make_shared<DrawerWeapon>(renderer));
-
+    std::vector<std::shared_ptr<DrawerBox>> drawer_boxes;
 
     // Load background image as a new texture
     Texture background(renderer, DATA_PATH "/background.png");
-
-    // Load tileset image as a new texture
-    Texture floor(renderer, DATA_PATH "/NatureTileset.png");
-
-    // Load ala pato image as a new texture
-    Texture ala_duck(renderer, DATA_PATH "/DuckGame-YellowDuck.png");
 
     ZoomHandler zoom_handler;
 
     // Game state
     bool is_running = false;
     bool is_moving_left = false;
-    std::vector<PlayerPosition_t> position;
-
-    // SDL_Event event_init;
-    //  Se envia la tecla que presionó el usuario
-
-    // keyboard_controller.procesar_comando(event_init, is_running, is_moving_left);
+    client_game_state_t _game_state;
 
     auto chrono_now = std::chrono::high_resolution_clock::now();
     auto chrono_prev = chrono_now;
 
     while (true) {  // receiver del cliente
 
-        while (game_state.try_pop(position)) {}
+        while (game_state.try_pop(_game_state)) {}
 
         // Cambiamos el render target a main_texture
         SDL_SetRenderTarget(renderer.Get(), main_texture.Get());
@@ -96,52 +82,72 @@ void Drawer::run() try {
         renderer.Copy(background,
                       Rect(0, 0, renderer.GetOutputWidth(), renderer.GetOutputHeight()));
 
-        // ---------------------------- Draw PISO TILESET ----------------------------
-        int center_y = renderer.GetOutputHeight() / 2;  // Y coordinate of window center
-        int center_x = renderer.GetOutputWidth() / 2;
-
-        // Cantidad de tiles que se necesitan de forma horizontal
-        int num_tiles_x = renderer.GetOutputWidth() / TILE_SIZE + 1;
-        for (int i = 0; i < num_tiles_x; ++i) {
-            // Lo multiplico por 3 porque solo estoy tomando el 3 tileset en x, pero es de la
-            // fila 1
-            // => y = 0
-            // TILE_SIZE - 42 motivo: el tamaño del pato menos ojimetro
-            renderer.Copy(floor,
-                          Rect(SIZE_FLOOR_SPRITE * 3, 0, SIZE_FLOOR_SPRITE, SIZE_FLOOR_SPRITE),
-                          Rect(i * TILE_SIZE, center_y - (TILE_SIZE - 42), TILE_SIZE, TILE_SIZE));
-        }
-
-        // ---------------------------- Draw PISTOLA ----------------------------
-        // Llamar a set_position en DrawerWeapon
-        drawer_weapons[0]->set_position(center_x, center_y - 41);
-        drawer_weapons[0]->draw(renderer);
-
         // ---------------------------- Draw Patos ----------------------------
-        if (drawer_ducks.size() != position.size()) {
-            drawer_ducks.resize(position.size());
-            for (size_t i = 0; i < position.size(); ++i) {
+        // En realidad esto deberia hacerse una sola vez: deberia tener 1 try pop para inicializar
+        // el juego, y todos los vectores en cuestion. Luego tener el ciclo que actualiza cada
+        // drawer
+        if (drawer_ducks.size() != _game_state.players.size()) {
+            drawer_ducks.resize(_game_state.players.size());
+            for (size_t i = 0; i < _game_state.players.size(); ++i) {
                 if (!drawer_ducks[i]) {
-                    drawer_ducks[i] = std::make_shared<DrawerDuck>(renderer);
+                    player_t player = _game_state.players[i];
+                    drawer_ducks[i] = std::make_shared<DrawerPlayer>(player, renderer);
                 }
             }
         }
 
-        for (size_t i = 0; i < position.size(); ++i) {
-            int duck_x = position[i].coordinate.get_x();
-            int duck_y = position[i].coordinate.get_y();
-            drawer_ducks[i]->set_position(duck_x, duck_y);
-            drawer_ducks[i]->set_is_moving_left(is_moving_left);
-            drawer_ducks[i]->update_animation(is_running);
+        for (size_t i = 0; i < _game_state.players.size(); ++i) {
+            player_t player = _game_state.players[i];  // recibo el player actualizado
+            // CONSULTA: update player ?? o le paso el nuevo player por parámetro ?? o lo busco el
+            // player en el drawer_ducks??
+            drawer_ducks[i]->update_player(player);
             drawer_ducks[i]->draw(renderer);
         }
 
+        // ---------------------------- Draw Boxes ----------------------------
+        // Esto si puede variar.....
+        if (drawer_boxes.size() != _game_state.boxs.size()) {
+            drawer_boxes.resize(_game_state.boxs.size());
+            for (size_t i = 0; i < _game_state.boxs.size(); ++i) {
+                if (!drawer_boxes[i]) {
+                    auto box = _game_state.boxs[i];
+                    drawer_boxes[i] = std::make_shared<DrawerBox>(box, renderer);
+                }
+            }
+        }
+
+        for (size_t i = 0; i < _game_state.boxs.size(); ++i) {
+            auto box = _game_state.boxs[i];
+            drawer_boxes[i]->update_box(box);
+            drawer_boxes[i]->draw(renderer);
+        }
+
+        // ---------------------------- Draw Weapons ----------------------------
+
+        // wtf ?
+        /*
+            if (drawer_weapons.size() != _game_state.bullets) {
+            drawer_boxes.resize(_game_state.boxs.size());
+            for (size_t i = 0; i < _game_state.boxs.size(); ++i) {
+                if (!drawer_boxes[i]) {
+                    auto box = _game_state.boxs[i];
+                    drawer_boxes[i] = std::make_shared<DrawerBox>(box, renderer);
+                }
+            }
+        }
+
+        for (size_t i = 0; i < _game_state.boxs.size(); ++i) {
+            auto box = _game_state.boxs[i];
+            drawer_boxes[i]->update_box(box);
+            drawer_boxes[i]->draw(renderer);
+        }
+            */
         // Cambiar el render target de vuelta a la pantalla
         SDL_SetRenderTarget(renderer.Get(), nullptr);
-        zoom_handler.calculate_zoom(position);
+        // zoom_handler.calculate_zoom(position);
         renderer.Clear();
         // Aplicar zoom y centrar usando ZoomHandler
-        zoom_handler.apply_zoom(renderer, main_texture);
+        // zoom_handler.apply_zoom(renderer, main_texture);
         renderer.Present();
 
         chrono_now = std::chrono::high_resolution_clock::now();
@@ -152,8 +158,8 @@ void Drawer::run() try {
 
         chrono_prev = std::chrono::high_resolution_clock::now();
 
+        //  Se envia la tecla que presionó el usuario
         SDL_Event event;
-        // Se envia la tecla que presionó el usuario
         keyboard_controller.procesar_comando(event, is_running, is_moving_left);
     }
 

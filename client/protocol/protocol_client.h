@@ -32,6 +32,22 @@ private:
 
     zoom_t receive_zoom_details();
 
+    void receive_cordinates(Coordinate& coordinate);
+
+    void receive_players(VectorPlayers& players);
+
+    void receive_bullets(std::vector<bullet_t>& bullets);
+
+    void receive_throwables(VectorThrowable& throwables);
+
+    void receive_boxes(std::vector<box_t>& boxes);
+
+    void receive_floor_sprites(VectorSprite& floor_sprites);
+
+    void receive_sprite(sprite_t& sprite);
+
+    void receive_inventory(inventory_t& inventory);
+
 
 public:
     /*
@@ -45,15 +61,23 @@ public:
     void send_init(const uint8_t& init);
 
     /*
-     * envia el mensaje de inicio
+     *
      */
     void send_action(uint8_t& id_jugador, ActionCommand& type_action);
 
     /*
      *
      */
+    void receive_zoom_details(zoom_t zoom);
+
+    /*
+     *
+     */
     std::vector<PlayerPosition_t> receiver_players_();
 
+    /*
+     *
+     */
     client_game_state_t receive_game_state();
 
     /*

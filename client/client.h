@@ -6,6 +6,7 @@
 #include "../common/queue.h"
 #include "../common/socket.h"
 #include "drawers/drawer.h"
+#include "game_state/client_game_state.h"
 #include "protocol/protocol_client.h"
 
 #include "client_receiver.h"
@@ -17,7 +18,7 @@ private:
     Socket skt;
     ClientProtocol protocol;
     Queue<ClientEvent_t> commands;
-    Queue<std::vector<PlayerPosition_t>> positions;
+    Queue<client_game_state_t> game_state;  // estado del juego que se recibe del servidor
     ClientReceiver receiver;
     ClientSender sender;
     Drawer drawer;

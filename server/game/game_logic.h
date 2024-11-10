@@ -9,6 +9,8 @@
 
 #include "game_physics.h"
 
+#include "game_physics.h"
+
 class GameLogic {
 private:
     ListPlayers& players;

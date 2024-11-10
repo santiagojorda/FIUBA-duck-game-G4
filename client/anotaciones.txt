@@ -25,3 +25,27 @@
                           Rect((int)position + 7, center_y - (TILE_SIZE) + 15, 20, 20), 0.0,
                           SDL2pp::NullOpt, flip);
             */
+
+
+// ________________________-
+
+  // ---------------------------- Draw PISO TILESET ----------------------------
+            int center_y = renderer.GetOutputHeight() / 2;  // Y coordinate of window center
+            int center_x = renderer.GetOutputWidth() / 2;
+
+            // Cantidad de tiles que se necesitan de forma horizontal
+            int num_tiles_x = renderer.GetOutputWidth() / TILE_SIZE + 1;
+            for (int i = 0; i < num_tiles_x; ++i) {
+                // Lo multiplico por 3 porque solo estoy tomando el 3 tileset en x, pero es de la
+                // fila 1
+                // => y = 0
+                // TILE_SIZE - 42 motivo: el tamaño del pato menos ojimetro
+                renderer.Copy(
+                        floor, Rect(SIZE_FLOOR_SPRITE * 3, 0, SIZE_FLOOR_SPRITE, SIZE_FLOOR_SPRITE),
+                        Rect(i * TILE_SIZE, center_y - (TILE_SIZE - 42), TILE_SIZE, TILE_SIZE));
+            }
+
+            // ---------------------------- Draw PISTOLA ----------------------------
+            // Llamar a set_position en DrawerWeapon
+            drawer_weapons[0]->set_position(center_x, center_y - 41);
+            drawer_weapons[0]->draw(renderer);

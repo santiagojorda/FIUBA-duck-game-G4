@@ -1,14 +1,15 @@
 #include "client_receiver.h"
+#include "game_state/client_game_state.h"
 
 ClientReceiver::ClientReceiver(ClientProtocol& protocol,
-                               Queue<std::vector<PlayerPosition_t>>& positions):
-        protocol(protocol), positions(positions) {}
+                               Queue<client_game_state_t>& game_state):
+        protocol(protocol), game_state(game_state) {}
 
 void ClientReceiver::run() {
     try {
         while (this->is_alive()) {
-            std::vector<PlayerPosition_t> coordinates = protocol.receiver_players_();
-            positions.push(coordinates);
+            client_game_state_t _game_state = protocol.receive_game_state();
+            game_state.push(_game_state);
         }
     } catch (const std::exception& e) {
         // protocol lanza la exception: check_is_closed
@@ -21,9 +22,3 @@ ClientReceiver::~ClientReceiver() {
         this->join();
     }
 }
-
-/*
-void ClientReceiver::receiver_data(std::vector<Coordinate>& coordenadas) {
-    protocol.receiver_players(coordenadas);
-}
-*/

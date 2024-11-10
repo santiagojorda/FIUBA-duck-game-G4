@@ -14,6 +14,18 @@ Coordinate ClientProtocol::receive_cordinates() {
     return Coordinate(x, y, h, w);
 }
 
+void ClientProtocol::receive_cordinates(Coordinate& coordinate) {
+    uint16_t x;
+    this->receive_2_bytes(x);
+    uint16_t y;
+    this->receive_2_bytes(y);
+    uint16_t h;
+    this->receive_2_bytes(h);
+    uint16_t w;
+    this->receive_2_bytes(w);
+    std::cout << coordinate << std::endl;
+}
+
 sprite_t ClientProtocol::receive_sprite() {
     uint8_t id_texture;  // es el "id_player"
     this->receive_byte(id_texture);
