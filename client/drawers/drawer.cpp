@@ -50,10 +50,11 @@ void Drawer::run() try {
                          WINDOW_HEIGHT);
     main_texture.SetBlendMode(SDL_BLENDMODE_BLEND);
 
-    // vector para manejar múltiples patos
     std::vector<std::shared_ptr<DrawerPlayer>> drawer_ducks;
 
     std::vector<std::shared_ptr<DrawerWeapon>> drawer_weapons;
+
+    std::vector<std::shared_ptr<DrawerBox>> drawer_boxes;
 
     // Inicializar DrawerWeapon y agregarlo al vector
     drawer_weapons.push_back(std::make_shared<DrawerWeapon>(renderer));
@@ -103,15 +104,25 @@ void Drawer::run() try {
             // player en el drawer_ducks??
             drawer_ducks[i]->update_player(player);
             drawer_ducks[i]->draw(renderer);
-            // drawer_ducks[i].draw(renderer, player);
-            /*int duck_x = position[i].coordinate.get_x();
-            int duck_y = position[i].coordinate.get_y();
-            drawer_ducks[i]->set_position(duck_x, duck_y);
-            drawer_ducks[i]->set_is_moving_left(is_moving_left);
-            drawer_ducks[i]->update_animation(is_running);
-            drawer_ducks[i]->draw(renderer);*/
         }
 
+        // ---------------------------- Draw Boxes ----------------------------
+        // Esto si puede variar.....
+        if (drawer_boxes.size() != _game_state.boxs.size()) {
+            drawer_boxes.resize(_game_state.boxs.size());
+            for (size_t i = 0; i < _game_state.boxs.size(); ++i) {
+                if (!drawer_boxes[i]) {
+                    auto box = _game_state.boxs[i];
+                    drawer_boxes[i] = std::make_shared<DrawerBox>(box, renderer);
+                }
+            }
+        }
+
+        for (size_t i = 0; i < _game_state.boxs.size(); ++i) {
+            auto box = _game_state.boxs[i];
+            drawer_boxes[i]->update_box(box);
+            drawer_boxes[i]->draw(renderer);
+        }
         // Cambiar el render target de vuelta a la pantalla
         SDL_SetRenderTarget(renderer.Get(), nullptr);
         // zoom_handler.calculate_zoom(position);

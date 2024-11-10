@@ -10,6 +10,7 @@
 #include "../keyboard/keyboard_controller.h"
 #include "../zoom/zoom_handler.h"
 
+#include "drawer_box.h"
 #include "drawer_duck.h"
 #include "drawer_player.h"
 #include "drawer_weapon.h"

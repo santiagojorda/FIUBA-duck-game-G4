@@ -1,8 +1,6 @@
 #ifndef DRAWER_PLAYER_H
 #define DRAWER_PLAYER_H
 
-#include <chrono>
-
 #include <SDL2/SDL.h>
 #include <SDL2pp/SDL2pp.hh>
 #include <SDL2pp/Texture.hh>

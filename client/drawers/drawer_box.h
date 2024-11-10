@@ -1,6 +1,8 @@
 #ifndef DRAWER_BOX_H
 #define DRAWER_BOX_H
 
+#include <map>
+
 #include <SDL2/SDL.h>
 #include <SDL2pp/SDL2pp.hh>
 #include <SDL2pp/Texture.hh>
@@ -10,7 +12,7 @@
 
 class DrawerBox {
 private:
-    box_t player;
+    box_t box;
     SDL2pp::Texture texture;
 
 public:
@@ -18,7 +20,7 @@ public:
 
     void draw(SDL2pp::Renderer& renderer);
 
-    void update_player(const box_t& update_box);
+    void update_box(const box_t& update_box);
 };
 
 #endif  // DRAWER_BOX_H

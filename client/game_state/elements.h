@@ -1,6 +1,7 @@
-#include "sprite.h"
 #ifndef ELEMENTS_H
 #define ELEMENTS_H
+
+#include "sprite.h"
 
 struct bullet_t {
     sprite_t bullet;
