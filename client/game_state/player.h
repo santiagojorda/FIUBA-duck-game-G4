@@ -6,10 +6,10 @@
 #include "sprite.h"
 
 struct inventory_t {
-    sprite_t weapon;  // si es 0, dejo de leer y salto a armor
+    uint8_t weapon;  // si es 0, dejo de leer y salto a armor
     uint8_t ammo;
-    sprite_t armor;  // si es 0, dejo de leer y salto a helmet
-    sprite_t helmet;
+    uint8_t armor;  // si es 0, dejo de leer y salto a helmet
+    uint8_t helmet;
 };
 
 struct player_t {

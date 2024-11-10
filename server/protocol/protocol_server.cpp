@@ -22,7 +22,6 @@ void ProtocolServer::send_inventory(Inventory& inventory) {
 
 void ProtocolServer::send_gun(Gun* gun) {
     if (gun) {
-        send_byte(true);
         send_byte(gun->get_id());
         send_byte(gun->get_ammo());
     } else {
@@ -32,7 +31,6 @@ void ProtocolServer::send_gun(Gun* gun) {
 
 void ProtocolServer::send_armor(Armor* armor) {
     if (armor) {
-        send_byte(true);
         send_byte(armor->get_texture_id());
     } else {
         send_byte(false);
@@ -40,7 +38,6 @@ void ProtocolServer::send_armor(Armor* armor) {
 }
 void ProtocolServer::send_helmet(Helmet* helmet) {
     if (helmet) {
-        send_byte(true);
         send_byte(helmet->get_texture_id());
     } else {
         send_byte(false);
@@ -117,7 +114,8 @@ void ProtocolServer::send_game_state(GameState_t& state) {
     send_throwables_state(state);
     send_boxes_state(state);
     send_scenario_state(state);
-    send_camera_state(state);
+    // send weapons (las del ecenario)
+    // send_camera_state(state);
 }
 
 uint8_t ProtocolServer::receive_count_players() {

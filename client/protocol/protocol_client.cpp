@@ -23,6 +23,7 @@ void ClientProtocol::receive_cordinates(Coordinate& coordinate) {
     this->receive_2_bytes(h);
     uint16_t w;
     this->receive_2_bytes(w);
+    coordinate = Coordinate(x, y, h, w);
     std::cout << coordinate << std::endl;
 }
 
@@ -71,28 +72,18 @@ void ClientProtocol::send_init(const uint8_t& init) {
 
 inventory_t ClientProtocol::receive_inventory() {
     // HEADER
-    uint8_t header;  // es el "id_player"
-    this->receive_byte(header);
-    sprite_t weapon;
-    uint8_t ammo;
+    uint8_t weapon = 0;  // es el "id_arma"
+    this->receive_byte(weapon);
+    uint8_t ammo = 0;
+    uint8_t armor = 0;
+    uint8_t helmet = 0;
 
-    if (header != 0) {
-        weapon = receive_sprite();
+    if (weapon != 0) {
         this->receive_byte(ammo);  // TODO: refactorizar los receive -> hacerlos por referencia y no
                                    // con returns.
     }
-
-    sprite_t armor;
-    this->receive_byte(header);
-    if (header != 0) {
-        armor = receive_sprite();
-    }
-
-    sprite_t helmet;
-    this->receive_byte(header);
-    if (header != 0) {
-        helmet = receive_sprite();
-    }
+    this->receive_byte(armor);
+    this->receive_byte(helmet);
 
     return inventory_t{weapon, ammo, armor, helmet};
 }
@@ -127,20 +118,10 @@ VectorPlayers ClientProtocol::receive_players() {
     return players_positions;
 }
 
-/**
- * struct player_t {
-    sprite_t sprite;  -> coordenadas
-    uint8_t is_looking;
-     uint8_t state;
-    uint8_t frame;
-    inventory_t inventory;
-};
-
- */
 std::vector<bullet_t>
         ClientProtocol::receive_bullets() {  // balas -> recibo cantidad y sigo leyendo
-    uint8_t cantidad_bullets;
-    this->receive_byte(cantidad_bullets);
+    uint16_t cantidad_bullets;
+    this->receive_2_bytes(cantidad_bullets);
 
     std::vector<bullet_t> bullets;
 
@@ -197,10 +178,7 @@ VectorSprite ClientProtocol::receive_floor_sprites() {
     VectorSprite sprites;
 
     for (size_t i = 0; i < cantidad_floor_sprites; i++) {
-        uint8_t id_texture;
-        this->receive_byte(id_texture);
-        Coordinate coordinate = receive_cordinates();
-        sprite_t sprite{id_texture, coordinate};
+        sprite_t sprite = this->receive_sprite();
         sprites.push_back(sprite);
     }
 
@@ -217,12 +195,12 @@ zoom_t ClientProtocol::receive_zoom_details() {
 
 client_game_state_t ClientProtocol::receive_game_state() {
     client_game_state_t game_state;
-
     VectorPlayers players = receive_players();
     std::vector<bullet_t> bullets = receive_bullets();
     VectorThrowable throwables = receive_throwables();
     std::vector<box_t> boxes = receive_boxes();
     VectorSprite sprites = receive_floor_sprites();
+    // cargar weapons
 
     return game_state;
 }
