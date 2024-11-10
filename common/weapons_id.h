@@ -1,0 +1,17 @@
+#ifndef WEAPONS_ID_H
+#define WEAPONS_ID_H
+
+enum TEXTURE_WEAPONS {
+    GRANADA = 1,
+    BANANA,
+    PEW_PEW_LASER,
+    LASER_RIFLE,
+    AK_47,
+    PISTOLA_DUELOS,
+    PISTOLA_COWBOY,
+    MAGNUM,
+    ESCOPETA,
+    SNIPER
+};
+
+#endif  // WEAPONS_ID_H
