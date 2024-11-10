@@ -6,20 +6,8 @@
 #define SIZE_WEAPON_SPRITE 32
 #define TILE_SIZE 50
 
-/*
 
-enum TEXTURE_WEAPONS {
-    GRANADA,
-    BANANA,
-    PEW_PEW_LASER,
-    LASER_RIFLE,
-    AK_47,
-    PISTOLA_DUELOS,
-    PISTOLA_COWBOY,
-    MAGNUM,
-    ESCOPETA,
-    SNIPER
-};
+/*
 
 // DuckGame-Grenades.png ->  granadas, banana
 // DuckGame-Laser.png -> pew pew laser
