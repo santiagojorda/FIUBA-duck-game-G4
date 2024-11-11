@@ -41,7 +41,7 @@ GameState_t Game::get_gamestate() {
     GameState_t game_state;
 
     game_state.players = players;
-    // game_state.projectiles = Proje;
+    game_state.projectiles = ListProjectiles();
     game_state.map = map;
     return game_state;
 }
