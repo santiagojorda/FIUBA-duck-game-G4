@@ -18,9 +18,10 @@ void Player::looks_left() { look_direction = Direction::LEFT; }
 void Player::looks_up() { look_direction = Direction::UP; }
 
 void Player::update(){
+    
     frame++;
-    if(frame >= duck_state_frames[state].max_frames){
-        
+
+    if(frame >= duck_state_frames[state].max_frames){    
         switch (state){
             case DuckState::IS_FALLING:
                 reset();

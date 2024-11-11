@@ -2,9 +2,11 @@
 
 Statable::Statable(DuckState initial_state) : state(initial_state){}
 
-void Statable::set_state(DuckState new_state) { 
-    state = new_state;
-    frame = 0;    
+void Statable::set_state(DuckState new_state) {
+    if(state != new_state){
+        state = new_state;
+        frame = 0;    
+    }
 };
 
 DuckState Statable::get_state() { return state; };
