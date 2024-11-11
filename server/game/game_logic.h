@@ -17,7 +17,7 @@ private:
     GamePhysics physics;
     Player& get_player(const uint8_t& player_id);
     void log_player_action(Player& player, const std::string& action);
-
+    
 public:
     explicit GameLogic(ListPlayers& _players, Map& _map);
     void apply_gravity();

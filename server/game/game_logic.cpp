@@ -32,7 +32,7 @@ void GameLogic::log_player_action(Player& player, const std::string& action) {
 void GameLogic::slove_collision() {
     for (auto& p: this->players) {
         for (auto& tile: this->map) {
-            if (this->physics.collision(p, tile)) {
+            if (this->physics.collision((Rectangle &)p, (Rectangle &)tile)) {
                 // logica
             }
         }
