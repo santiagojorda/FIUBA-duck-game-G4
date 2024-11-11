@@ -156,14 +156,27 @@ zoom_t ClientProtocol::receive_zoom_details() {
     return zoom_t{zoom_min, zoom_max};
 }
 
+VectorSprite ClientProtocol::receive_weapons() {
+    uint8_t cantidad_weapons;
+    this->receive_byte(cantidad_weapons);
+    
+    VectorSprite sprites;
+
+    for (size_t i = 0; i < cantidad_weapons; i++) {
+        sprite_t sprite = this->receive_sprite();
+        sprites.push_back(sprite);
+    }
+
+    return sprites;
+}
+
 client_game_state_t ClientProtocol::receive_game_state() {
-    client_game_state_t game_state;
     VectorPlayers players = receive_players();
     std::vector<bullet_t> bullets = receive_bullets();
     VectorThrowable throwables = receive_throwables();
     std::vector<box_t> boxes = receive_boxes();
     VectorSprite sprites = receive_floor_sprites();
-    // cargar weapons
+    VectorSprite weapons = receive_weapons();
 
-    return game_state;
+    return client_game_state_t{players, bullets, throwables, boxes, sprites, weapons};
 }

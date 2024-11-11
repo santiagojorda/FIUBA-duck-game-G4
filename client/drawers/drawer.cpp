@@ -46,11 +46,6 @@ void Drawer::run() try {
 
     Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-    // Crear la textura principal como un render target
-    Texture main_texture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WINDOW_WIDTH,
-                         WINDOW_HEIGHT);
-    main_texture.SetBlendMode(SDL_BLENDMODE_BLEND);
-
     std::vector<std::shared_ptr<DrawerPlayer>> drawer_ducks;
 
     std::vector<std::shared_ptr<DrawerWeapon>> drawer_weapons;
@@ -72,11 +67,7 @@ void Drawer::run() try {
     while (true) {  // receiver del cliente
 
         while (game_state.try_pop(_game_state)) {}
-
-        // Cambiamos el render target a main_texture
-        SDL_SetRenderTarget(renderer.Get(), main_texture.Get());
         renderer.Clear();
-
         // ---------------------------- Draw BACKGROUND ----------------------------
         renderer.Copy(background,
                       Rect(0, 0, renderer.GetOutputWidth(), renderer.GetOutputHeight()));
@@ -144,10 +135,6 @@ void Drawer::run() try {
             drawer_weapons[i]->draw(renderer);
         }
 
-        // Cambiar el render target de vuelta a la pantalla
-        SDL_SetRenderTarget(renderer.Get(), nullptr);
-        // zoom_handler.calculate_zoom(position);
-        renderer.Clear();
         // Aplicar zoom y centrar usando ZoomHandler
         // zoom_handler.apply_zoom(renderer, main_texture);
         renderer.Present();

@@ -30,6 +30,8 @@ private:
 
     zoom_t receive_zoom_details();
 
+    VectorSprite receive_weapons();
+
     void receive_cordinates(Coordinate& coordinate);
 
     void receive_players(VectorPlayers& players);
