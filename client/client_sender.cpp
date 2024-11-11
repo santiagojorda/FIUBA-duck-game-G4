@@ -13,9 +13,9 @@ void ClientSender::run() {
         }
     } catch (const ClosedQueue& e) {
         this->_is_alive = false;
-        std::cerr << "Queue was closed" << std::endl;
     } catch (const std::exception& e) {
         this->_is_alive = false;
+          std::cerr << "unexpected error in Sender" << std::endl;
     }
 }
 
