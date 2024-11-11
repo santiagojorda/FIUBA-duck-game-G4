@@ -9,7 +9,7 @@ const int SPEED = 1;
 #define JUMP_STEP -10
 #define FALLING_STEP 10
 
-Player::Player() : Statable(DuckState::IS_IDLE) {}
+Player::Player(): Statable(DuckState::IS_IDLE) {}
 Player::Player(uint8_t _id): Statable(DuckState::IS_IDLE), id(_id) {}
 Player::~Player() { Positionable::~Positionable(); }
 
@@ -17,12 +17,12 @@ void Player::looks_right() { look_direction = Direction::RIGHT; }
 void Player::looks_left() { look_direction = Direction::LEFT; }
 void Player::looks_up() { look_direction = Direction::UP; }
 
-void Player::update(){
-    
+void Player::update() {
+
     frame++;
 
-    if(frame >= duck_state_frames[state].max_frames){    
-        switch (state){
+    if (frame >= duck_state_frames[state].max_frames) {
+        switch (state) {
             case DuckState::IS_FALLING:
                 reset();
                 break;
@@ -31,42 +31,32 @@ void Player::update(){
                 set_state(DuckState::IS_IDLE);
         }
     }
-
 }
 
-void Player::run_right() { 
+void Player::run_right() {
     set_state(DuckState::IS_RUNNING);
     translate_x(RUN_STEP);
 }
-void Player::run_left() { 
+void Player::run_left() {
     set_state(DuckState::IS_RUNNING);
     translate_x(-RUN_STEP);
 }
-void Player::jump() { 
+void Player::jump() {
     set_state(DuckState::IS_JUMPING);
     translate_y(JUMP_STEP);
 }
-void Player::fall() { 
+void Player::fall() {
     set_state(DuckState::IS_FALLING);
     translate_y(FALLING_STEP);
 }
-void Player::crouch() { 
+void Player::crouch() {
     set_state(DuckState::IS_CROUCHING);
     // translate_y(1); // esto no deberia moverse
 }
-void Player::slip() { 
-    set_state(DuckState::IS_SLIPPING);
-}
-void Player::recoil() { 
-    set_state(DuckState::IS_RECOILING);
-
-}
-void Player::plane() { 
-    set_state(DuckState::IS_PLANING);
-}
-void Player::die() { 
-    set_state(DuckState::IS_DEAD);
-}
+void Player::slip() { set_state(DuckState::IS_SLIPPING); }
+void Player::recoil() { set_state(DuckState::IS_RECOILING); }
+void Player::plane() { set_state(DuckState::IS_PLANING); }
+void Player::die() { set_state(DuckState::IS_DEAD); }
 
 uint8_t Player::get_id() const { return this->id; }
 Gun* Player::get_gun() { return inventory.get_gun(); }
@@ -128,6 +118,4 @@ ListProjectiles Player::shoot() {
     return projectiles;
 }
 
-// --------------------- STATE 
-
-
+// --------------------- STATE

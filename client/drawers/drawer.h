@@ -6,6 +6,7 @@
 
 #include "../../common/coordinate.h"
 #include "../../common/queue.h"
+#include "../../common/state_duck.h"
 #include "../game_state/player.h"
 #include "../keyboard/keyboard_controller.h"
 #include "../zoom/zoom_handler.h"
