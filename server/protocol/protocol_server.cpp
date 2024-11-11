@@ -62,9 +62,9 @@ void ProtocolServer::send_projectiles_state(GameState_t& state) {
     uint16_t count_projectiles = 0;
     send_2_bytes(count_projectiles);
     if (count_projectiles > 0) {
-        send_byte(0);                   // texture_id
+        send_byte(0);                    // texture_id
         send_coordinates(Coordinate());  // posicion del escenario
-        send_byte(0);                   // frame
+        send_byte(0);                    // frame
     }
 }
 
@@ -74,10 +74,10 @@ void ProtocolServer::send_throwables_state(GameState_t& state) {
     uint8_t count_throwables = 0;
     send_byte(count_throwables);
     if (count_throwables > 0) {
-        send_byte(0);                   // texture_id
+        send_byte(0);                    // texture_id
         send_coordinates(Coordinate());  // posicion de la bomba
-        send_byte(0);                   // frame
-        send_byte(0);                   // state
+        send_byte(0);                    // frame
+        send_byte(0);                    // state
     }
 }
 
@@ -86,9 +86,9 @@ void ProtocolServer::send_boxes_state(GameState_t& state) {
     uint8_t count_boxes = 0;
     send_byte(count_boxes);  //
     if (count_boxes > 0) {
-        send_byte(0);                   // texture_id
+        send_byte(0);                    // texture_id
         send_coordinates(Coordinate());  // posicion del escenario
-        send_byte(0);                   // frame
+        send_byte(0);                    // frame
     }
 }
 
@@ -96,8 +96,8 @@ void ProtocolServer::send_scenario_state(GameState_t& state) {
     (void)state;
     uint8_t count_map_items = state.map.size();
     send_byte(count_map_items);  //
-    for(Positionable* item_map : state.map){
-        send_byte(0); // texture_id
+    for (Positionable* item_map: state.map) {
+        send_byte(0);  // texture_id
         send_coordinates(item_map->get_coordinate());
     }
 }
@@ -114,7 +114,7 @@ void ProtocolServer::send_map_weapons_state(GameState_t& state) {
     uint8_t count_map_weapons = 0;
     send_byte(count_map_weapons);  //
     if (count_map_weapons > 0) {
-        send_byte(0);                   // texture_id
+        send_byte(0);                    // texture_id
         send_coordinates(Coordinate());  // posicion del escenario
     }
 }

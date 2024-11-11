@@ -3,10 +3,9 @@
 
 #include <cstdint>
 
+#include "../../common/action_commands.h"
 #include "../game/game_logic.h"
 #include "../player/player.h"
-
-#include "../../common/action_commands.h"
 
 class EventPlayer {
 protected:

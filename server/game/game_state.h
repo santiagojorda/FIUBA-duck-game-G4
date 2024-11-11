@@ -3,9 +3,9 @@
 
 #include <list>
 
+#include "../map/map.h"
 #include "../player/list_players.h"
 #include "../player/player.h"
-#include "../map/map.h"
 
 struct GameState_t {
     // cppcheck-suppress unusedStructMember

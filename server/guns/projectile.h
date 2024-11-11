@@ -6,7 +6,7 @@
 
 #include "gun.h"
 
-class Projectile: public Positionable { // es un statable
+class Projectile: public Positionable {  // es un statable
 protected:
     ProjectileRange range_tiles;
 
