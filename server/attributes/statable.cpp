@@ -1,11 +1,11 @@
 #include "statable.h"
 
-Statable::Statable(DuckState initial_state) : state(initial_state){}
+Statable::Statable(DuckState initial_state): state(initial_state) {}
 
 void Statable::set_state(DuckState new_state) {
-    if(state != new_state){
+    if (state != new_state) {
         state = new_state;
-        frame = 0;    
+        frame = 0;
     }
 };
 

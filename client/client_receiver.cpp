@@ -14,6 +14,8 @@ void ClientReceiver::run() {
     } catch (const std::exception& e) {
         // protocol lanza la exception: check_is_closed
         this->_is_alive = false;
+    } catch (...) {
+        std::cerr << "error en el receiver" << '\n';
     }
 }
 

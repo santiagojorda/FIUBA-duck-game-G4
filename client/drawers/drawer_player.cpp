@@ -46,9 +46,9 @@ void DrawerPlayer::draw(SDL2pp::Renderer& renderer) {
 
     if (player.state == IS_RUNNING) {  // son 6 frames
         src_x = DUCK_INITIAL_X + SIZE_DUCK_SPRITE * player.frame;
-    } // chequeo el inventarioelse if (player.state == GRAB_OR_RELEASE) {  // si tomo algo, chequeo el inventario
-        // si tiene un arma, le dibujo el ala..
-     //   if (player.inventory.ammo) {}
+    }  // chequeo el inventarioelse if (player.state == GRAB_OR_RELEASE) {  // si tomo algo, chequeo
+       // el inventario si tiene un arma, le dibujo el ala..
+    //   if (player.inventory.ammo) {}
     // }
     else if (player.state == IS_IDLE) {
         // no hago nada, se quedan con los valores por defecto, verlo luego.

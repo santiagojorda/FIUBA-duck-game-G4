@@ -60,7 +60,7 @@ void Drawer::run() try {
     // Load background image as a new texture
     Texture background(renderer, DATA_PATH "/background.png");
 
-    ZoomHandler zoom_handler;
+    // ZoomHandler zoom_handler;
 
     // Game state
     bool is_running = false;
@@ -99,7 +99,7 @@ void Drawer::run() try {
 
         // draw recibe player  y renderer
         // drwers id player, renderer -> id. draw render player :)
-        
+
 
         for (size_t i = 0; i < _game_state.players.size(); ++i) {
             player_t player = _game_state.players[i];  // recibo el player actualizado
@@ -128,25 +128,22 @@ void Drawer::run() try {
         }
 
         // ---------------------------- Draw Weapons ----------------------------
-
-        // wtf ?
-        /*
-            if (drawer_weapons.size() != _game_state.bullets) {
-            drawer_boxes.resize(_game_state.boxs.size());
-            for (size_t i = 0; i < _game_state.boxs.size(); ++i) {
-                if (!drawer_boxes[i]) {
-                    auto box = _game_state.boxs[i];
-                    drawer_boxes[i] = std::make_shared<DrawerBox>(box, renderer);
+        if (drawer_weapons.size() != _game_state.weapons.size()) {
+            drawer_weapons.resize(_game_state.weapons.size());
+            for (size_t i = 0; i < _game_state.weapons.size(); ++i) {
+                if (!drawer_weapons[i]) {
+                    auto weapon = _game_state.weapons[i];
+                    drawer_weapons[i] = std::make_shared<DrawerWeapon>(weapon, renderer);
                 }
             }
         }
 
-        for (size_t i = 0; i < _game_state.boxs.size(); ++i) {
-            auto box = _game_state.boxs[i];
-            drawer_boxes[i]->update_box(box);
-            drawer_boxes[i]->draw(renderer);
+        for (size_t i = 0; i < _game_state.weapons.size(); ++i) {
+            auto weapon = _game_state.weapons[i];
+            drawer_weapons[i]->update_weapon(weapon);
+            drawer_weapons[i]->draw(renderer);
         }
-            */
+
         // Cambiar el render target de vuelta a la pantalla
         SDL_SetRenderTarget(renderer.Get(), nullptr);
         // zoom_handler.calculate_zoom(position);

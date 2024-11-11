@@ -31,9 +31,7 @@ void ClientProtocol::send_action(uint8_t& id_jugador,
     this->skt.sendall(vector_data.data(), vector_data.size(), &this->was_closed);
 }
 
-void ClientProtocol::send_init(const uint8_t& init) {
-    this->send_byte(init);
-}
+void ClientProtocol::send_init(const uint8_t& init) { this->send_byte(init); }
 
 inventory_t ClientProtocol::receive_inventory() {
     // HEADER

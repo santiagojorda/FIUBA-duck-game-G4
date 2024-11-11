@@ -48,8 +48,8 @@ GameState_t Game::get_gamestate() {
 
 auto Game::get_actual_milliseconds() { return std::chrono::high_resolution_clock::now(); }
 
-void Game::update_states(){
-    for(Player& player : players){
+void Game::update_states() {
+    for (Player& player: players) {
         player.update();
     }
 }

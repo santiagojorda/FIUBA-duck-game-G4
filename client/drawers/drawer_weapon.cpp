@@ -16,27 +16,32 @@
 */
 
 static std::map<TEXTURE_WEAPONS, std::string> textures = {
-    {GRANADA, DATA_PATH "/DuckGame-Grenades.png "}, // ok
-    {BANANA, DATA_PATH "/DuckGame-Grenades.png "}, // ok
-    {PEW_PEW_LASER, DATA_PATH "/DuckGame-Laser.png"}, // ok
-    {LASER_RIFLE, DATA_PATH "/DuckGame-Laser.png"}, // ok
-    {AK_47, DATA_PATH "/DuckGame-MachineGuns.png"}, // ok
-    {PISTOLA_DUELOS, DATA_PATH "/DuckGame-Pistol.png"}, // ????????? supongo que es la pistol
-    {PISTOLA_COWBOY, DATA_PATH "/DuckGame-Pistol.png"}, // ok
-    {MAGNUM, DATA_PATH "/DuckGame-Pistol.png"}, // ok
-    {ESCOPETA, DATA_PATH "/DuckGame-Props.png"},
-    {SNIPER, DATA_PATH "/DuckGame-MoreWeapons.png"} // ok
+        {GRANADA, DATA_PATH "/DuckGame-Grenades.png "},      // ok
+        {BANANA, DATA_PATH "/DuckGame-Grenades.png "},       // ok
+        {PEW_PEW_LASER, DATA_PATH "/DuckGame-Laser.png"},    // ok
+        {LASER_RIFLE, DATA_PATH "/DuckGame-Laser.png"},      // ok
+        {AK_47, DATA_PATH "/DuckGame-MachineGuns.png"},      // ok
+        {PISTOLA_DUELOS, DATA_PATH "/DuckGame-Pistol.png"},  // ????????? supongo que es la pistol
+        {PISTOLA_COWBOY, DATA_PATH "/DuckGame-Pistol.png"},  // ok
+        {MAGNUM, DATA_PATH "/DuckGame-Pistol.png"},          // ok
+        {ESCOPETA, DATA_PATH "/DuckGame-Props.png"},
+        {SNIPER, DATA_PATH "/DuckGame-MoreWeapons.png"}  // ok
 };
 
 DrawerWeapon::DrawerWeapon(sprite_t _weapon, SDL2pp::Renderer& renderer):
-        weapon(_weapon), texture(renderer, textures[static_cast<TEXTURE_WEAPONS>(weapon.id_texture)]) {}
+        weapon(_weapon),
+        texture(renderer, textures[static_cast<TEXTURE_WEAPONS>(weapon.id_texture)]) {}
 
 void DrawerWeapon::draw(SDL2pp::Renderer& renderer) {
-    // TODO: tengo el path pero tengo que acceder a la posicion inicial de cada weapon, no todas están posicionadas en un mismo lugar
-    // armar un map que tenga asociado los valores iniciales, lo dejo hardcodeado por ahora
-    
+    // TODO: tengo el path pero tengo que acceder a la posicion inicial de cada weapon, no todas
+    // están posicionadas en un mismo lugar armar un map que tenga asociado los valores iniciales,
+    // lo dejo hardcodeado por ahora
+
     renderer.Copy(texture,
                   SDL2pp::Rect(WEAPON_INITIAL_X, WEAPON_INITIAL_Y, SIZE_WEAPON_SPRITE,
                                SIZE_WEAPON_SPRITE),
-                  SDL2pp::Rect(weapon.coordinate.get_x(), weapon.coordinate.get_y(), TILE_SIZE, TILE_SIZE));
+                  SDL2pp::Rect(weapon.coordinate.get_x(), weapon.coordinate.get_y(), TILE_SIZE,
+                               TILE_SIZE));
 }
+
+void DrawerWeapon::update_weapon(const sprite_t& update_weapon) { weapon = update_weapon; }
