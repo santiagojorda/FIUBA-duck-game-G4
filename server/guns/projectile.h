@@ -2,11 +2,11 @@
 #define PROJECTILE
 
 #include "../attributes/positionable.h"
-#include "../attributes/statable.h"
+// #include "../attributes/statable.h"
 
 #include "gun.h"
 
-class Projectile: public Positionable, public Statable {
+class Projectile: public Positionable { // es un statable
 protected:
     ProjectileRange range_tiles;
 
