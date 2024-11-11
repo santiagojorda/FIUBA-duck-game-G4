@@ -10,7 +10,7 @@
 
 class ProtocolServer: public Protocol {
 private:
-    void send_cordinates(const Coordinate& send);
+    void send_coordinates(const Coordinate& send);
 
     void send_inventory(Inventory& inventory);
     void send_gun(Gun* gun);
@@ -23,6 +23,7 @@ private:
     void send_scenario_state(GameState_t& state);
     void send_camera_state(GameState_t& state);
     void send_throwables_state(GameState_t& state);
+    void send_map_weapons_state(GameState_t& state);
 
 public:
     explicit ProtocolServer(Socket& skt);

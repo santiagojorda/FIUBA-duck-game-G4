@@ -38,6 +38,8 @@ public:
     void translate_y(int pasos) override;
     void move_back(ShootingRecoil tiles);
     // void move_back(int tiles);
+
+    void update() override;
     Gun* get_gun();
     Armor* get_armor();
     Helmet* get_helmet();
@@ -45,6 +47,16 @@ public:
     void equip(Equippable* item);
     Direction get_direction();
     Inventory& get_inventory();
+
+    void run_right();
+    void run_left();
+    void jump();
+    void fall();
+    void crouch();
+    void slip();
+    void recoil();
+    void plane();
+    void die();
 
     virtual ~Player();
 };

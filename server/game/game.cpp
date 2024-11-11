@@ -41,12 +41,18 @@ GameState_t Game::get_gamestate() {
     GameState_t game_state;
 
     game_state.players = players;
-    // game_state.projectiles = Proje;
+    game_state.projectiles = ListProjectiles();
     game_state.map = map;
     return game_state;
 }
 
 auto Game::get_actual_milliseconds() { return std::chrono::high_resolution_clock::now(); }
+
+void Game::update_states(){
+    for(Player& player : players){
+        player.update();
+    }
+}
 
 void Game::run() {
 
@@ -56,10 +62,11 @@ void Game::run() {
     try {
 
         while (_keep_running) {
+            game_logic.apply_gravity();
+            update_states();
             execute_new_events();
             // *(2) o podria procesar todos los mensajes en la cola y luego enviar un gamestate como
             // broadcast_gamestate
-            game_logic.apply_gravity();
             broadcast_gamestate();
 
             chrono_now = get_actual_milliseconds();

@@ -6,7 +6,7 @@
 #include "../../common/coordinate.h"
 #include "../attributes/equippable.h"
 #include "../attributes/positionable.h"
-#include "../attributes/statable.h"
+// #include "../attributes/statable.h"
 #include "../player/inventory.h"
 
 #include "list_projectiles.h"

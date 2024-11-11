@@ -1,17 +1,16 @@
 #ifndef STATE_DUCK_H
 #define STATE_DUCK_H
 
-enum states { JUMPING, RUNING, CROUNCH, RECOIL, SLIPING, PLANING, IDLE, DEATH };
+#include <cstdint>
+#include <unordered_map>
 
-enum states_frame {
-    JUMPING_F = 6,
-    RUNING_F = 6,
-    CROUCH_F = 1,
-    RECOIL_F = 3,
-    SLIPING_F = 2,
-    PLANING_F = 6,
-    IDLE_F = 1,
-    DEAHT_F = 1
+enum DuckState : uint8_t { IS_JUMPING, IS_RUNNING, IS_CROUCHING, IS_RECOILING, IS_FALLING, IS_SLIPPING, IS_PLANING, IS_IDLE, IS_DEAD };
+
+struct DuckStateInfo_t {
+    uint8_t max_frames;  
 };
 
-#endif  // STATE_DUCK_H
+// Mapa que asocia el estado con su información de frames
+extern std::unordered_map<DuckState, DuckStateInfo_t> duck_state_frames;
+
+#endif 
