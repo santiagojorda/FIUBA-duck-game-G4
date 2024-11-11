@@ -12,7 +12,7 @@ struct client_game_state_t {
     VectorThrowable throwable;
     std::vector<box_t> boxs;
     VectorSprite floors;
-    VectorSprite wepons;
+    VectorSprite weapons;
 };
 
 #endif  // CLIENT_GAME_STATE_H

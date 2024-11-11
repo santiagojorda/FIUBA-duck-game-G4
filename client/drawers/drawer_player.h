@@ -5,8 +5,8 @@
 #include <SDL2pp/SDL2pp.hh>
 #include <SDL2pp/Texture.hh>
 
-#include "../../common/action_commands.h"
 #include "../game_state/player.h"
+#include "../../common/state_duck.h"
 
 class DrawerPlayer {
 private:

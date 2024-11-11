@@ -64,7 +64,6 @@ void Drawer::run() try {
 
     // Game state
     bool is_running = false;
-    bool is_moving_left = false;
     client_game_state_t _game_state;
 
     auto chrono_now = std::chrono::high_resolution_clock::now();
@@ -166,7 +165,7 @@ void Drawer::run() try {
 
         //  Se envia la tecla que presionó el usuario
         SDL_Event event;
-        keyboard_controller.procesar_comando(event, is_running, is_moving_left);
+        keyboard_controller.procesar_comando(event, is_running);
     }
 
 } catch (std::exception& e) {

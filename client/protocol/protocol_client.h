@@ -14,8 +14,6 @@
 
 class ClientProtocol: public Protocol {
 private:
-    Coordinate receive_cordinates();
-
     VectorPlayers receive_players();
 
     std::vector<bullet_t> receive_bullets();
@@ -56,7 +54,7 @@ public:
     explicit ClientProtocol(Socket& skt);
 
     /*
-     * envia el mensaje de inicio
+     * Envia el mensaje de inicio, siendo este la cantidad de jugadores en el juego.
      */
     void send_init(const uint8_t& init);
 
@@ -69,11 +67,6 @@ public:
      *
      */
     void receive_zoom_details(zoom_t zoom);
-
-    /*
-     *
-     */
-    std::vector<PlayerPosition_t> receiver_players_();
 
     /*
      *

@@ -6,7 +6,6 @@
 #define SIZE_WEAPON_SPRITE 32
 #define TILE_SIZE 50
 
-
 /*
 
 // DuckGame-Grenades.png ->  granadas, banana
@@ -14,8 +13,9 @@
 // DuckGame-MachineGuns.png ->  AK_47
 // DuckGame-Pistol.png ->  pistola cowboy, magnum, supongo que la pistol es la pistola de duelos
 // DuckGame-MoreWeapons.png -> sniper,
+*/
 
-static std::map<uint8_t, std::string> textures = {
+static std::map<TEXTURE_WEAPONS, std::string> textures = {
     {GRANADA, DATA_PATH "/DuckGame-Grenades.png "}, // ok
     {BANANA, DATA_PATH "/DuckGame-Grenades.png "}, // ok
     {PEW_PEW_LASER, DATA_PATH "/DuckGame-Laser.png"}, // ok
@@ -27,18 +27,16 @@ static std::map<uint8_t, std::string> textures = {
     {ESCOPETA, DATA_PATH "/DuckGame-Props.png"},
     {SNIPER, DATA_PATH "/DuckGame-MoreWeapons.png"} // ok
 };
-*/
-DrawerWeapon::DrawerWeapon(SDL2pp::Renderer& renderer):
-        texture(renderer, DATA_PATH "/DuckGame-Pistol.png"), x(0), y(0) {}
+
+DrawerWeapon::DrawerWeapon(sprite_t _weapon, SDL2pp::Renderer& renderer):
+        weapon(_weapon), texture(renderer, textures[static_cast<TEXTURE_WEAPONS>(weapon.id_texture)]) {}
 
 void DrawerWeapon::draw(SDL2pp::Renderer& renderer) {
+    // TODO: tengo el path pero tengo que acceder a la posicion inicial de cada weapon, no todas están posicionadas en un mismo lugar
+    // armar un map que tenga asociado los valores iniciales, lo dejo hardcodeado por ahora
+    
     renderer.Copy(texture,
                   SDL2pp::Rect(WEAPON_INITIAL_X, WEAPON_INITIAL_Y, SIZE_WEAPON_SPRITE,
                                SIZE_WEAPON_SPRITE),
-                  SDL2pp::Rect(this->x, this->y, TILE_SIZE, TILE_SIZE));
-}
-
-void DrawerWeapon::set_position(int x, int y) {
-    this->x = x;
-    this->y = y;
+                  SDL2pp::Rect(weapon.coordinate.get_x(), weapon.coordinate.get_y(), TILE_SIZE, TILE_SIZE));
 }

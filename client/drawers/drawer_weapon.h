@@ -8,17 +8,17 @@
 #include <SDL2pp/Texture.hh>
 
 #include "drawable.h"
+#include "../../common/weapons_id.h"
+#include "../game_state/sprite.h"
 
 class DrawerWeapon {
 private:
+    sprite_t weapon;
     SDL2pp::Texture texture;
-    int x;
-    int y;
 
 public:
-    DrawerWeapon(SDL2pp::Renderer& renderer);
+    DrawerWeapon(sprite_t weapon, SDL2pp::Renderer& renderer);
     void draw(SDL2pp::Renderer& renderer);
-    void set_position(int x, int y);
 };
 
 #endif  // DRAWER_WEAPON_H

@@ -15,6 +15,8 @@
 #include "drawer_player.h"
 #include "drawer_weapon.h"
 
+#include "../../common/state_duck.h"
+
 class Drawer {
 private:
     Queue<ClientEvent_t>& commands;

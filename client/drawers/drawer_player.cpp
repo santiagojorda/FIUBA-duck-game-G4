@@ -44,11 +44,14 @@ void DrawerPlayer::draw(SDL2pp::Renderer& renderer) {
     int src_x = DUCK_INITIAL_X;
     int src_y = DUCK_INITIAL_Y;
 
-    if (player.state == MOVE_LEFT || player.state == MOVE_RIGHT) {  // son 6 frames
+    if (player.state == IS_RUNNING) {  // son 6 frames
         src_x = DUCK_INITIAL_X + SIZE_DUCK_SPRITE * player.frame;
-    } else if (player.state == GRAB_OR_RELEASE) {  // si tomo algo, chequeo el inventario
+    } // chequeo el inventarioelse if (player.state == GRAB_OR_RELEASE) {  // si tomo algo, chequeo el inventario
         // si tiene un arma, le dibujo el ala..
-        if (player.inventory.ammo) {}
+     //   if (player.inventory.ammo) {}
+    // }
+    else if (player.state == IS_IDLE) {
+        // no hago nada, se quedan con los valores por defecto, verlo luego.
     }
 
     renderer.Copy(texture, SDL2pp::Rect(src_x, src_y, SIZE_DUCK_SPRITE, SIZE_DUCK_SPRITE),
