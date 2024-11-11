@@ -9,9 +9,9 @@
 
 struct GameState_t {
     // cppcheck-suppress unusedStructMember
-    ListPlayers players;
-    ListProjectiles projectiles;
-    Map map;
+    ListPlayers& players;
+    ListProjectiles& projectiles;
+    Map& map;
 };
 
 #endif  // SERVER_GAME_STATE_H_
