@@ -5,11 +5,18 @@
 
 GameLogic::GameLogic(ListPlayers& _players, Map& _map): players(_players), map(_map), physics() {}
 
-void GameLogic::apply_gravity() {
+bool GameLogic::in_floor(const Player& player){
+    bool in_floor = false;
+    for (auto& tile: this->map) {
+        in_floor |= this->physics.horizontal_touch((Rectangle&)player, (Rectangle&)tile);
+    }
+    return in_floor;
+}
 
+void GameLogic::apply_gravity() {
     for (Player& player: players) {
         Coordinate coordinates = player.get_coordinate();
-        if (coordinates.get_y() < 200) {  // piso
+        if (!this->in_floor(player)) {  // piso
             physics.falling(player, 1);
             log_player_action(player, "falls");
         }
@@ -31,10 +38,10 @@ void GameLogic::log_player_action(Player& player, const std::string& action) {
 
 void GameLogic::slove_collision() {
     for (auto& p: this->players) {
-        for (auto& tile: this->map) {
-            if (this->physics.collision((Rectangle &)p, (Rectangle &)tile)) {
-                // logica
-            }
+        if (this->in_floor(p)) { // esto se puede cambair por la lista de armas y/o equipabels, deberi funcar 
+            p.idle();
+        } else {
+            p.fall();
         }
     }
 }

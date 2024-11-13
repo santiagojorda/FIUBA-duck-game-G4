@@ -57,6 +57,7 @@ void Player::slip() { set_state(DuckState::IS_SLIPPING); }
 void Player::recoil() { set_state(DuckState::IS_RECOILING); }
 void Player::plane() { set_state(DuckState::IS_PLANING); }
 void Player::die() { set_state(DuckState::IS_DEAD); }
+void Player::idle() { set_state(DuckState::IS_IDLE); }
 
 uint8_t Player::get_id() const { return this->id; }
 Gun* Player::get_gun() { return inventory.get_gun(); }
