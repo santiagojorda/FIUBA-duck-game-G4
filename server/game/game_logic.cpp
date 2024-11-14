@@ -8,7 +8,7 @@ GameLogic::GameLogic(ListPlayers& _players, Map& _map): players(_players), map(_
 bool GameLogic::in_floor(const Player& player){
     bool in_floor = false;
     for (auto& tile: this->map) {
-        in_floor |= this->physics.horizontal_touch((Rectangle&)player, (Rectangle&)tile);
+        in_floor += this->physics.collision((Rectangle&)player, (Rectangle&)tile);
     }
     return in_floor;
 }
@@ -35,6 +35,7 @@ Player& GameLogic::get_player(const uint8_t& _player_id) {
 void GameLogic::log_player_action(Player& player, const std::string& action) {
     std::cout << "Player " << int(player.get_id()) << " " << action << std::endl;
 }
+
 
 void GameLogic::slove_collision() {
     for (auto& p: this->players) {

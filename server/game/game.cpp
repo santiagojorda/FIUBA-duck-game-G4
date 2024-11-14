@@ -38,12 +38,8 @@ void Game::execute_new_events() {
 void Game::broadcast_gamestate() { monitor_client.broadcast(get_gamestate()); }
 
 GameState_t Game::get_gamestate() {
-    GameState_t game_state;
-
-    game_state.players = players;
-    game_state.projectiles = ListProjectiles();
-    game_state.map = map;
-    return game_state;
+   ListProjectiles projectiles;
+    return GameState_t{players,  projectiles, map};
 }
 
 auto Game::get_actual_milliseconds() { return std::chrono::high_resolution_clock::now(); }
