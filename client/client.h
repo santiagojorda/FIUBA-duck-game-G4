@@ -49,6 +49,8 @@ public:
      */
     Client(const Client&) = delete;
     Client& operator=(const Client&) = delete;
+
+    ~Client();
 };
 
 #endif  // CLIENT_H

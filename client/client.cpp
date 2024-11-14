@@ -45,3 +45,13 @@ void Client::run() {
     this->skt.shutdown(2);
     this->commands.close();
 }
+
+Client::~Client(){
+    receiver.stop();
+    sender.stop();
+
+    receiver.join();
+    sender.join();
+
+}
+

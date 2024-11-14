@@ -17,11 +17,11 @@ private:
 
     void procesar_keyup(SDL_Event& event, bool& is_running);
 
-    void procesar_keydown(SDL_Event& event, bool& is_running, bool& is_moving_left);
+    void procesar_keydown(SDL_Event& event, bool& is_running);
 
-    void procesar_accion_player_1(SDL_Event& event, bool& is_running, bool& is_moving_left);
+    void procesar_accion_player_1(SDL_Event& event, bool& is_running);
 
-    void procesar_accion_player_2(SDL_Event& event, bool& is_running, bool& is_moving_left);
+    void procesar_accion_player_2(SDL_Event& event, bool& is_running);
 
 public:
     /*
@@ -38,7 +38,7 @@ public:
      * - If Right key is released, character would stop.
      */
 
-    void procesar_comando(SDL_Event& event, bool& is_running, bool& is_moving_left);
+    void procesar_comando(SDL_Event& event, bool& is_running);
 };
 
 #endif  // KEYBOARD_CONTROLLER_H
