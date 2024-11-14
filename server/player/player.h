@@ -17,7 +17,8 @@ class Player: public Positionable, public Statable {
 private:
     // cppcheck-suppress unusedStructMember
     uint8_t id;
-
+    // cppcheck-suppress unusedStructMember
+    uint health; // te lo dejo para ir pensado en la vida
     // cppcheck-suppress unusedStructMember
     Direction look_direction = Direction::RIGHT;
 
@@ -57,6 +58,7 @@ public:
     void recoil();
     void plane();
     void die();
+    void idle();
 
     virtual ~Player();
 };
