@@ -28,8 +28,12 @@ bool GamePhysics::inside(const Rectangle& a, const Rectangle& b) {
     return this->horizontal_touch(a, b) && this->vertical_touch(a, b);
 }
 
+bool GamePhysics::touch(const Rectangle& a, const Rectangle& b) {
+    return this->horizontal_touch(a, b) || this->vertical_touch(a, b);
+}
+
 bool GamePhysics::collision(const Rectangle& a, const Rectangle& b) {
-    return this->inside(a, b) || this->inside(b, a);
+    return this->touch(a, b) || this->touch(b, a);
 }
 
 void GamePhysics::falling(Positionable& target, uint iter_frame) {

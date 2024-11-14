@@ -4,11 +4,20 @@
 
 GameLogic::GameLogic(ListPlayers& _players, Map& _map): players(_players), map(_map), physics() {}
 
+bool GameLogic::in_floor(const Player& player){
+    bool in_floor = false;
+    for (auto& tile: this->map) {
+        in_floor += this->physics.collision((Rectangle&)player, (Rectangle&)tile);
+    }
+    std::cout << "floor is: "<< in_floor << std::endl;
+    return in_floor;
+}
+
 void GameLogic::apply_gravity() {
 
     for (Player& player: players) {
         Coordinate coordinates = player.get_coordinate();
-        if (coordinates.get_y() < 200) {  // piso
+        if (this->in_floor(player)) {  // piso
             physics.falling(player, 1);
             log_player_action(player, "falls");
         }
