@@ -18,7 +18,7 @@ Game::Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEventPla
         monitor_client(_monitor_client),
         queue_event(_queue_event),
         queue_gamestate(_queue_gamestate) {
-    Ground* ground = new Ground(Coordinate(0, 200, 200, 100));  // lea del yaml
+    Ground* ground = new Ground(Coordinate(0, 200, 100, 500));  // lea del yaml
     map.add(ground);
 }
 
