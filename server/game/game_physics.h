@@ -35,8 +35,9 @@ public:
     */
     bool inside(const Rectangle& a, const Rectangle& b);
 
-    bool touch(const Rectangle& a, const Rectangle& b);
 
+    bool touch(const Rectangle& a, const Rectangle& b);
+    
     /*
     // a y b comparten espacio en algun punto
     */
