@@ -7,7 +7,7 @@ GameLogic::GameLogic(ListPlayers& _players, Map& _map): players(_players), map(_
 bool GameLogic::in_floor(const Player& player){
     bool in_floor = false;
     for (auto& tile: this->map) {
-        if(this->physics.collision((Rectangle&)player, (Rectangle&)tile)){
+        if(this->physics.collision(player.get_rectangle(), tile->get_rectangle())){
             std::cout << "floor is: "<< in_floor << std::endl;
             in_floor = true;
         }
