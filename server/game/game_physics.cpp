@@ -44,7 +44,7 @@ bool GamePhysics::touch(const Rectangle& a, const Rectangle& b) {
 }
 
 bool GamePhysics::collision(const Rectangle& a, const Rectangle& b) {
-    return this->touch(a, b) || this->touch(b, a);
+    return this->inside(a, b);
 }
 
 void GamePhysics::falling(Positionable& target, uint iter_frame) {
