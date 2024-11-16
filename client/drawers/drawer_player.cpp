@@ -22,20 +22,6 @@ enum TEXTURE_DUCKS {
     DUCK_WHITE,
 };
 
-static std::map<TEXTURE_WEAPONS, weapon_properties_t> weaponProperties = {
-        {GRANADA, {DATA_PATH "/DuckGame-Grenades.png", 1, 21, 15, 15}},
-        {BANANA, {DATA_PATH "/DuckGame-Grenades.png", 1, 51, 15, 15}},
-        {PEW_PEW_LASER, {DATA_PATH "/DuckGame-Laser.png", 336, 94, 32, 32}},
-        {LASER_RIFLE, {DATA_PATH "/DuckGame-Laser.png", 1, 97, 32, 32}},
-        {AK_47, {DATA_PATH "/DuckGame-MachineGuns.png", 1, 19, 32, 32}},
-        {PISTOLA_DUELOS, {DATA_PATH "/DuckGame-Pistol.png", 35, 68, 18, 10}},
-        {PISTOLA_COWBOY,
-         {DATA_PATH "/DuckGame-Pistol.png", 0, 0, 0,
-          0}},  // Sin coordenadas, me falta encontrar esta :(
-        {MAGNUM, {DATA_PATH "/DuckGame-Pistol.png", 1, 47, 32, 32}},
-        {ESCOPETA, {DATA_PATH "/DuckGame-Props.png", 60, 114, 41, 11}},
-        {SNIPER, {DATA_PATH "/DuckGame-MoreWeapons.png", 36, 237, 33, 9}}};
-
 // clave id_texture (para elegir el pato), valor struct(?)
 static std::map<uint8_t, std::string> textures = {
         {DUCK_YELLOW, DATA_PATH "/DuckGame-YellowDuck.png"},
@@ -112,7 +98,7 @@ void DrawerPlayer::draw(SDL2pp::Renderer& renderer) {
 
     if (static_cast<int>(player.inventory.weapon) != 0) {
 
-        auto& properties = weaponProperties[static_cast<TEXTURE_WEAPONS>(player.inventory.weapon)];
+        auto& properties = weapon_properties[static_cast<TEXTURE_WEAPONS>(player.inventory.weapon)];
         weaponTexture = SDL2pp::Texture(renderer, properties.texturePath);
         int weaponsrc_X = properties.src_x;
         int weaponsrc_Y = properties.src_y;

@@ -2,17 +2,6 @@
 
 #include <chrono>
 
-// FPS
-// FPS
-#define MILISECONDS_30_FPS 33
-
-// Game
-#define GAME_TITLE "Duck Game"
-
-// Window
-#define WINDOW_HEIGHT 500
-#define WINDOW_WIDTH 800
-
 // FLOOR
 #define SIZE_FLOOR_SPRITE 16
 
@@ -22,8 +11,6 @@
 // ALA DEL PATO en SPRITE -> las alas empiezan desde Y= 518, voy a suponer que miden 16x16
 #define ALA_INITIAL_X 1
 #define ALA_INITIAL_Y 518
-
-#define FACTOR_ZOOM 1
 
 using namespace SDL2pp;
 
@@ -101,24 +88,6 @@ void Drawer::run() try {
             // player en el drawer_ducks??
             drawer_ducks[i]->update_player(player);
             drawer_ducks[i]->draw(renderer);
-        }
-
-        // ---------------------------- Draw Floor ----------------------------
-
-        if (drawer_floor.size() != _game_state.floors.size()) {
-            drawer_floor.resize(_game_state.floors.size());
-            for (size_t i = 0; i < _game_state.floors.size(); ++i) {
-                if (!drawer_floor[i]) {
-                    auto weapon = _game_state.floors[i];
-                    drawer_floor[i] = std::make_shared<DrawerFloor>(weapon, renderer);
-                }
-            }
-        }
-
-        for (size_t i = 0; i < _game_state.floors.size(); ++i) {
-            auto weapon = _game_state.floors[i];
-            drawer_floor[i]->update_floor(weapon);
-            drawer_floor[i]->draw(renderer);
         }
 
         // Aplicar zoom y centrar usando ZoomHandler
