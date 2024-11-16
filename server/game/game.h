@@ -7,6 +7,7 @@
 #include "../client/monitor_clients.h"
 #include "../events/queue_event_player.h"
 #include "../map/map.h"
+#include "../guns/list_guns.h"
 #include "../player/list_players.h"
 
 #include "game_logic.h"
@@ -16,6 +17,7 @@ class Game: public Thread {
 private:
     ListPlayers players;
     Map map;
+    ListGuns guns;
     GameLogic game_logic;
     MonitorClients& monitor_client;
     QueueEventPlayer& queue_event;  //<- para charalar

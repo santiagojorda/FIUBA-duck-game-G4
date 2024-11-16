@@ -3,27 +3,52 @@
 #include <iostream>
 
 
-GameLogic::GameLogic(ListPlayers& _players, Map& _map): players(_players), map(_map), physics() {}
+GameLogic::GameLogic(ListPlayers& _players, Map& _map, ListGuns& _guns): 
+    players(_players), 
+    map(_map), 
+    guns(_guns),
+    physics() 
+    {}
 
-bool GameLogic::in_floor(const Player& player){
-    bool in_floor = false;
-    for (auto& tile: this->map) {
-        if(this->physics.collision(player.get_rectangle(), tile->get_rectangle())){
-            std::cout << "floor is: "<< in_floor << std::endl;
-            in_floor = true;
+bool GameLogic::is_player_floor_collision(Player& player){
+    for (auto& item: this->map) {
+        if(this->physics.collision(player.get_rectangle(), item->get_rectangle())){
+            return true;
         }
     }
-    return in_floor;
+    return false;
 }
 
-void GameLogic::apply_gravity() {
-    for (Player& player: players) {
-        Coordinate coordinates = player.get_coordinate();
-        if (!this->in_floor(player)) {  // piso
-            physics.falling(player, 1);
-            log_player_action(player, "falls");
+
+void GameLogic::update_player_equip_collision(Player& player){
+    for (auto& gun: this->guns) {
+        if(this->physics.collision(player.get_rectangle(), gun->get_rectangle())){
+
+            player.equip(gun);
+            log_player_action(player, "take a gun");
+            // guns.remove(gun);            
+            return;
         }
     }
+}
+
+
+
+void GameLogic::update_players(){
+    for (Player& player: players) {
+
+        update_player_gravity(player);
+        update_player_equip_collision(player);
+
+    }
+
+}
+
+void GameLogic::update_player_gravity(Player& player) {
+    if (!is_player_floor_collision(player)) {
+        physics.falling(player, 1);
+    }
+    
 }
 
 Player& GameLogic::get_player(const uint8_t& _player_id) {
@@ -40,15 +65,16 @@ void GameLogic::log_player_action(Player& player, const std::string& action) {
 }
 
 
-void GameLogic::slove_collision() {
-    for (auto& p: this->players) {
-        if (this->in_floor(p)) { // esto se puede cambair por la lista de armas y/o equipabels, deberi funcar 
-            p.idle();
-        } else {
-            p.fall();
-        }
-    }
-}
+// void GameLogic::check_collisions() {
+//     for (auto& p: this->players) {
+//         if ()
+//         if (this->in_floor(p)) { // esto se puede cambair por la lista de armas y/o equipabels, deberi funcar 
+//             p.idle();
+//         } else {
+//             p.fall();
+//         }
+//     }
+// }
 
 void GameLogic::handle_event(uint8_t player_id, ActionCommand event) {
     try {

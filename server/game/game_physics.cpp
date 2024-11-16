@@ -44,7 +44,14 @@ bool GamePhysics::touch(const Rectangle& a, const Rectangle& b) {
 }
 
 bool GamePhysics::collision(const Rectangle& a, const Rectangle& b) {
-    return this->inside(a, b);
+
+    // esto solo funciona para rectangulos en 2d no rotados
+    return !(a.get_x_max() < b.get_x_min() || 
+             a.get_x_min() > b.get_x_max() || 
+             a.get_y_max() < b.get_y_min() || 
+             a.get_y_min() > b.get_y_max());  
+
+    // return this->inside(a, b);
 }
 
 void GamePhysics::falling(Positionable& target, uint iter_frame) {
