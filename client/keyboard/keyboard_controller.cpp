@@ -36,7 +36,7 @@ void KeyboardController::procesar_keydown(SDL_Event& event) {
         case SDLK_ESCAPE:
         case SDLK_q:
             throw std::runtime_error("Cierre del juego");
-        case SDLK_m:  // tecla m : Iniciar juego
+        /*case SDLK_m:  // tecla m : Iniciar juego
             try {
                 std::cout << "Presiono m" << std::endl;
 
@@ -48,7 +48,7 @@ void KeyboardController::procesar_keydown(SDL_Event& event) {
                 std::cerr << "error en case " << e.what() << '\n';
             }
 
-            break;
+            break;*/
         case SDLK_RIGHT:
         case SDLK_LEFT:
         case SDLK_UP:
