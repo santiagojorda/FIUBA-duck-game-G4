@@ -12,6 +12,14 @@
 
 #include "drawable.h"
 
+struct WeaponProperties {
+    std::string texturePath;
+    int src_x;
+    int src_y;
+    int width;
+    int height;
+};
+
 class DrawerWeapon {
 private:
     sprite_t weapon;

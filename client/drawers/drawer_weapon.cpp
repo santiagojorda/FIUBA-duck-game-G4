@@ -6,42 +6,37 @@
 #define SIZE_WEAPON_SPRITE 32
 #define TILE_SIZE 50
 
-/*
-
-// DuckGame-Grenades.png ->  granadas, banana
-// DuckGame-Laser.png -> pew pew laser
-// DuckGame-MachineGuns.png ->  AK_47
-// DuckGame-Pistol.png ->  pistola cowboy, magnum, supongo que la pistol es la pistola de duelos
-// DuckGame-MoreWeapons.png -> sniper,
-*/
-
-static std::map<TEXTURE_WEAPONS, std::string> textures = {
-        {GRANADA, DATA_PATH "/DuckGame-Grenades.png "},      // ok
-        {BANANA, DATA_PATH "/DuckGame-Grenades.png "},       // ok
-        {PEW_PEW_LASER, DATA_PATH "/DuckGame-Laser.png"},    // ok
-        {LASER_RIFLE, DATA_PATH "/DuckGame-Laser.png"},      // ok
-        {AK_47, DATA_PATH "/DuckGame-MachineGuns.png"},      // ok
-        {PISTOLA_DUELOS, DATA_PATH "/DuckGame-Pistol.png"},  // ????????? supongo que es la pistol
-        {PISTOLA_COWBOY, DATA_PATH "/DuckGame-Pistol.png"},  // ok
-        {MAGNUM, DATA_PATH "/DuckGame-Pistol.png"},          // ok
-        {ESCOPETA, DATA_PATH "/DuckGame-Props.png"},
-        {SNIPER, DATA_PATH "/DuckGame-MoreWeapons.png"}  // ok
-};
+static std::map<TEXTURE_WEAPONS, WeaponProperties> weaponProperties = {
+        {GRANADA, {"DATA_PATH/DuckGame-Grenades.png", 1, 21, 15, 15}},
+        {BANANA, {"DATA_PATH/DuckGame-Grenades.png", 1, 51, 15, 15}},
+        {PEW_PEW_LASER, {"DATA_PATH/DuckGame-Laser.png", 336, 94, 32, 32}},
+        {LASER_RIFLE, {"DATA_PATH/DuckGame-Laser.png", 1, 97, 32, 32}},
+        {AK_47, {"DATA_PATH/DuckGame-MachineGuns.png", 1, 19, 32, 32}},
+        {PISTOLA_DUELOS, {"DATA_PATH/DuckGame-Pistol.png", 35, 68, 18, 10}},
+        {PISTOLA_COWBOY, {"DATA_PATH/DuckGame-Pistol.png", 0, 0, 0, 0}},  // Sin coordenadas, me falta encontrar esta :(
+        {MAGNUM, {"DATA_PATH/DuckGame-Pistol.png", 1, 47, 32, 32}},
+        {ESCOPETA, {"DATA_PATH/DuckGame-Props.png", 60, 114, 41, 11}},
+        {SNIPER, {"DATA_PATH/DuckGame-MoreWeapons.png", 36, 237, 33, 9}}};
 
 DrawerWeapon::DrawerWeapon(sprite_t _weapon, SDL2pp::Renderer& renderer):
         weapon(_weapon),
-        texture(renderer, textures[static_cast<TEXTURE_WEAPONS>(weapon.id_texture)]) {}
+        texture(renderer,
+                weaponProperties[static_cast<TEXTURE_WEAPONS>(weapon.id_texture)].texturePath) {}
 
 void DrawerWeapon::draw(SDL2pp::Renderer& renderer) {
-    // TODO: tengo el path pero tengo que acceder a la posicion inicial de cada weapon, no todas
-    // están posicionadas en un mismo lugar armar un map que tenga asociado los valores iniciales,
-    // lo dejo hardcodeado por ahora
+    auto& properties = weaponProperties[static_cast<TEXTURE_WEAPONS>(weapon.id_texture)];
 
-    renderer.Copy(texture,
-                  SDL2pp::Rect(WEAPON_INITIAL_X, WEAPON_INITIAL_Y, SIZE_WEAPON_SPRITE,
-                               SIZE_WEAPON_SPRITE),
-                  SDL2pp::Rect(weapon.coordinate.get_x(), weapon.coordinate.get_y(), TILE_SIZE,
-                               TILE_SIZE));
+    if (properties.width == 0 || properties.height == 0) {
+        std::cout << "Handling PISTOLA_COWBOY (or unknown weapon without defined properties)"
+                  << std::endl;
+        return;
+    }
+
+    renderer.Copy(
+            texture,
+            SDL2pp::Rect(properties.src_x, properties.src_y, properties.width, properties.height),
+            SDL2pp::Rect(weapon.coordinate.get_x(), weapon.coordinate.get_y(), TILE_SIZE,
+                         TILE_SIZE));
 }
 
 void DrawerWeapon::update_weapon(const sprite_t& update_weapon) { weapon = update_weapon; }

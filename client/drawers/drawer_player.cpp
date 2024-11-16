@@ -62,7 +62,6 @@ void DrawerPlayer::draw(SDL2pp::Renderer& renderer) {
     SDL2pp::Texture weapon(renderer, DATA_PATH "/DuckGame-Equipment.png");
 
 
-
     if (player.state == IS_RUNNING) {  // son 6 frames
         std::cout << "esta en el frame " << static_cast<int>(player.frame) << "\n";
         src_x = DUCK_INITIAL_X + SIZE_DUCK_SPRITE * player.frame;
@@ -70,7 +69,7 @@ void DrawerPlayer::draw(SDL2pp::Renderer& renderer) {
         armadura_alas_src_x = 580 + SIZE_DUCK_SPRITE * player.frame;
     }  // chequeo el inventarioelse if (player.state == GRAB_OR_RELEASE) {  // si tomo algo, chequeo
        // el inventario si tiene un arma, le dibujo el ala..
-    else if (player.inventory.weapon) { // posee arma
+    else if (player.inventory.weapon) {  // posee arma
 
 
     } else if (player.state == IS_IDLE) {
