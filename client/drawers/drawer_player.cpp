@@ -29,13 +29,10 @@ static std::map<uint8_t, std::string> textures = {
         {DUCK_ORANGE, DATA_PATH "/DuckGame-OrangeDuck.png"},
         {DUCK_WHITE, DATA_PATH "/DuckGame-WhiteDuck.png"}};
 
-DrawerPlayer::DrawerPlayer(player_t _player, SDL2pp::Renderer& renderer):
-        player(_player), texture(renderer, textures[player.sprite.id_texture]) {}
+DrawerPlayer::DrawerPlayer(SDL2pp::Renderer& renderer, player_t& player):
+        texture(renderer, textures[player.sprite.id_texture]) {}
 
-void DrawerPlayer::draw(SDL2pp::Renderer& renderer) {
-    // si está caminando, o no se si usan otro struct
-    // yo tengo el nro de frame pero tengo que buscar la ubicacion en el sprite
-    // Por default
+void DrawerPlayer::draw(SDL2pp::Renderer& renderer, player_t& player) {
     int src_x = DUCK_INITIAL_X;
     int src_y = DUCK_INITIAL_Y;
 
@@ -67,7 +64,7 @@ void DrawerPlayer::draw(SDL2pp::Renderer& renderer) {
                       SDL2pp::Rect(player.sprite.coordinate.get_x(),
                                    player.sprite.coordinate.get_y(), TILE_SIZE, TILE_SIZE),
                       0.0, SDL2pp::NullOpt,
-                      this->player.is_looking == LEFT ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
+                      player.is_looking == LEFT ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
 
         renderer.Copy(
                 armadura,
@@ -75,26 +72,26 @@ void DrawerPlayer::draw(SDL2pp::Renderer& renderer) {
                 SDL2pp::Rect(player.sprite.coordinate.get_x(), player.sprite.coordinate.get_y() + 3,
                              TILE_SIZE, TILE_SIZE),
                 0.0, SDL2pp::NullOpt,
-                this->player.is_looking == LEFT ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
+                player.is_looking == LEFT ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
 
         /*renderer.Copy(armadura_para_alas, SDL2pp::Rect(armadura_alas_src_x, armadura_alas_y,
            SIZE_DUCK_SPRITE, SIZE_DUCK_SPRITE), SDL2pp::Rect(player.sprite.coordinate.get_x(),
            player.sprite.coordinate.get_y() + 3, TILE_SIZE, TILE_SIZE), 0.0, SDL2pp::NullOpt,
-                      this->player.is_looking == LEFT ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);*/
+                      player.is_looking == LEFT ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);*/
 
         renderer.Copy(casco, SDL2pp::Rect(casco_src_x, casco_y, SIZE_DUCK_SPRITE, SIZE_DUCK_SPRITE),
                       SDL2pp::Rect(player.sprite.coordinate.get_x() - 4,
                                    player.sprite.coordinate.get_y() - 16, TILE_SIZE, TILE_SIZE),
                       0.0, SDL2pp::NullOpt,
-                      this->player.is_looking == LEFT ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
+                      player.is_looking == LEFT ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
     }
 
     renderer.Copy(texture, SDL2pp::Rect(src_x, src_y, SIZE_DUCK_SPRITE, SIZE_DUCK_SPRITE),
                   SDL2pp::Rect(player.sprite.coordinate.get_x(), player.sprite.coordinate.get_y(),
                                TILE_SIZE, TILE_SIZE),
                   0.0, SDL2pp::NullOpt,
-                  static_cast<orientations>(this->player.is_looking) == LEFT ? SDL_FLIP_HORIZONTAL :
-                                                                               SDL_FLIP_NONE);
+                  static_cast<orientations>(player.is_looking) == LEFT ? SDL_FLIP_HORIZONTAL :
+                                                                         SDL_FLIP_NONE);
 
     if (static_cast<int>(player.inventory.weapon) != 0) {
 
@@ -110,6 +107,3 @@ void DrawerPlayer::draw(SDL2pp::Renderer& renderer) {
                                    player.sprite.coordinate.get_y(), TILE_SIZE, TILE_SIZE));
     }
 }
-
-
-void DrawerPlayer::update_player(const player_t& updated_player) { player = updated_player; }

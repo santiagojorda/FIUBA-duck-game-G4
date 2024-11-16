@@ -7,6 +7,7 @@
 #include "../../common/coordinate.h"
 #include "../../common/queue.h"
 #include "../../common/state_duck.h"
+#include "../config/game_config.h"
 #include "../game_state/player.h"
 #include "../keyboard/keyboard_controller.h"
 #include "../zoom/zoom_handler.h"
@@ -15,8 +16,8 @@
 #include "drawer_floor.h"
 #include "drawer_player.h"
 #include "drawer_weapon.h"
-
-#include "../config/game_config.h"
+#include "../protocol/protocol_client.h"
+#include "../../common/socket.h"
 
 class Drawer {
 private:

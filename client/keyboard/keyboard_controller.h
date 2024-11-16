@@ -15,13 +15,13 @@ private:
     Queue<ClientEvent_t>& commands;
     int num_players;
 
-    void procesar_keyup(SDL_Event& event, bool& is_running);
+    void procesar_keyup(SDL_Event& event);
 
-    void procesar_keydown(SDL_Event& event, bool& is_running);
+    void procesar_keydown(SDL_Event& event);
 
-    void procesar_accion_player_1(SDL_Event& event, bool& is_running);
+    void procesar_accion_player_1(SDL_Event& event);
 
-    void procesar_accion_player_2(SDL_Event& event, bool& is_running);
+    void procesar_accion_player_2(SDL_Event& event);
 
 public:
     /*
@@ -38,7 +38,7 @@ public:
      * - If Right key is released, character would stop.
      */
 
-    void procesar_comando(SDL_Event& event, bool& is_running);
+    void procesar_comando(SDL_Event& event);
 };
 
 #endif  // KEYBOARD_CONTROLLER_H

@@ -1,16 +1,3 @@
- // ---------------------------- Draw Player ----------------------------
-            // Primer Rect (x, y, w, h): (x, y) toman una coordenada de la imagen (w, h) le
-            // indicamos el alto y ancho Segundo Rect (x, y, w, h): le indicamos en que parte de la
-            // pantalla aparece, y el tamaño
-
-  // ---------------------------- Si el pato pasa la pantalla... ----------------------------
- // Esto sirve por si pasa la pantalla entonces muere
-            // If player passes past the right or left side of the window, wrap
-            /*if (position > renderer.GetOutputWidth()) {
-                position = -TILE_SIZE;  // wrap from the right
-            } else if (position < -TILE_SIZE) {
-                position = renderer.GetOutputWidth();  // wrap from the left
-            }*/
 
 /*
             // ---------------------------- Draw PISTOLA ENCIMA DEL PATO----------------------------
@@ -49,3 +36,17 @@
             // Llamar a set_position en DrawerWeapon
             drawer_weapons[0]->set_position(center_x, center_y - 41);
             drawer_weapons[0]->draw(renderer);
+
+//_______________________________________________________
+
+SDL2pp::Texture es una clase que desactiva la asignación 
+y copia para evitar problemas con los recursos de SDL (como texturas de gráficos) 
+que no deberían ser duplicados mediante copias superficiales.
+
+Cuando intentas usar drawer_players[player.sprite.id_texture] = drawer_player;, 
+esto requiere que DrawerPlayer sea asignable, 
+lo cual no es posible debido al SDL2pp::Texture dentro de DrawerPlayer.
+
+En lugar de almacenar objetos DrawerPlayer directamente en el std::map,
+ se puede utilizar punteros inteligentes como std::unique_ptr<DrawerPlayer>. 
+ De esta manera, el objeto DrawerPlayer no necesita ser copiable o asignable.

@@ -13,16 +13,12 @@
 
 class DrawerPlayer {
 private:
-    player_t player;
     SDL2pp::Texture texture;
 
 public:
-    DrawerPlayer(player_t _player, SDL2pp::Renderer& renderer);
+    DrawerPlayer(SDL2pp::Renderer& renderer, player_t& _player);
 
-    void draw(SDL2pp::Renderer& renderer);
-
-    void update_player(const player_t& update_player);  // quizas polimorfismo, asi el padre tiene 1
-                                                        // type y los hijos lo usan como quieran
+    void draw(SDL2pp::Renderer& renderer, player_t& _player);
 };
 
 #endif  // DRAWER_PLAYER_H

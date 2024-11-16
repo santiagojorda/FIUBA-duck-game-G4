@@ -5,14 +5,7 @@ KeyboardController::KeyboardController(Queue<ClientEvent_t>& _commands, int _num
 
 enum PlayerKeyboard { PLAYER_1, PLAYER_2 };
 
-/*
-    Protocol enviar
-
-    0 o 1
-    <HEADER_JUGADOR> <id_jugador>,<id_movimiento>... <etc>
-*/
-
-void KeyboardController::procesar_comando(SDL_Event& event, bool& is_running) {
+void KeyboardController::procesar_comando(SDL_Event& event) {
     while (SDL_PollEvent(&event)) {  // este es un Sender :) se envian los datos al servidor
 
         if (event.type == SDL_QUIT) {
@@ -21,26 +14,24 @@ void KeyboardController::procesar_comando(SDL_Event& event, bool& is_running) {
 
         // Este evento ocurre cuando una tecla es presionada
         if (event.type == SDL_KEYDOWN) {
-            procesar_keydown(event, is_running);
+            procesar_keydown(event);
             // Este evento ocurre cuando la tecla es liberada
         } else if (event.type == SDL_KEYUP) {
-            procesar_keyup(event, is_running);
+            procesar_keyup(event);
         }
     }
 }
 
-void KeyboardController::procesar_keyup(SDL_Event& event, bool& is_running) {
+void KeyboardController::procesar_keyup(SDL_Event& event) {
     switch (event.key.keysym.sym) {
         case SDLK_RIGHT:
-            is_running = false;
             break;
         case SDLK_LEFT:
-            is_running = false;
             break;
     }
 }
 
-void KeyboardController::procesar_keydown(SDL_Event& event, bool& is_running) {
+void KeyboardController::procesar_keydown(SDL_Event& event) {
     switch (event.key.keysym.sym) {
         case SDLK_ESCAPE:
         case SDLK_q:
@@ -65,26 +56,24 @@ void KeyboardController::procesar_keydown(SDL_Event& event, bool& is_running) {
         case SDLK_e:
         case SDLK_f:
         case SDLK_DOWN:
-            procesar_accion_player_1(event, is_running);
+            procesar_accion_player_1(event);
             break;
         default:
             if (num_players == 2) {
-                procesar_accion_player_2(event, is_running);
+                procesar_accion_player_2(event);
             }
             break;
     }
 }
 
-void KeyboardController::procesar_accion_player_1(SDL_Event& event, bool& is_running) {
+void KeyboardController::procesar_accion_player_1(SDL_Event& event) {
     ClientEvent_t client_event;
     switch (event.key.keysym.sym) {
         case SDLK_RIGHT:
-            is_running = true;
             client_event = {PLAYER_1, MOVE_RIGHT};
             this->commands.push(client_event);
             break;
         case SDLK_LEFT:
-            is_running = true;
             client_event = {PLAYER_1, MOVE_LEFT};
             this->commands.push(client_event);
             break;
@@ -110,16 +99,14 @@ void KeyboardController::procesar_accion_player_1(SDL_Event& event, bool& is_run
     }
 }
 
-void KeyboardController::procesar_accion_player_2(SDL_Event& event, bool& is_running) {
+void KeyboardController::procesar_accion_player_2(SDL_Event& event) {
     ClientEvent_t client_event;
     switch (event.key.keysym.sym) {
         case SDLK_d:
-            is_running = true;
             client_event = {PLAYER_2, MOVE_RIGHT};
             this->commands.push(client_event);
             break;
         case SDLK_a:
-            is_running = true;
             client_event = {PLAYER_2, MOVE_LEFT};
             this->commands.push(client_event);
             break;
