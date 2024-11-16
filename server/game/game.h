@@ -28,7 +28,6 @@ private:
     void broadcast_gamestate();
     GameState_t get_gamestate();
     auto get_actual_milliseconds();
-    void update_states();
 
 public:
     Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEventPlayer& _queue_event,

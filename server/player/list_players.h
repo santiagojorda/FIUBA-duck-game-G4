@@ -21,7 +21,7 @@ public:
             this->insert(this->end(), _list.begin(), _list.end());
         }
         return *this;
-    }
+    } 
 
     ~ListPlayers() {}
 };

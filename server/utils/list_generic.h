@@ -7,8 +7,8 @@
 template <typename T>
 class ListGeneric {
 private:
-    std::list<T*> items;  // esta deberia ser otro objeto, llamado map_item porque positionable
-                          // puede ser cualquiera
+    std::list<T*> items; 
+                        
 public:
     ListGeneric() {}
 
@@ -29,6 +29,8 @@ public:
             delete item;
         }
     }
+
+    int size() { return items.size(); }
 
     const std::list<T*>& get_items() const { return items; }
 

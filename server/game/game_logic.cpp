@@ -36,7 +36,7 @@ void GameLogic::update_player_equip_collision(Player& player){
 
 void GameLogic::update_players(){
     for (Player& player: players) {
-
+        player.update();
         update_player_gravity(player);
         update_player_equip_collision(player);
 

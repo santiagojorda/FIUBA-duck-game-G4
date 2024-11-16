@@ -44,16 +44,10 @@ void Game::broadcast_gamestate() { monitor_client.broadcast(get_gamestate()); }
 
 GameState_t Game::get_gamestate() {
     ListProjectiles projectiles;
-    return GameState_t{players, projectiles, map};
+    return GameState_t{players, projectiles, map, guns};
 }
 
 auto Game::get_actual_milliseconds() { return std::chrono::high_resolution_clock::now(); }
-
-void Game::update_states() {
-    for (Player& player: players) {
-        player.update();
-    }
-}
 
 void Game::run() {
 
@@ -64,8 +58,6 @@ void Game::run() {
 
         while (_keep_running) {
             game_logic.update_players();
-            // game_logic.touching_guns
-            update_states();
             execute_new_events();
             // *(2) o podria procesar todos los mensajes en la cola y luego enviar un gamestate como
             // broadcast_gamestate
