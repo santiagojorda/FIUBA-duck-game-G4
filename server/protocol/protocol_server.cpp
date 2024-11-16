@@ -119,7 +119,7 @@ void ProtocolServer::send_map_guns_state(GameState_t& state) {
         send_coordinates(Coordinate());  // posicion del escenario
     }
     // uint8_t count_map_guns = state.map_guns.size();
-    // send_byte(count_map_guns); 
+    // send_byte(count_map_guns);
     // for(auto* gun: state.map_guns.get_items()){
     //     send_byte(gun->get_texture_id());                    // texture_id
     //     send_coordinates(gun->get_coordinate());  // posicion del escenario

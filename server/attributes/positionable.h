@@ -9,10 +9,12 @@ class Positionable {
 
 private:
     uint8_t id = 0;
-    uint8_t texture_id = 0;
+    uint8_t texture_id;
 
 protected:
     Rectangle space;
+
+    void set_texture_id(const uint8_t& _texture_id);
 
 public:
     Positionable();

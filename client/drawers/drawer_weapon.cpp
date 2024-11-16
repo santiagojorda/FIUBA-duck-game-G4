@@ -16,16 +16,17 @@
 */
 
 static std::map<TEXTURE_WEAPONS, std::string> textures = {
-        {GRANADA, DATA_PATH "/DuckGame-Grenades.png "},      // ok
-        {BANANA, DATA_PATH "/DuckGame-Grenades.png "},       // ok
-        {PEW_PEW_LASER, DATA_PATH "/DuckGame-Laser.png"},    // ok
-        {LASER_RIFLE, DATA_PATH "/DuckGame-Laser.png"},      // ok
-        {AK_47, DATA_PATH "/DuckGame-MachineGuns.png"},      // ok
-        {PISTOLA_DUELOS, DATA_PATH "/DuckGame-Pistol.png"},  // ????????? supongo que es la pistol
-        {PISTOLA_COWBOY, DATA_PATH "/DuckGame-Pistol.png"},  // ok
-        {MAGNUM, DATA_PATH "/DuckGame-Pistol.png"},          // ok
-        {ESCOPETA, DATA_PATH "/DuckGame-Props.png"},
-        {SNIPER, DATA_PATH "/DuckGame-MoreWeapons.png"}  // ok
+        {GRANADA_ID, DATA_PATH "/DuckGame-Grenades.png "},    // ok
+        {BANANA_ID, DATA_PATH "/DuckGame-Grenades.png "},     // ok
+        {PEW_PEW_LASER_ID, DATA_PATH "/DuckGame-Laser.png"},  // ok
+        {LASER_RIFLE_ID, DATA_PATH "/DuckGame-Laser.png"},    // ok
+        {AK_47_ID, DATA_PATH "/DuckGame-MachineGuns.png"},    // ok
+        {PISTOLA_DUELOS_ID,
+         DATA_PATH "/DuckGame-Pistol.png"},  // ????????? supongo que es la pistol
+        {PISTOLA_COWBOY_ID, DATA_PATH "/DuckGame-Pistol.png"},  // ok
+        {MAGNUM_ID, DATA_PATH "/DuckGame-Pistol.png"},          // ok
+        {ESCOPETA_ID, DATA_PATH "/DuckGame-Props.png"},
+        {SNIPER_ID, DATA_PATH "/DuckGame-MoreWeapons.png"}  // ok
 };
 
 DrawerWeapon::DrawerWeapon(sprite_t _weapon, SDL2pp::Renderer& renderer):

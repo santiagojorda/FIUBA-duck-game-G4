@@ -6,8 +6,8 @@
 #include "../../common/thread.h"
 #include "../client/monitor_clients.h"
 #include "../events/queue_event_player.h"
-#include "../map/map.h"
 #include "../guns/list_guns.h"
+#include "../map/map.h"
 #include "../player/list_players.h"
 
 #include "game_logic.h"
