@@ -52,6 +52,9 @@ void Drawer::run() try {
 
     std::vector<std::shared_ptr<DrawerBox>> drawer_boxes;
 
+    std::vector<std::shared_ptr<DrawerFloor>> drawer_floor;
+
+
     // Load background image as a new texture
     Texture background(renderer, DATA_PATH "/background.png");
 
@@ -133,6 +136,24 @@ void Drawer::run() try {
             auto weapon = _game_state.weapons[i];
             drawer_weapons[i]->update_weapon(weapon);
             drawer_weapons[i]->draw(renderer);
+        }
+
+        // ---------------------------- Draw Floor ----------------------------
+
+        if (drawer_floor.size() != _game_state.floors.size()) {
+            drawer_floor.resize(_game_state.floors.size());
+            for (size_t i = 0; i < _game_state.floors.size(); ++i) {
+                if (!drawer_floor[i]) {
+                    auto weapon = _game_state.floors[i];
+                    drawer_floor[i] = std::make_shared<DrawerFloor>(weapon, renderer);
+                }
+            }
+        }
+
+        for (size_t i = 0; i < _game_state.floors.size(); ++i) {
+            auto weapon = _game_state.floors[i];
+            drawer_floor[i]->update_floor(weapon);
+            drawer_floor[i]->draw(renderer);
         }
 
         // Aplicar zoom y centrar usando ZoomHandler

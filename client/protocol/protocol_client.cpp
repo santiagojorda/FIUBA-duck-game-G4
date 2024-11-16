@@ -159,7 +159,7 @@ zoom_t ClientProtocol::receive_zoom_details() {
 VectorSprite ClientProtocol::receive_weapons() {
     uint8_t cantidad_weapons;
     this->receive_byte(cantidad_weapons);
-    
+
     VectorSprite sprites;
 
     for (size_t i = 0; i < cantidad_weapons; i++) {

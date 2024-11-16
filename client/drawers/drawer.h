@@ -13,6 +13,7 @@
 
 #include "drawer_box.h"
 #include "drawer_duck.h"
+#include "drawer_floor.h"
 #include "drawer_player.h"
 #include "drawer_weapon.h"
 

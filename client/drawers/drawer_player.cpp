@@ -44,21 +44,64 @@ void DrawerPlayer::draw(SDL2pp::Renderer& renderer) {
     int src_x = DUCK_INITIAL_X;
     int src_y = DUCK_INITIAL_Y;
 
+    int armadura_src_x = 387;
+    int armadura_src_y = 11;
+
+    int armadura_alas_src_x = 580;
+    int armadura_alas_y = 11;
+
+    int casco_src_x = 452;
+    int casco_y = 213;
+
+    SDL2pp::Texture armadura(renderer, DATA_PATH "/DuckGame-Equipment.png");
+
+    SDL2pp::Texture armadura_para_alas(renderer, DATA_PATH "/DuckGame-Equipment.png");
+
+    SDL2pp::Texture casco(renderer, DATA_PATH "/DuckGame-Equipment.png");
+
+    SDL2pp::Texture weapon(renderer, DATA_PATH "/DuckGame-Equipment.png");
+
+
+
     if (player.state == IS_RUNNING) {  // son 6 frames
+        std::cout << "esta en el frame " << static_cast<int>(player.frame) << "\n";
         src_x = DUCK_INITIAL_X + SIZE_DUCK_SPRITE * player.frame;
+        armadura_src_x = 387 + SIZE_DUCK_SPRITE * player.frame;
+        armadura_alas_src_x = 580 + SIZE_DUCK_SPRITE * player.frame;
     }  // chequeo el inventarioelse if (player.state == GRAB_OR_RELEASE) {  // si tomo algo, chequeo
        // el inventario si tiene un arma, le dibujo el ala..
-    //   if (player.inventory.ammo) {}
-    // }
-    else if (player.state == IS_IDLE) {
-        // no hago nada, se quedan con los valores por defecto, verlo luego.
-    }
+    else if (player.inventory.weapon) { // posee arma
 
-    renderer.Copy(texture, SDL2pp::Rect(src_x, src_y, SIZE_DUCK_SPRITE, SIZE_DUCK_SPRITE),
-                  SDL2pp::Rect(player.sprite.coordinate.get_x(), player.sprite.coordinate.get_y(),
-                               TILE_SIZE, TILE_SIZE),
-                  0.0, SDL2pp::NullOpt,
-                  this->player.is_looking == LEFT ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
+
+    } else if (player.state == IS_IDLE) {
+        // no hago nada, se quedan con los valores por defecto, verlo luego.
+    } else if (player.state == = 100) {  // posee armadura -> Consultar cual es el estado
+        renderer.Copy(texture, SDL2pp::Rect(src_x, src_y, SIZE_DUCK_SPRITE, SIZE_DUCK_SPRITE),
+                      SDL2pp::Rect(player.sprite.coordinate.get_x(),
+                                   player.sprite.coordinate.get_y(), TILE_SIZE, TILE_SIZE),
+                      0.0, SDL2pp::NullOpt,
+                      this->player.is_looking == LEFT ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
+
+        renderer.Copy(
+                armadura,
+                SDL2pp::Rect(armadura_src_x, armadura_src_y, SIZE_DUCK_SPRITE, SIZE_DUCK_SPRITE),
+                SDL2pp::Rect(player.sprite.coordinate.get_x(), player.sprite.coordinate.get_y() + 3,
+                             TILE_SIZE, TILE_SIZE),
+                0.0, SDL2pp::NullOpt,
+                this->player.is_looking == LEFT ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
+
+        /*renderer.Copy(armadura_para_alas, SDL2pp::Rect(armadura_alas_src_x, armadura_alas_y,
+           SIZE_DUCK_SPRITE, SIZE_DUCK_SPRITE), SDL2pp::Rect(player.sprite.coordinate.get_x(),
+           player.sprite.coordinate.get_y() + 3, TILE_SIZE, TILE_SIZE), 0.0, SDL2pp::NullOpt,
+                      this->player.is_looking == LEFT ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);*/
+
+        renderer.Copy(casco, SDL2pp::Rect(casco_src_x, casco_y, SIZE_DUCK_SPRITE, SIZE_DUCK_SPRITE),
+                      SDL2pp::Rect(player.sprite.coordinate.get_x() - 4,
+                                   player.sprite.coordinate.get_y() - 16, TILE_SIZE, TILE_SIZE),
+                      0.0, SDL2pp::NullOpt,
+                      this->player.is_looking == LEFT ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
+    }
 }
+
 
 void DrawerPlayer::update_player(const player_t& updated_player) { player = updated_player; }
