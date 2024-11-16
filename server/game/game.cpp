@@ -5,6 +5,7 @@
 
 #include "../events/event_player.h"
 #include "../map/ground.h"
+#include "../guns/ak_47.h"
 #include "../player/player.h"
 
 #define MILISECONDS_30_FPS 33
@@ -14,12 +15,16 @@ Game::Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEventPla
            QueueGameState& _queue_gamestate):
         players(_players),
         map(),
-        game_logic(players, map),
+        guns(),
+        game_logic(players, map, guns),
         monitor_client(_monitor_client),
         queue_event(_queue_event),
         queue_gamestate(_queue_gamestate) {
-    Ground* ground = new Ground(Coordinate(0, 200, 200, 100));  // lea del yaml
+    Ground* ground = new Ground(Coordinate(0, 200, 100, 500));  // lea del yaml
     map.add(ground);
+    Gun* ak = new AK47(Coordinate(0, 200, 32, 32));
+    guns.add(ak);
+    
 }
 
 void Game::sleep() { std::this_thread::sleep_for(std::chrono::milliseconds(MILISECONDS_30_FPS)); }
@@ -39,16 +44,10 @@ void Game::broadcast_gamestate() { monitor_client.broadcast(get_gamestate()); }
 
 GameState_t Game::get_gamestate() {
     ListProjectiles projectiles;
-    return GameState_t{players, projectiles, map};
+    return GameState_t{players, projectiles, map, guns};
 }
 
 auto Game::get_actual_milliseconds() { return std::chrono::high_resolution_clock::now(); }
-
-void Game::update_states() {
-    for (Player& player: players) {
-        player.update();
-    }
-}
 
 void Game::run() {
 
@@ -58,8 +57,7 @@ void Game::run() {
     try {
 
         while (_keep_running) {
-            game_logic.apply_gravity();
-            update_states();
+            game_logic.update_players();
             execute_new_events();
             // *(2) o podria procesar todos los mensajes en la cola y luego enviar un gamestate como
             // broadcast_gamestate

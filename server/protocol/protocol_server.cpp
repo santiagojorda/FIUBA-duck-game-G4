@@ -109,14 +109,21 @@ void ProtocolServer::send_camera_state(GameState_t& state) {
 }
 
 
-void ProtocolServer::send_map_weapons_state(GameState_t& state) {
+void ProtocolServer::send_map_guns_state(GameState_t& state) {
     (void)state;
+
     uint8_t count_map_weapons = 0;
     send_byte(count_map_weapons);  //
     if (count_map_weapons > 0) {
         send_byte(0);                    // texture_id
         send_coordinates(Coordinate());  // posicion del escenario
     }
+    // uint8_t count_map_guns = state.map_guns.size();
+    // send_byte(count_map_guns); 
+    // for(auto* gun: state.map_guns.get_items()){
+    //     send_byte(gun->get_texture_id());                    // texture_id
+    //     send_coordinates(gun->get_coordinate());  // posicion del escenario
+    // }
 }
 
 void ProtocolServer::send_game_state(GameState_t& state) {
@@ -125,7 +132,7 @@ void ProtocolServer::send_game_state(GameState_t& state) {
     send_throwables_state(state);
     send_boxes_state(state);
     send_scenario_state(state);
-    send_map_weapons_state(state);
+    send_map_guns_state(state);
     // send_camera_state(state);
 }
 

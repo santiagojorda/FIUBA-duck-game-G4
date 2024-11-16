@@ -7,7 +7,7 @@
 
 class AK47: public Gun {
 public:
-    AK47();
+    explicit AK47(Coordinate _coordinate);
     ListProjectiles shoot(Coordinate& shooter_position) override;
 };
 

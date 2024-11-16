@@ -3,8 +3,7 @@
 
 #include "../attributes/positionable.h"
 // #include "../attributes/statable.h"
-
-#include "gun.h"
+#include "projectile_range.h"
 
 class Projectile: public Positionable {  // es un statable
 protected:

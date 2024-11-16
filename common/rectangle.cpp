@@ -1,14 +1,14 @@
 #include "rectangle.h"
 
 
-int length_x(const Coordinate& c) { return c.get_h() - c.get_x(); }
-int length_y(const Coordinate& c) { return c.get_w() - c.get_y(); }
+int Rectangle::length_x(const Coordinate& c) const { return c.get_w() - c.get_x(); }
+int Rectangle::length_y(const Coordinate& c) const { return c.get_h() - c.get_y(); }
 
 Rectangle::Rectangle() {}
 
 Rectangle::Rectangle(Coordinate coordinate):
-        points(coordinate.get_x(), coordinate.get_y(), coordinate.get_x() + coordinate.get_w(),
-               coordinate.get_y() + coordinate.get_h()) {}
+        points(coordinate.get_x(), coordinate.get_y(), coordinate.get_y() + coordinate.get_h(),
+               coordinate.get_x() + coordinate.get_w()) {}
 
 Rectangle::Rectangle(int x_min, int y_min, int x_max, int y_max):
         points(x_min, y_min, x_max, y_max) {}
@@ -66,17 +66,17 @@ Coordinate Rectangle::get_points() const { return this->points; }
 Coordinate Rectangle::get_coordinates() const {
     int x = this->points.get_x();
     int y = this->points.get_y();
-    int h = this->points.get_w() - this->points.get_y();
-    int w = this->points.get_h() - this->points.get_x();
+    int h = length_y(points);
+    int w = length_x(points);
     return Coordinate(x, y, h, w);
 }
 
 int Rectangle::get_x_min() const { return this->points.get_x(); }
 
-int Rectangle::get_x_max() const { return this->points.get_h(); }
+int Rectangle::get_x_max() const { return this->points.get_w(); }
 
 int Rectangle::get_y_min() const { return this->points.get_y(); }
 
-int Rectangle::get_y_max() const { return this->points.get_w(); }
+int Rectangle::get_y_max() const { return this->points.get_h(); }
 
 Rectangle::~Rectangle() {}
