@@ -13,7 +13,9 @@ static std::map<TEXTURE_WEAPONS, WeaponProperties> weaponProperties = {
         {LASER_RIFLE, {"DATA_PATH/DuckGame-Laser.png", 1, 97, 32, 32}},
         {AK_47, {"DATA_PATH/DuckGame-MachineGuns.png", 1, 19, 32, 32}},
         {PISTOLA_DUELOS, {"DATA_PATH/DuckGame-Pistol.png", 35, 68, 18, 10}},
-        {PISTOLA_COWBOY, {"DATA_PATH/DuckGame-Pistol.png", 0, 0, 0, 0}},  // Sin coordenadas, me falta encontrar esta :(
+        {PISTOLA_COWBOY,
+         {"DATA_PATH/DuckGame-Pistol.png", 0, 0, 0,
+          0}},  // Sin coordenadas, me falta encontrar esta :(
         {MAGNUM, {"DATA_PATH/DuckGame-Pistol.png", 1, 47, 32, 32}},
         {ESCOPETA, {"DATA_PATH/DuckGame-Props.png", 60, 114, 41, 11}},
         {SNIPER, {"DATA_PATH/DuckGame-MoreWeapons.png", 36, 237, 33, 9}}};

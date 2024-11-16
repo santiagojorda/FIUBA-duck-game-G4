@@ -8,6 +8,14 @@
 #include "../../common/state_duck.h"
 #include "../game_state/player.h"
 
+struct WeaponProperties {
+    std::string texturePath;
+    int src_x;
+    int src_y;
+    int width;
+    int height;
+};
+
 class DrawerPlayer {
 private:
     player_t player;

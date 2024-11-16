@@ -23,6 +23,20 @@ enum TEXTURE_DUCKS {
     DUCK_WHITE,
 };
 
+static std::map<TEXTURE_WEAPONS, WeaponProperties> weaponProperties = {
+        {GRANADA, {"DATA_PATH/DuckGame-Grenades.png", 1, 21, 15, 15}},
+        {BANANA, {"DATA_PATH/DuckGame-Grenades.png", 1, 51, 15, 15}},
+        {PEW_PEW_LASER, {"DATA_PATH/DuckGame-Laser.png", 336, 94, 32, 32}},
+        {LASER_RIFLE, {"DATA_PATH/DuckGame-Laser.png", 1, 97, 32, 32}},
+        {AK_47, {"DATA_PATH/DuckGame-MachineGuns.png", 1, 19, 32, 32}},
+        {PISTOLA_DUELOS, {"DATA_PATH/DuckGame-Pistol.png", 35, 68, 18, 10}},
+        {PISTOLA_COWBOY,
+         {"DATA_PATH/DuckGame-Pistol.png", 0, 0, 0,
+          0}},  // Sin coordenadas, me falta encontrar esta :(
+        {MAGNUM, {"DATA_PATH/DuckGame-Pistol.png", 1, 47, 32, 32}},
+        {ESCOPETA, {"DATA_PATH/DuckGame-Props.png", 60, 114, 41, 11}},
+        {SNIPER, {"DATA_PATH/DuckGame-MoreWeapons.png", 36, 237, 33, 9}}};
+
 // clave id_texture (para elegir el pato), valor struct(?)
 static std::map<uint8_t, std::string> textures = {
         {DUCK_YELLOW, DATA_PATH "/DuckGame-YellowDuck.png"},
@@ -30,14 +44,10 @@ static std::map<uint8_t, std::string> textures = {
         {DUCK_ORANGE, DATA_PATH "/DuckGame-OrangeDuck.png"},
         {DUCK_WHITE, DATA_PATH "/DuckGame-WhiteDuck.png"}};
 
-// Inicializa con el color del pato asociado
 DrawerPlayer::DrawerPlayer(player_t _player, SDL2pp::Renderer& renderer):
         player(_player), texture(renderer, textures[player.sprite.id_texture]) {}
 
 void DrawerPlayer::draw(SDL2pp::Renderer& renderer) {
-    // entiendo que el frame me dice la parte de la animacion... ??????????? si no es así, yo tengo
-    // que controlarlo Aca simplemente camina
-
     // si está caminando, o no se si usan otro struct
     // yo tengo el nro de frame pero tengo que buscar la ubicacion en el sprite
     // Por default
@@ -59,19 +69,12 @@ void DrawerPlayer::draw(SDL2pp::Renderer& renderer) {
 
     SDL2pp::Texture casco(renderer, DATA_PATH "/DuckGame-Equipment.png");
 
-    SDL2pp::Texture weapon(renderer, DATA_PATH "/DuckGame-Equipment.png");
+    SDL2pp::Texture weaponTexture(renderer, DATA_PATH "/DuckGame-Equipment.png");
 
-
-    if (player.state == IS_RUNNING) {  // son 6 frames
-        std::cout << "esta en el frame " << static_cast<int>(player.frame) << "\n";
+    if (player.state == IS_RUNNING) {
         src_x = DUCK_INITIAL_X + SIZE_DUCK_SPRITE * player.frame;
         armadura_src_x = 387 + SIZE_DUCK_SPRITE * player.frame;
         armadura_alas_src_x = 580 + SIZE_DUCK_SPRITE * player.frame;
-    }  // chequeo el inventarioelse if (player.state == GRAB_OR_RELEASE) {  // si tomo algo, chequeo
-       // el inventario si tiene un arma, le dibujo el ala..
-    else if (player.inventory.weapon) {  // posee arma
-
-
     } else if (player.state == IS_IDLE) {
         // no hago nada, se quedan con los valores por defecto, verlo luego.
     } else if (player.state == = 100) {  // posee armadura -> Consultar cual es el estado
@@ -99,6 +102,20 @@ void DrawerPlayer::draw(SDL2pp::Renderer& renderer) {
                                    player.sprite.coordinate.get_y() - 16, TILE_SIZE, TILE_SIZE),
                       0.0, SDL2pp::NullOpt,
                       this->player.is_looking == LEFT ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
+    }
+
+    if (player.inventory.weapon) {
+        auto& properties =
+                weaponProperties[static_cast<TEXTURE_WEAPONS>(player.inventory.weapon->id_texture)];
+        weaponTexture = SDL2pp::Texture(renderer, properties.texturePath);
+        weaponsrc_X = properties.src_x;
+        weaponsrc_Y = properties.src_y;
+        weapon_width = properties.width;
+        weapon_height = properties.height;
+        renderer.Copy(weaponTexture,
+                      SDL2pp::Rect(weaponsrc_X, weaponsrc_Y, weapon_width, weapon_height),
+                      SDL2pp::Rect(player.sprite.coordinate.get_x(),
+                                   player.sprite.coordinate.get_y(), TILE_SIZE, TILE_SIZE));
     }
 }
 
