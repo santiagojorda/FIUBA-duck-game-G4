@@ -4,8 +4,6 @@
 #define BOX_INITIAL_X 1
 #define BOX_INITIAL_Y 144
 
-#define TILE_SIZE 50
-
 #define SIZE_BOX_SPRITE 16
 
 enum TEXTURE_BOX { BOX };

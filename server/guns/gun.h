@@ -22,7 +22,8 @@ protected:
 
 public:
     explicit Gun(uint8_t _ammo, ShootingRecoil _recoil, ProjectileRange _projectile_range);
-    explicit Gun(uint8_t _ammo, ShootingRecoil _recoil, ProjectileRange _projectile_range, Coordinate _coordinate);
+    explicit Gun(uint8_t _ammo, ShootingRecoil _recoil, ProjectileRange _projectile_range,
+                 Coordinate _coordinate);
 
     virtual ListProjectiles shoot(Coordinate& shooter_position) = 0;
     ListProjectiles shoot(Coordinate& shooter_position, ShootingRecoil& _recoil);
@@ -31,7 +32,6 @@ public:
     void translate_x(int pasos) override;
     void translate_y(int pasos) override;
     uint8_t get_ammo();
-    
 };
 
 #endif

@@ -7,8 +7,8 @@
 template <typename T>
 class ListGeneric {
 private:
-    std::list<T*> items; 
-                        
+    std::list<T*> items;
+
 public:
     ListGeneric() {}
 
@@ -16,9 +16,9 @@ public:
 
     void remove(T* item) {
         items.remove_if([item](T* item_list) {
-            if (item == item_list) { 
-                delete item;  
-                return true; 
+            if (item == item_list) {
+                delete item;
+                return true;
             }
             return false;
         });

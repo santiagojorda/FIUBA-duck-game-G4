@@ -4,8 +4,8 @@
 #include <iostream>
 
 #include "../events/event_player.h"
-#include "../map/ground.h"
 #include "../guns/ak_47.h"
+#include "../map/ground.h"
 #include "../player/player.h"
 
 #define MILISECONDS_30_FPS 33
@@ -24,7 +24,6 @@ Game::Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEventPla
     map.add(ground);
     Gun* ak = new AK47(Coordinate(0, 200, 32, 32));
     guns.add(ak);
-    
 }
 
 void Game::sleep() { std::this_thread::sleep_for(std::chrono::milliseconds(MILISECONDS_30_FPS)); }

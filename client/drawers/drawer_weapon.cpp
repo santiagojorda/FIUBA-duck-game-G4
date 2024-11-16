@@ -6,7 +6,7 @@
 #define SIZE_WEAPON_SPRITE 32
 #define TILE_SIZE 50
 
-static std::map<TEXTURE_WEAPONS, WeaponProperties> weaponProperties = {
+static std::map<TEXTURE_WEAPONS, weapon_properties_t> weaponProperties = {
         {GRANADA, {"DATA_PATH/DuckGame-Grenades.png", 1, 21, 15, 15}},
         {BANANA, {"DATA_PATH/DuckGame-Grenades.png", 1, 51, 15, 15}},
         {PEW_PEW_LASER, {"DATA_PATH/DuckGame-Laser.png", 336, 94, 32, 32}},

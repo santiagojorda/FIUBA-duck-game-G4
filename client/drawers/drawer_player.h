@@ -6,15 +6,10 @@
 #include <SDL2pp/Texture.hh>
 
 #include "../../common/state_duck.h"
+#include "../../common/weapons_id.h"
 #include "../game_state/player.h"
 
-struct WeaponProperties {
-    std::string texturePath;
-    int src_x;
-    int src_y;
-    int width;
-    int height;
-};
+#include "weapon_properties.h"
 
 class DrawerPlayer {
 private:

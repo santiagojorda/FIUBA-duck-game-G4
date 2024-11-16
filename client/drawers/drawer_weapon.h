@@ -11,14 +11,7 @@
 #include "../game_state/sprite.h"
 
 #include "drawable.h"
-
-struct WeaponProperties {
-    std::string texturePath;
-    int src_x;
-    int src_y;
-    int width;
-    int height;
-};
+#include "weapon_properties.h"
 
 class DrawerWeapon {
 private:
