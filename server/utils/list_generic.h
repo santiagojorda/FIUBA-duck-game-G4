@@ -15,8 +15,13 @@ public:
     void add(T* item) { items.push_back(item); }
 
     void remove(T* item) {
-        items.remove(item);
-        delete item;
+        items.remove_if([item](T* item_list) {
+            if (item == item_list) { 
+                delete item;  
+                return true; 
+            }
+            return false;
+        });
     };
 
     void clear() {
@@ -24,6 +29,8 @@ public:
             delete item;
         }
     }
+
+    const std::list<T*>& get_items() const { return items; }
 
     ~ListGeneric() { clear(); }
 };

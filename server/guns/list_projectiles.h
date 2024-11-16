@@ -1,29 +1,14 @@
 #ifndef LIST_PROJECTILES
 #define LIST_PROJECTILES
 
-#include <list>
+#include "projectile.h" 
+#include "../utils/list_generic.h"
 
-class Projectile;
-
-class ListProjectiles {
-private:
-    std::list<Projectile*> projectiles;
+class ListProjectiles : public ListGeneric<Projectile>{
 
 public:
-    ListProjectiles() {}
-    void add(Projectile* new_projectile) { projectiles.push_back(new_projectile); };
-    void remove(Projectile* projectile) {
-        (void)projectile;
-        // ver
-    };
-
-    void clear() {
-        // for (Projectile* item : projectiles){
-        //     (v)
-        //     // delete item;
-        // }
-    }
-    ~ListProjectiles() { clear(); }
+    ListProjectiles() = default;
+    ~ListProjectiles() = default;
 };
 
 #endif

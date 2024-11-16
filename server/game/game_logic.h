@@ -14,7 +14,7 @@ class GameLogic {
 private:
     ListPlayers& players;
     Map& map;
-    ListGuns guns;
+    ListGuns& guns;
     GamePhysics physics;
     Player& get_player(const uint8_t& player_id);
     void log_player_action(Player& player, const std::string& action);
