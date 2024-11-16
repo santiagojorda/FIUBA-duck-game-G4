@@ -7,6 +7,7 @@
 
 #include "../../common/state_duck.h"
 #include "../../common/weapons_id.h"
+#include "../config/game_config.h"
 #include "../game_state/player.h"
 
 #include "weapon_properties.h"
@@ -16,9 +17,9 @@ private:
     SDL2pp::Texture texture;
 
 public:
-    DrawerPlayer(SDL2pp::Renderer& renderer, player_t& _player);
+    DrawerPlayer(SDL2pp::Renderer& renderer, const player_t& _player);
 
-    void draw(SDL2pp::Renderer& renderer, player_t& _player);
+    void draw(SDL2pp::Renderer& renderer, const player_t& _player);
 };
 
 #endif  // DRAWER_PLAYER_H

@@ -19,6 +19,13 @@
 #include "drawer_player.h"
 #include "drawer_weapon.h"
 
+struct drawers_t {
+    std::map<uint8_t, std::unique_ptr<DrawerPlayer>> players;
+    std::vector<std::unique_ptr<DrawerFloor>> floors;
+    std::vector<std::unique_ptr<DrawerBox>> boxes;
+    std::vector<std::unique_ptr<DrawerWeapon>> weapons;
+};
+
 class Drawer {
 private:
     Queue<ClientEvent_t>& commands;
@@ -35,6 +42,12 @@ public:
      *
      */
     void run();
+
+    /*
+     *
+     */
+    void init_scenery(SDL2pp::Renderer& renderer, const client_game_state_t& actual_game_state,
+                      drawers_t& drawers);
 
     /*
      * Deshabilitar copias.

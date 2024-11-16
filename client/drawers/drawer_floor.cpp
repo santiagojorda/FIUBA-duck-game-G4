@@ -6,16 +6,12 @@ enum TEXTURE_FLOOR { FLOOR_1 };
 
 static std::map<TEXTURE_FLOOR, std::string> textures = {{FLOOR_1, DATA_PATH "/NatureTileset.png"}};
 
-// tengo la textura que es el path
-// faltaria saber que tipo de sprite utiliza
-// si es una piedra, si es un fin , un inicio, etc.
-// por ahora lo hardcodeo
-
-DrawerFloor::DrawerFloor(SDL2pp::Renderer& renderer, sprite_t& floor):
+DrawerFloor::DrawerFloor(SDL2pp::Renderer& renderer, const sprite_t& floor):
         texture(renderer, textures[static_cast<TEXTURE_FLOOR>(floor.id_texture)]) {}
 
-void DrawerFloor::draw(SDL2pp::Renderer& renderer, sprite_t& floor) {
-    // Por ahora lo dejo hardcodeado.
+void DrawerFloor::draw(SDL2pp::Renderer& renderer, const sprite_t& floor) {
+    // Por ahora lo dejo hardcodeado. En el floor necesito el sprite asociado
+    // si es una piedra, si es un fin , un inicio, etc.
     int src_x = SIZE_FLOOR_SPRITE * 3;
     int src_y = 0;
 

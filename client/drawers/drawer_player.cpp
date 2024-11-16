@@ -5,9 +5,7 @@
 #include "../../common/orientations.h"
 #include "../game_state/player.h"
 
-
-// TAMAÑO TILESET EN LA PANTALLA
-#define TILE_SIZE 50  // 50x50 // Size of the tile in pixels after scaling
+#define TILE_SIZE_WEAPON 40
 
 // (X,Y) DEL PATO PARA ESTAR QUIETO Y CAMINAR DEL SPRITE
 #define DUCK_INITIAL_X 1
@@ -22,17 +20,16 @@ enum TEXTURE_DUCKS {
     DUCK_WHITE,
 };
 
-// clave id_texture (para elegir el pato), valor struct(?)
 static std::map<uint8_t, std::string> textures = {
         {DUCK_YELLOW, DATA_PATH "/DuckGame-YellowDuck.png"},
         {DUCK_GREY, DATA_PATH "/DuckGame-GreyDuck.png"},
         {DUCK_ORANGE, DATA_PATH "/DuckGame-OrangeDuck.png"},
         {DUCK_WHITE, DATA_PATH "/DuckGame-WhiteDuck.png"}};
 
-DrawerPlayer::DrawerPlayer(SDL2pp::Renderer& renderer, player_t& player):
+DrawerPlayer::DrawerPlayer(SDL2pp::Renderer& renderer, const player_t& player):
         texture(renderer, textures[player.sprite.id_texture]) {}
 
-void DrawerPlayer::draw(SDL2pp::Renderer& renderer, player_t& player) {
+void DrawerPlayer::draw(SDL2pp::Renderer& renderer, const player_t& player) {
     int src_x = DUCK_INITIAL_X;
     int src_y = DUCK_INITIAL_Y;
 
@@ -74,11 +71,6 @@ void DrawerPlayer::draw(SDL2pp::Renderer& renderer, player_t& player) {
                 0.0, SDL2pp::NullOpt,
                 player.is_looking == LEFT ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
 
-        /*renderer.Copy(armadura_para_alas, SDL2pp::Rect(armadura_alas_src_x, armadura_alas_y,
-           SIZE_DUCK_SPRITE, SIZE_DUCK_SPRITE), SDL2pp::Rect(player.sprite.coordinate.get_x(),
-           player.sprite.coordinate.get_y() + 3, TILE_SIZE, TILE_SIZE), 0.0, SDL2pp::NullOpt,
-                      player.is_looking == LEFT ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);*/
-
         renderer.Copy(casco, SDL2pp::Rect(casco_src_x, casco_y, SIZE_DUCK_SPRITE, SIZE_DUCK_SPRITE),
                       SDL2pp::Rect(player.sprite.coordinate.get_x() - 4,
                                    player.sprite.coordinate.get_y() - 16, TILE_SIZE, TILE_SIZE),
@@ -94,7 +86,6 @@ void DrawerPlayer::draw(SDL2pp::Renderer& renderer, player_t& player) {
                                                                          SDL_FLIP_NONE);
 
     if (static_cast<int>(player.inventory.weapon) != 0) {
-
         auto& properties = weapon_properties[static_cast<TEXTURE_WEAPONS>(player.inventory.weapon)];
         weaponTexture = SDL2pp::Texture(renderer, properties.texturePath);
         int weaponsrc_X = properties.src_x;
@@ -103,7 +94,8 @@ void DrawerPlayer::draw(SDL2pp::Renderer& renderer, player_t& player) {
         int weapon_height = properties.height;
         renderer.Copy(weaponTexture,
                       SDL2pp::Rect(weaponsrc_X, weaponsrc_Y, weapon_width, weapon_height),
-                      SDL2pp::Rect(player.sprite.coordinate.get_x(),
-                                   player.sprite.coordinate.get_y(), TILE_SIZE, TILE_SIZE));
+                      SDL2pp::Rect(player.sprite.coordinate.get_x() + 3,
+                                   player.sprite.coordinate.get_y() + 5, TILE_SIZE_WEAPON,
+                                   TILE_SIZE_WEAPON));
     }
 }

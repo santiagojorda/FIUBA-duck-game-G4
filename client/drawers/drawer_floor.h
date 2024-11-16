@@ -17,9 +17,9 @@ private:
     SDL2pp::Texture texture;
 
 public:
-    DrawerFloor(SDL2pp::Renderer& renderer, sprite_t& floor);
+    DrawerFloor(SDL2pp::Renderer& renderer, const sprite_t& floor);
 
-    void draw(SDL2pp::Renderer& renderer, sprite_t& floor);
+    void draw(SDL2pp::Renderer& renderer, const sprite_t& floor);
 };
 
 #endif  // DRAWER_FLOOR_H

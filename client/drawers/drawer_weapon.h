@@ -15,14 +15,11 @@
 
 class DrawerWeapon {
 private:
-    sprite_t weapon;
     SDL2pp::Texture texture;
 
 public:
-    DrawerWeapon(sprite_t weapon, SDL2pp::Renderer& renderer);
-    void draw(SDL2pp::Renderer& renderer);
-
-    void update_weapon(const sprite_t& update_weapon);
+    DrawerWeapon(SDL2pp::Renderer& renderer, const sprite_t& weapon);
+    void draw(SDL2pp::Renderer& renderer, const sprite_t& weapon);
 };
 
 #endif  // DRAWER_WEAPON_H
