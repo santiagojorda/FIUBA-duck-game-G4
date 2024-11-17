@@ -12,7 +12,6 @@
 #include "../config/game_config.h"
 #include "../game_state/player.h"
 
-#include "animation.h"
 #include "renderer_helper.h"
 #include "weapon_properties.h"
 
@@ -33,18 +32,10 @@ class DrawerPlayer {
 private:
     SDL2pp::Texture texture;
 
-    int get_offset_weapon_x(const player_t& player);
-
-    int get_offset_weapon_y(const player_t& player);
-
-    int get_scale(const player_t& player);
-
 public:
     DrawerPlayer(SDL2pp::Renderer& renderer, const player_t& _player);
 
     void draw(SDL2pp::Renderer& renderer, const player_t& _player);
-
-    void draw_animation(SDL2pp::Renderer& renderer, const player_t& player, const Animation& anim);
 };
 
 #endif  // DRAWER_PLAYER_H
