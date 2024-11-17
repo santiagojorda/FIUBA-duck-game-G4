@@ -14,100 +14,100 @@ void ClientProtocol::receive_cordinates(Coordinate& coordinate) {
     coordinate = Coordinate(x, y, h, w);
 }
 
-sprite_t ClientProtocol::receive_sprite() {
+void ClientProtocol::receive_sprite(sprite_t& sprite) {
     uint8_t id_texture;
     this->receive_byte(id_texture);
     Coordinate coordinate;
     receive_cordinates(coordinate);
-    return sprite_t{id_texture, coordinate};
+    sprite = sprite_t{id_texture, coordinate};
 }
 
-void ClientProtocol::send_action(uint8_t& id_jugador,
-                                 ActionCommand& type_action) {  // pasarle action
+void ClientProtocol::send_action(uint8_t& id_jugador, ActionCommand& type_action) {
     std::vector<uint8_t> vector_data;
-    vector_data.push_back(HEADER_CLIENT);  // 1 byte
-    vector_data.push_back(id_jugador);     // 1 byte
-    vector_data.push_back(type_action);    // 1 byte
+    vector_data.push_back(HEADER_CLIENT);
+    vector_data.push_back(id_jugador);
+    vector_data.push_back(type_action);
     this->skt.sendall(vector_data.data(), vector_data.size(), &this->was_closed);
 }
 
 void ClientProtocol::send_init(const uint8_t& init) { this->send_byte(init); }
 
-inventory_t ClientProtocol::receive_inventory() {
-    // HEADER
+void ClientProtocol::receive_inventory(inventory_t& inventory) {
     uint8_t weapon = 0;  // es el "id_arma"
-    this->receive_byte(weapon);
     uint8_t ammo = 0;
     uint8_t armor = 0;
     uint8_t helmet = 0;
 
+    this->receive_byte(weapon);
+
     if (weapon != 0) {
-        this->receive_byte(ammo);  // TODO: refactorizar los receive -> hacerlos por referencia y no
-                                   // con returns.
+        this->receive_byte(ammo);
     }
     this->receive_byte(armor);
     this->receive_byte(helmet);
 
-    return inventory_t{weapon, ammo, armor, helmet};
+    inventory = inventory_t{weapon, ammo, armor, helmet};
 }
 
 // -----------------------------------------------------------------------------------------------
 
-VectorPlayers ClientProtocol::receive_players() {
+void ClientProtocol::receive_players(VectorPlayers& players) {
     uint8_t cantidad_players;
     this->receive_byte(cantidad_players);
 
     VectorPlayers players_positions;
 
     for (size_t i = 0; i < cantidad_players; i++) {
-        sprite_t sprite = receive_sprite();
+        sprite_t sprite;
+        receive_sprite(sprite);
 
         uint8_t is_looking;
         this->receive_byte(is_looking);
 
-        // estos 2 sirven para controlar la animación
-        uint8_t state;  // accion del pato : running, jump, etc. si es 0x0 no hace nada
+        uint8_t state;  // accion del pato. si es 0x0 no hace nada
         this->receive_byte(state);
 
-        uint8_t frame;  // elegir la animacion
+        uint8_t frame;
         this->receive_byte(frame);
 
-        inventory_t inventory = receive_inventory();
-
+        inventory_t inventory;
+        receive_inventory(inventory);
         player_t player_position{sprite, is_looking, state, frame, inventory};
         players_positions.push_back(player_position);
     }
 
-    return players_positions;
+    players = players_positions;
 }
 
-std::vector<bullet_t>
-        ClientProtocol::receive_bullets() {  // balas -> recibo cantidad y sigo leyendo
+// balas -> recibo cantidad y sigo leyendo
+void ClientProtocol::receive_bullets(std::vector<bullet_t>& _bullets) {
     uint16_t cantidad_bullets;
     this->receive_2_bytes(cantidad_bullets);
 
     std::vector<bullet_t> bullets;
 
     for (size_t i = 0; i < cantidad_bullets; i++) {
-        sprite_t sprite = receive_sprite();
-        uint8_t frame;  // elegir la animacion
+        sprite_t sprite;
+        receive_sprite(sprite);
+        uint8_t frame;
         this->receive_byte(frame);
         bullet_t bullet{sprite, frame};
         bullets.push_back(bullet);
     }
 
-    return bullets;
+    _bullets = std::move(bullets);
 }
 
-VectorThrowable ClientProtocol::receive_throwables() {
+void ClientProtocol::receive_throwables(VectorThrowable& _throwables) {
     uint8_t cantidad_throwables;
     this->receive_byte(cantidad_throwables);
 
     VectorThrowable throwables;
 
     for (size_t i = 0; i < cantidad_throwables; i++) {
-        sprite_t sprite = receive_sprite();
-        uint8_t frame;  // elegir la animacion
+        sprite_t sprite;
+        receive_sprite(sprite);
+        uint8_t frame;
         this->receive_byte(frame);
         uint8_t state;
         this->receive_byte(state);
@@ -115,37 +115,39 @@ VectorThrowable ClientProtocol::receive_throwables() {
         throwables.push_back(throwable);
     }
 
-    return throwables;
+    _throwables = throwables;
 }
 
-std::vector<box_t> ClientProtocol::receive_boxes() {
+void ClientProtocol::receive_boxes(std::vector<box_t>& _boxes) {
     uint8_t cantidad_boxes;
     this->receive_byte(cantidad_boxes);
 
     std::vector<box_t> boxes;
     for (size_t i = 0; i < cantidad_boxes; i++) {
-        sprite_t sprite = receive_sprite();
-        uint8_t frame;  // elegir la animacion
+        sprite_t sprite;
+        receive_sprite(sprite);
+        uint8_t frame;
         this->receive_byte(frame);
         box_t box{sprite, frame};
         boxes.push_back(box);
     }
 
-    return boxes;
+    _boxes = std::move(boxes);  // para evitar copiar y mejorar eficiencia
 }
 
-VectorSprite ClientProtocol::receive_floor_sprites() {
+void ClientProtocol::receive_floor_sprites(VectorSprite& _floor_sprites) {
     uint8_t cantidad_floor_sprites;
     this->receive_byte(cantidad_floor_sprites);
 
     VectorSprite sprites;
 
     for (size_t i = 0; i < cantidad_floor_sprites; i++) {
-        sprite_t sprite = this->receive_sprite();
+        sprite_t sprite;
+        receive_sprite(sprite);
         sprites.push_back(sprite);
     }
 
-    return sprites;
+    _floor_sprites = sprites;
 }
 
 zoom_t ClientProtocol::receive_zoom_details() {
@@ -156,27 +158,34 @@ zoom_t ClientProtocol::receive_zoom_details() {
     return zoom_t{zoom_min, zoom_max};
 }
 
-VectorSprite ClientProtocol::receive_weapons() {
+void ClientProtocol::receive_weapons(VectorSprite& _weapons) {
     uint8_t cantidad_weapons;
     this->receive_byte(cantidad_weapons);
 
     VectorSprite sprites;
 
     for (size_t i = 0; i < cantidad_weapons; i++) {
-        sprite_t sprite = this->receive_sprite();
+        sprite_t sprite;
+        receive_sprite(sprite);
         sprites.push_back(sprite);
     }
 
-    return sprites;
+    _weapons = sprites;
 }
 
-client_game_state_t ClientProtocol::receive_game_state() {
-    VectorPlayers players = receive_players();
-    std::vector<bullet_t> bullets = receive_bullets();
-    VectorThrowable throwables = receive_throwables();
-    std::vector<box_t> boxes = receive_boxes();
-    VectorSprite sprites = receive_floor_sprites();
-    VectorSprite weapons = receive_weapons();
+void ClientProtocol::receive_game_state(client_game_state_t& game_state) {
+    VectorPlayers players;
+    receive_players(players);
+    std::vector<bullet_t> bullets;
+    receive_bullets(bullets);
+    VectorThrowable throwables;
+    receive_throwables(throwables);
+    std::vector<box_t> boxes;
+    receive_boxes(boxes);
+    VectorSprite sprites;
+    receive_floor_sprites(sprites);
+    VectorSprite weapons;
+    receive_weapons(weapons);
 
-    return client_game_state_t{players, bullets, throwables, boxes, sprites, weapons};
+    game_state = client_game_state_t{players, bullets, throwables, boxes, sprites, weapons};
 }
