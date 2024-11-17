@@ -1,7 +1,9 @@
 #ifndef WEAPONS_ID_H
 #define WEAPONS_ID_H
 
-enum TEXTURE_WEAPONS {
+#include <cstdint>
+
+enum TEXTURE_WEAPONS : uint8_t {
     GRANADA_ID = 1,
     BANANA_ID,
     PEW_PEW_LASER_ID,
