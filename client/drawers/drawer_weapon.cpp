@@ -14,7 +14,7 @@ void DrawerWeapon::draw(SDL2pp::Renderer& renderer, const sprite_t& weapon) {
     auto& properties = weapon_properties[static_cast<TEXTURE_WEAPONS>(weapon.id_texture)];
 
 static std::map<TEXTURE_WEAPONS, std::string> textures = {
-        {GRANADA_ID, DATA_PATH "/DuckGame-Grenades.png "},    // ok
+    {GRANADA_ID, DATA_PATH "/DuckGame-Grenades.png "},    // ok
         {BANANA_ID, DATA_PATH "/DuckGame-Grenades.png "},     // ok
         {PEW_PEW_LASER_ID, DATA_PATH "/DuckGame-Laser.png"},  // ok
         {LASER_RIFLE_ID, DATA_PATH "/DuckGame-Laser.png"},    // ok

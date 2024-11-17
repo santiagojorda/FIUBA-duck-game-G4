@@ -4,7 +4,7 @@
 #include <iostream>
 
 #include "../events/event_player.h"
-#include "../guns/ak_47.h"
+#include "../guns/pew_pew_laser.h"
 #include "../map/ground.h"
 #include "../player/player.h"
 
@@ -22,7 +22,7 @@ Game::Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEventPla
         queue_gamestate(_queue_gamestate) {
     Ground* ground = new Ground(Coordinate(0, 200, 100, 500));  // lea del yaml
     map.add(ground);
-    Gun* ak = new AK47(Coordinate(0, 200, 32, 32));
+    Gun* ak = new PewPewLaser(Coordinate(0, 200, 32, 32));
     guns.add(ak);
 }
 
