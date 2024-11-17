@@ -2,7 +2,7 @@
 
 #include "../../common/weapons_id.h"
 
-AK47::AK47(Coordinate _coordinate):
+AK47::AK47(const Coordinate& _coordinate):
         Gun(MAX_AMMO, ShootingRecoil::SHORT, ProjectileRange::MEDIUM, _coordinate) {
     this->set_texture_id(WEAPONS_ID_H::AK_47_ID);
 }

@@ -7,7 +7,7 @@
 
 class DuelingGun: public Gun {
 public:
-    DuelingGun();
+    DuelingGun(const Coordinate& _coordinate);
     ListProjectiles shoot(Coordinate& shooter_position) override;
 };
 

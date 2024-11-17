@@ -7,7 +7,7 @@
 
 class LaserRifle: public Gun {
 public:
-    LaserRifle();
+    LaserRifle(const Coordinate& _coordinate);
     ListProjectiles shoot(Coordinate& shooter_position) override;
 };
 #endif

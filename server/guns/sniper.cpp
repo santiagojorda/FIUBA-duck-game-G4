@@ -2,7 +2,7 @@
 
 #include "../../common/weapons_id.h"
 
-Sniper::Sniper(): Gun(MAX_AMMO, ShootingRecoil::NONE, ProjectileRange::MAX) {
+Sniper::Sniper(const Coordinate& _coordinate): Gun(MAX_AMMO, ShootingRecoil::NONE, ProjectileRange::MAX, _coordinate) {
     this->set_texture_id(WEAPONS_ID_H::SNIPER_ID);
 }
 
