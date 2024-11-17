@@ -49,8 +49,6 @@ void ClientProtocol::receive_inventory(inventory_t& inventory) {
     inventory = inventory_t{weapon, ammo, armor, helmet};
 }
 
-// -----------------------------------------------------------------------------------------------
-
 void ClientProtocol::receive_players(VectorPlayers& players) {
     uint8_t cantidad_players;
     this->receive_byte(cantidad_players);
