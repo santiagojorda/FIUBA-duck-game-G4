@@ -23,7 +23,7 @@ static std::map<TEXTURE_WEAPONS, weapon_properties_t> weapon_properties = {
         {PISTOLA_DUELOS, {DATA_PATH "/DuckGame-Pistol.png", 35, 68, 18, 10}},
         {PISTOLA_COWBOY, {DATA_PATH "/DuckGame-Pistol.png", 0, 0, 0, 0}},
         {MAGNUM, {DATA_PATH "/DuckGame-Pistol.png", 1, 47, 32, 32}},
-        {ESCOPETA, {DATA_PATH "/DuckGame-Props.png", 60, 114, 41, 11}},
+        {ESCOPETA, {DATA_PATH "/DuckGame-MoreWeapons.png", 60, 114, 41, 11}},
         {SNIPER, {DATA_PATH "/DuckGame-MoreWeapons.png", 36, 237, 33, 9}}};
 
 class WeaponConfig {
@@ -44,6 +44,16 @@ public:
             offset_y = coord.get_y() + 17;
             scale_width = 25;
             scale_height = 17;
+        } else if (weapon == ESCOPETA) {
+            offset_x = is_facing_left ? coord.get_x() - 5 : coord.get_x() + 15;
+            offset_y = coord.get_y() + 17;
+            scale_width = 43;
+            scale_height = 13;
+        } else if (weapon == SNIPER) {
+            offset_x = is_facing_left ? coord.get_x() : coord.get_x() + 15;
+            offset_y = coord.get_y() + 17;
+            scale_width = 35;
+            scale_height = 11;
         } else {
             offset_x = is_facing_left ? coord.get_x() + 5 : coord.get_x() + 7;
             offset_y = coord.get_y() + 6;
