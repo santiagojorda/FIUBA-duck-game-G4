@@ -22,8 +22,8 @@ Game::Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEventPla
         queue_gamestate(_queue_gamestate) {
     Ground* ground = new Ground(Coordinate(0, 200, 100, 500));  // lea del yaml
     map.add(ground);
-    Gun* ak = new PewPewLaser(Coordinate(0, 200, 32, 32));
-    guns.add(ak);
+    Gun* pew = new PewPewLaser(Coordinate(0, 200, 32, 32));
+    guns.add(pew);
 }
 
 void Game::sleep() { std::this_thread::sleep_for(std::chrono::milliseconds(MILISECONDS_30_FPS)); }

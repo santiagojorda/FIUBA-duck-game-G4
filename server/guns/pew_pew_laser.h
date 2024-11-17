@@ -7,7 +7,7 @@
 
 class PewPewLaser: public Gun {
 public:
-    PewPewLaser(const Coordinate& _coordinate);
+    PewPewLaser(Coordinate _coordinate);
     ListProjectiles shoot(Coordinate& shooter_position) override;
 };
 
