@@ -50,7 +50,6 @@ void Drawer::run() try {
         renderer.Copy(background, Rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
 
         // Draw Players (Patos)
-
         for (size_t i = 0; i < actual_game_state.players.size(); i++) {
             auto player = actual_game_state.players[i];
             drawers.players[player.sprite.id_texture] =
@@ -58,11 +57,10 @@ void Drawer::run() try {
             drawers.players[player.sprite.id_texture]->draw(renderer, player);
         }
 
-/*
         for (size_t i = 0; i < actual_game_state.players.size(); i++) {
             player_t player = actual_game_state.players[i];
             drawers.players[player.sprite.id_texture]->draw(renderer, player);
-        }*/
+        }
 
         // Draw Floor
         if (drawers.floors.size() != actual_game_state.floors.size()) {

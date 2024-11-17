@@ -3,7 +3,6 @@
 
 // Despues chequear sonidos
 
-
 struct Animation {
     int src_x, src_y;
     int offset_x, offset_y;
