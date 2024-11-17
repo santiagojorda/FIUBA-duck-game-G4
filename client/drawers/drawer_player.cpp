@@ -5,7 +5,8 @@
 #include "../../common/orientations.h"
 #include "../game_state/player.h"
 
-#define TILE_SIZE_WEAPON 38 // PEW_PEW_LASER, LASER_RIFLE
+#define SCALE_WEAPON 38  // PEW_PEW_LASER, LASER_RIFLE
+#define SCALE_GRANADA 24
 #define TILE_SIZE_ALA 22
 
 #define DUCK_INITIAL_X 1
@@ -23,6 +24,34 @@ void DrawerPlayer::draw_animation(SDL2pp::Renderer& renderer, const player_t& pl
             SDL2pp::Rect(player.sprite.coordinate.get_x() + anim.offset_x,
                          player.sprite.coordinate.get_y() + anim.offset_y, TILE_SIZE, TILE_SIZE),
             0.0, SDL2pp::NullOpt, anim.flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
+}
+
+int DrawerPlayer::get_offset_weapon_x(const player_t& player) {
+    if (static_cast<orientations>(player.is_looking) == LEFT) {
+        return player.sprite.coordinate.get_x() + 5;
+    }
+
+    if (static_cast<TEXTURE_WEAPONS>(player.inventory.weapon) == GRANADA) {
+        return player.sprite.coordinate.get_x() + 20;
+    }
+
+    return player.sprite.coordinate.get_x() + 7;
+}
+
+int DrawerPlayer::get_offset_weapon_y(const player_t& player) {
+    if (static_cast<TEXTURE_WEAPONS>(player.inventory.weapon) == GRANADA) {
+        return player.sprite.coordinate.get_y() + 10;
+    }
+
+    return player.sprite.coordinate.get_y() + 6;
+}
+
+int DrawerPlayer::get_scale(const player_t& player) {
+    if (static_cast<TEXTURE_WEAPONS>(player.inventory.weapon) == GRANADA) {
+        return SCALE_GRANADA;
+    }
+
+    return SCALE_WEAPON;
 }
 
 void DrawerPlayer::draw(SDL2pp::Renderer& renderer, const player_t& player) {
@@ -71,28 +100,28 @@ void DrawerPlayer::draw(SDL2pp::Renderer& renderer, const player_t& player) {
         SDL2pp::Texture weapon_texture(renderer, weapon_props.texturePath);
 
         auto frame = player.state == IS_RUNNING ? player.frame : 0;
-       
-        int x_weapon = static_cast<orientations>(player.is_looking) == LEFT ?  player.sprite.coordinate.get_x() + 5 : player.sprite.coordinate.get_x() + 7;
 
-        
+        int x_weapon = get_offset_weapon_x(player);
+        int y_weapon = get_offset_weapon_y(player);
+        int scale = get_scale(player);
+
         renderer.Copy(weapon_texture,
                       SDL2pp::Rect(weapon_props.src_x, weapon_props.src_y, weapon_props.width,
                                    weapon_props.height),
-                      SDL2pp::Rect(x_weapon,
-                                   player.sprite.coordinate.get_y() + 6, TILE_SIZE_WEAPON,
-                                   TILE_SIZE_WEAPON),
-                      0.0, SDL2pp::NullOpt,
+                      SDL2pp::Rect(x_weapon, y_weapon, scale, scale), 0.0, SDL2pp::NullOpt,
                       static_cast<orientations>(player.is_looking) == LEFT ? SDL_FLIP_HORIZONTAL :
                                                                              SDL_FLIP_NONE);
 
-        int x_ala = static_cast<orientations>(player.is_looking) == LEFT ? player.sprite.coordinate.get_x() + 16 : player.sprite.coordinate.get_x() + 12;
-        
-        renderer.Copy(
-                texture, SDL2pp::Rect(1 + SIZE_DUCK_ALA * frame, 566, SIZE_DUCK_ALA, SIZE_DUCK_ALA),
-                SDL2pp::Rect(x_ala,
-                             player.sprite.coordinate.get_y() + 15, TILE_SIZE_ALA, TILE_SIZE_ALA),
-                0.0, SDL2pp::NullOpt,
-                static_cast<orientations>(player.is_looking) == LEFT ? SDL_FLIP_HORIZONTAL :
-                                                                       SDL_FLIP_NONE);
+        int x_ala = static_cast<orientations>(player.is_looking) == LEFT ?
+                            player.sprite.coordinate.get_x() + 16 :
+                            player.sprite.coordinate.get_x() + 12;
+
+        renderer.Copy(texture,
+                      SDL2pp::Rect(1 + SIZE_DUCK_ALA * frame, 566, SIZE_DUCK_ALA, SIZE_DUCK_ALA),
+                      SDL2pp::Rect(x_ala, player.sprite.coordinate.get_y() + 16, TILE_SIZE_ALA,
+                                   TILE_SIZE_ALA),
+                      0.0, SDL2pp::NullOpt,
+                      static_cast<orientations>(player.is_looking) == LEFT ? SDL_FLIP_HORIZONTAL :
+                                                                             SDL_FLIP_NONE);
     }
 }

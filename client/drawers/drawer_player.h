@@ -47,6 +47,12 @@ private:
 
     std::map<DuckState_1, std::function<void(SDL2pp::Renderer&, const player_t&)>> animations;
 
+    int get_offset_weapon_x(const player_t& player);
+
+    int get_offset_weapon_y(const player_t& player);
+
+    int get_scale(const player_t& player);
+
 public:
     DrawerPlayer(SDL2pp::Renderer& renderer, const player_t& _player);
 
