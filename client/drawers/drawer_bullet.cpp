@@ -3,11 +3,13 @@
 #define SIZE_BULLET_SPRITE 16
 #define TILE_SIZE 50
 
+// BALAS
+
 enum TEXTURE_BULLET { BULLET_1 };
 
 // TODO: update path
 static std::map<TEXTURE_BULLET, std::string> textures = {
-        {BULLET_1, DATA_PATH "/NatureTileset.png"}};
+        {BULLET_1, DATA_PATH "/DuckGame-MachineGuns.png"}};
 
 DrawerBullet::DrawerBullet(bullet_t _bullet, SDL2pp::Renderer& renderer):
         bullet(_bullet),
