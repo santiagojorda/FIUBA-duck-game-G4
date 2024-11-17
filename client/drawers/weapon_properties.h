@@ -21,7 +21,7 @@ static std::map<TEXTURE_WEAPONS, weapon_properties_t> weapon_properties = {
         {LASER_RIFLE, {DATA_PATH "/DuckGame-Laser.png", 1, 97, 32, 32}},
         {AK_47, {DATA_PATH "/DuckGame-MachineGuns.png", 1, 19, 32, 32}},
         {PISTOLA_DUELOS, {DATA_PATH "/DuckGame-Pistol.png", 35, 68, 18, 10}},
-        {PISTOLA_COWBOY, {DATA_PATH "/DuckGame-Pistol.png", 0, 0, 0, 0}},
+        {PISTOLA_COWBOY, {DATA_PATH "/DuckGame-Pistol.png", 1, 20, 22, 11}},
         {MAGNUM, {DATA_PATH "/DuckGame-Pistol.png", 1, 47, 32, 32}},
         {ESCOPETA, {DATA_PATH "/DuckGame-MoreWeapons.png", 60, 114, 41, 11}},
         {SNIPER, {DATA_PATH "/DuckGame-MoreWeapons.png", 36, 237, 33, 9}}};
@@ -39,6 +39,11 @@ public:
             offset_y = coord.get_y() + 10;
             scale_width = SCALE_GRANADA;
             scale_height = SCALE_GRANADA;
+        } else if (weapon == BANANA) {
+            offset_x = is_facing_left ? coord.get_x() + 10 : coord.get_x() + 15;
+            offset_y = coord.get_y() + 5;
+            scale_width = SCALE_GRANADA;
+            scale_height = SCALE_GRANADA;
         } else if (weapon == PISTOLA_DUELOS) {
             offset_x = is_facing_left ? coord.get_x() + 5 : coord.get_x() + 15;
             offset_y = coord.get_y() + 17;
@@ -54,6 +59,11 @@ public:
             offset_y = coord.get_y() + 17;
             scale_width = 35;
             scale_height = 11;
+        } else if (weapon == PISTOLA_COWBOY) {
+            offset_x = is_facing_left ? coord.get_x() + 6 : coord.get_x() + 17;
+            offset_y = coord.get_y() + 17;
+            scale_width = 27;
+            scale_height = 16;
         } else {
             offset_x = is_facing_left ? coord.get_x() + 5 : coord.get_x() + 7;
             offset_y = coord.get_y() + 6;
