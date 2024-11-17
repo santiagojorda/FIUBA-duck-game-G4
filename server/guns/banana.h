@@ -6,7 +6,7 @@
 
 #define MAX_AMMO 1
 
-class Banana: public Gun, public Projectile {
+class Banana: public Gun {
 public:
     Banana();
     ListProjectiles shoot(Coordinate& shooter_position) override;
