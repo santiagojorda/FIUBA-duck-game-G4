@@ -55,73 +55,47 @@ int DrawerPlayer::get_scale(const player_t& player) {
 }
 
 void DrawerPlayer::draw(SDL2pp::Renderer& renderer, const player_t& player) {
-    if (player.state == IS_IDLE) {
-        renderer.Copy(
-                texture,
-                SDL2pp::Rect(DUCK_INITIAL_X, DUCK_INITIAL_Y, SIZE_DUCK_SPRITE, SIZE_DUCK_SPRITE),
-                SDL2pp::Rect(player.sprite.coordinate.get_x(), player.sprite.coordinate.get_y(),
-                             TILE_SIZE, TILE_SIZE),
-                0.0, SDL2pp::NullOpt,
-                static_cast<orientations>(player.is_looking) == LEFT ? SDL_FLIP_HORIZONTAL :
-                                                                       SDL_FLIP_NONE);
-    } else if (player.state == IS_RUNNING) {
-        renderer.Copy(texture,
-                      SDL2pp::Rect(DUCK_INITIAL_X + SIZE_DUCK_SPRITE * player.frame, DUCK_INITIAL_Y,
-                                   SIZE_DUCK_SPRITE, SIZE_DUCK_SPRITE),
-                      SDL2pp::Rect(player.sprite.coordinate.get_x(),
-                                   player.sprite.coordinate.get_y(), TILE_SIZE, TILE_SIZE),
-                      0.0, SDL2pp::NullOpt,
-                      static_cast<orientations>(player.is_looking) == LEFT ? SDL_FLIP_HORIZONTAL :
-                                                                             SDL_FLIP_NONE);
-    }
+    bool flip = static_cast<orientations>(player.is_looking) == LEFT;
+
+    RenderConfig playerConfig(texture, DUCK_INITIAL_X, DUCK_INITIAL_Y, SIZE_DUCK_SPRITE,
+                              SIZE_DUCK_SPRITE, flip);
+
+    int frame = static_cast<DuckState>(player.state) == IS_RUNNING ? player.frame : 0;
+
+    playerConfig.adjust_for_frame(frame, SIZE_DUCK_SPRITE);
+
+    RendererHelper::render(playerConfig, renderer, player.sprite.coordinate.get_x(),
+                           player.sprite.coordinate.get_y(), TILE_SIZE, TILE_SIZE);
 
     if (static_cast<int>(player.inventory.armor) != 0) {
         SDL2pp::Texture armadura_texture(renderer, DATA_PATH "/DuckGame-Equipment.png");
-        renderer.Copy(armadura_texture,
-                      SDL2pp::Rect(387 + SIZE_DUCK_SPRITE * player.frame, 11, SIZE_DUCK_SPRITE,
-                                   SIZE_DUCK_SPRITE),
-                      SDL2pp::Rect(player.sprite.coordinate.get_x(),
-                                   player.sprite.coordinate.get_y() + 3, TILE_SIZE, TILE_SIZE),
-                      0.0, SDL2pp::NullOpt,
-                      static_cast<orientations>(player.is_looking) == LEFT ? SDL_FLIP_HORIZONTAL :
-                                                                             SDL_FLIP_NONE);
-
-        renderer.Copy(armadura_texture, SDL2pp::Rect(452, 213, SIZE_DUCK_SPRITE, SIZE_DUCK_SPRITE),
-                      SDL2pp::Rect(player.sprite.coordinate.get_x() - 4,
-                                   player.sprite.coordinate.get_y() - 16, TILE_SIZE, TILE_SIZE),
-                      0.0, SDL2pp::NullOpt,
-                      static_cast<orientations>(player.is_looking) == LEFT ? SDL_FLIP_HORIZONTAL :
-                                                                             SDL_FLIP_NONE);
+        RenderConfig armorConfig(armadura_texture, 387, 11, SIZE_DUCK_SPRITE, SIZE_DUCK_SPRITE,
+                                 flip);
+        armorConfig.adjust_for_frame(frame, SIZE_DUCK_SPRITE);
+        RendererHelper::render(armorConfig, renderer, player.sprite.coordinate.get_x(),
+                               player.sprite.coordinate.get_y() + 3, TILE_SIZE, TILE_SIZE);
     }
 
     if (static_cast<int>(player.inventory.weapon) != 0) {
         auto weapon_props =
                 weapon_properties[static_cast<TEXTURE_WEAPONS>(player.inventory.weapon)];
         SDL2pp::Texture weapon_texture(renderer, weapon_props.texturePath);
+        RenderConfig weaponConfig(weapon_texture, weapon_props.src_x, weapon_props.src_y,
+                                  weapon_props.width, weapon_props.height, flip);
+        RendererHelper::render(weaponConfig, renderer, get_offset_weapon_x(player),
+                               get_offset_weapon_y(player), get_scale(player), get_scale(player));
 
-        auto frame = player.state == IS_RUNNING ? player.frame : 0;
-
-        int x_weapon = get_offset_weapon_x(player);
-        int y_weapon = get_offset_weapon_y(player);
-        int scale = get_scale(player);
-
-        renderer.Copy(weapon_texture,
-                      SDL2pp::Rect(weapon_props.src_x, weapon_props.src_y, weapon_props.width,
-                                   weapon_props.height),
-                      SDL2pp::Rect(x_weapon, y_weapon, scale, scale), 0.0, SDL2pp::NullOpt,
-                      static_cast<orientations>(player.is_looking) == LEFT ? SDL_FLIP_HORIZONTAL :
-                                                                             SDL_FLIP_NONE);
 
         int x_ala = static_cast<orientations>(player.is_looking) == LEFT ?
                             player.sprite.coordinate.get_x() + 16 :
                             player.sprite.coordinate.get_x() + 12;
 
-        renderer.Copy(texture,
-                      SDL2pp::Rect(1 + SIZE_DUCK_ALA * frame, 566, SIZE_DUCK_ALA, SIZE_DUCK_ALA),
-                      SDL2pp::Rect(x_ala, player.sprite.coordinate.get_y() + 16, TILE_SIZE_ALA,
-                                   TILE_SIZE_ALA),
-                      0.0, SDL2pp::NullOpt,
-                      static_cast<orientations>(player.is_looking) == LEFT ? SDL_FLIP_HORIZONTAL :
-                                                                             SDL_FLIP_NONE);
+
+        RenderConfig playerAlaConfig(texture, 1, 566, SIZE_DUCK_ALA, SIZE_DUCK_ALA, flip);
+
+        playerAlaConfig.adjust_for_frame(frame, SIZE_DUCK_ALA);
+
+        RendererHelper::render(playerAlaConfig, renderer, x_ala,
+                               player.sprite.coordinate.get_y() + 16, TILE_SIZE_ALA, TILE_SIZE_ALA);
     }
 }

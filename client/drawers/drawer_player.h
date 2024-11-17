@@ -13,6 +13,7 @@
 #include "../game_state/player.h"
 
 #include "animation.h"
+#include "renderer_helper.h"
 #include "weapon_properties.h"
 
 enum TEXTURE_DUCKS {
@@ -20,19 +21,6 @@ enum TEXTURE_DUCKS {
     DUCK_GREY,
     DUCK_ORANGE,
     DUCK_WHITE,
-};
-
-enum DuckState_1 : uint8_t {
-    IS_JUMPING_CLIENT,
-    IS_RUNNING_CLIENT,
-    IS_CROUCHING_CLIENT,
-    IS_RECOILING_CLIENT,
-    IS_FALLING_CLIENT,
-    IS_SLIPPING_CLIENT,
-    IS_PLANING_CLIENT,
-    IS_IDLE_CLIENT,
-    IS_DEAD_CLIENT,
-    HAS_ARMOR_CLIENT,
 };
 
 static std::map<uint8_t, std::string> textures = {
@@ -44,8 +32,6 @@ static std::map<uint8_t, std::string> textures = {
 class DrawerPlayer {
 private:
     SDL2pp::Texture texture;
-
-    std::map<DuckState_1, std::function<void(SDL2pp::Renderer&, const player_t&)>> animations;
 
     int get_offset_weapon_x(const player_t& player);
 
