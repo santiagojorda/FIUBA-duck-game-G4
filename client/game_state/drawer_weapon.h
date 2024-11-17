@@ -6,6 +6,7 @@
 #include <SDL2pp/Texture.hh>
 
 #include "drawable.h"
+#include "weapon_properties.h"
 
 class DrawerWeapon: public Drawable {
 private:

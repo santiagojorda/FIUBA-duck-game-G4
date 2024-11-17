@@ -8,19 +8,17 @@
 #include <SDL2pp/Texture.hh>
 
 #include "../../common/action_commands.h"
+#include "../config/game_config.h"
 #include "../game_state/elements.h"
 
 class DrawerBox {
 private:
-    box_t box;
     SDL2pp::Texture texture;
 
 public:
-    DrawerBox(box_t _box, SDL2pp::Renderer& renderer);
+    DrawerBox(SDL2pp::Renderer& renderer, const box_t& box);
 
-    void draw(SDL2pp::Renderer& renderer);
-
-    void update_box(const box_t& update_box);
+    void draw(SDL2pp::Renderer& renderer, const box_t& box);
 };
 
 #endif  // DRAWER_BOX_H

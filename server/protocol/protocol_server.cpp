@@ -22,7 +22,7 @@ void ProtocolServer::send_inventory(Inventory& inventory) {
 
 void ProtocolServer::send_gun(Gun* gun) {
     if (gun) {
-        send_byte(gun->get_id());
+        send_byte(3);
         send_byte(gun->get_ammo());
     } else {
         send_byte(false);

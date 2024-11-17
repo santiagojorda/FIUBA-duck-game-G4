@@ -2,41 +2,10 @@
 
 #include <chrono>
 
-// FPS
-// FPS
-#define MILISECONDS_30_FPS 33
-
-// Game
-#define GAME_TITLE "Duck Game"
-
-// Window
-#define WINDOW_HEIGHT 500
-#define WINDOW_WIDTH 800
-
-// FLOOR
-#define SIZE_FLOOR_SPRITE 16
-
-// TAMAÑO TILESET EN LA PANTALLA
-#define TILE_SIZE 50  // 50x50 // Size of the tile in pixels after scaling
-
-// ALA DEL PATO en SPRITE -> las alas empiezan desde Y= 518, voy a suponer que miden 16x16
-#define ALA_INITIAL_X 1
-#define ALA_INITIAL_Y 518
-
-#define FACTOR_ZOOM 1
-
 using namespace SDL2pp;
 
 Drawer::Drawer(Queue<ClientEvent_t>& commands, Queue<client_game_state_t>& game_state):
         commands(commands), game_state(game_state), keyboard_controller(commands, 1) {}
-
-/**
- * Recibo
- * tipo de arma
- * tipode jugador
- * tipo de disparo
- *
- */
 
 void Drawer::run() try {
     SDL sdl(SDL_INIT_VIDEO);
@@ -46,97 +15,97 @@ void Drawer::run() try {
 
     Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-    std::vector<std::shared_ptr<DrawerPlayer>> drawer_ducks;
+    drawers_t drawers;
 
-    std::vector<std::shared_ptr<DrawerWeapon>> drawer_weapons;
-
-    std::vector<std::shared_ptr<DrawerBox>> drawer_boxes;
-
-    // Load background image as a new texture
     Texture background(renderer, DATA_PATH "/background.png");
 
-    // ZoomHandler zoom_handler;
-
-    // Game state
-    bool is_running = false;
-    client_game_state_t _game_state;
+    client_game_state_t actual_game_state;
 
     auto chrono_now = std::chrono::high_resolution_clock::now();
     auto chrono_prev = chrono_now;
 
-    while (true) {  // receiver del cliente
+    // desde el LOBBY ya le di a startear game, por lo tanto no necesito darle a la "m", de entrada
+    // recibo la data lo traigo para acá así no hay drama
 
-        while (game_state.try_pop(_game_state)) {}
+    Socket skt("localhost", "8080");
+    ClientProtocol protocol(skt);
+    protocol.send_init(0xFF);
+
+    // ---------------------------- Iniciar partida primer escenario ----------------------------
+    // Mientras no reciba un primer escenario, queda en el ciclo
+    while (!game_state.try_pop(actual_game_state)) {
+        std::cout << "Loading..." << std::endl;
+        std::this_thread::sleep_for(std::chrono::milliseconds(MILISECONDS_30_FPS));
+    }
+
+    init_scenery(renderer, actual_game_state, drawers);
+
+    // -----------------------------------------------------------------------------------------
+    while (true) {
+
+        while (game_state.try_pop(actual_game_state)) {}
+
         renderer.Clear();
-        // ---------------------------- Draw BACKGROUND ----------------------------
-        renderer.Copy(background,
-                      Rect(0, 0, renderer.GetOutputWidth(), renderer.GetOutputHeight()));
 
-        // ---------------------------- Draw Patos ----------------------------
-        // En realidad esto deberia hacerse una sola vez: deberia tener 1 pop para inicializar
-        // el juego, y todos los vectores en cuestion. Luego tener el ciclo que actualiza cada
-        // drawer
-        if (drawer_ducks.size() != _game_state.players.size()) {
-            drawer_ducks.resize(_game_state.players.size());
-            for (size_t i = 0; i < _game_state.players.size(); ++i) {
-                if (!drawer_ducks[i]) {
-                    player_t player = _game_state.players[i];
-                    drawer_ducks[i] = std::make_shared<DrawerPlayer>(player, renderer);
+        renderer.Copy(background, Rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
+
+
+        // Draw Players (Patos)
+        for (size_t i = 0; i < actual_game_state.players.size(); i++) {
+            player_t player = actual_game_state.players[i];
+            drawers.players[player.sprite.id_texture]->draw(renderer, player);
+        }
+
+        // Draw Floor
+        if (drawers.floors.size() != actual_game_state.floors.size()) {
+            drawers.floors.resize(actual_game_state.floors.size());
+
+            for (size_t i = 0; i < actual_game_state.floors.size(); ++i) {
+                if (!drawers.floors[i]) {
+                    auto floor = actual_game_state.floors[i];
+                    drawers.floors[i] = std::make_unique<DrawerFloor>(renderer, floor);
                 }
             }
         }
 
-        // map de drawers :)
-
-        // draw recibe player  y renderer
-        // drwers id player, renderer -> id. draw render player :)
-
-
-        for (size_t i = 0; i < _game_state.players.size(); ++i) {
-            player_t player = _game_state.players[i];  // recibo el player actualizado
-            // CONSULTA: update player ?? o le paso el nuevo player por parámetro ?? o lo busco el
-            // player en el drawer_ducks??
-            drawer_ducks[i]->update_player(player);
-            drawer_ducks[i]->draw(renderer);
+        for (size_t i = 0; i < actual_game_state.floors.size(); ++i) {
+            auto floor = actual_game_state.floors[i];
+            drawers.floors[i]->draw(renderer, floor);
         }
 
-        // ---------------------------- Draw Boxes ----------------------------
-        // Esto si puede variar.....
-        if (drawer_boxes.size() != _game_state.boxs.size()) {
-            drawer_boxes.resize(_game_state.boxs.size());
-            for (size_t i = 0; i < _game_state.boxs.size(); ++i) {
-                if (!drawer_boxes[i]) {
-                    auto box = _game_state.boxs[i];
-                    drawer_boxes[i] = std::make_shared<DrawerBox>(box, renderer);
+        // Draw Box
+        if (drawers.boxes.size() != actual_game_state.boxs.size()) {
+            drawers.boxes.resize(actual_game_state.boxs.size());
+            for (size_t i = 0; i < actual_game_state.boxs.size(); ++i) {
+                if (!drawers.boxes[i]) {
+                    auto box = actual_game_state.boxs[i];
+                    drawers.boxes[i] = std::make_unique<DrawerBox>(renderer, box);
                 }
             }
         }
 
-        for (size_t i = 0; i < _game_state.boxs.size(); ++i) {
-            auto box = _game_state.boxs[i];
-            drawer_boxes[i]->update_box(box);
-            drawer_boxes[i]->draw(renderer);
+        for (size_t i = 0; i < actual_game_state.boxs.size(); ++i) {
+            auto box = actual_game_state.boxs[i];
+            drawers.boxes[i]->draw(renderer, box);
         }
 
-        // ---------------------------- Draw Weapons ----------------------------
-        if (drawer_weapons.size() != _game_state.weapons.size()) {
-            drawer_weapons.resize(_game_state.weapons.size());
-            for (size_t i = 0; i < _game_state.weapons.size(); ++i) {
-                if (!drawer_weapons[i]) {
-                    auto weapon = _game_state.weapons[i];
-                    drawer_weapons[i] = std::make_shared<DrawerWeapon>(weapon, renderer);
+        // Draw Weapon
+        if (drawers.weapons.size() != actual_game_state.weapons.size()) {
+            drawers.weapons.resize(actual_game_state.weapons.size());
+            for (size_t i = 0; i < actual_game_state.weapons.size(); ++i) {
+                if (!drawers.weapons[i]) {
+                    auto weapon = actual_game_state.weapons[i];
+                    drawers.weapons[i] = std::make_unique<DrawerWeapon>(renderer, weapon);
                 }
             }
         }
 
-        for (size_t i = 0; i < _game_state.weapons.size(); ++i) {
-            auto weapon = _game_state.weapons[i];
-            drawer_weapons[i]->update_weapon(weapon);
-            drawer_weapons[i]->draw(renderer);
+        for (size_t i = 0; i < actual_game_state.weapons.size(); ++i) {
+            auto weapon = actual_game_state.weapons[i];
+            drawers.weapons[i]->draw(renderer, weapon);
         }
 
-        // Aplicar zoom y centrar usando ZoomHandler
-        // zoom_handler.apply_zoom(renderer, main_texture);
+        // Fin draw, lo presentamos.
         renderer.Present();
 
         chrono_now = std::chrono::high_resolution_clock::now();
@@ -147,11 +116,42 @@ void Drawer::run() try {
 
         chrono_prev = std::chrono::high_resolution_clock::now();
 
-        //  Se envia la tecla que presionó el usuario
         SDL_Event event;
-        keyboard_controller.procesar_comando(event, is_running);
+        keyboard_controller.procesar_comando(event);
     }
 
 } catch (std::exception& e) {
     std::cerr << e.what() << std::endl;
+}
+
+void Drawer::init_scenery(Renderer& renderer, const client_game_state_t& actual_game_state,
+                          drawers_t& drawers) {
+    // Player
+    for (size_t i = 0; i < actual_game_state.players.size(); i++) {
+        auto player = actual_game_state.players[i];
+        drawers.players[player.sprite.id_texture] =
+                std::make_unique<DrawerPlayer>(renderer, player);
+        drawers.players[player.sprite.id_texture]->draw(renderer, player);
+    }
+
+    // Floor
+    for (size_t i = 0; i < actual_game_state.floors.size(); i++) {
+        auto floor = actual_game_state.floors[i];
+        drawers.floors.push_back(std::make_unique<DrawerFloor>(renderer, floor));
+        drawers.floors.back()->draw(renderer, floor);
+    }
+
+    // Box
+    for (size_t i = 0; i < actual_game_state.boxs.size(); i++) {
+        auto box = actual_game_state.boxs[i];
+        drawers.boxes.push_back(std::make_unique<DrawerBox>(renderer, box));
+        drawers.boxes.back()->draw(renderer, box);
+    }
+
+    // Weapon
+    for (size_t i = 0; i < actual_game_state.weapons.size(); i++) {
+        auto weapon = actual_game_state.weapons[i];
+        drawers.weapons.push_back(std::make_unique<DrawerWeapon>(renderer, weapon));
+        drawers.weapons.back()->draw(renderer, weapon);
+    }
 }

@@ -7,20 +7,19 @@
 #include <SDL2pp/SDL2pp.hh>
 #include <SDL2pp/Texture.hh>
 
+#include "../config/game_config.h"
 #include "../game_state/sprite.h"
 
 #include "drawable.h"
 
 class DrawerFloor {
 private:
-    sprite_t floor;
     SDL2pp::Texture texture;
 
 public:
-    DrawerFloor(sprite_t floor, SDL2pp::Renderer& renderer);
-    void draw(SDL2pp::Renderer& renderer);
+    DrawerFloor(SDL2pp::Renderer& renderer, const sprite_t& floor);
 
-    void update_floor(const sprite_t& update_floor);
+    void draw(SDL2pp::Renderer& renderer, const sprite_t& floor);
 };
 
 #endif  // DRAWER_FLOOR_H

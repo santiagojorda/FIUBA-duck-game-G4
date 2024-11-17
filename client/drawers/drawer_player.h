@@ -6,20 +6,20 @@
 #include <SDL2pp/Texture.hh>
 
 #include "../../common/state_duck.h"
+#include "../../common/weapons_id.h"
+#include "../config/game_config.h"
 #include "../game_state/player.h"
+
+#include "weapon_properties.h"
 
 class DrawerPlayer {
 private:
-    player_t player;
     SDL2pp::Texture texture;
 
 public:
-    DrawerPlayer(player_t _player, SDL2pp::Renderer& renderer);
+    DrawerPlayer(SDL2pp::Renderer& renderer, const player_t& _player);
 
-    void draw(SDL2pp::Renderer& renderer);
-
-    void update_player(const player_t& update_player);  // quizas polimorfismo, asi el padre tiene 1
-                                                        // type y los hijos lo usan como quieran
+    void draw(SDL2pp::Renderer& renderer, const player_t& _player);
 };
 
 #endif  // DRAWER_PLAYER_H

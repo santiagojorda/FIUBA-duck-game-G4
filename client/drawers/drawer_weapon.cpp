@@ -4,16 +4,14 @@
 #define WEAPON_INITIAL_Y 47
 
 #define SIZE_WEAPON_SPRITE 32
-#define TILE_SIZE 50
+#define TILE_SIZE_WEAPON 10
 
-/*
+DrawerWeapon::DrawerWeapon(SDL2pp::Renderer& renderer, const sprite_t& weapon):
+        texture(renderer,
+                weapon_properties[static_cast<TEXTURE_WEAPONS>(weapon.id_texture)].texturePath) {}
 
-// DuckGame-Grenades.png ->  granadas, banana
-// DuckGame-Laser.png -> pew pew laser
-// DuckGame-MachineGuns.png ->  AK_47
-// DuckGame-Pistol.png ->  pistola cowboy, magnum, supongo que la pistol es la pistola de duelos
-// DuckGame-MoreWeapons.png -> sniper,
-*/
+void DrawerWeapon::draw(SDL2pp::Renderer& renderer, const sprite_t& weapon) {
+    auto& properties = weapon_properties[static_cast<TEXTURE_WEAPONS>(weapon.id_texture)];
 
 static std::map<TEXTURE_WEAPONS, std::string> textures = {
         {GRANADA_ID, DATA_PATH "/DuckGame-Grenades.png "},    // ok
@@ -29,20 +27,9 @@ static std::map<TEXTURE_WEAPONS, std::string> textures = {
         {SNIPER_ID, DATA_PATH "/DuckGame-MoreWeapons.png"}  // ok
 };
 
-DrawerWeapon::DrawerWeapon(sprite_t _weapon, SDL2pp::Renderer& renderer):
-        weapon(_weapon),
-        texture(renderer, textures[static_cast<TEXTURE_WEAPONS>(weapon.id_texture)]) {}
-
-void DrawerWeapon::draw(SDL2pp::Renderer& renderer) {
-    // TODO: tengo el path pero tengo que acceder a la posicion inicial de cada weapon, no todas
-    // están posicionadas en un mismo lugar armar un map que tenga asociado los valores iniciales,
-    // lo dejo hardcodeado por ahora
-
-    renderer.Copy(texture,
-                  SDL2pp::Rect(WEAPON_INITIAL_X, WEAPON_INITIAL_Y, SIZE_WEAPON_SPRITE,
-                               SIZE_WEAPON_SPRITE),
-                  SDL2pp::Rect(weapon.coordinate.get_x(), weapon.coordinate.get_y(), TILE_SIZE,
-                               TILE_SIZE));
+    renderer.Copy(
+            texture,
+            SDL2pp::Rect(properties.src_x, properties.src_y, properties.width, properties.height),
+            SDL2pp::Rect(weapon.coordinate.get_x(), weapon.coordinate.get_y(), TILE_SIZE_WEAPON,
+                         TILE_SIZE_WEAPON));
 }
-
-void DrawerWeapon::update_weapon(const sprite_t& update_weapon) { weapon = update_weapon; }

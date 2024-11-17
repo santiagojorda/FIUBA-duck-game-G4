@@ -24,7 +24,7 @@ struct player_t {
 };
 
 sprite: es un struct que me brinda 
-    id_texture -> El path de la imagen a buscar.
+    id_texture -> El path de la imagen a buscar. Que a su vez es el id del jugador
     coordinate -> Coordenadas con respecto a la pantalla !!!!
 
 is_looking: me dice hacia que lado mira el pato
@@ -47,3 +47,14 @@ inventory: es un struct que me brinda
     sprite_t armor;  // ARMADURA id_texture -> El path de la imagen a buscar. Coordenadas con respecto a la pantalla !!!!
     sprite_t helmet; // CASCO id_texture -> El path de la imagen a buscar. Coordenadas con respecto a la pantalla !!!!
 
+
+
+
+/*
+
+// DuckGame-Grenades.png ->  granadas, banana
+// DuckGame-Laser.png -> pew pew laser
+// DuckGame-MachineGuns.png ->  AK_47
+// DuckGame-Pistol.png ->  pistola cowboy, magnum, supongo que la pistol es la pistola de duelos
+// DuckGame-MoreWeapons.png -> sniper,
+*/
