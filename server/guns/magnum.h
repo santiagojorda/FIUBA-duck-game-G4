@@ -7,7 +7,7 @@
 
 class Magnum: public Gun {
 public:
-    Magnum();
+    Magnum(const Coordinate& _coordinate);
     ListProjectiles shoot(Coordinate& shooter_position) override;
 };
 

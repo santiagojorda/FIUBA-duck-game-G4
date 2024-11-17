@@ -3,7 +3,7 @@
 #include "../../common/weapons_id.h"
 
 
-LaserRifle::LaserRifle(): Gun(MAX_AMMO, ShootingRecoil::NONE, ProjectileRange::VERY_LARGE) {
+LaserRifle::LaserRifle(const Coordinate& _coordinate): Gun(MAX_AMMO, ShootingRecoil::NONE, ProjectileRange::VERY_LARGE, _coordinate) {
     this->set_texture_id(WEAPONS_ID_H::LASER_RIFLE_ID);
 }
 

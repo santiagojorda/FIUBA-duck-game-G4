@@ -8,7 +8,7 @@
 
 class Banana: public Gun {
 public:
-    Banana();
+    Banana(const Coordinate& _coordinate);
     ListProjectiles shoot(Coordinate& shooter_position) override;
 };
 

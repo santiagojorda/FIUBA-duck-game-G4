@@ -9,7 +9,7 @@
 
 class Granade: public Gun {
 public:
-    Granade();
+    Granade(const Coordinate& _coordinate);
     ListProjectiles shoot(Coordinate& shooter_position) override;
 };
 

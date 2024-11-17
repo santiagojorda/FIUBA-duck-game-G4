@@ -7,7 +7,7 @@
 
 class Shotgun: public Gun {
 public:
-    Shotgun();
+    Shotgun(const Coordinate& _coordinate);
     ListProjectiles shoot(Coordinate& shooter_position) override;
 };
 
