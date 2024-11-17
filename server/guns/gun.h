@@ -20,10 +20,11 @@ protected:
     ShootingRecoil recoil;
     ProjectileRange projectile_range;
 
+    ListProjectiles generate_list_projectiles();
 public:
     explicit Gun(uint8_t _ammo, ShootingRecoil _recoil, ProjectileRange _projectile_range);
-    explicit Gun(uint8_t _ammo, ShootingRecoil _recoil, ProjectileRange _projectile_range,
-                 Coordinate _coordinate);
+    explicit Gun(uint8_t& _texture_id, uint8_t& _ammo, ShootingRecoil& _recoil, ProjectileRange&& _projectile_range,
+                 Coordinate& _coordinate);
 
     virtual ListProjectiles shoot(Coordinate& shooter_position) = 0;
     ListProjectiles shoot(Coordinate& shooter_position, ShootingRecoil& _recoil);

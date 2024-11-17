@@ -17,7 +17,8 @@ class Game: public Thread {
 private:
     ListPlayers players;
     Map map;
-    ListGuns guns;
+    ListGuns map_guns;
+    ListProjectiles map_projectiles;
     GameLogic game_logic;
     MonitorClients& monitor_client;
     QueueEventPlayer& queue_event;  //<- para charalar

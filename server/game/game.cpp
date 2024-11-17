@@ -15,15 +15,16 @@ Game::Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEventPla
            QueueGameState& _queue_gamestate):
         players(_players),
         map(),
-        guns(),
-        game_logic(players, map, guns),
+        map_guns(),
+        map_projectiles(),
+        game_logic(players, map, map_guns, map_projectiles),
         monitor_client(_monitor_client),
         queue_event(_queue_event),
         queue_gamestate(_queue_gamestate) {
     Ground* ground = new Ground(Coordinate(0, 200, 100, 500));  // lea del yaml
     map.add(ground);
     Gun* pew = new PewPewLaser(Coordinate(0, 200, 32, 32));
-    guns.add(pew);
+    map_guns.add(pew);
 }
 
 void Game::sleep() { std::this_thread::sleep_for(std::chrono::milliseconds(MILISECONDS_30_FPS)); }
@@ -42,8 +43,7 @@ void Game::execute_new_events() {
 void Game::broadcast_gamestate() { monitor_client.broadcast(get_gamestate()); }
 
 GameState_t Game::get_gamestate() {
-    ListProjectiles projectiles;
-    return GameState_t{players, projectiles, map, guns};
+    return GameState_t{players, map, map_guns, map_projectiles};
 }
 
 auto Game::get_actual_milliseconds() { return std::chrono::high_resolution_clock::now(); }

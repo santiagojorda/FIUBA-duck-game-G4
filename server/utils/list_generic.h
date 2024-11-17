@@ -32,6 +32,11 @@ public:
             delete item;
         }
     };
+    
+    void transfer_item(T* item, ListGeneric& other_list){
+        add(item);
+        other_list.remove(other_list);
+    }
 
     void clear() {
         for (auto* item: items) {

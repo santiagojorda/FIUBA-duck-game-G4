@@ -5,6 +5,7 @@
 
 #include "../../common/action_commands.h"
 #include "../guns/list_guns.h"
+#include "../guns/list_projectiles.h"
 #include "../map/map.h"
 #include "../player/list_players.h"
 #include "../player/player.h"
@@ -15,7 +16,8 @@ class GameLogic {
 private:
     ListPlayers& players;
     Map& map;
-    ListGuns& guns;
+    ListGuns& map_guns;
+    ListProjectiles& map_projectiles;
     GamePhysics physics;
     Player& get_player(const uint8_t& player_id);
     void log_player_action(Player& player, const std::string& action);
@@ -25,7 +27,7 @@ private:
     bool is_player_floor_collision(Player& player);
 
 public:
-    explicit GameLogic(ListPlayers& _players, Map& _map, ListGuns& _guns);
+    explicit GameLogic(ListPlayers& _players, Map& _map, ListGuns& _map_guns, ListProjectiles& _map_projectiles);
     void handle_event(uint8_t player_id, ActionCommand event);
     void update_players();
     ~GameLogic();

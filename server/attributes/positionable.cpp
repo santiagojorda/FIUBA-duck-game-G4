@@ -2,7 +2,7 @@
 
 Positionable::Positionable(): space(1, 11, 32, 32) {}  // DUMMY
 
-Positionable::Positionable(Coordinate& _coordinate): space(_coordinate) {}
+Positionable::Positionable(uint8_t& _texture_id, Coordinate& _coordinate): space(_coordinate), texture_id(_texture_id) {}
 
 void Positionable::set_texture_id(const uint8_t& _texture_id) { this->texture_id = _texture_id; }
 
