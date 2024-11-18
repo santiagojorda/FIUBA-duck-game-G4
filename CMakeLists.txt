@@ -77,6 +77,19 @@ if(TALLER_CLIENT OR TALLER_EDITOR)
    FetchContent_MakeAvailable(libSDL2pp)
 endif()
 
+include(FetchContent)
+FetchContent_Declare(
+  yaml-cpp
+  GIT_REPOSITORY https://github.com/jbeder/yaml-cpp.git
+  GIT_TAG yaml-cpp-0.7.0
+)
+FetchContent_MakeAvailable(yaml-cpp)
+
+FetchContent_GetProperties(yaml-cpp)
+if(NOT yaml-cpp_POPULATED)
+  FetchContent_Populate(yaml-cpp)
+endif()
+
 
 # Program section
 # ---------------
@@ -124,7 +137,8 @@ if(TALLER_SERVER)
 
 
    # Link the taller_common lib target
-   target_link_libraries(taller_server taller_common)
+   target_link_libraries(taller_server taller_common yaml-cpp::yaml-cpp)
+
 endif()
 
 

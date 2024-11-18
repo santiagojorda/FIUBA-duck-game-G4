@@ -14,7 +14,7 @@ public:
 
     void add(T* item) { items.push_back(item); }
 
-    bool remove(T* item){
+    bool remove(T* item) {
         bool item_exist = false;
         items.remove_if([item, &item_exist](T* item_list) {
             if (item == item_list) {
@@ -28,7 +28,7 @@ public:
 
     void remove_and_delete(T* item) {
         bool item_exist = remove(item);
-        if (item_exist){
+        if (item_exist) {
             delete item;
         }
     };
