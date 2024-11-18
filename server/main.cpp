@@ -1,20 +1,32 @@
 #include <exception>
 #include <iostream>
+#include <list>
 
+
+
+#include "../common/coordinate.h"
 #include "lobby/lobby.h"
+#include "yamel/map_deserialize.h"
 
 #define ERROR -1
 #define SUCCESS 0
 #define BAD_ARGUMENTS 1
 #define ARGS_EXPECTED 2
 
+
 int main() {
 
     try {
         std::cout << "Iniciando server" << std::endl;
+
+        MapDeserialize des("../game_rsc/maps/map01.yaml");
+        std::list<Coordinate> floors;
+        des.load_floors(floors);
+
         Lobby lobby;
         lobby.run();
         return SUCCESS;
+
 
 
         // if (argc == ARGS_EXPECTED) {

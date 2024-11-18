@@ -1,0 +1,74 @@
+tile_size: 16
+tiles:
+  - coordinate:
+      x: 10
+      y: 200
+  - coordinate:
+      x: 26
+      y: 200
+  - coordinate:
+      x: 42
+      y: 200
+  - coordinate:
+      x: 58
+      y: 200
+  - coordinate:
+      x: 74
+      y: 200
+  - coordinate:
+      x: 90
+      y: 200
+  - coordinate:
+      x: 106
+      y: 200
+  - coordinate:
+      x: 122
+      y: 200
+  - coordinate:
+      x: 138
+      y: 200
+  - coordinate:
+      x: 154
+      y: 200
+  - coordinate:
+      x: 170
+      y: 200
+  - coordinate:
+      x: 186
+      y: 200
+
+weapon_size: 32
+weapons:
+  - id: 1
+    coordinate:
+      x: 10
+      y: 184
+  - id: 2
+    coordinate:
+      x: 42
+      y: 184
+  - id: 3
+    coordinate:
+      x: 74
+      y: 184
+  - id: 4
+    coordinate:
+      x: 106
+      y: 184
+  - id: 5
+    coordinate:
+      x: 138
+      y: 184
+  - id: 6
+    coordinate:
+      x: 170
+      y: 184
+
+player_size: 32
+players:
+  - coordinate:
+      x: 10
+      y: 200
+  - coordinate:
+      x: 26
+      y: 200
