@@ -5,12 +5,12 @@
 
 #include "../../common/socket.h"
 #include "../../common/thread.h"
-
 #include "../events/event_player.h"
-#include "../player/list_players_id.h"
-#include "monitor_clients.h"
 #include "../events/queue_event_player.h"
 #include "../game/queue_game_state.h"
+#include "../player/list_players_id.h"
+
+#include "monitor_clients.h"
 
 #define SERVNAME "8080"
 

@@ -1,12 +1,11 @@
 #ifndef ORIENTATINS_H
 #define ORIENTATINS_H
 
-
 enum orientations {
-    LEFT,   // Moverse a la izquierda
-    RIGHT,  // Moverse a la derecha
     UP,
-    DOW
+    RIGHT,  // Moverse a la derecha
+    LEFT,   // Moverse a la izquierda
+    DOWN
 };
 
 

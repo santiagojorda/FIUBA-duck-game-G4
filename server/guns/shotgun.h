@@ -1,14 +1,12 @@
-#ifndef SHOTGUN
-#define SHOTGUN
+#ifndef SHOTGUN_H
+#define SHOTGUN_H
 
 #include "gun.h"
 
-#define MAX_AMMO 2
-
-class Shotgun : public Gun {
+class Shotgun: public Gun {
 public:
-    Shotgun();
-    void shoot(Player player) override;
+    Shotgun(const Coordinate& _coordinate);
+    ListProjectiles shoot(Coordinate& shooter_position) override;
 };
 
 #endif

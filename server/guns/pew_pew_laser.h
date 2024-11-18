@@ -1,14 +1,12 @@
-#ifndef PEW_PEW_LASER
-#define PEW_PEW_LASER
+#ifndef PEW_PEW_LASER_H
+#define PEW_PEW_LASER_H
 
 #include "gun.h"
 
-#define MAX_AMMO 12
-
-class PewPewLaser : public Gun {
+class PewPewLaser: public Gun {
 public:
-    PewPewLaser();
-    void shoot(Player player) override;
+    PewPewLaser(Coordinate _coordinate);
+    ListProjectiles shoot(Coordinate& shooter_position) override;
 };
 
 #endif

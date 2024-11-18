@@ -1,7 +1,9 @@
 #ifndef EQUIPPABLE
 #define EQUIPPABLE
 
-class Inventory; // forward declaration -> para que no haya circularidad de inclusiones
+#include <cstdint>
+
+class Inventory;  // forward declaration -> para que no haya circularidad de inclusiones
 
 class Equippable {
 public:
@@ -10,4 +12,3 @@ public:
 };
 
 #endif
- 

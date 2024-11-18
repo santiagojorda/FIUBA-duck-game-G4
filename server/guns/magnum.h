@@ -1,14 +1,12 @@
-#ifndef MAGNUM
-#define MAGNUM
+#ifndef MAGNUM_H
+#define MAGNUM_H
 
 #include "gun.h"
 
-#define MAX_AMMO 6
-
-class Magnum : public Gun {
+class Magnum: public Gun {
 public:
-    Magnum();
-    void shoot(Player player) override;
+    Magnum(const Coordinate& _coordinate);
+    ListProjectiles shoot(Coordinate& shooter_position) override;
 };
 
 #endif

@@ -6,9 +6,10 @@
 #include "../events/event_player.h"
 #include "../events/queue_event_player.h"
 #include "../game/queue_game_state.h"
+#include "../player/vector_player_id.h"
+
 #include "receiver.h"
 #include "sender.h"
-#include "../player/vector_player_id.h"
 
 class Client {
 private:

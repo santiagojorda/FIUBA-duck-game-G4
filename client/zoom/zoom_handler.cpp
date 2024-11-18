@@ -1,34 +1,66 @@
 #include "zoom_handler.h"
 
-// Window
 #define WINDOW_HEIGHT 500
 #define WINDOW_WIDTH 800
 
-// TAMAÑO TILESET EN LA PANTALLA
-#define TILE_SIZE 50  // 50x50 // Size of the tile in pixels after scaling
+#define OFFSET 100
 
-#define FACTOR_ZOOM 1
+ZoomHandler::ZoomHandler(): dest_x(0), dest_y(0), factor_zoom(0.0) {}
 
-ZoomHandler::ZoomHandler(): dest_x(0), dest_y(0) {}
+void ZoomHandler::calculate_zoom(const VectorPlayers& players) {
+    if (players.empty())
+        return;
 
-void ZoomHandler::calculate_zoom(const std::vector<PlayerPosition_t>& position) {
-    // Calcular el tamaño de destino para zoom
-    dest_width = WINDOW_WIDTH * FACTOR_ZOOM;  // Ajusta el factor de zoom como prefieras
-    dest_height = WINDOW_HEIGHT * FACTOR_ZOOM;
+    auto [min_x, max_x, min_y, max_y] = calculate_bounds(players);
+    int ancho = max_x - min_x;
+    int altura = max_y - min_y;
 
-    if (FACTOR_ZOOM != 1.0) {
-        // calculamos dest_x y dest_y basados en la posición del pato
-        // Si el factor de zoom no es 1, centramos el zoom en la posición del pato
-        // si no hago esto:el zoom podría aparecer desplazado o desalineado respecto al pato
-        // tomamos la posición del pato para centrar el zoom en este
-        int duck_x = position[0].coordinate.get_x();
-        int duck_y = position[0].coordinate.get_y();
+    calculate_zoom_factor(ancho, altura);
 
-        dest_x = WINDOW_WIDTH / 2 - (duck_x * FACTOR_ZOOM);
-        dest_y = WINDOW_HEIGHT / 2 - (duck_y * FACTOR_ZOOM);
-    }
+    scaled_width = WINDOW_WIDTH * factor_zoom;
+    scaled_height = WINDOW_HEIGHT * factor_zoom;
+    int center_x = (min_x + max_x) / 2;
+    int center_y = (min_y + max_y) / 2;
+    dest_x = WINDOW_WIDTH / 2 - (center_x * factor_zoom);
+    dest_y = WINDOW_HEIGHT / 2 - (center_y * factor_zoom);
 }
 
 void ZoomHandler::apply_zoom(SDL2pp::Renderer& renderer, SDL2pp::Texture& texture) {
-    renderer.Copy(texture, SDL2pp::NullOpt, SDL2pp::Rect(dest_x, dest_y, dest_width, dest_height));
+    SDL2pp::Rect zoom_rect(dest_x, dest_y, scaled_width, scaled_height);
+    renderer.Copy(texture, SDL2pp::NullOpt, zoom_rect);
+}
+
+std::tuple<int, int, int, int> ZoomHandler::calculate_bounds(const VectorPlayers& players) const {
+    int min_x = players[0].sprite.coordinate.get_x();
+    int max_x = players[0].sprite.coordinate.get_x();
+    int min_y = players[0].sprite.coordinate.get_y();
+    int max_y = players[0].sprite.coordinate.get_y();
+
+    for (const auto& position: players) {
+        int x = position.sprite.coordinate.get_x();
+        int y = position.sprite.coordinate.get_y();
+        min_x = std::min(min_x, x);
+        max_x = std::max(max_x, x);
+        min_y = std::min(min_y, y);
+        max_y = std::max(max_y, y);
+    }
+    return {min_x, max_x, min_y, max_y};
+}
+
+void ZoomHandler::calculate_zoom_factor(int ancho, int altura) {
+    if (ancho == 0 && altura == 0)
+        factor_zoom = 1.6f;
+
+    float zoom_x = ancho != 0 ? static_cast<float>(WINDOW_WIDTH) / (ancho + OFFSET) : 0;
+    float zoom_y = altura != 0 ? static_cast<float>(WINDOW_HEIGHT) / (altura + OFFSET) : 0;
+
+    if (zoom_x != 0 && zoom_y != 0) {
+        factor_zoom = std::min(zoom_x, zoom_y);
+    } else {
+        factor_zoom = (zoom_x == 0) ? zoom_y : zoom_x;
+    }
+
+    if (factor_zoom == 0 || factor_zoom >= 1.6f) {
+        factor_zoom = 1.6f;
+    }
 }

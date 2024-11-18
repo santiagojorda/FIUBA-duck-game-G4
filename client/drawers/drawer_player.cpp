@@ -2,46 +2,66 @@
 
 #include <map>
 
-
-#include "../game_state/player.h"
 #include "../../common/orientations.h"
+#include "../../common/weapons_id.h"
+#include "../game_state/player.h"
 
+#define TILE_SIZE_ALA 22
 
-// TAMAÑO TILESET EN LA PANTALLA
-#define TILE_SIZE 50  // 50x50 // Size of the tile in pixels after scaling
-
-
-// (X,Y) DEL PATO PARA ESTAR QUIETO Y CAMINAR DEL SPRITE
 #define DUCK_INITIAL_X 1
 #define DUCK_INITIAL_Y 11
 #define SIZE_DUCK_SPRITE 32
-#define CANT_ANIMATION_RUN 6  // para la fase de animacion
+#define SIZE_DUCK_ALA 16
 
-enum TEXTURE_DUCKS {
-    DUCK_YELLOW,
-    DUCK_GREY,
-    DUCK_ORANGE,
-    DUCK_WHITE,
-};
+#define OFFSET_Y 12
 
-// clave id_texture (para elegir el pato), valor struct(?9)
-static  std::map<uint8_t, std::string> textures = {
-                                                 {DUCK_YELLOW, DATA_PATH "/DuckGame-YellowDuck.png"},
-                                                 {DUCK_GREY, DATA_PATH "/DuckGame-GreyDuck.png"},
-                                                 {DUCK_ORANGE, DATA_PATH "/DuckGame-OrangeDuck.png"},
-                                                 {DUCK_WHITE, DATA_PATH "/DuckGame-WhiteDuck.png"}
-                                                 };
+DrawerPlayer::DrawerPlayer(SDL2pp::Renderer& renderer, const player_t& player):
+        texture(renderer, textures[player.sprite.id_texture]) {}
 
+void DrawerPlayer::draw(SDL2pp::Renderer& renderer, const player_t& player) {
+    bool flip = static_cast<orientations>(player.is_looking) == LEFT;
 
+    int x_duck = static_cast<DuckState>(player.state) == IS_CROUCHING ?
+                         DUCK_INITIAL_X + SIZE_DUCK_SPRITE * 2 :
+                         DUCK_INITIAL_X;
+    int y_duck = static_cast<DuckState>(player.state) == IS_CROUCHING ?
+                         DUCK_INITIAL_Y + SIZE_DUCK_SPRITE * 6 :
+                         DUCK_INITIAL_Y;
 
+    RenderConfig playerConfig(texture, x_duck, y_duck, SIZE_DUCK_SPRITE, SIZE_DUCK_SPRITE, flip);
+    int frame = static_cast<DuckState>(player.state) == IS_RUNNING ? player.frame : 0;
+    playerConfig.adjust_for_frame(frame, SIZE_DUCK_SPRITE);
 
-DrawerPlayer::DrawerPlayer(player_t _player, SDL2pp::Renderer& renderer): player(_player), texture(renderer, textures[player.sprite.id_texture]) {}
+    RendererHelper::render(playerConfig, renderer, player.sprite.coordinate.get_x(),
+                           player.sprite.coordinate.get_y() - OFFSET_Y, TILE_SIZE, TILE_SIZE);
 
+    if (static_cast<int>(player.inventory.armor) != 0) {
+        SDL2pp::Texture armadura_texture(renderer, DATA_PATH "/DuckGame-Equipment.png");
+        RenderConfig armorConfig(armadura_texture, 387, 11, SIZE_DUCK_SPRITE, SIZE_DUCK_SPRITE,
+                                 flip);
+        armorConfig.adjust_for_frame(frame, SIZE_DUCK_SPRITE);
+        RendererHelper::render(armorConfig, renderer, player.sprite.coordinate.get_x(),
+                               player.sprite.coordinate.get_y() + 3 - OFFSET_Y, TILE_SIZE,
+                               TILE_SIZE);
+    }
 
-void DrawerPlayer::draw(SDL2pp::Renderer& renderer) {
-    int src_x = DUCK_INITIAL_X + SIZE_DUCK_SPRITE /** run_phase;*/;
-    int src_y = DUCK_INITIAL_Y;
-    renderer.Copy(texture, SDL2pp::Rect(src_x, src_y, SIZE_DUCK_SPRITE, SIZE_DUCK_SPRITE),
-                  SDL2pp::Rect(player.sprite.coordinate.get_x(), player.sprite.coordinate.get_y(), TILE_SIZE, TILE_SIZE), 0.0, SDL2pp::NullOpt,
-                  this->player.is_looking ==  LEFT? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
+    if (static_cast<int>(player.inventory.weapon) != 0) {
+        auto weapon_id = static_cast<WeaponTextureID>(player.inventory.weapon);
+        auto weapon_props = weapon_properties[weapon_id];
+        SDL2pp::Texture weapon_texture(renderer, weapon_props.texturePath);
+        RenderConfig render_config(weapon_texture, weapon_props.src_x, weapon_props.src_y,
+                                   weapon_props.width, weapon_props.height, flip);
+
+        WeaponConfig weapon_config(weapon_id, flip, player.sprite.coordinate);
+        RendererHelper::render(render_config, renderer, weapon_config.offset_x,
+                               weapon_config.offset_y - OFFSET_Y, weapon_config.scale_width,
+                               weapon_config.scale_height);
+
+        int x_ala = flip ? 16 : 12;
+        RenderConfig playerAlaConfig(texture, 1, 566, SIZE_DUCK_ALA, SIZE_DUCK_ALA, flip);
+        playerAlaConfig.adjust_for_frame(frame, SIZE_DUCK_ALA);
+        RendererHelper::render(playerAlaConfig, renderer, player.sprite.coordinate.get_x() + x_ala,
+                               player.sprite.coordinate.get_y() + 16 - OFFSET_Y, TILE_SIZE_ALA,
+                               TILE_SIZE_ALA);
+    }
 }

@@ -10,9 +10,9 @@ private:
 public:
     VectorPlayerID() {}
 
-    void addPlayer(const uint8_t& player_id) { this->push_back(player_id); }
+    void add_player(const uint8_t& player_id) { this->push_back(player_id); }
 
-    void removePlayer(const uint8_t& pos) { this->erase(begin() + pos); }
+    void remove_player(const uint8_t& pos) { this->erase(begin() + pos); }
 
     ~VectorPlayerID() {}
 };

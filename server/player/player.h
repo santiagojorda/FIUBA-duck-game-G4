@@ -3,16 +3,28 @@
 
 #include <cstdint>
 
+#include "../attributes/equippable.h"
 #include "../attributes/positionable.h"
 #include "../attributes/statable.h"
-#include "../attributes/equippable.h"
+#include "../guns/gun.h"
+#include "../guns/list_projectiles.h"
 #include "../player/inventory.h"
+
+#include "direction.h"
+
 
 class Player: public Positionable, public Statable {
 private:
     // cppcheck-suppress unusedStructMember
-    uint8_t id;
+    uint8_t health;  // te lo dejo para ir pensado en la vida
+    // cppcheck-suppress unusedStructMember
+    Direction look_direction = Direction::RIGHT;
+
     Inventory inventory;
+
+    void looks_up();
+    void looks_right();
+    void looks_left();
 
 public:
     Player();
@@ -22,12 +34,29 @@ public:
     void translate() override;
     void translate_x(int pasos) override;
     void translate_y(int pasos) override;
-    void move_back(uint8_t tiles);
+    void move_back(ShootingRecoil tiles);
     // void move_back(int tiles);
+
+    void update() override;
     Gun* get_gun();
     Armor* get_armor();
     Helmet* get_helmet();
+    ListProjectiles shoot();
     void equip(Equippable* item);
+    Direction get_direction();
+    Inventory& get_inventory();
+
+    void run_right();
+    void run_left();
+    void jump();
+    void fall();
+    void crouch();
+    void slip();
+    void recoil();
+    void plane();
+    void die();
+    void idle();
+
     virtual ~Player();
 };
 

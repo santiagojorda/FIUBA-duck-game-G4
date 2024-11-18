@@ -7,11 +7,14 @@ class Rectangle {
 private:
     Coordinate points;
 
+    int length_x(const Coordinate& c) const;
+    int length_y(const Coordinate& c) const;
+
 public:
     Rectangle();
 
     /*
-    / Inicia con el siguiente formato (x, y , x+w, y+h )
+    / Inicia con el siguiente formato (x, y , x+w, y+h)
     */
     explicit Rectangle(Coordinate _points);
 
