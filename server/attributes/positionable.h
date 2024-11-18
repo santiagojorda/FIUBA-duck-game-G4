@@ -8,17 +8,19 @@
 class Positionable {
 
 private:
-    uint8_t id = 0;
-    uint8_t texture_id = 0;
+    uint8_t texture_id;
 
 protected:
+    uint8_t id = 0;
     Rectangle space;
 
 public:
     Positionable();
-    Positionable(Coordinate& _coordinate);
+    Positionable(const uint8_t& _texture_id, const Coordinate& _coordinate);
 
     Coordinate get_coordinate() const;
+
+    void set_coordinate(const Coordinate& new_coordinate);
 
     Rectangle get_rectangle() const;
 

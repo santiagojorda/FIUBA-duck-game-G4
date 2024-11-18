@@ -1,13 +1,11 @@
-#ifndef SNIPER
-#define SNIPER
+#ifndef SNIPER_H
+#define SNIPER_H
 
 #include "gun.h"
 
-#define MAX_AMMO 6
-
 class Sniper: public Gun {
 public:
-    Sniper();
+    Sniper(const Coordinate& _coordinate);
     ListProjectiles shoot(Coordinate& shooter_position) override;
 };
 

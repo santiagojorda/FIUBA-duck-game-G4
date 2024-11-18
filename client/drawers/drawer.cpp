@@ -60,10 +60,12 @@ void Drawer::run() try {
         renderer.Copy(background, Rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
 
         // X=2, Y=205, 8x8
-        renderer.Copy(bala_r, SDL2pp::Rect(2, 205, 8, 8), SDL2pp::Rect(WINDOW_WIDTH / 2, 199, 10, 10));
+        renderer.Copy(bala_r, SDL2pp::Rect(2, 205, 8, 8),
+                      SDL2pp::Rect(WINDOW_WIDTH / 2, 199, 10, 10));
 
         // balas laser
-        renderer.Copy(bala_laser, SDL2pp::Rect(2, 205, 8, 8), SDL2pp::Rect(WINDOW_WIDTH / 2, 199, 10, 10));
+        renderer.Copy(bala_laser, SDL2pp::Rect(2, 205, 8, 8),
+                      SDL2pp::Rect(WINDOW_WIDTH / 2, 199, 10, 10));
 
         // Draw Players (Patos)
         for (size_t i = 0; i < actual_game_state.players.size(); i++) {

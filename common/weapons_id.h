@@ -1,17 +1,19 @@
 #ifndef WEAPONS_ID_H
 #define WEAPONS_ID_H
 
-enum TEXTURE_WEAPONS {
-    GRANADA = 1,
+#include <cstdint>
+enum class WeaponTextureID : uint8_t {
+    GRANATE = 1,
     BANANA,
     PEW_PEW_LASER,
     LASER_RIFLE,
     AK_47,
-    PISTOLA_DUELOS,
-    PISTOLA_COWBOY,
+    DUELING_GUN,
+    COWBOY_GUN,
     MAGNUM,
-    ESCOPETA,
-    SNIPER
+    SHOTGUN,
+    SNIPER,
+    DUMMY = 99
 };
 
 #endif  // WEAPONS_ID_H

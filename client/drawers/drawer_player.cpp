@@ -3,6 +3,7 @@
 #include <map>
 
 #include "../../common/orientations.h"
+#include "../../common/weapons_id.h"
 #include "../game_state/player.h"
 
 #define TILE_SIZE_ALA 22
@@ -18,11 +19,14 @@ DrawerPlayer::DrawerPlayer(SDL2pp::Renderer& renderer, const player_t& player):
 void DrawerPlayer::draw(SDL2pp::Renderer& renderer, const player_t& player) {
     bool flip = static_cast<orientations>(player.is_looking) == LEFT;
 
-    int x_duck = static_cast<DuckState>(player.state) == IS_CROUCHING ? DUCK_INITIAL_X + SIZE_DUCK_SPRITE * 2 : DUCK_INITIAL_X;
-    int y_duck = static_cast<DuckState>(player.state) == IS_CROUCHING ? DUCK_INITIAL_Y + SIZE_DUCK_SPRITE * 6 : DUCK_INITIAL_Y;
-    
-    RenderConfig playerConfig(texture, x_duck, y_duck, SIZE_DUCK_SPRITE,
-                              SIZE_DUCK_SPRITE, flip);
+    int x_duck = static_cast<DuckState>(player.state) == IS_CROUCHING ?
+                         DUCK_INITIAL_X + SIZE_DUCK_SPRITE * 2 :
+                         DUCK_INITIAL_X;
+    int y_duck = static_cast<DuckState>(player.state) == IS_CROUCHING ?
+                         DUCK_INITIAL_Y + SIZE_DUCK_SPRITE * 6 :
+                         DUCK_INITIAL_Y;
+
+    RenderConfig playerConfig(texture, x_duck, y_duck, SIZE_DUCK_SPRITE, SIZE_DUCK_SPRITE, flip);
     int frame = static_cast<DuckState>(player.state) == IS_RUNNING ? player.frame : 0;
     playerConfig.adjust_for_frame(frame, SIZE_DUCK_SPRITE);
 
@@ -39,7 +43,7 @@ void DrawerPlayer::draw(SDL2pp::Renderer& renderer, const player_t& player) {
     }
 
     if (static_cast<int>(player.inventory.weapon) != 0) {
-        auto weapon_id = static_cast<TEXTURE_WEAPONS>(player.inventory.weapon);
+        auto weapon_id = static_cast<WeaponTextureID>(player.inventory.weapon);
         auto weapon_props = weapon_properties[weapon_id];
         SDL2pp::Texture weapon_texture(renderer, weapon_props.texturePath);
         RenderConfig render_config(weapon_texture, weapon_props.src_x, weapon_props.src_y,

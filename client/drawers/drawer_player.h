@@ -8,7 +8,6 @@
 #include <SDL2pp/Texture.hh>
 
 #include "../../common/state_duck.h"
-#include "../../common/weapons_id.h"
 #include "../config/game_config.h"
 #include "../game_state/player.h"
 

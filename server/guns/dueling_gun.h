@@ -1,13 +1,11 @@
-#ifndef DUELING_GUN
-#define DUELING_GUN
+#ifndef DUELING_GUN_H
+#define DUELING_GUN_H
 
 #include "gun.h"
 
-#define MAX_AMMO 1
-
 class DuelingGun: public Gun {
 public:
-    DuelingGun();
+    DuelingGun(const Coordinate& _coordinate);
     ListProjectiles shoot(Coordinate& shooter_position) override;
 };
 
