@@ -26,6 +26,7 @@ private:
     void looks_up();
     void looks_right();
     void looks_left();
+    void log_action(const std::string& action);
 
 public:
     Player();
@@ -60,6 +61,7 @@ public:
     void idle();
 
     bool is_jumping();
+    bool is_dead();
 
     virtual ~Player();
 };

@@ -41,27 +41,40 @@ void Player::update() {
             case DuckState::IS_JUMPING:
                 set_state(DuckState::IS_FALLING);
                 break;                
+
+            case DuckState::IS_DEAD:
+                reset();
+                break;
             default:
                 idle();
         }
     }
 }
 
+void Player::log_action(const std::string& action) {
+    std::cout << "Player " << int(id) << " " << action << std::endl;
+}
+
+
 void Player::run_right() {
     if (state != DuckState::IS_RUNNING) {
         set_state(DuckState::IS_RUNNING);
+        log_action("Runs to the right");
     }
     translate_x(RUN_STEP);
 }
 void Player::run_left() {
     if (state != DuckState::IS_RUNNING) {
         set_state(DuckState::IS_RUNNING);
+        log_action("Runs to the left");
     }
     translate_x(-RUN_STEP);
 }
 void Player::jump() {
     if (state != DuckState::IS_JUMPING) {
-        set_state(DuckState::IS_JUMPING);
+        set_state(DuckState::IS_JUMPING);        
+        log_action("Jumps");
+
     }
 
     translate_y(JUMP_STEP);
@@ -69,38 +82,46 @@ void Player::jump() {
 void Player::fall(GamePhysics& physics) {
     if (state != DuckState::IS_FALLING) {
         set_state(DuckState::IS_FALLING);
+
     }
     physics.falling(*this, 1);
+    log_action("Fall");
 }
 void Player::crouch() {
     if (state != DuckState::IS_CROUCHING) {
         set_state(DuckState::IS_CROUCHING);
+        log_action("Crouches");
     }
     // translate_y(1); // esto no deberia moverse
 }
 void Player::slip() { 
     if(state != DuckState::IS_SLIPPING){
         set_state(DuckState::IS_SLIPPING); 
+        log_action("Slips");
     }
 }
 void Player::recoil() { 
-    if(state != DuckState::IS_CROUCHING){
-        set_state(DuckState::IS_CROUCHING); 
+    if(state != DuckState::IS_RECOILING){
+        set_state(DuckState::IS_RECOILING); 
+        log_action("Recoils");
     }
 }
 void Player::plane() { 
     if(state != DuckState::IS_PLANING){
-        set_state(DuckState::IS_PLANING); 
+        set_state(DuckState::IS_PLANING);
+        log_action("Plans");
     }
 }
 void Player::die() { 
     if(state != DuckState::IS_DEAD){
         set_state(DuckState::IS_DEAD); 
+        log_action("Deads");
     }
 }
 void Player::idle() { 
     if(state != DuckState::IS_IDLE){
-        set_state(DuckState::IS_IDLE); 
+        set_state(DuckState::IS_IDLE);
+        log_action("Idle");
     }
 }
 
@@ -168,6 +189,7 @@ void Player::move_back(ShootingRecoil tiles) {
 }
 
 bool Player::is_jumping(){ return state == DuckState::IS_JUMPING; }
+bool Player::is_dead(){ return state == DuckState::IS_DEAD; }
 
 ListProjectiles Player::shoot() {
     Gun* gun = inventory.get_gun();
