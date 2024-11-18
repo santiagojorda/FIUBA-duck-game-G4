@@ -29,7 +29,22 @@ tiles:
     tile_id: 3
     coordinate:
       x: 74
+      y: 200  
+  - map_id: 1 # naturetilset
+    tile_id: 3
+    coordinate:
+      x: 90
       y: 200
+  - map_id: 1 # naturetilset
+    tile_id: 3
+    coordinate:
+      x: 106
+      y: 200
+  - map_id: 1 # naturetilset
+    tile_id: 3
+    coordinate:
+      x: 74
+      y: 184
 
 weapon_size: 32
 weapons:
