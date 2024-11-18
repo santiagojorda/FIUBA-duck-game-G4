@@ -5,7 +5,7 @@
 using namespace SDL2pp;
 
 Drawer::Drawer(Queue<ClientEvent_t>& commands, Queue<client_game_state_t>& game_state):
-        commands(commands), game_state(game_state), keyboard_controller(commands, 1) {}
+        commands(commands), game_state(game_state), keyboard_controller(commands, 2) {}
 
 void Drawer::run() try {
     SDL sdl(SDL_INIT_VIDEO);
@@ -16,8 +16,8 @@ void Drawer::run() try {
     Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
 
     // Textura principal
-    Texture renderTarget(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WINDOW_WIDTH,
-                         WINDOW_HEIGHT);
+    Texture render_target(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET,
+                          WINDOW_WIDTH, WINDOW_HEIGHT);
 
 
     Texture background(renderer, DATA_PATH "/background.png");
@@ -58,18 +58,16 @@ void Drawer::run() try {
 
         while (game_state.try_pop(actual_game_state)) {}
 
-        SDL_SetRenderTarget(renderer.Get(), renderTarget.Get());
+        SDL_SetRenderTarget(renderer.Get(), render_target.Get());
 
         init_scenery(renderer, actual_game_state, drawers);
         renderer.Clear();
 
         renderer.Copy(background, Rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
 
-        // X=2, Y=205, 8x8
         renderer.Copy(bala_r, SDL2pp::Rect(2, 205, 8, 8),
                       SDL2pp::Rect(WINDOW_WIDTH / 2, 199, 10, 10));
 
-        // balas laser
         renderer.Copy(bala_laser, SDL2pp::Rect(2, 205, 8, 8),
                       SDL2pp::Rect(WINDOW_WIDTH / 2, 199, 10, 10));
 
@@ -138,7 +136,7 @@ void Drawer::run() try {
         SDL_SetRenderTarget(renderer.Get(), nullptr);
         zoom_handler.calculate_zoom(actual_game_state.players);
         renderer.Clear();
-        zoom_handler.apply_zoom(renderer, renderTarget);
+        zoom_handler.apply_zoom(renderer, render_target);
         renderer.Present();
 
         chrono_now = std::chrono::high_resolution_clock::now();
