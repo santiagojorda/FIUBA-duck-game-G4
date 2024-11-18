@@ -35,7 +35,7 @@ void Player::update() {
                 break;
 
             case DuckState::IS_JUMPING:
-                fall();
+                set_state(DuckState::IS_FALLING);
                 break;                
             default:
                 idle();
@@ -62,11 +62,11 @@ void Player::jump() {
 
     translate_y(JUMP_STEP);
 }
-void Player::fall() {
+void Player::fall(GamePhysics& physics) {
     if (state != DuckState::IS_FALLING) {
         set_state(DuckState::IS_FALLING);
     }
-    translate_y(FALLING_STEP);
+    physics.falling(*this, 1);
 }
 void Player::crouch() {
     if (state != DuckState::IS_CROUCHING) {
@@ -115,12 +115,11 @@ void Player::adjust_position_to_floor(Positionable* floor){
         int floor_top = floor_points.get_y_min();
         int difference = player_bottom - floor_top;
 
-        if (difference >= 0) {
-            translate_y(-(difference + 1));  // Mover hacia arriba para dejarlo 1 píxel por encima del suelo
+        if (difference < 1) {
+            translate_y(-(difference + 1));
         }
-        // Si el jugador está por encima del suelo
         else {
-            translate_y(-difference);  // Mover hacia abajo para dejarlo 1 píxel por encima del suelo
+            translate_y(-(difference - 1)); 
         }
     }
 }

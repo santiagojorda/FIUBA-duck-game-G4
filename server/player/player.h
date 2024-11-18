@@ -9,6 +9,7 @@
 #include "../guns/gun.h"
 #include "../guns/list_projectiles.h"
 #include "../player/inventory.h"
+#include "../game/game_physics.h"
 
 #include "direction.h"
 
@@ -50,7 +51,7 @@ public:
     void run_right();
     void run_left();
     void jump();
-    void fall();
+    void fall(GamePhysics& physics);
     void crouch();
     void slip();
     void recoil();

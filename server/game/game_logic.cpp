@@ -50,7 +50,10 @@ void GameLogic::update_player_gravity(Player& player) {
         player.adjust_position_to_floor(touched_floor);
     }
     else {
-        player.fall();
+        player.fall(physics);
+        // physics.falling(player, player.get_frame());
+        
+        // player.fall();
         // physics.falling(player, 1);
     }
 }
