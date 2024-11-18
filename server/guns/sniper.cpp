@@ -11,13 +11,9 @@ struct SniperConfig {
 };
 SniperConfig sniper_config;
 
-Sniper::Sniper(const Coordinate& _coordinate): 
-        Gun(sniper_config.id,
-            sniper_config.max_ammo,
-            sniper_config.recoil,
-            sniper_config.range,
-            _coordinate) 
-    {}
+Sniper::Sniper(const Coordinate& _coordinate):
+        Gun(sniper_config.id, sniper_config.max_ammo, sniper_config.recoil, sniper_config.range,
+            _coordinate) {}
 
 ListProjectiles Sniper::shoot(Coordinate& shooter_position) {
     (void)shooter_position;

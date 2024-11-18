@@ -11,13 +11,9 @@ struct LaserConfig {
 };
 LaserConfig laser_config;
 
-LaserRifle::LaserRifle(const Coordinate& _coordinate): 
-        Gun(laser_config.id,
-            laser_config.max_ammo,
-            laser_config.recoil,
-            laser_config.range,
-            _coordinate) 
-    {}
+LaserRifle::LaserRifle(const Coordinate& _coordinate):
+        Gun(laser_config.id, laser_config.max_ammo, laser_config.recoil, laser_config.range,
+            _coordinate) {}
 
 ListProjectiles LaserRifle::shoot(Coordinate& shooter_position) {
     (void)shooter_position;

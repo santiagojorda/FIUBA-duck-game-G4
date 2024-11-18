@@ -12,13 +12,9 @@ struct MagnumConfig {
 };
 MagnumConfig magnum_config;
 
-Magnum::Magnum(const Coordinate& _coordinate): 
-        Gun(magnum_config.id,
-            magnum_config.max_ammo,
-            magnum_config.recoil,
-            magnum_config.range,
-            _coordinate) 
-    {}
+Magnum::Magnum(const Coordinate& _coordinate):
+        Gun(magnum_config.id, magnum_config.max_ammo, magnum_config.recoil, magnum_config.range,
+            _coordinate) {}
 
 ListProjectiles Magnum::shoot(Coordinate& shooter_position) {
     (void)shooter_position;

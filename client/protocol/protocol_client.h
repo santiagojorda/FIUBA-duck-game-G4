@@ -14,23 +14,9 @@
 
 class ClientProtocol: public Protocol {
 private:
-    VectorPlayers receive_players();
-
-    std::vector<bullet_t> receive_bullets();
-
-    VectorThrowable receive_throwables();
-
-    std::vector<box_t> receive_boxes();
-
-    VectorSprite receive_floor_sprites();
-
-    sprite_t receive_sprite();
-
-    inventory_t receive_inventory();
-
     zoom_t receive_zoom_details();
 
-    VectorSprite receive_weapons();
+    void receive_weapons(VectorSprite& weapons);
 
     void receive_cordinates(Coordinate& coordinate);
 
@@ -47,7 +33,6 @@ private:
     void receive_sprite(sprite_t& sprite);
 
     void receive_inventory(inventory_t& inventory);
-
 
 public:
     /*
@@ -73,7 +58,7 @@ public:
     /*
      *
      */
-    client_game_state_t receive_game_state();
+    void receive_game_state(client_game_state_t& game_state);
 
     /*
      * Deshabilitar copias.

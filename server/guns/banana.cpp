@@ -12,12 +12,8 @@ struct BananaConfig {
 BananaConfig banana_config;
 
 Banana::Banana(const Coordinate& _coordinate):
-        Gun(banana_config.id,
-            banana_config.max_ammo,
-            banana_config.recoil,
-            banana_config.range,
-            _coordinate) 
-    {}
+        Gun(banana_config.id, banana_config.max_ammo, banana_config.recoil, banana_config.range,
+            _coordinate) {}
 
 ListProjectiles Banana::shoot(Coordinate& shooter_position) {
     (void)shooter_position;

@@ -25,7 +25,7 @@ private:
     void looks_up();
     void looks_right();
     void looks_left();
-    
+
 public:
     Player();
     explicit Player(uint8_t _id);

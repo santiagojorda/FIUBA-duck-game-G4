@@ -11,13 +11,9 @@ struct ShotgunConfig {
 };
 ShotgunConfig shotgun_config;
 
-Shotgun::Shotgun(const Coordinate& _coordinate): 
-        Gun(shotgun_config.id,
-            shotgun_config.max_ammo,
-            shotgun_config.recoil,
-            shotgun_config.range,
-            _coordinate) 
-    {}
+Shotgun::Shotgun(const Coordinate& _coordinate):
+        Gun(shotgun_config.id, shotgun_config.max_ammo, shotgun_config.recoil, shotgun_config.range,
+            _coordinate) {}
 
 
 ListProjectiles Shotgun::shoot(Coordinate& shooter_position) {

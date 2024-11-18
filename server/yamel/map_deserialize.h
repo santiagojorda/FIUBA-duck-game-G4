@@ -2,14 +2,13 @@
 #define MAP_DESERIALIZE_H
 
 #include <list>
-#include <vector>
 #include <utility>
+#include <vector>
 
 #include <yaml-cpp/yaml.h>
 
-#include "../map/map.h"
-
 #include "../../common/coordinate.h"
+#include "../map/map.h"
 
 struct data_weapon {
     uint8_t id;

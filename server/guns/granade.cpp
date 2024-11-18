@@ -13,13 +13,9 @@ struct GranadeConfig {
 };
 GranadeConfig granade_config;
 
-Granade::Granade(const Coordinate& _coordinate): 
-        Gun(granade_config.id,
-            granade_config.max_ammo,
-            granade_config.recoil,
-            granade_config.range,
-            _coordinate) 
-    {}
+Granade::Granade(const Coordinate& _coordinate):
+        Gun(granade_config.id, granade_config.max_ammo, granade_config.recoil, granade_config.range,
+            _coordinate) {}
 
 
 ListProjectiles Granade::shoot(Coordinate& shooter_position) {

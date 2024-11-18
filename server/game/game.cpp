@@ -7,34 +7,31 @@
 #include "../guns/pew_pew_laser.h"
 #include "../map/ground.h"
 #include "../player/player.h"
-
 #include "../yamel/map_deserialize.h"
 
 #define PATH_MAP "../game_rsc/maps/map01.yaml"
 
 #define MILISECONDS_30_FPS 33
 
-void charge_ponits(ListPlayers & players, std::vector<Coordinate>& points){
+void charge_ponits(ListPlayers& players, std::vector<Coordinate>& points) {
     int i = 0;
-    for (auto& player : players) {
+    for (auto& player: players) {
         player.set_coordinate(points[i]);
         i++;
     }
 }
 
-void Game::load_map(){
-    try
-    {
+void Game::load_map() {
+    try {
         MapDeserialize deserialize(PATH_MAP);
         deserialize.load_floors(this->map);
         std::vector<Coordinate> points;
         deserialize.load_inicial_points(points);
         //        deserialize.load_weapons(); //esto hay que verlo
     } catch (const std::exception& e) {
-        std::cerr << "error map.yaml" <<e.what() << '\n';
+        std::cerr << "error map.yaml" << e.what() << '\n';
     }
 }
-    
 
 
 Game::Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEventPlayer& _queue_event,
@@ -65,9 +62,7 @@ void Game::execute_new_events() {
 
 void Game::broadcast_gamestate() { monitor_client.broadcast(get_gamestate()); }
 
-GameState_t Game::get_gamestate() {
-    return GameState_t{players, map, map_guns, map_projectiles};
-}
+GameState_t Game::get_gamestate() { return GameState_t{players, map, map_guns, map_projectiles}; }
 
 auto get_actual_milliseconds() { return std::chrono::high_resolution_clock::now(); }
 

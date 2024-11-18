@@ -5,15 +5,16 @@ const int G_FORCE = 10;
 
 GamePhysics::GamePhysics() {}
 
-bool collision_point(const int& collision_point, const int& collision_min, const int&
-collision_max) {
-   return (collision_min <= collision_point) && (collision_point <= collision_max);
+bool collision_point(const int& collision_point, const int& collision_min,
+                     const int& collision_max) {
+    return (collision_min <= collision_point) && (collision_point <= collision_max);
 }
 
-bool collision_segment(const int  segment_a, const int  segment_b, const int  collision_min, const int  collision_max){
+bool collision_segment(const int segment_a, const int segment_b, const int collision_min,
+                       const int collision_max) {
     bool colision = false;
     int i = segment_a;
-    while (!colision && i <= segment_b){
+    while (!colision && i <= segment_b) {
         colision = collision_point(i, collision_min, collision_max);
         i++;
     }

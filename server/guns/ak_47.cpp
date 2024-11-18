@@ -12,12 +12,7 @@ struct AKConfig {
 AKConfig ak_config;
 
 AK47::AK47(const Coordinate& _coordinate):
-        Gun(ak_config.id,
-            ak_config.max_ammo,
-            ak_config.recoil,
-            ak_config.range,
-            _coordinate) 
-    {}
+        Gun(ak_config.id, ak_config.max_ammo, ak_config.recoil, ak_config.range, _coordinate) {}
 
 // ListProjectiles AK47::generate_list_projectiles(Coordinate& shooter_position){
 //     (void)shooter_position;

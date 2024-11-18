@@ -1,9 +1,9 @@
 #ifndef AK_47_H
 #define AK_47_H
 
-#include "gun.h"
-
 #include "../../common/weapons_id.h"
+
+#include "gun.h"
 
 class AK47: public Gun {
 private:

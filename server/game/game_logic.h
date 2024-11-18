@@ -27,7 +27,8 @@ private:
     Positionable* get_player_floor_collision(const Player& player);
 
 public:
-    explicit GameLogic(ListPlayers& _players, Map& _map, ListGuns& _map_guns, ListProjectiles& _map_projectiles);
+    explicit GameLogic(ListPlayers& _players, Map& _map, ListGuns& _map_guns,
+                       ListProjectiles& _map_projectiles);
     void handle_event(uint8_t player_id, ActionCommand event);
     void update_players();
     ~GameLogic();

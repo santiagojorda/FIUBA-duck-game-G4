@@ -12,12 +12,8 @@ struct DuelingConfig {
 DuelingConfig dueling_config;
 
 DuelingGun::DuelingGun(const Coordinate& _coordinate):
-        Gun(dueling_config.id,
-            dueling_config.max_ammo,
-            dueling_config.recoil,
-            dueling_config.range,
-            _coordinate) 
-    {}
+        Gun(dueling_config.id, dueling_config.max_ammo, dueling_config.recoil, dueling_config.range,
+            _coordinate) {}
 
 ListProjectiles DuelingGun::shoot(Coordinate& shooter_position) {
     (void)shooter_position;

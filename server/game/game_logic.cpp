@@ -4,8 +4,13 @@
 #include "../../common/state_duck.h"
 
 
-GameLogic::GameLogic(ListPlayers& _players, Map& _map, ListGuns& _map_guns, ListProjectiles& _map_projectiles):
-        players(_players), map(_map), map_guns(_map_guns), map_projectiles(_map_projectiles), physics() {}
+GameLogic::GameLogic(ListPlayers& _players, Map& _map, ListGuns& _map_guns,
+                     ListProjectiles& _map_projectiles):
+        players(_players),
+        map(_map),
+        map_guns(_map_guns),
+        map_projectiles(_map_projectiles),
+        physics() {}
 
 Positionable* GameLogic::get_player_floor_collision(const Player& player) {
     for (auto& tile: this->map) {
@@ -108,7 +113,7 @@ void GameLogic::handle_event(uint8_t player_id, ActionCommand event) {
                 // chequear se pueda
                 log_player_action(player, "shoot");
                 ListProjectiles gun_projectiles = player.shoot();
-                for(auto* projectile: gun_projectiles.get_items()){
+                for (auto* projectile: gun_projectiles.get_items()) {
                     map_projectiles.transfer_item(projectile, gun_projectiles);
                 }
                 break;

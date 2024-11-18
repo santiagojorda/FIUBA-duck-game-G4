@@ -2,7 +2,7 @@
 #define WEAPONS_ID_H
 
 #include <cstdint>
-enum class WeaponTextureID: uint8_t {
+enum class WeaponTextureID : uint8_t {
     GRANATE = 1,
     BANANA,
     PEW_PEW_LASER,
