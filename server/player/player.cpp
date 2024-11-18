@@ -13,7 +13,7 @@ const int SPEED = 1;
 
 Player::Player(): Statable((uint8_t)DuckState::IS_IDLE) {}
 Player::Player(uint8_t _id):
-    Positionable(_id, Coordinate(10, 10, 32, 32)), 
+    Positionable(_id, _id, Coordinate(10, 10, 32, 32)), 
     Statable(uint8_t(DuckState::IS_IDLE)) 
     {}
 
