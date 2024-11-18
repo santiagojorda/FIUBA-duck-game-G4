@@ -32,6 +32,7 @@ public:
     Player& operator=(const Player& _other);
     uint8_t get_id() const;
     void translate() override;
+    void adjust_position_to_floor(Positionable* floor);
     void translate_x(int pasos) override;
     void translate_y(int pasos) override;
     void move_back(ShootingRecoil tiles);
@@ -56,6 +57,8 @@ public:
     void plane();
     void die();
     void idle();
+
+    bool is_jumping();
 
     virtual ~Player();
 };

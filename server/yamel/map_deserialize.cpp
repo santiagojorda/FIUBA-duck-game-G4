@@ -40,8 +40,9 @@ void MapDeserialize::load_floors(Map& charge_map) {
         int tile_id = tile[enum_string(TILE_ID)].as<int>();
         int x = tile[enum_string(COORDINATE)][enum_string(X)].as<int>();
         int y = tile[enum_string(COORDINATE)][enum_string(Y)].as<int>();
-
-        charge_map.add(new Ground(Coordinate(x, y, tile_size, tile_size)));
+        Coordinate coordinate_new_item = Coordinate(x, y, tile_size, tile_size);
+        charge_map.add(new Ground(coordinate_new_item));
+        std::cout << coordinate_new_item << std::endl;
         tile_id++;
     }
 }

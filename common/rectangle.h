@@ -7,11 +7,13 @@ class Rectangle {
 private:
     Coordinate points;
 
-    int length_x(const Coordinate& c) const;
-    int length_y(const Coordinate& c) const;
+    int width(const Coordinate& c) const;
+    int height(const Coordinate& c) const;
 
 public:
     Rectangle();
+    int get_height();
+    int get_width();
 
     /*
     / Inicia con el siguiente formato (x, y , x+w, y+h)
@@ -77,6 +79,8 @@ public:
 
     int get_y_max() const;
 
+    void bottom_touch(const Rectangle& bottom_surface);
+    bool is_bottom_touching(const Rectangle& bottom_surface);
     ~Rectangle();
 };
 

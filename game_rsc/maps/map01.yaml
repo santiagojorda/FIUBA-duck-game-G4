@@ -4,17 +4,17 @@ tiles:
     tile_id: 3
     coordinate:
       x: 10
-      y: 184
+      y: 200
   - map_id: 1 # naturetilset
     tile_id: 3
     coordinate:
       x: 26
-      y: 184
+      y: 200
   - map_id: 1 # naturetilset
     tile_id: 3
     coordinate:
       x: 0
-      y: 184
+      y: 200
 
 weapon_size: 
 weapons:

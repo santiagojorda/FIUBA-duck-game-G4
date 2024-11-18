@@ -1,18 +1,19 @@
 #include "game_logic.h"
 
 #include <iostream>
+#include "../../common/state_duck.h"
 
 
 GameLogic::GameLogic(ListPlayers& _players, Map& _map, ListGuns& _map_guns, ListProjectiles& _map_projectiles):
         players(_players), map(_map), map_guns(_map_guns), map_projectiles(_map_projectiles), physics() {}
 
-bool GameLogic::is_player_floor_collision(Player& player) {
+Positionable* GameLogic::get_player_floor_collision(const Player& player) {
     for (auto& tile: this->map) {
         if (this->physics.collision(player.get_rectangle(), tile->get_rectangle())) {
-            return true;
+            return tile;
         }
     }
-    return false;
+    return nullptr;
 }
 
 
@@ -20,7 +21,6 @@ void GameLogic::update_player_equip_collision(Player& player) {
     for (auto& gun: map_guns.get_items()) {
         if (this->physics.collision(player.get_rectangle(), gun->get_rectangle())) {
             player.equip(gun);
-            log_player_action(player, "take a gun");
             map_guns.remove(gun);
             return;
         }
@@ -31,15 +31,23 @@ void GameLogic::update_player_equip_collision(Player& player) {
 void GameLogic::update_players() {
     for (Player& player: players) {
         player.update();
-        update_player_gravity(player);
+        if(!player.is_jumping()){
+            update_player_gravity(player);
+        }
         update_player_equip_collision(player);
     }
 }
 
 void GameLogic::update_player_gravity(Player& player) {
-    if (!is_player_floor_collision(player)) {
-        physics.falling(player, 1);
+    Positionable* touched_floor = get_player_floor_collision(player); 
+    if (touched_floor) {
+        // player.touch_floor(touched_floor);
         // si es que no baja mas, que acomode el sobrante
+        player.adjust_position_to_floor(touched_floor);
+    }
+    else {
+        player.fall();
+        // physics.falling(player, 1);
     }
 }
 

@@ -57,6 +57,7 @@ bool GamePhysics::collision(const Rectangle& a, const Rectangle& b) {
 }
 
 void GamePhysics::falling(Positionable& target, uint iter_frame) {
+    // target.translate_y();
     target.translate_y(iter_frame * iter_frame * (G_FORCE / 2));
 }
 
