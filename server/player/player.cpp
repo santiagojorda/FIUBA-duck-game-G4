@@ -11,9 +11,12 @@ const int SPEED = 1;
 #define JUMP_STEP -10
 #define FALLING_STEP 1
 
-Player::Player(): Statable(DuckState::IS_IDLE) {}
+Player::Player(): Statable((uint8_t)DuckState::IS_IDLE) {}
 Player::Player(uint8_t _id):
-        Positionable(_id, Coordinate(10, 10, 32, 32)), Statable(DuckState::IS_IDLE) {}
+    Positionable(_id, Coordinate(10, 10, 32, 32)), 
+    Statable(uint8_t(DuckState::IS_IDLE)) 
+    {}
+
 Player::~Player() { Positionable::~Positionable(); }
 
 void Player::looks_right() { look_direction = Direction::RIGHT; }
@@ -23,8 +26,9 @@ void Player::looks_up() { look_direction = Direction::UP; }
 void Player::update() {
 
     frame++;
+    tick++;
 
-    if (frame >= duck_state_frames[state].max_frames) {
+    if (frame >= duck_state_frames[(DuckState)state].max_frames) {
         switch (state) {
             case DuckState::IS_FALLING:
                 reset();
