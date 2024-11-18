@@ -49,6 +49,7 @@ void ProtocolServer::send_players_state(GameState_t& state) {
     send_byte(count_players);
     for (Player& player: state.players) {
         send_byte(player.get_id());
+        // std::cout << "player" << static_cast<uint8_t>(player.get_state()) << std::endl;
         send_coordinates(player.get_coordinate());
         send_byte(static_cast<uint8_t>(player.get_direction()));
         send_byte(static_cast<uint8_t>(player.get_state()));
@@ -58,6 +59,13 @@ void ProtocolServer::send_players_state(GameState_t& state) {
 }
 
 void ProtocolServer::send_projectiles_state(GameState_t& state) {
+    // uint16_t count_projectiles = state.map.size();
+    // send_2_byte(count_projectiles);  //
+    // for (Positionable* item_map: state.map) {
+    //     send_byte(0);  // texture_id
+    //     send_coordinates(item_map->get_coordinate());
+    // }
+
     (void)state;
     uint16_t count_projectiles = 0;
     send_2_bytes(count_projectiles);
@@ -93,7 +101,6 @@ void ProtocolServer::send_boxes_state(GameState_t& state) {
 }
 
 void ProtocolServer::send_scenario_state(GameState_t& state) {
-    (void)state;
     uint8_t count_map_items = state.map.size();
     send_byte(count_map_items);  //
     for (Positionable* item_map: state.map) {

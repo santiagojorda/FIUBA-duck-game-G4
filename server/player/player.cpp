@@ -10,7 +10,7 @@ const int SPEED = 1;
 #define FALLING_STEP 10
 
 Player::Player(): Statable(DuckState::IS_IDLE) {}
-Player::Player(uint8_t _id): Statable(DuckState::IS_IDLE), id(_id) {}
+Player::Player(uint8_t _id): Positionable(_id, Coordinate(10, 10, 32, 32)), Statable(DuckState::IS_IDLE) {}
 Player::~Player() { Positionable::~Positionable(); }
 
 void Player::looks_right() { look_direction = Direction::RIGHT; }
@@ -24,6 +24,10 @@ void Player::update() {
     if (frame >= duck_state_frames[state].max_frames) {
         switch (state) {
             case DuckState::IS_FALLING:
+                reset();
+                break;
+
+            case DuckState::IS_IDLE:
                 reset();
                 break;
 

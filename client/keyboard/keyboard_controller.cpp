@@ -83,7 +83,9 @@ void KeyboardController::procesar_accion_player_1(SDL_Event& event) {
             std::cout << "Saltar" << std::endl;
             break;
         case SDLK_SPACE:  // disparar espacio
+            client_event = {PLAYER_1, SHOOT};
             std::cout << "Disparar" << std::endl;
+            this->commands.push(client_event);
             break;
         case SDLK_e:  // recoger o soltar un arma/objeto
             std::cout << "Tomar/soltar objeto" << std::endl;

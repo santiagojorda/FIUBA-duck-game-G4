@@ -1,6 +1,8 @@
 tile_size: 16
 tiles:
   - coordinate:
+      map_id: 1 # naturetilset
+      tile_id: 3
       x: 10
       y: 200
   - coordinate:

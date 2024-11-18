@@ -16,9 +16,7 @@
 class Player: public Positionable, public Statable {
 private:
     // cppcheck-suppress unusedStructMember
-    uint8_t id;
-    // cppcheck-suppress unusedStructMember
-    uint health;  // te lo dejo para ir pensado en la vida
+    uint8_t health;  // te lo dejo para ir pensado en la vida
     // cppcheck-suppress unusedStructMember
     Direction look_direction = Direction::RIGHT;
 
@@ -27,8 +25,7 @@ private:
     void looks_up();
     void looks_right();
     void looks_left();
-
-
+    
 public:
     Player();
     explicit Player(uint8_t _id);

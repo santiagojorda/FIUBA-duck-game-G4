@@ -1,5 +1,5 @@
-#ifndef LASER_RIFLE
-#define LASER_RIFLE
+#ifndef LASER_RIFLE_H
+#define LASER_RIFLE_H
 
 #include "gun.h"
 

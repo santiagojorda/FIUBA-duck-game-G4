@@ -1,5 +1,5 @@
-#ifndef COWBOY_GUN
-#define COWBOY_GUN
+#ifndef COWBOY_GUN_H
+#define COWBOY_GUN_H
 
 #include "gun.h"
 

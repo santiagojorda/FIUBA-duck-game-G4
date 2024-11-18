@@ -1,5 +1,5 @@
-#ifndef GRANADE
-#define GRANADE
+#ifndef GRANADE_H
+#define GRANADE_H
 
 #include "gun.h"
 #include "projectile.h"

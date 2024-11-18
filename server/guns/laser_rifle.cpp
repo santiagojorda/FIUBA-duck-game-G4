@@ -3,7 +3,7 @@
 #include "../../common/weapons_id.h"
 
 struct LaserConfig {
-    uint8_t id = TEXTURE_WEAPONS::LASER_RIFLE_ID;
+    WeaponTextureID id = WeaponTextureID::LASER_RIFLE;
     uint8_t max_ammo = 10;
     ShootingRecoil recoil = ShootingRecoil::NONE;
     ProjectileRange range = ProjectileRange::VERY_LARGE;

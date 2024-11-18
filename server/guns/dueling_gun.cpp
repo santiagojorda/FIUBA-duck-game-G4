@@ -3,7 +3,7 @@
 #include "../../common/weapons_id.h"
 
 struct DuelingConfig {
-    uint8_t id = TEXTURE_WEAPONS::PISTOLA_DUELOS_ID;
+    WeaponTextureID id = WeaponTextureID::DUELING_GUN;
     uint8_t max_ammo = 1;
     ShootingRecoil recoil = ShootingRecoil::NONE;
     ProjectileRange range = ProjectileRange::VERY_SHORT;
