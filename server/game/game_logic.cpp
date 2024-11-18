@@ -35,7 +35,7 @@ void GameLogic::update_player_equip_collision(Player& player) {
 
 bool GameLogic::is_player_out_of_map(Player& player){
     Rectangle player_space = player.get_rectangle();
-    if (player_space.get_x_min() < 0 || player_space.get_y_min() < 0 || player_space.get_x_max() > GAME_WIDTH || player_space.get_y_max() > GAME_HEIGHT) {
+    if (player_space.get_x_max() < 0 || player_space.get_y_max() < 0 || player_space.get_x_min() > GAME_WIDTH || player_space.get_y_min() > GAME_HEIGHT) {
         return true;
     }
     return false;

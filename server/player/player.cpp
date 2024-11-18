@@ -74,9 +74,7 @@ void Player::jump() {
     if (state != DuckState::IS_JUMPING) {
         set_state(DuckState::IS_JUMPING);        
         log_action("Jumps");
-
     }
-
     translate_y(JUMP_STEP);
 }
 void Player::fall(GamePhysics& physics) {

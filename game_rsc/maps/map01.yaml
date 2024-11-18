@@ -46,16 +46,16 @@ tiles:
       x: 74
       y: 184
 
-weapon_size: 32
-weapons:
-  - id: 3
-    coordinate:
-      x: 0
-      y: 184
-  - id: 5
-    coordinate:
-      x: 42
-      y: 184
+# weapon_size: 32
+# weapons:
+#   - id: 3
+#     coordinate:
+#       x: 0
+#       y: 184
+#   - id: 5
+#     coordinate:
+#       x: 42
+#       y: 184
 
 player_size: 32
 players:
