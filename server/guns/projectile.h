@@ -10,7 +10,8 @@ protected:
     ProjectileRange range_tiles;
 
 public:
-    explicit Projectile(const uint8_t& texture_id, ProjectileRange _range_tiles, Coordinate _coordinate);
+    explicit Projectile(const uint8_t& texture_id, ProjectileRange _range_tiles,
+                        Coordinate _coordinate);
 };
 
 #endif

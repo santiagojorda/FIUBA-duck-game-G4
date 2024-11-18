@@ -4,15 +4,16 @@
 
 #include "../guns/gun.h"
 
+#include "../../common/state_duck.h"
+
 const int SPEED = 1;
 #define RUN_STEP 10
 #define JUMP_STEP -10
-#define FALLING_STEP 10
+#define FALLING_STEP 1
 
 Player::Player(): Statable(DuckState::IS_IDLE) {}
-Player::Player(uint8_t _id): Positionable(_id, Coordinate(10, 10, 32, 32)), Statable(DuckState::IS_IDLE) 
-    {
-    }
+Player::Player(uint8_t _id):
+        Positionable(_id, Coordinate(10, 10, 32, 32)), Statable(DuckState::IS_IDLE) {}
 Player::~Player() { Positionable::~Positionable(); }
 
 void Player::looks_right() { look_direction = Direction::RIGHT; }
@@ -34,50 +35,70 @@ void Player::update() {
                 break;
 
             case DuckState::IS_JUMPING:
-                
-                break;
+                fall();
+                break;                
             default:
-                set_state(DuckState::IS_IDLE);
+                idle();
         }
     }
 }
 
 void Player::run_right() {
-    if(state != DuckState::IS_RUNNING){
+    if (state != DuckState::IS_RUNNING) {
         set_state(DuckState::IS_RUNNING);
     }
     translate_x(RUN_STEP);
 }
 void Player::run_left() {
-    if(state != DuckState::IS_RUNNING){
+    if (state != DuckState::IS_RUNNING) {
         set_state(DuckState::IS_RUNNING);
     }
     translate_x(-RUN_STEP);
 }
 void Player::jump() {
-    if(state != DuckState::IS_JUMPING){
+    if (state != DuckState::IS_JUMPING) {
         set_state(DuckState::IS_JUMPING);
     }
 
     translate_y(JUMP_STEP);
 }
 void Player::fall() {
-    if (state != DuckState::IS_FALLING){
+    if (state != DuckState::IS_FALLING) {
         set_state(DuckState::IS_FALLING);
     }
     translate_y(FALLING_STEP);
 }
 void Player::crouch() {
-    if(state != DuckState::IS_CROUCHING){
+    if (state != DuckState::IS_CROUCHING) {
         set_state(DuckState::IS_CROUCHING);
     }
     // translate_y(1); // esto no deberia moverse
 }
-void Player::slip() { set_state(DuckState::IS_SLIPPING); }
-void Player::recoil() { set_state(DuckState::IS_RECOILING); }
-void Player::plane() { set_state(DuckState::IS_PLANING); }
-void Player::die() { set_state(DuckState::IS_DEAD); }
-void Player::idle() { set_state(DuckState::IS_IDLE); }
+void Player::slip() { 
+    if(state != DuckState::IS_SLIPPING){
+        set_state(DuckState::IS_SLIPPING); 
+    }
+}
+void Player::recoil() { 
+    if(state != DuckState::IS_CROUCHING){
+        set_state(DuckState::IS_CROUCHING); 
+    }
+}
+void Player::plane() { 
+    if(state != DuckState::IS_PLANING){
+        set_state(DuckState::IS_PLANING); 
+    }
+}
+void Player::die() { 
+    if(state != DuckState::IS_DEAD){
+        set_state(DuckState::IS_DEAD); 
+    }
+}
+void Player::idle() { 
+    if(state != DuckState::IS_IDLE){
+        set_state(DuckState::IS_IDLE); 
+    }
+}
 
 uint8_t Player::get_id() const { return this->id; }
 Gun* Player::get_gun() { return inventory.get_gun(); }
@@ -86,7 +107,26 @@ Helmet* Player::get_helmet() { return inventory.get_helmet(); }
 Inventory& Player::get_inventory() { return inventory; }
 Direction Player::get_direction() { return look_direction; }
 
+void Player::adjust_position_to_floor(Positionable* floor){
+    if(floor){
+
+        int player_bottom = space.get_y_max();
+        Rectangle floor_points = floor->get_rectangle();
+        int floor_top = floor_points.get_y_min();
+        int difference = player_bottom - floor_top;
+
+        if (difference >= 0) {
+            translate_y(-(difference + 1));  // Mover hacia arriba para dejarlo 1 píxel por encima del suelo
+        }
+        // Si el jugador está por encima del suelo
+        else {
+            translate_y(-difference);  // Mover hacia abajo para dejarlo 1 píxel por encima del suelo
+        }
+    }
+}
+
 void Player::translate() {}
+
 void Player::translate_x(int pasos) {  // cambiar la variable
     if (pasos > 0) {
         looks_right();
@@ -123,6 +163,8 @@ void Player::move_back(ShootingRecoil tiles) {
 
     (void)tiles;
 }
+
+bool Player::is_jumping(){ return state == DuckState::IS_JUMPING; }
 
 ListProjectiles Player::shoot() {
     Gun* gun = inventory.get_gun();

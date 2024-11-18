@@ -1,7 +1,8 @@
 #include "map_deserialize.h"
 
-#include "../map/ground.h"
 #include <map>
+
+#include "../map/ground.h"
 
 enum keys_yamel {
     MAP_ID,

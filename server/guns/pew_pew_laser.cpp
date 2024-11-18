@@ -12,13 +12,9 @@ struct PewPewLaserConfig {
 };
 PewPewLaserConfig pew_pew_laser_config;
 
-PewPewLaser::PewPewLaser(Coordinate _coordinate): 
-        Gun(pew_pew_laser_config.id,
-            pew_pew_laser_config.max_ammo,
-            pew_pew_laser_config.recoil,
-            pew_pew_laser_config.range,
-            _coordinate) 
-    {}
+PewPewLaser::PewPewLaser(Coordinate _coordinate):
+        Gun(pew_pew_laser_config.id, pew_pew_laser_config.max_ammo, pew_pew_laser_config.recoil,
+            pew_pew_laser_config.range, _coordinate) {}
 
 ListProjectiles PewPewLaser::shoot(Coordinate& shooter_position) {
     (void)shooter_position;

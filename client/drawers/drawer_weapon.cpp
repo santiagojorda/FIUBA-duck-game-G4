@@ -1,6 +1,5 @@
 #include "drawer_weapon.h"
 
-
 #include "../../common/weapons_id.h"
 
 #define WEAPON_INITIAL_X 1
@@ -23,9 +22,10 @@ void DrawerWeapon::draw(SDL2pp::Renderer& renderer, const sprite_t& weapon) {
             {WeaponTextureID::PEW_PEW_LASER, DATA_PATH "/DuckGame-Laser.png"},  // ok
             {WeaponTextureID::LASER_RIFLE, DATA_PATH "/DuckGame-Laser.png"},    // ok
             {WeaponTextureID::AK_47, DATA_PATH "/DuckGame-MachineGuns.png"},    // ok
-            {WeaponTextureID::DUELING_GUN, DATA_PATH "/DuckGame-Pistol.png"},  // ????????? supongo que es la pistol
+            {WeaponTextureID::DUELING_GUN,
+             DATA_PATH "/DuckGame-Pistol.png"},  // ????????? supongo que es la pistol
             {WeaponTextureID::COWBOY_GUN, DATA_PATH "/DuckGame-Pistol.png"},  // ok
-            {WeaponTextureID::MAGNUM, DATA_PATH "/DuckGame-Pistol.png"},          // ok
+            {WeaponTextureID::MAGNUM, DATA_PATH "/DuckGame-Pistol.png"},      // ok
             {WeaponTextureID::SHOTGUN, DATA_PATH "/DuckGame-Props.png"},
             {WeaponTextureID::SNIPER, DATA_PATH "/DuckGame-MoreWeapons.png"}  // ok
     };

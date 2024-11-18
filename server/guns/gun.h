@@ -7,8 +7,8 @@
 #include "../attributes/equippable.h"
 #include "../attributes/positionable.h"
 // #include "../attributes/statable.h"
-#include "../player/inventory.h"
 #include "../../common/weapons_id.h"
+#include "../player/inventory.h"
 
 #include "list_projectiles.h"
 #include "projectile_range.h"
@@ -25,8 +25,9 @@ protected:
 
     // virtual ListProjectiles generate_list_projectiles(Coordinate& shooter_position);
 public:
-    explicit Gun(const WeaponTextureID& _texture_id, const uint8_t& _max_ammo, const ShootingRecoil& _recoil, const ProjectileRange& _projectile_range,
-                const Coordinate& _coordinate);
+    explicit Gun(const WeaponTextureID& _texture_id, const uint8_t& _max_ammo,
+                 const ShootingRecoil& _recoil, const ProjectileRange& _projectile_range,
+                 const Coordinate& _coordinate);
 
     virtual ListProjectiles shoot(Coordinate& shooter_position) = 0;
     ListProjectiles shoot(Coordinate& shooter_position, ShootingRecoil& _recoil);
