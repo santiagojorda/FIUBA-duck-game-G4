@@ -15,6 +15,10 @@ void Drawer::run() try {
 
     Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
 
+    // Textura principal
+    Texture renderTarget(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WINDOW_WIDTH,
+                         WINDOW_HEIGHT);
+
 
     Texture background(renderer, DATA_PATH "/background.png");
 
@@ -34,27 +38,29 @@ void Drawer::run() try {
     auto chrono_now = std::chrono::high_resolution_clock::now();
     auto chrono_prev = chrono_now;
 
+    ZoomHandler zoom_handler;
     // desde el LOBBY ya le di a startear game, por lo tanto no necesito darle a la "m", de entrada
     // recibo la data lo traigo para acá así no hay drama
 
-    Socket skt("localhost", "8080");
-    ClientProtocol protocol(skt);
-    protocol.send_init(0xFF);
+    // Socket skt("localhost", "8080");
+    // ClientProtocol protocol(skt);
+    // protocol.send_init(0xFF);
 
     // ---------------------------- Iniciar partida primer escenario ----------------------------
     // Mientras no reciba un primer escenario, queda en el ciclo
-    while (!game_state.try_pop(actual_game_state)) {
-        std::cout << "Loading..." << std::endl;
-        std::this_thread::sleep_for(std::chrono::milliseconds(MILISECONDS_30_FPS));
-    }
-
-    init_scenery(renderer, actual_game_state, drawers);
+    /*while (!game_state.try_pop(actual_game_state)) {
+         std::cout << "Loading..." << std::endl;
+         std::this_thread::sleep_for(std::chrono::milliseconds(MILISECONDS_30_FPS));
+     }*/
 
     // -----------------------------------------------------------------------------------------
     while (true) {
 
         while (game_state.try_pop(actual_game_state)) {}
 
+        SDL_SetRenderTarget(renderer.Get(), renderTarget.Get());
+
+        init_scenery(renderer, actual_game_state, drawers);
         renderer.Clear();
 
         renderer.Copy(background, Rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
@@ -129,7 +135,10 @@ void Drawer::run() try {
             drawers.weapons[i]->draw(renderer, weapon);
         }
 
-        // Fin draw, lo presentamos.
+        SDL_SetRenderTarget(renderer.Get(), nullptr);
+        zoom_handler.calculate_zoom(actual_game_state.players);
+        renderer.Clear();
+        zoom_handler.apply_zoom(renderer, renderTarget);
         renderer.Present();
 
         chrono_now = std::chrono::high_resolution_clock::now();
@@ -157,25 +166,25 @@ void Drawer::init_scenery(Renderer& renderer, const client_game_state_t& actual_
                 std::make_unique<DrawerPlayer>(renderer, player);
         drawers.players[player.sprite.id_texture]->draw(renderer, player);
     }
+    /*
+        // Floor
+        for (size_t i = 0; i < actual_game_state.floors.size(); i++) {
+            auto floor = actual_game_state.floors[i];
+            drawers.floors.push_back(std::make_unique<DrawerFloor>(renderer, floor));
+            drawers.floors.back()->draw(renderer, floor);
+        }
 
-    // Floor
-    for (size_t i = 0; i < actual_game_state.floors.size(); i++) {
-        auto floor = actual_game_state.floors[i];
-        drawers.floors.push_back(std::make_unique<DrawerFloor>(renderer, floor));
-        drawers.floors.back()->draw(renderer, floor);
-    }
+        // Box
+        for (size_t i = 0; i < actual_game_state.boxs.size(); i++) {
+            auto box = actual_game_state.boxs[i];
+            drawers.boxes.push_back(std::make_unique<DrawerBox>(renderer, box));
+            drawers.boxes.back()->draw(renderer, box);
+        }
 
-    // Box
-    for (size_t i = 0; i < actual_game_state.boxs.size(); i++) {
-        auto box = actual_game_state.boxs[i];
-        drawers.boxes.push_back(std::make_unique<DrawerBox>(renderer, box));
-        drawers.boxes.back()->draw(renderer, box);
-    }
-
-    // Weapon
-    for (size_t i = 0; i < actual_game_state.weapons.size(); i++) {
-        auto weapon = actual_game_state.weapons[i];
-        drawers.weapons.push_back(std::make_unique<DrawerWeapon>(renderer, weapon));
-        drawers.weapons.back()->draw(renderer, weapon);
-    }
+        // Weapon
+        for (size_t i = 0; i < actual_game_state.weapons.size(); i++) {
+            auto weapon = actual_game_state.weapons[i];
+            drawers.weapons.push_back(std::make_unique<DrawerWeapon>(renderer, weapon));
+            drawers.weapons.back()->draw(renderer, weapon);
+        }*/
 }

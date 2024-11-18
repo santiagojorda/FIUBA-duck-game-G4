@@ -13,6 +13,8 @@
 #define SIZE_DUCK_SPRITE 32
 #define SIZE_DUCK_ALA 16
 
+#define OFFSET_Y 12
+
 DrawerPlayer::DrawerPlayer(SDL2pp::Renderer& renderer, const player_t& player):
         texture(renderer, textures[player.sprite.id_texture]) {}
 
@@ -31,7 +33,7 @@ void DrawerPlayer::draw(SDL2pp::Renderer& renderer, const player_t& player) {
     playerConfig.adjust_for_frame(frame, SIZE_DUCK_SPRITE);
 
     RendererHelper::render(playerConfig, renderer, player.sprite.coordinate.get_x(),
-                           player.sprite.coordinate.get_y(), TILE_SIZE, TILE_SIZE);
+                           player.sprite.coordinate.get_y() - OFFSET_Y, TILE_SIZE, TILE_SIZE);
 
     if (static_cast<int>(player.inventory.armor) != 0) {
         SDL2pp::Texture armadura_texture(renderer, DATA_PATH "/DuckGame-Equipment.png");
@@ -39,7 +41,8 @@ void DrawerPlayer::draw(SDL2pp::Renderer& renderer, const player_t& player) {
                                  flip);
         armorConfig.adjust_for_frame(frame, SIZE_DUCK_SPRITE);
         RendererHelper::render(armorConfig, renderer, player.sprite.coordinate.get_x(),
-                               player.sprite.coordinate.get_y() + 3, TILE_SIZE, TILE_SIZE);
+                               player.sprite.coordinate.get_y() + 3 - OFFSET_Y, TILE_SIZE,
+                               TILE_SIZE);
     }
 
     if (static_cast<int>(player.inventory.weapon) != 0) {
@@ -51,13 +54,14 @@ void DrawerPlayer::draw(SDL2pp::Renderer& renderer, const player_t& player) {
 
         WeaponConfig weapon_config(weapon_id, flip, player.sprite.coordinate);
         RendererHelper::render(render_config, renderer, weapon_config.offset_x,
-                               weapon_config.offset_y, weapon_config.scale_width,
+                               weapon_config.offset_y - OFFSET_Y, weapon_config.scale_width,
                                weapon_config.scale_height);
 
         int x_ala = flip ? 16 : 12;
         RenderConfig playerAlaConfig(texture, 1, 566, SIZE_DUCK_ALA, SIZE_DUCK_ALA, flip);
         playerAlaConfig.adjust_for_frame(frame, SIZE_DUCK_ALA);
         RendererHelper::render(playerAlaConfig, renderer, player.sprite.coordinate.get_x() + x_ala,
-                               player.sprite.coordinate.get_y() + 16, TILE_SIZE_ALA, TILE_SIZE_ALA);
+                               player.sprite.coordinate.get_y() + 16 - OFFSET_Y, TILE_SIZE_ALA,
+                               TILE_SIZE_ALA);
     }
 }
