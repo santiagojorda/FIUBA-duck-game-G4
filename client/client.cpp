@@ -15,7 +15,7 @@ Client::Client(const std::string& hostname, const std::string& servname):
         sender(protocol, commands),
         drawer(commands, game_state) {
 
-    this->protocol.send_init(TWO_PLAYER);
+    this->protocol.send_init(ONE_PLAYER);
 }
 
 
