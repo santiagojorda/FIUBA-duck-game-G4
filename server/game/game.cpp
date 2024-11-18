@@ -12,9 +12,11 @@
 
 #define MILISECONDS_30_FPS 33
 
-void charge_grounds(Map & map, std::list<Coordinate>& floors){
-    for(Coordinate& c : floors ){
-        map.add(new Ground(c));
+void charge_ponits(ListPlayers & players, std::vector<Coordinate>& points){
+    int i = 0;
+    for (auto& player : players) {
+        player.set_coordinate(points[i]);
+        i++;
     }
 }
 
@@ -22,11 +24,10 @@ void Game::load_map(){
     try
     {
         MapDeserialize deserialize("../game_rsc/maps/map01.yaml");
-        std::list<Coordinate> floors;
-        deserialize.load_floors(floors);
-        charge_grounds(this->map, floors);
-        //      deserialize.load_inicial_points();
-        //        deserialize.load_weapons();
+        deserialize.load_floors(this->map);
+        std::vector<Coordinate> points;
+        deserialize.load_inicial_points(points);
+        //        deserialize.load_weapons(); //esto hay que verlo
     } catch (const std::exception& e) {
         std::cerr << "error map.yaml" <<e.what() << '\n';
     }

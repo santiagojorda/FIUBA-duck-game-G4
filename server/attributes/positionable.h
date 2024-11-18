@@ -20,6 +20,8 @@ public:
 
     Coordinate get_coordinate() const;
 
+    void set_coordinate(const Coordinate& new_coordinate);
+
     Rectangle get_rectangle() const;
 
     virtual void translate() = 0;

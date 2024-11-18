@@ -19,9 +19,6 @@ int main() {
     try {
         std::cout << "Iniciando server" << std::endl;
 
-        MapDeserialize des("../game_rsc/maps/map01.yaml");
-        std::list<Coordinate> floors;
-        des.load_floors(floors);
 
         Lobby lobby;
         lobby.run();

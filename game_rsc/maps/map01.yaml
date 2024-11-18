@@ -1,57 +1,22 @@
 tile_size: 16
 tiles:
-  - coordinate:
-      map_id: 1 # naturetilset
-      tile_id: 3
+  - map_id: 1 # naturetilset
+    tile_id: 3
+    coordinate:
       x: 10
-      y: 200
-  - coordinate:
+      y: 184
+  - map_id: 1 # naturetilset
+    tile_id: 3
+    coordinate:
       x: 26
-      y: 200
-  - coordinate:
-      x: 42
-      y: 200
-  - coordinate:
-      x: 58
-      y: 200
-  - coordinate:
-      x: 74
-      y: 200
-  - coordinate:
-      x: 90
-      y: 200
-  - coordinate:
-      x: 106
-      y: 200
-  - coordinate:
-      x: 122
-      y: 200
-  - coordinate:
-      x: 138
-      y: 200
-  - coordinate:
-      x: 154
-      y: 200
-  - coordinate:
-      x: 170
-      y: 200
-  - coordinate:
-      x: 186
-      y: 200
-  - coordinate:
-      x: 202
-      y: 200
-  - coordinate:
-      x: 218
-      y: 200
-  - coordinate:
-      x: 218
-      y: 100
-  - coordinate:
-      x: 218
-      y: 100
+      y: 184
+  - map_id: 1 # naturetilset
+    tile_id: 3
+    coordinate:
+      x: 0
+      y: 184
 
-weapon_size: 32
+weapon_size: 
 weapons:
   - id: 1
     coordinate:

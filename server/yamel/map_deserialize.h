@@ -2,9 +2,12 @@
 #define MAP_DESERIALIZE_H
 
 #include <list>
+#include <vector>
 #include <utility>
 
 #include <yaml-cpp/yaml.h>
+
+#include "../map/map.h"
 
 #include "../../common/coordinate.h"
 
@@ -21,9 +24,9 @@ private:
 public:
     explicit MapDeserialize(const std::string& path);
 
-    void load_floors(std::list<Coordinate>& floors);
+    void load_floors(Map charge_map);
 
-    void load_inicial_points(std::list<Coordinate>& points);
+    void load_inicial_points(std::vector<Coordinate>& points);
 
     void load_weapons(std::list<data_weapon>& data_weapons);
 
