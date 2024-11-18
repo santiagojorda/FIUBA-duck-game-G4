@@ -19,7 +19,7 @@ private:
     YAML::Node map;
 
 public:
-    MapDeserialize(const std::string& path);
+    explicit MapDeserialize(const std::string& path);
 
     void load_floors(std::list<Coordinate>& floors);
 

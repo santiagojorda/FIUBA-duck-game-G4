@@ -8,7 +8,30 @@
 #include "../map/ground.h"
 #include "../player/player.h"
 
+#include "../yamel/map_deserialize.h"
+
 #define MILISECONDS_30_FPS 33
+
+void charge_grounds(Map & map, std::list<Coordinate>& floors){
+    for(Coordinate& c : floors ){
+        map.add(new Ground(c));
+    }
+}
+
+void Game::load_map(){
+    try
+    {
+        MapDeserialize deserialize("../game_rsc/maps/map01.yaml");
+        std::list<Coordinate> floors;
+        deserialize.load_floors(floors);
+        charge_grounds(this->map, floors);
+        //      deserialize.load_inicial_points();
+        //        deserialize.load_weapons();
+    } catch (const std::exception& e) {
+        std::cerr << "error map.yaml" <<e.what() << '\n';
+    }
+}
+    
 
 
 Game::Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEventPlayer& _queue_event,
@@ -21,8 +44,7 @@ Game::Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEventPla
         monitor_client(_monitor_client),
         queue_event(_queue_event),
         queue_gamestate(_queue_gamestate) {
-    Ground* ground = new Ground(Coordinate(0, 200, 100, 500));  // lea del yaml
-    map.add(ground);
+    this->load_map();
     Gun* pew = new PewPewLaser(Coordinate(0, 200, 32, 32));
     map_guns.add(pew);
 }
@@ -46,7 +68,7 @@ GameState_t Game::get_gamestate() {
     return GameState_t{players, map, map_guns, map_projectiles};
 }
 
-auto Game::get_actual_milliseconds() { return std::chrono::high_resolution_clock::now(); }
+auto get_actual_milliseconds() { return std::chrono::high_resolution_clock::now(); }
 
 void Game::run() {
 

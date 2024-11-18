@@ -36,6 +36,18 @@ tiles:
   - coordinate:
       x: 186
       y: 200
+  - coordinate:
+      x: 202
+      y: 200
+  - coordinate:
+      x: 218
+      y: 200
+  - coordinate:
+      x: 218
+      y: 100
+  - coordinate:
+      x: 218
+      y: 100
 
 weapon_size: 32
 weapons:

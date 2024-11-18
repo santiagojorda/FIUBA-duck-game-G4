@@ -24,11 +24,12 @@ private:
     QueueEventPlayer& queue_event;  //<- para charalar
     QueueGameState& queue_gamestate;
 
+    void load_map();
+
     void sleep();
     void execute_new_events();
     void broadcast_gamestate();
     GameState_t get_gamestate();
-    auto get_actual_milliseconds();
 
 public:
     Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEventPlayer& _queue_event,
