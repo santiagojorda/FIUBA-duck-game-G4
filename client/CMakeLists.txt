@@ -12,6 +12,8 @@ file(GLOB_RECURSE SOURCES_HEDER_CLIENT "*.h")
 file(GLOB_RECURSE SOURCES_UI_CLIENT "*.ui")
 
 
+# Incluye el archivo de recursos
+set(qrc_files GameDuckV2/resources.qrc)
 
 target_sources(taller_client
     PRIVATE
@@ -23,5 +25,6 @@ target_sources(taller_client
     ${SOURCES_HEDER_CLIENT}
     # .ui files
     ${SOURCES_UI_CLIENT}
+    ${qrc_files}
     )
 
