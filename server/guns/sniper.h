@@ -3,8 +3,6 @@
 
 #include "gun.h"
 
-#define MAX_AMMO 6
-
 class Sniper: public Gun {
 public:
     Sniper(const Coordinate& _coordinate);

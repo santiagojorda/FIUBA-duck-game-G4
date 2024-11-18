@@ -3,8 +3,6 @@
 
 #include "gun.h"
 
-#define MAX_AMMO 12
-
 class PewPewLaser: public Gun {
 public:
     PewPewLaser(Coordinate _coordinate);

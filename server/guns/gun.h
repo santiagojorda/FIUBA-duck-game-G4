@@ -16,15 +16,16 @@
 class Gun: public Positionable, public Equippable {
 protected:
     // cppcheck-suppress unusedStructMember
+    uint8_t max_ammo;
+    // cppcheck-suppress unusedStructMember
     uint8_t ammo;
     ShootingRecoil recoil;
     ProjectileRange projectile_range;
 
-    ListProjectiles generate_list_projectiles();
+    // virtual ListProjectiles generate_list_projectiles(Coordinate& shooter_position);
 public:
-    explicit Gun(uint8_t _ammo, ShootingRecoil _recoil, ProjectileRange _projectile_range);
-    explicit Gun(uint8_t& _texture_id, uint8_t& _ammo, ShootingRecoil& _recoil, ProjectileRange&& _projectile_range,
-                 Coordinate& _coordinate);
+    explicit Gun(const uint8_t& _texture_id, const uint8_t& _max_ammo, const ShootingRecoil& _recoil, const ProjectileRange& _projectile_range,
+                const Coordinate& _coordinate);
 
     virtual ListProjectiles shoot(Coordinate& shooter_position) = 0;
     ListProjectiles shoot(Coordinate& shooter_position, ShootingRecoil& _recoil);
@@ -33,6 +34,8 @@ public:
     void translate_x(int pasos) override;
     void translate_y(int pasos) override;
     uint8_t get_ammo();
+    uint8_t get_max_ammo();
 };
+
 
 #endif

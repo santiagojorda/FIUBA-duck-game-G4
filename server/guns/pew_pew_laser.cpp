@@ -3,10 +3,22 @@
 #include "../../common/weapons_id.h"
 
 
+struct PewPewLaserConfig {
+    uint8_t id = TEXTURE_WEAPONS::PEW_PEW_LASER_ID;
+    uint8_t max_ammo = 12;
+    ShootingRecoil recoil = ShootingRecoil::NONE;
+    ProjectileRange range = ProjectileRange::EXTREME;
+    uint8_t count_projectiles_x_shoot = 1;
+};
+PewPewLaserConfig pew_pew_laser_config;
+
 PewPewLaser::PewPewLaser(Coordinate _coordinate): 
-    Gun(MAX_AMMO, ShootingRecoil::NONE, ProjectileRange::EXTREME, _coordinate) {
-    this->set_texture_id(WEAPONS_ID_H::PEW_PEW_LASER_ID);
-}
+        Gun(pew_pew_laser_config.id,
+            pew_pew_laser_config.max_ammo,
+            pew_pew_laser_config.recoil,
+            pew_pew_laser_config.range,
+            _coordinate) 
+    {}
 
 ListProjectiles PewPewLaser::shoot(Coordinate& shooter_position) {
     (void)shooter_position;

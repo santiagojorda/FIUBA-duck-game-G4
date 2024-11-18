@@ -33,9 +33,9 @@ public:
         }
     };
     
-    void transfer_item(T* item, ListGeneric& other_list){
+    void transfer_item(T* item, ListGeneric<T>& other_list){
         add(item);
-        other_list.remove(other_list);
+        other_list.remove(item);
     }
 
     void clear() {

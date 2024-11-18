@@ -7,7 +7,7 @@
 
 class Bullet: public Projectile {
 public:
-    explicit Bullet(ProjectileRange _range_tiles);
+    explicit Bullet(const ProjectileRange& _range_tiles, const Coordinate& _coordinate);
 };
 
 #endif

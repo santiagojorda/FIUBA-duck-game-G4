@@ -4,8 +4,6 @@
 #include "gun.h"
 #include "projectile.h"
 
-#define MAX_AMMO 1
-
 class Banana: public Gun {
 public:
     Banana(const Coordinate& _coordinate);

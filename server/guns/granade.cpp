@@ -2,10 +2,25 @@
 
 #include "../../common/weapons_id.h"
 
+#define MAX_RANGE_TILES 1
 
-Granade::Granade(const Coordinate& _coordinate): Gun(MAX_AMMO, ShootingRecoil::NONE, ProjectileRange::MEDIUM, _coordinate) {
-     this->set_texture_id(WEAPONS_ID_H::GRANADA_ID);
-}
+struct GranadeConfig {
+    uint8_t id = TEXTURE_WEAPONS::GRANADA_ID;
+    uint8_t max_ammo = 1;
+    ShootingRecoil recoil = ShootingRecoil::NONE;
+    ProjectileRange range = ProjectileRange::MEDIUM;
+    uint8_t count_projectiles_x_shoot = 1;
+};
+GranadeConfig granade_config;
+
+Granade::Granade(const Coordinate& _coordinate): 
+        Gun(granade_config.id,
+            granade_config.max_ammo,
+            granade_config.recoil,
+            granade_config.range,
+            _coordinate) 
+    {}
+
 
 ListProjectiles Granade::shoot(Coordinate& shooter_position) {
     (void)shooter_position;

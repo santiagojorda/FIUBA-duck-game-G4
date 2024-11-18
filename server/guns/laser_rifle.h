@@ -3,8 +3,6 @@
 
 #include "gun.h"
 
-#define MAX_AMMO 10
-
 class LaserRifle: public Gun {
 public:
     LaserRifle(const Coordinate& _coordinate);

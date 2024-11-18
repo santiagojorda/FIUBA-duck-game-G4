@@ -1,3 +1,5 @@
 #include "bullet.h"
 
-Bullet::Bullet(ProjectileRange _range_tiles): Projectile(_range_tiles) {}
+#define TEXTURE_ID_BULLET 99 // CAMBIAR 
+
+Bullet::Bullet(const ProjectileRange& _range_tiles, const Coordinate& _coordinate): Projectile(TEXTURE_ID_BULLET, _range_tiles, _coordinate) {}
