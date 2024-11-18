@@ -5,6 +5,8 @@
 #include "../../common/orientations.h"
 #include "../game_state/player.h"
 
+#include "../../common/weapons_id.h"
+
 #define TILE_SIZE_WEAPON 40
 
 // (X,Y) DEL PATO PARA ESTAR QUIETO Y CAMINAR DEL SPRITE
@@ -86,7 +88,7 @@ void DrawerPlayer::draw(SDL2pp::Renderer& renderer, const player_t& player) {
                                                                          SDL_FLIP_NONE);
 
     if (static_cast<int>(player.inventory.weapon) != 0) {
-        auto& properties = weapon_properties[static_cast<TEXTURE_WEAPONS>(player.inventory.weapon)];
+        auto& properties = weapon_properties[static_cast<TextureID>(player.inventory.weapon)];
         weaponTexture = SDL2pp::Texture(renderer, properties.texturePath);
         int weaponsrc_X = properties.src_x;
         int weaponsrc_Y = properties.src_y;

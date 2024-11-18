@@ -3,7 +3,7 @@
 #include "../../common/weapons_id.h"
 
 struct ShotgunConfig {
-    uint8_t id = TEXTURE_WEAPONS::ESCOPETA_ID;
+    TextureID id = TextureID::SHOTGUN;
     uint8_t max_ammo = 2;
     ShootingRecoil recoil = ShootingRecoil::NONE;
     ProjectileRange range = ProjectileRange::LARGE;

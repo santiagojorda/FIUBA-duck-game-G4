@@ -14,8 +14,6 @@ private:
 protected:
     Rectangle space;
 
-    void set_texture_id(const uint8_t& _texture_id);
-
 public:
     Positionable();
     Positionable(const uint8_t& _texture_id, const Coordinate& _coordinate);

@@ -1,5 +1,5 @@
-#ifndef SNIPER
-#define SNIPER
+#ifndef SNIPER_H
+#define SNIPER_H
 
 #include "gun.h"
 

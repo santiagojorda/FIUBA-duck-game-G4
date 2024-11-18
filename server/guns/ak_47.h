@@ -1,5 +1,5 @@
-#ifndef AK_47
-#define AK_47
+#ifndef AK_47_H
+#define AK_47_H
 
 #include "gun.h"
 

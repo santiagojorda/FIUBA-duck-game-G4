@@ -1,5 +1,5 @@
-#ifndef PEW_PEW_LASER
-#define PEW_PEW_LASER
+#ifndef PEW_PEW_LASER_H
+#define PEW_PEW_LASER_H
 
 #include "gun.h"
 

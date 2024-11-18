@@ -3,7 +3,7 @@
 #include "../../common/weapons_id.h"
 
 struct SniperConfig {
-    uint8_t id = TEXTURE_WEAPONS::SNIPER_ID;
+    TextureID id = TextureID::SNIPER;
     uint8_t max_ammo = 6;
     ShootingRecoil recoil = ShootingRecoil::NONE;
     ProjectileRange range = ProjectileRange::MAX;

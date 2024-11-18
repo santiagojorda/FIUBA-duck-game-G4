@@ -4,7 +4,7 @@
 
 
 struct PewPewLaserConfig {
-    uint8_t id = TEXTURE_WEAPONS::PEW_PEW_LASER_ID;
+    TextureID id = TextureID::PEW_PEW_LASER;
     uint8_t max_ammo = 12;
     ShootingRecoil recoil = ShootingRecoil::NONE;
     ProjectileRange range = ProjectileRange::EXTREME;

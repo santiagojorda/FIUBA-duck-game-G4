@@ -1,5 +1,5 @@
-#ifndef SHOTGUN
-#define SHOTGUN
+#ifndef SHOTGUN_H
+#define SHOTGUN_H
 
 #include "gun.h"
 

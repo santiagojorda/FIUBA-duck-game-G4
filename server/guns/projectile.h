@@ -1,5 +1,5 @@
-#ifndef PROJECTILE
-#define PROJECTILE
+#ifndef PROJECTILE_H
+#define PROJECTILE_H
 
 #include "../attributes/positionable.h"
 // #include "../attributes/statable.h"

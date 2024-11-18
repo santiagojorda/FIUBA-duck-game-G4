@@ -3,7 +3,7 @@
 #include "../../common/weapons_id.h"
 
 struct AKConfig {
-    uint8_t id = TEXTURE_WEAPONS::AK_47_ID;
+    TextureID id = TextureID::AK_47;
     uint8_t max_ammo = 30;
     ShootingRecoil recoil = ShootingRecoil::SHORT;
     ProjectileRange range = ProjectileRange::MEDIUM;

@@ -1,5 +1,5 @@
-#ifndef MAGNUM
-#define MAGNUM
+#ifndef MAGNUM_H
+#define MAGNUM_H
 
 #include "gun.h"
 

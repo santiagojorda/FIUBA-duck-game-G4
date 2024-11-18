@@ -1,5 +1,5 @@
-#ifndef DUELING_GUN
-#define DUELING_GUN
+#ifndef DUELING_GUN_H
+#define DUELING_GUN_H
 
 #include "gun.h"
 

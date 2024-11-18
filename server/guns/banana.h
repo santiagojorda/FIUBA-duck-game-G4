@@ -1,5 +1,5 @@
-#ifndef BANANA
-#define BANANA
+#ifndef BANANA_H
+#define BANANA_H
 
 #include "gun.h"
 #include "projectile.h"

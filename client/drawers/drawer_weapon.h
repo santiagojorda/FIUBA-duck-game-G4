@@ -7,7 +7,6 @@
 #include <SDL2pp/SDL2pp.hh>
 #include <SDL2pp/Texture.hh>
 
-#include "../../common/weapons_id.h"
 #include "../game_state/sprite.h"
 
 #include "drawable.h"
