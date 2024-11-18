@@ -10,7 +10,9 @@ const int SPEED = 1;
 #define FALLING_STEP 10
 
 Player::Player(): Statable(DuckState::IS_IDLE) {}
-Player::Player(uint8_t _id): Positionable(_id, Coordinate(10, 10, 32, 32)), Statable(DuckState::IS_IDLE) {}
+Player::Player(uint8_t _id): Positionable(_id, Coordinate(10, 10, 32, 32)), Statable(DuckState::IS_IDLE) 
+    {
+    }
 Player::~Player() { Positionable::~Positionable(); }
 
 void Player::looks_right() { look_direction = Direction::RIGHT; }
@@ -31,6 +33,9 @@ void Player::update() {
                 reset();
                 break;
 
+            case DuckState::IS_JUMPING:
+                
+                break;
             default:
                 set_state(DuckState::IS_IDLE);
         }
@@ -38,23 +43,34 @@ void Player::update() {
 }
 
 void Player::run_right() {
-    set_state(DuckState::IS_RUNNING);
+    if(state != DuckState::IS_RUNNING){
+        set_state(DuckState::IS_RUNNING);
+    }
     translate_x(RUN_STEP);
 }
 void Player::run_left() {
-    set_state(DuckState::IS_RUNNING);
+    if(state != DuckState::IS_RUNNING){
+        set_state(DuckState::IS_RUNNING);
+    }
     translate_x(-RUN_STEP);
 }
 void Player::jump() {
-    set_state(DuckState::IS_JUMPING);
+    if(state != DuckState::IS_JUMPING){
+        set_state(DuckState::IS_JUMPING);
+    }
+
     translate_y(JUMP_STEP);
 }
 void Player::fall() {
-    set_state(DuckState::IS_FALLING);
+    if (state != DuckState::IS_FALLING){
+        set_state(DuckState::IS_FALLING);
+    }
     translate_y(FALLING_STEP);
 }
 void Player::crouch() {
-    set_state(DuckState::IS_CROUCHING);
+    if(state != DuckState::IS_CROUCHING){
+        set_state(DuckState::IS_CROUCHING);
+    }
     // translate_y(1); // esto no deberia moverse
 }
 void Player::slip() { set_state(DuckState::IS_SLIPPING); }

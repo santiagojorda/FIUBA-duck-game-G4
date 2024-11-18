@@ -19,7 +19,6 @@ bool GameLogic::is_player_floor_collision(Player& player) {
 void GameLogic::update_player_equip_collision(Player& player) {
     for (auto& gun: map_guns.get_items()) {
         if (this->physics.collision(player.get_rectangle(), gun->get_rectangle())) {
-
             player.equip(gun);
             log_player_action(player, "take a gun");
             map_guns.remove(gun);

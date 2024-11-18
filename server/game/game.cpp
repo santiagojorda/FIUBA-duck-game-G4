@@ -10,6 +10,8 @@
 
 #include "../yamel/map_deserialize.h"
 
+#define PATH_MAP "../game_rsc/maps/map01.yaml"
+
 #define MILISECONDS_30_FPS 33
 
 void charge_ponits(ListPlayers & players, std::vector<Coordinate>& points){
@@ -23,7 +25,7 @@ void charge_ponits(ListPlayers & players, std::vector<Coordinate>& points){
 void Game::load_map(){
     try
     {
-        MapDeserialize deserialize("../game_rsc/maps/map01.yaml");
+        MapDeserialize deserialize(PATH_MAP);
         deserialize.load_floors(this->map);
         std::vector<Coordinate> points;
         deserialize.load_inicial_points(points);
@@ -46,8 +48,6 @@ Game::Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEventPla
         queue_event(_queue_event),
         queue_gamestate(_queue_gamestate) {
     this->load_map();
-    Gun* pew = new PewPewLaser(Coordinate(0, 200, 32, 32));
-    map_guns.add(pew);
 }
 
 void Game::sleep() { std::this_thread::sleep_for(std::chrono::milliseconds(MILISECONDS_30_FPS)); }
@@ -79,8 +79,8 @@ void Game::run() {
     try {
 
         while (_keep_running) {
-            game_logic.update_players();
             execute_new_events();
+            game_logic.update_players();
             // *(2) o podria procesar todos los mensajes en la cola y luego enviar un gamestate como
             // broadcast_gamestate
             broadcast_gamestate();

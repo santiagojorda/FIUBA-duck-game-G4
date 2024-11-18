@@ -33,7 +33,7 @@ std::string enum_string(keys_yamel key) { return keys_string[key]; }
 
 MapDeserialize::MapDeserialize(const std::string& path): map(YAML::LoadFile(path)) {}
 
-void MapDeserialize::load_floors(Map charge_map) {
+void MapDeserialize::load_floors(Map& charge_map) {
     int tile_size = this->map[enum_string(TILE_SIZE)].as<int>();
     YAML::Node tiles = this->map[enum_string(TILES)];
     for (const auto& tile: tiles) {
