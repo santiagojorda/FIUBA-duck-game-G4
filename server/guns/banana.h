@@ -1,14 +1,13 @@
-#ifndef BANANA
-#define BANANA
+#ifndef BANANA_H
+#define BANANA_H
 
 #include "gun.h"
+#include "projectile.h"
 
-#define MAX_AMMO 1
-
-class Banana : public Gun {
+class Banana: public Gun {
 public:
-    Banana();
-    void shoot(Player player) override;
+    Banana(const Coordinate& _coordinate);
+    ListProjectiles shoot(Coordinate& shooter_position) override;
 };
 
 #endif

@@ -1,14 +1,11 @@
-#ifndef LASER_RIFLE
-#define LASER_RIFLE
+#ifndef LASER_RIFLE_H
+#define LASER_RIFLE_H
 
 #include "gun.h"
 
-#define MAX_AMMO 10
-
-class LaserRifle : public Gun {
+class LaserRifle: public Gun {
 public:
-    LaserRifle();
-    void shoot(Player player) override;
+    LaserRifle(const Coordinate& _coordinate);
+    ListProjectiles shoot(Coordinate& shooter_position) override;
 };
-
 #endif

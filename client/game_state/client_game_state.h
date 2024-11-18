@@ -1,20 +1,10 @@
 #ifndef CLIENT_GAME_STATE_H
 #define CLIENT_GAME_STATE_H
 
+#include "elements.h"
 #include "vector_player.h"
 #include "vector_sprite.h"
 #include "vector_throwable.h"
-
-
-struct bullet_t {
-    sprite_t bullet;
-    uint8_t frame;
-};
-
-struct box_t {
-    sprite_t box;
-    uint8_t frame;
-};
 
 struct client_game_state_t {
     VectorPlayers players;
@@ -22,7 +12,7 @@ struct client_game_state_t {
     VectorThrowable throwable;
     std::vector<box_t> boxs;
     VectorSprite floors;
+    VectorSprite weapons;
 };
-
 
 #endif  // CLIENT_GAME_STATE_H

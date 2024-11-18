@@ -5,13 +5,12 @@
 
 #include "../../common/queue.h"
 #include "../../common/thread.h"
-
 #include "../events/event_factory.h"
 #include "../events/event_player.h"
-#include "../game/game_state.h"
-#include "../protocol/protocol_server.h"
-#include "../player/vector_player_id.h"
 #include "../events/queue_event_player.h"
+#include "../game/game_state.h"
+#include "../player/vector_player_id.h"
+#include "../protocol/protocol_server.h"
 
 
 class Receiver: public Thread {

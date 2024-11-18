@@ -3,11 +3,11 @@
 
 #include <list>
 
-#include "../game/game.h"
-#include "../player/list_players_id.h"
 #include "../client/monitor_clients.h"
 #include "../events/queue_event_player.h"
+#include "../game/game.h"
 #include "../game/queue_game_state.h"
+#include "../player/list_players_id.h"
 
 class Lobby {
 private:

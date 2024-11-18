@@ -2,6 +2,8 @@
 
 EventMoveLeft::EventMoveLeft(uint8_t& _player_id): EventPlayer(_player_id) {}
 
-void EventMoveLeft::execute(GameLogic& game_logic) { game_logic.move_left_player(player_id); }
+void EventMoveLeft::execute(GameLogic& game_logic) {
+    game_logic.handle_event(player_id, ActionCommand::MOVE_LEFT);
+}
 
 EventMoveLeft::~EventMoveLeft() { EventPlayer::~EventPlayer(); }

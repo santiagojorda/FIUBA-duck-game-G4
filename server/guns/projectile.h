@@ -1,13 +1,17 @@
-#ifndef PROJECTILE
-#define PROJECTILE
+#ifndef PROJECTILE_H
+#define PROJECTILE_H
 
-#include "gun.h"
 #include "../attributes/positionable.h"
-#include "../attributes/statable.h"
+// #include "../attributes/statable.h"
+#include "projectile_range.h"
 
-class Projectile : public Positionable, public Statable {
-private:
+class Projectile: public Positionable {  // es un statable
+protected:
+    ProjectileRange range_tiles;
+
 public:
+    explicit Projectile(const uint8_t& texture_id, ProjectileRange _range_tiles,
+                        Coordinate _coordinate);
 };
 
 #endif
