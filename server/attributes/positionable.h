@@ -8,10 +8,10 @@
 class Positionable {
 
 private:
-    uint8_t id = 0;
     uint8_t texture_id;
 
 protected:
+    uint8_t id = 0;
     Rectangle space;
 
 public:

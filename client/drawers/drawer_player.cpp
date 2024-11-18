@@ -82,13 +82,13 @@ void DrawerPlayer::draw(SDL2pp::Renderer& renderer, const player_t& player) {
 
     renderer.Copy(texture, SDL2pp::Rect(src_x, src_y, SIZE_DUCK_SPRITE, SIZE_DUCK_SPRITE),
                   SDL2pp::Rect(player.sprite.coordinate.get_x(), player.sprite.coordinate.get_y(),
-                               TILE_SIZE, TILE_SIZE),
+                               32, 32),
                   0.0, SDL2pp::NullOpt,
                   static_cast<orientations>(player.is_looking) == LEFT ? SDL_FLIP_HORIZONTAL :
                                                                          SDL_FLIP_NONE);
 
     if (static_cast<int>(player.inventory.weapon) != 0) {
-        auto& properties = weapon_properties[static_cast<TextureID>(player.inventory.weapon)];
+        auto& properties = weapon_properties[static_cast<WeaponTextureID>(player.inventory.weapon)];
         weaponTexture = SDL2pp::Texture(renderer, properties.texturePath);
         int weaponsrc_X = properties.src_x;
         int weaponsrc_Y = properties.src_y;

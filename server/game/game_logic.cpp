@@ -7,8 +7,8 @@ GameLogic::GameLogic(ListPlayers& _players, Map& _map, ListGuns& _map_guns, List
         players(_players), map(_map), map_guns(_map_guns), map_projectiles(_map_projectiles), physics() {}
 
 bool GameLogic::is_player_floor_collision(Player& player) {
-    for (auto& item: this->map) {
-        if (this->physics.collision(player.get_rectangle(), item->get_rectangle())) {
+    for (auto& tile: this->map) {
+        if (this->physics.collision(player.get_rectangle(), tile->get_rectangle())) {
             return true;
         }
     }
@@ -40,6 +40,7 @@ void GameLogic::update_players() {
 void GameLogic::update_player_gravity(Player& player) {
     if (!is_player_floor_collision(player)) {
         physics.falling(player, 1);
+        // si es que no baja mas, que acomode el sobrante
     }
 }
 
@@ -74,6 +75,7 @@ void GameLogic::handle_event(uint8_t player_id, ActionCommand event) {
         Player& player = get_player(player_id);
         uint8_t event_code = static_cast<uint8_t>(event);  // Emitirá un error si es incompatible
 
+        std::cout << (int)player_id << " position: " << player.get_coordinate() << std::endl;
         switch (event_code) {
             case ActionCommand::MOVE_RIGHT:
                 // chequear que se pueda

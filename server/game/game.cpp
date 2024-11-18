@@ -10,7 +10,6 @@
 
 #define MILISECONDS_30_FPS 33
 
-
 Game::Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEventPlayer& _queue_event,
            QueueGameState& _queue_gamestate):
         players(_players),
@@ -21,7 +20,7 @@ Game::Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEventPla
         monitor_client(_monitor_client),
         queue_event(_queue_event),
         queue_gamestate(_queue_gamestate) {
-    Ground* ground = new Ground(Coordinate(0, 200, 100, 500));  // lea del yaml
+    Ground* ground = new Ground(Coordinate(0, 200, 16, 16));  // lea del yaml
     map.add(ground);
     Gun* pew = new PewPewLaser(Coordinate(0, 200, 32, 32));
     map_guns.add(pew);

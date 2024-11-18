@@ -5,7 +5,7 @@
 #define MAX_RANGE_TILES 1
 
 struct GranadeConfig {
-    TextureID id = TextureID::GRANATE;
+    WeaponTextureID id = WeaponTextureID::GRANATE;
     uint8_t max_ammo = 1;
     ShootingRecoil recoil = ShootingRecoil::NONE;
     ProjectileRange range = ProjectileRange::MEDIUM;

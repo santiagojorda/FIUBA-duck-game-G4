@@ -25,7 +25,7 @@ protected:
 
     // virtual ListProjectiles generate_list_projectiles(Coordinate& shooter_position);
 public:
-    explicit Gun(const TextureID& _texture_id, const uint8_t& _max_ammo, const ShootingRecoil& _recoil, const ProjectileRange& _projectile_range,
+    explicit Gun(const WeaponTextureID& _texture_id, const uint8_t& _max_ammo, const ShootingRecoil& _recoil, const ProjectileRange& _projectile_range,
                 const Coordinate& _coordinate);
 
     virtual ListProjectiles shoot(Coordinate& shooter_position) = 0;

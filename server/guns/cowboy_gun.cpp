@@ -3,7 +3,7 @@
 #include "../../common/weapons_id.h"
 
 struct CowboyConfig {
-    TextureID id = TextureID::COWBOY_GUN;
+    WeaponTextureID id = WeaponTextureID::COWBOY_GUN;
     uint8_t max_ammo = 6;
     ShootingRecoil recoil = ShootingRecoil::NONE;
     ProjectileRange range = ProjectileRange::LARGE;

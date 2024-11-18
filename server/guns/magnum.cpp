@@ -4,7 +4,7 @@
 #define MAX_AMMO 6
 
 struct MagnumConfig {
-    TextureID id = TextureID::MAGNUM;
+    WeaponTextureID id = WeaponTextureID::MAGNUM;
     uint8_t max_ammo = 6;
     ShootingRecoil recoil = ShootingRecoil::SHORT;
     ProjectileRange range = ProjectileRange::VERY_LARGE;

@@ -1,6 +1,6 @@
 #include "gun.h"
 
-Gun::Gun(const TextureID& _texture_id, const uint8_t& _max_ammo,  const ShootingRecoil& _recoil, const ProjectileRange& _projectile_range,  const Coordinate& _coordinate):
+Gun::Gun(const WeaponTextureID& _texture_id, const uint8_t& _max_ammo,  const ShootingRecoil& _recoil, const ProjectileRange& _projectile_range,  const Coordinate& _coordinate):
         Positionable((uint8_t)_texture_id, _coordinate),
         max_ammo(_max_ammo),
         ammo(_max_ammo),

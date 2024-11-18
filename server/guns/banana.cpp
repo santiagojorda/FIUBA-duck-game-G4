@@ -3,7 +3,7 @@
 #include "../../common/weapons_id.h"
 
 struct BananaConfig {
-    TextureID id = TextureID::BANANA;
+    WeaponTextureID id = WeaponTextureID::BANANA;
     uint8_t max_ammo = 1;
     ShootingRecoil recoil = ShootingRecoil::NONE;
     ProjectileRange range = ProjectileRange::MEDIUM;
