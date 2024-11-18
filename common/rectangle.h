@@ -79,8 +79,8 @@ public:
 
     int get_y_max() const;
 
-    void bottom_touch(const Rectangle& bottom_surface);
-    bool is_bottom_touching(const Rectangle& bottom_surface);
+    // void bottom_touch(const Rectangle& bottom_surface);
+    // bool is_bottom_touching(const Rectangle& bottom_surface);
     ~Rectangle();
 };
 

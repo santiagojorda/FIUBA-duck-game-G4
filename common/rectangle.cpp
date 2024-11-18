@@ -83,16 +83,16 @@ int Rectangle::get_y_min() const { return this->points.get_y(); }
 
 int Rectangle::get_y_max() const { return this->points.get_h(); }
 
-void Rectangle::bottom_touch(const Rectangle& bottom_surface){
-    int y_difference = bottom_surface.get_y_min() - get_y_max();
-    std::cout << y_difference << std::endl;
-    int difference_fixed = std::abs(y_difference) - 1;
-    points = points + Coordinate(0, difference_fixed, difference_fixed, 0);;
-}
+// void Rectangle::bottom_touch(const Rectangle& bottom_surface){
+//     int y_difference = bottom_surface.get_y_min() - get_y_max();
+//     std::cout << y_difference << std::endl;
+//     int difference_fixed = std::abs(y_difference) - 1;
+//     points = points + Coordinate(0, difference_fixed, difference_fixed, 0);;
+// }
 
-bool Rectangle::is_bottom_touching(const Rectangle& bottom_surface){
-    return std::abs(bottom_surface.get_y_min() - get_y_max()) <= 1;
-}
+// bool Rectangle::is_bottom_touching(const Rectangle& bottom_surface){
+//     return std::abs(bottom_surface.get_y_min() - get_y_max()) <= 1;
+// }
 
 
 Rectangle::~Rectangle() {}

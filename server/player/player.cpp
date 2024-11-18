@@ -113,21 +113,20 @@ void Player::adjust_position_to_floor(Positionable* floor){
         int player_bottom = space.get_y_max();
         Rectangle floor_points = floor->get_rectangle();
         int floor_top = floor_points.get_y_min();
-
         int difference = player_bottom - floor_top;
 
-        // Si el jugador está por debajo del suelo (diferencia positiva), lo movemos
-        if (difference > 0) {
-            // Mover al jugador hacia arriba la cantidad necesaria para que no se solape con el suelo
-            translate_y(-difference); // Movemos al jugador hacia arriba por la diferencia
-        } else {
-            translate_y(difference);
+        if (difference >= 0) {
+            translate_y(-(difference + 1));  // Mover hacia arriba para dejarlo 1 píxel por encima del suelo
         }
-
+        // Si el jugador está por encima del suelo
+        else {
+            translate_y(-difference);  // Mover hacia abajo para dejarlo 1 píxel por encima del suelo
+        }
     }
 }
 
 void Player::translate() {}
+
 void Player::translate_x(int pasos) {  // cambiar la variable
     if (pasos > 0) {
         looks_right();

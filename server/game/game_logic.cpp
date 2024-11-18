@@ -21,7 +21,6 @@ Positionable* GameLogic::get_player_floor_collision(const Player& player) {
     return nullptr;
 }
 
-
 void GameLogic::update_player_equip_collision(Player& player) {
     for (auto& gun: map_guns.get_items()) {
         if (this->physics.collision(player.get_rectangle(), gun->get_rectangle())) {
@@ -68,19 +67,6 @@ Player& GameLogic::get_player(const uint8_t& _player_id) {
 void GameLogic::log_player_action(Player& player, const std::string& action) {
     std::cout << "Player " << int(player.get_id()) << " " << action << std::endl;
 }
-
-
-// void GameLogic::check_collisions() {
-//     for (auto& p: this->players) {
-//         if ()
-//         if (this->in_floor(p)) { // esto se puede cambair por la lista de armas y/o equipabels,
-//         deberi funcar
-//             p.idle();
-//         } else {
-//             p.fall();
-//         }
-//     }
-// }
 
 void GameLogic::handle_event(uint8_t player_id, ActionCommand event) {
     try {
