@@ -12,8 +12,11 @@ private:
     int dest_x;
     int dest_y;
     float factor_zoom;
-    int dest_width;   // para ajustar el factor del zoom
-    int dest_height;  // para ajustar el factor del zoom
+    int scaled_width;
+    int scaled_height;
+
+    std::tuple<int, int, int, int> calculate_bounds(const VectorPlayers& players) const;
+    void calculate_zoom_factor(int ancho, int altura);
 
 public:
     /*
