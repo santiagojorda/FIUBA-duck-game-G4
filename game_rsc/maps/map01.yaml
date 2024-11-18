@@ -46,8 +46,8 @@ weapons:
 player_size: 32
 players:
   - coordinate:
-      x: 10
-      y: 200
+      x: 70
+      y: 50
   - coordinate:
       x: 26
       y: 200

@@ -4,6 +4,7 @@
 #include <map>
 
 enum keys_yamel {
+    MAP_ID,
     TILE_SIZE,
     TILES,
     TILE_ID,
@@ -17,17 +18,19 @@ enum keys_yamel {
     ID
 };
 
-std::map<keys_yamel, std::string> keys_string = {{TILE_SIZE, "tile_size"},
-                                                 {TILES, "tiles"},
-                                                 {TILE_ID, "tile_id"},
-                                                 {PLAYER_SIZE, "player_size"},
-                                                 {PLAYERS, "players"},
-                                                 {WEAPON_SIZE, "weapon_size"},
-                                                 {WEAPONS, "weapons"},
-                                                 {COORDINATE, "coordinate"},
-                                                 {X, "x"},
-                                                 {Y, "y"},
-                                                 {ID, "id"}};
+std::map<keys_yamel, std::string> keys_string = {
+                {MAP_ID, "map_id"},
+                {TILE_SIZE, "tile_size"},
+                {TILES, "tiles"},
+                {TILE_ID, "tile_id"},
+                {PLAYER_SIZE, "player_size"},
+                {PLAYERS, "players"},
+                {WEAPON_SIZE, "weapon_size"},
+                {WEAPONS, "weapons"},
+                {COORDINATE, "coordinate"},
+                {X, "x"},
+                {Y, "y"},
+                {ID, "id"}};
 
 std::string enum_string(keys_yamel key) { return keys_string[key]; }
 
@@ -38,11 +41,11 @@ void MapDeserialize::load_floors(Map& charge_map) {
     YAML::Node tiles = this->map[enum_string(TILES)];
     for (const auto& tile: tiles) {
         int tile_id = tile[enum_string(TILE_ID)].as<int>();
+        int map_id = tile[enum_string(MAP_ID)].as<int>();
         int x = tile[enum_string(COORDINATE)][enum_string(X)].as<int>();
         int y = tile[enum_string(COORDINATE)][enum_string(Y)].as<int>();
 
-        charge_map.add(new Ground(Coordinate(x, y, tile_size, tile_size)));
-        tile_id++;
+        charge_map.add(new Ground(Coordinate(x, y, tile_size, tile_size), tile_id, map_id));
     }
 }
 
