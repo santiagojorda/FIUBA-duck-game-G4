@@ -11,7 +11,7 @@
 #include "../player/inventory.h"
 #include "../game/game_physics.h"
 
-#include "direction.h"
+#include "../../common/direction.h"
 
 
 class Player: public Positionable, public Statable {
