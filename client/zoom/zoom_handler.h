@@ -5,15 +5,15 @@
 
 #include <SDL2pp/SDL2pp.hh>
 
-#include "../player_position.h"
+#include "../game_state/vector_player.h"
 
 class ZoomHandler {
 private:
     int dest_x;
     int dest_y;
     float factor_zoom;
-    int dest_width; // para ajustar el factor del zoom
-    int dest_height; // para ajustar el factor del zoom
+    int dest_width;   // para ajustar el factor del zoom
+    int dest_height;  // para ajustar el factor del zoom
 
 public:
     /*
@@ -21,7 +21,7 @@ public:
      */
     ZoomHandler();
 
-    void calculate_zoom(const std::vector<PlayerPosition_t>& positions);
+    void calculate_zoom(const VectorPlayers& players);
 
     void apply_zoom(SDL2pp::Renderer& renderer, SDL2pp::Texture& texture);
 
