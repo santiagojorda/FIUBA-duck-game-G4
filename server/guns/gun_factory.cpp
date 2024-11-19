@@ -1,19 +1,20 @@
 #include "gun_factory.h"
 
+#include <functional>
+#include <map>
+
 #include "../../common/weapons_id.h"
-#include "granade.h"
-#include "banana.h"
-#include "pew_pew_laser.h"
-#include "laser_rifle.h"
+
 #include "ak_47.h"
-#include "dueling_gun.h"
+#include "banana.h"
 #include "cowboy_gun.h"
+#include "dueling_gun.h"
+#include "granade.h"
+#include "laser_rifle.h"
 #include "magnum.h"
+#include "pew_pew_laser.h"
 #include "shotgun.h"
 #include "sniper.h"
-
-#include <map>
-#include <functional>
 
 std::map<WeaponTextureID, std::function<Gun*(Coordinate)>> map_guns;
 
@@ -31,11 +32,9 @@ GunFactory::GunFactory() {
 }
 
 
-Gun* GunFactory::create_gun(const int& id_weapon, const Coordinate& _coordinate){
+Gun* GunFactory::create_gun(const int& id_weapon, const Coordinate& _coordinate) {
     return map_guns[static_cast<WeaponTextureID>(id_weapon)](_coordinate);
 }
 
 
 GunFactory::~GunFactory() {}
-
-

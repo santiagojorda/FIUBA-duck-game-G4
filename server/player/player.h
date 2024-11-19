@@ -3,14 +3,13 @@
 
 #include <cstdint>
 
+#include "../../common/direction.h"
 #include "../attributes/equippable.h"
 #include "../attributes/positionable.h"
+#include "../game/game_physics.h"
 #include "../guns/gun.h"
 #include "../guns/list_projectiles.h"
 #include "../player/inventory.h"
-#include "../game/game_physics.h"
-
-#include "../../common/direction.h"
 #include "state/duck_state_controller.h"
 
 class Player: public Positionable {
@@ -39,7 +38,7 @@ public:
     void move_back(ShootingRecoil tiles);
     // void move_back(int tiles);
     void update();
-    
+
     Gun* get_gun();
     Armor* get_armor();
     Helmet* get_helmet();
@@ -50,7 +49,7 @@ public:
 
     void run_right();
     void run_left();
-    void run(Direction& direction); 
+    void run(Direction& direction);
     void jump();
     void fall(GamePhysics& physics);
     void crouch();

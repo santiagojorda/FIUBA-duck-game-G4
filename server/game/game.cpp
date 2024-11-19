@@ -22,9 +22,9 @@ void charge_ponits(ListPlayers& players, std::vector<Coordinate>& points) {
     }
 }
 
-void charge_weapons(ListGuns& guns, std::list<data_weapon>& data_weapons){
+void charge_weapons(ListGuns& guns, std::list<data_weapon>& data_weapons) {
     GunFactory factory;
-    for (auto& weapon : data_weapons) {
+    for (auto& weapon: data_weapons) {
         guns.add(factory.create_gun(weapon.id, weapon.coordinate));
     }
 }
@@ -43,7 +43,7 @@ void Game::load_map() {
     } catch (const std::exception& e) {
         std::cerr << "error map.yaml: " << e.what() << '\n';
     } catch (...) {
-        std::cerr << "Unespected error map.yaml"  << '\n';
+        std::cerr << "Unespected error map.yaml" << '\n';
     }
 }
 

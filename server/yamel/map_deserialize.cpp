@@ -19,19 +19,18 @@ enum keys_yamel {
     ID
 };
 
-std::map<keys_yamel, std::string> keys_string = {
-                {MAP_ID, "map_id"},
-                {TILE_SIZE, "tile_size"},
-                {TILES, "tiles"},
-                {TILE_ID, "tile_id"},
-                {PLAYER_SIZE, "player_size"},
-                {PLAYERS, "players"},
-                {WEAPON_SIZE, "weapon_size"},
-                {WEAPONS, "weapons"},
-                {COORDINATE, "coordinate"},
-                {X, "x"},
-                {Y, "y"},
-                {ID, "id"}};
+std::map<keys_yamel, std::string> keys_string = {{MAP_ID, "map_id"},
+                                                 {TILE_SIZE, "tile_size"},
+                                                 {TILES, "tiles"},
+                                                 {TILE_ID, "tile_id"},
+                                                 {PLAYER_SIZE, "player_size"},
+                                                 {PLAYERS, "players"},
+                                                 {WEAPON_SIZE, "weapon_size"},
+                                                 {WEAPONS, "weapons"},
+                                                 {COORDINATE, "coordinate"},
+                                                 {X, "x"},
+                                                 {Y, "y"},
+                                                 {ID, "id"}};
 
 std::string enum_string(keys_yamel key) { return keys_string[key]; }
 
