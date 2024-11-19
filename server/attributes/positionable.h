@@ -16,6 +16,7 @@ protected:
 
 public:
     Positionable();
+    Positionable(const uint8_t& _id, const uint8_t& _texture_id, const Coordinate& _coordinate);
     Positionable(const uint8_t& _texture_id, const Coordinate& _coordinate);
 
     Coordinate get_coordinate() const;
