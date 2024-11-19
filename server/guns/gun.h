@@ -6,15 +6,14 @@
 #include "../../common/coordinate.h"
 #include "../attributes/equippable.h"
 #include "../attributes/positionable.h"
-// #include "../attributes/statable.h"
+
+
 #include "../../common/weapons_id.h"
 #include "../player/inventory.h"
-
 #include "list_projectiles.h"
 #include "projectile_range.h"
 #include "shooring_recoil.h"
-
-#include "../player/direction.h"
+#include "../../common/direction.h"
 
 class Gun: public Positionable, public Equippable {
 protected:

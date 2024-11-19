@@ -43,18 +43,14 @@ bool GameLogic::is_player_out_of_map(Player& player){
 
 void GameLogic::update_players() {
     for (Player& player: players) {
-
         if(player.is_dead()){
             continue;
         }
-
         player.update();
-
         if(is_player_out_of_map(player)){
             player.die();
             continue;
         }
-
         else{
         if(!player.is_jumping()){
             update_player_gravity(player);
@@ -115,7 +111,6 @@ void GameLogic::handle_event(uint8_t player_id, ActionCommand event) {
                 player.crouch();
                 break;
             case ActionCommand::SHOOT:
-                log_player_action(player, "shoot");
                 player.shoot(map_projectiles);
                 break;
         }
