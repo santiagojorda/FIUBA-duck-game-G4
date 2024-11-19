@@ -265,3 +265,12 @@ players:
   - coordinate:
       x: 600
       y: 50
+  - coordinate:
+      x: 400
+      y: 50
+  - coordinate:
+      x: 550
+      y: 50
+  - coordinate:
+      x: 650
+      y: 50

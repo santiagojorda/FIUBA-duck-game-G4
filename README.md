@@ -1,16 +1,31 @@
+> Hola! 👋🏼 El trabajo aun no esta finalizado, seguimos en desarrollo! 💪🏼☕ - 19/11 
+
+> autores name - name - Felipe D'alto
+
 # Cómo compilar y ejecutar 
 
 ## Introducción
 Este documento explica paso a paso cómo compilar y ejecutar el proyecto [Nombre del proyecto].
 
 ## Requisitos previos
-* **Sistema operativo:** [Sistema operativo]
-* **Dependencias:**
-  * SDL2
-  * [Dependencia 2]
-  * ...
+## Uso de bibliotecas
+
+1. **Biblioteca de Sockets de la cátedra Veiga** | Autor: eldipa | Licencia: GPL v2
+    - [https://github.com/eldipa/hands-on-sockets-in-cpp](https://github.com/eldipa/hands-on-sockets-in-cpp)
+
+2. **Biblioteca de Threads y Queque de la cátedra Veiga** | Autor: eldipa | Licencia: GPL v2
+    - [https://github.com/eldipa/hands-on-threads](https://github.com/eldipa/hands-on-threads)
+
+3. **Blioteca SDL2** 
+    - [https://github.com/libsdl-org/SDL](https://github.com/libsdl-org/SDL)
+
+4. **Biblioteca  yaml-cpp**
+    - [https://github.com/jbeder/yaml-cpp.git](https://github.com/jbeder/yaml-cpp.git)
 
 ## Instalar
+
+Menos SDL2, Cmake se encarga de de instalar las dependencias necesarias 
+
 1 - En la terminal ejecutar 
 ```bash
 sudo apt-get install libjpeg-dev libpng-dev libfreetype-dev libopusfile-dev libflac-dev libxmp-dev libfluidsynth-dev libwavpack-dev cmake libmodplug-dev libsdl2-dev
@@ -45,12 +60,24 @@ sudo make install
 ## Ejecutar
 Se requieren dos terminales 
 
-en la primera:
-
-```bash
- ./taller_client  localhost 8080
-````
-en la segunda 
+Para el server en la primera:
 ```bash
  ./taller_server
+````
+
+Para el cliente en la segunda 
+(por defecto se conecta en el peurto 8080)
+
+```bash
+ ./taller_client  <hostname> 8080
+````
+
+### Ejemplo
+- Servidor: 
+````bash  
+./taller_server
+````
+- Cliente:
+````bash  
+/taller_client 127.0.0.1 8080
 ````

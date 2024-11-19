@@ -29,7 +29,7 @@ public:
         std::lock_guard<std::mutex> lock(mtx);
         list.emplace_back(std::forward<Args>(args)...);
     }
-
+    bool they_are_alive();
     void delete_item(Client& client);
     void shutdown();
     void broadcast(GameState_t gamestate);

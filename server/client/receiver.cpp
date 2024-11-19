@@ -39,7 +39,7 @@ void Receiver::run() {
     } catch (const std::exception& e) {
         std::cerr << "Receiver: " << e.what() << '\n';
     } catch (...) {
-        std::cerr << "error en el sender" << '\n';
+        std::cerr << "error en el eceiver" << '\n';
     }
     stop();
 }

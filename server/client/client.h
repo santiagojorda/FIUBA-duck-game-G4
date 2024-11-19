@@ -24,6 +24,7 @@ public:
     void shutdown();
     void send_gamestate(const GameState_t& game_state);
     bool is_alive();
+    ~Client();
 };
 
 #endif

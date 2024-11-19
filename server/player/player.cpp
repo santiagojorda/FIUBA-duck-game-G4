@@ -9,7 +9,7 @@
 
 const int SPEED = 1;
 #define RUN_STEP 10
-#define JUMP_STEP -10
+#define JUMP_STEP -40
 #define FALLING_STEP 1
 
 Player::Player(): Statable((uint8_t)DuckState::IS_IDLE) {}
@@ -72,11 +72,12 @@ void Player::run_left() {
     translate_x(-RUN_STEP);
 }
 void Player::jump() {
-    if (state != DuckState::IS_JUMPING) {
+    if (state != DuckState::IS_JUMPING && state != DuckState::IS_FALLING) {
         set_state(DuckState::IS_JUMPING);        
         log_action("Jumps");
+        translate_y(JUMP_STEP);
     }
-    translate_y(JUMP_STEP);
+
 }
 void Player::fall(GamePhysics& physics) {
     if (state != DuckState::IS_FALLING) {
