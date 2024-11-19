@@ -1,80 +1,245 @@
 tile_size: 16
 tiles:
-  - map_id: 1 # naturetilset
-    tile_id: 3
-    coordinate:
-      x: 210
-      y: 300
-  - map_id: 1 # naturetilset
-    tile_id: 3
-    coordinate:
-      x: 226
-      y: 300
-  - map_id: 1 # naturetilset
-    tile_id: 3
-    coordinate:
-      x: 200
-      y: 300
-  - map_id: 1 # naturetilset
-    tile_id: 3
-    coordinate:
-      x: 242
-      y: 300
-  - map_id: 1 # naturetilset
-    tile_id: 3
-    coordinate:
-      x: 258
-      y: 300
-  - map_id: 1 # naturetilset
-    tile_id: 3
-    coordinate:
-      x: 274
-      y: 300  
-  - map_id: 1 # naturetilset
-    tile_id: 3
-    coordinate:
-      x: 290
-      y: 300
-  - map_id: 1 # naturetilset
-    tile_id: 3
-    coordinate:
-      x: 306
-      y: 300
-  - map_id: 1 # naturetilset
-    tile_id: 3
-    coordinate:
-      x: 274
-      y: 284
-  - map_id: 1 # naturetilset
-    tile_id: 3
-    coordinate:
-      x: 250
-      y: 284
-  - map_id: 1 # naturetilset
-    tile_id: 3
-    coordinate:
-      x: 400
-      y: 284
-  - map_id: 1 # naturetilset
-    tile_id: 3
-    coordinate:
-      x: 600
-      y: 316
-  - map_id: 1 # naturetilset
-    tile_id: 3
-    coordinate:
-      x: 450
-      y: 316
-  - map_id: 1 # naturetilset
-    tile_id: 3
-    coordinate:
-      x: 466
-      y: 290
-  - map_id: 1 # naturetilset
-    tile_id: 3
-    coordinate:
-      x: 500
-      y: 270
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 100
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 116
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 132
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 148
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 164
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 180
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 196
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 212
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 228
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 244
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 260
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 276
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 292
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 308
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 324
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 340
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 356
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 372
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 388
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 404
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 420
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 436
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 452
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 468
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 484
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 500
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 516
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 532
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 548
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 564
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 580
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 596
+    y: 300
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 100
+    y: 230
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 132
+    y: 230
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 164
+    y: 230
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 196
+    y: 230
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 228
+    y: 230
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 260
+    y: 230
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 292
+    y: 230
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 324
+    y: 230
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 356
+    y: 230
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 388
+    y: 230
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 420
+    y: 230
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 452
+    y: 230
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 484
+    y: 230
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 516
+    y: 230
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 548
+    y: 230
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 580
+    y: 230
 
 weapon_size: 32
 weapons:

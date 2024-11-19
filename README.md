@@ -44,3 +44,13 @@ sudo make install
 
 ## Ejecutar
 Se requieren dos terminales 
+
+en la primera:
+
+```bash
+ ./taller_client  localhost 8080
+````
+en la segunda 
+```bash
+ ./taller_server
+````
