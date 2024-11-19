@@ -5,7 +5,7 @@
 
 class DuckStateSlipping: public DuckState{
 public:
-    DuckStateSlipping();
+    DuckStateSlipping(Player& _player);
 
     void update(Player& player) override;
     ~DuckStateSlipping();

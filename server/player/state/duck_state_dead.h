@@ -5,7 +5,7 @@
 
 class DuckStateDead: public DuckState{
 public:
-    DuckStateDead();
+    DuckStateDead(Player& _player);
 
     void update(Player& player) override;
 

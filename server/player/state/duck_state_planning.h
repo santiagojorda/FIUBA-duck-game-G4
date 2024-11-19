@@ -5,7 +5,7 @@
 
 class DuckStatePlanning: public DuckState{
 public:
-    DuckStatePlanning();
+    DuckStatePlanning(Player& _player);
     void update(Player& player) override;
     ~DuckStatePlanning();
 };

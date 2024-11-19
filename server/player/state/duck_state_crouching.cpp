@@ -6,7 +6,7 @@ struct CrouchingStateConfig {
 };
 CrouchingStateConfig crouching_config;
 
-DuckStateCrouching::DuckStateCrouching(): DuckState(crouching_config.id, crouching_config.name){}
+DuckStateCrouching::DuckStateCrouching(Player& _player): DuckState(crouching_config.id, crouching_config.name, _player){}
 
 void DuckStateCrouching::update(Player& player) {
     (void)player;

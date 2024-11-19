@@ -32,8 +32,8 @@ private:
     }
 
 public:
-    DuckStateController() {
-        DuckState* initial_state = new DuckStateIdle();
+    DuckStateController(Player& player) {
+        DuckState* initial_state = new DuckStateIdle(player);
         current_state = initial_state;
     }
 
@@ -43,55 +43,49 @@ public:
         }
     };
 
-    void run_right(){
-        set_state(new DuckStateRunning());
+    void run_right(Player& player){
+        set_state(new DuckStateRunning(player));
     }
-    void run_left(){
-        set_state(new DuckStateRunning());
+    void run_left(Player& player){
+        set_state(new DuckStateRunning(player));
     }
-    void run(Direction& direction){
+    void run(Player& player, Direction& direction){
         (void)direction;
-        set_state(new DuckStateRunning());
+        set_state(new DuckStateRunning(player));
     } 
-    void jump(){
-        set_state(new DuckStateJumping());
+    void jump(Player& player){
+        set_state(new DuckStateJumping(player));
     }
-    void fall(GamePhysics& physics){
+    void fall(Player& player, GamePhysics physics){
         (void)physics;
-        set_state(new DuckStateFalling());
+        set_state(new DuckStateFalling(player, physics));
     }
-    void crouch(){
-        set_state(new DuckStateCrouching());
+    void crouch(Player& player){
+        set_state(new DuckStateCrouching(player));
     }
-    void slip(){
-        set_state(new DuckStateSlipping());
+    void slip(Player& player){
+        set_state(new DuckStateSlipping(player));
     }
-    void recoil(){
-        set_state(new DuckStateRecoiling());
+    void recoil(Player& player){
+        set_state(new DuckStateRecoiling(player));
     }
-    void plane(){
-        set_state(new DuckStatePlanning());
+    void plane(Player& player){
+        set_state(new DuckStatePlanning(player));
     }
-    void die(){
-        set_state(new DuckStateDead());
+    void die(Player& player){
+        set_state(new DuckStateDead(player));
     }
-    void idle(){
-        set_state(new DuckStateIdle());
-    }
-
-    bool is_jumping() { 
-        if(current_state){
-            return current_state->get_id() == DuckStateType::IS_JUMPING;
-        }
-        return false;
-    }
-    bool is_dead() { 
-        if(current_state){
-            return current_state->get_id() == DuckStateType::IS_DEAD;
-        }
-        return false;
+    void idle(Player& player){
+        set_state(new DuckStateIdle(player));
     }
 
+    bool is_in_state(DuckStateType state) {
+        return current_state && current_state->get_id() == state;
+    }
+
+    bool is_jumping() { return is_in_state(DuckStateType::IS_JUMPING);}
+    bool is_dead() { return is_in_state(DuckStateType::IS_DEAD);}
+    bool is_running() { return is_in_state(DuckStateType::IS_RUNNING);}
 
     DuckStateType get_state() { return current_state->get_id();};
     uint8_t get_frame() { return current_state->get_frame(); };

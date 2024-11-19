@@ -5,7 +5,7 @@ struct RecoilingStateConfig {
     std::string name = "Recoiling"; 
 };
 RecoilingStateConfig recoiling_config;
-DuckStateRecoiling::DuckStateRecoiling(): DuckState(recoiling_config.id, recoiling_config.name){}
+DuckStateRecoiling::DuckStateRecoiling(Player& _player): DuckState(recoiling_config.id, recoiling_config.name, _player){}
 void DuckStateRecoiling::update(Player& player) {
     (void)player;
     

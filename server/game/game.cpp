@@ -37,11 +37,11 @@ void Game::load_map() {
 
         deserialize.load_floors(this->map);
         deserialize.load_inicial_points(points);
-        deserialize.load_weapons(data_weapons);
+        // deserialize.load_weapons(data_weapons);
         charge_ponits(this->players, points);
-        charge_weapons(this->map_guns, data_weapons);
+        // charge_weapons(this->map_guns, data_weapons);
     } catch (const std::exception& e) {
-        std::cerr << "error map.yaml: " <<e.what() << '\n';
+        std::cerr << "error map.yaml: " << e.what() << '\n';
     } catch (...) {
         std::cerr << "Unespected error map.yaml"  << '\n';
     }

@@ -62,6 +62,7 @@ public:
 
     bool is_jumping();
     bool is_dead();
+    bool is_running();
 
     DuckStateType get_state();
     uint8_t get_frame();

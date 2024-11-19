@@ -14,20 +14,14 @@ protected:
     uint8_t tick;
     uint8_t frame;
     uint8_t max_frame;
-    void reset() {
-        tick = 0;
-        frame = 0;
-    }
+    uint8_t player_id;
+    void reset();
+
 public:
-    DuckState(const DuckStateType& _state_id, const std::string& _state_name): 
-        state_id(_state_id),
-        state_name(_state_name)
-        {
-            reset();
-        }
-    virtual void update(Player& duck) = 0;
-    DuckStateType get_id() { return state_id; }
-    uint8_t get_frame() { return frame; }
+    DuckState(const DuckStateType& _state_id, const std::string& _state_name, const Player& player);
+    virtual void update(Player& player);
+    DuckStateType get_id();
+    uint8_t get_frame();
     virtual ~DuckState() = default;
 };
 

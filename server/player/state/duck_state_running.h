@@ -5,7 +5,7 @@
 
 class DuckStateRunning: public DuckState{
 public:
-    DuckStateRunning();
+    DuckStateRunning(Player& _player);
 
     void update(Player& player) override;
 

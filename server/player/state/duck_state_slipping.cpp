@@ -6,7 +6,7 @@ struct SlippingStateConfig {
 };
 SlippingStateConfig slipping_config;
 
-DuckStateSlipping::DuckStateSlipping(): DuckState(slipping_config.id, slipping_config.name){}
+DuckStateSlipping::DuckStateSlipping(Player& _player): DuckState(slipping_config.id, slipping_config.name, _player){}
 
 void DuckStateSlipping::update(Player& player) {
     (void)player;

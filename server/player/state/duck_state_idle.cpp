@@ -6,7 +6,7 @@ struct IdleStateConfig {
 };
 IdleStateConfig idle_config;
 
-DuckStateIdle::DuckStateIdle(): DuckState(idle_config.id, idle_config.name){}
+DuckStateIdle::DuckStateIdle(Player& _player): DuckState(idle_config.id, idle_config.name, _player){}
 
 void DuckStateIdle::update(Player& player) {
     (void)player;

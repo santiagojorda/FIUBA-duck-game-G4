@@ -5,7 +5,7 @@
 
 class DuckStateCrouching: public DuckState{
 public:
-    DuckStateCrouching();
+    DuckStateCrouching(Player& _player);
     void update(Player& player) override; 
     ~DuckStateCrouching();
 };

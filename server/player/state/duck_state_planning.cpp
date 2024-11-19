@@ -6,7 +6,7 @@ struct PlanningStateConfig {
 };
 PlanningStateConfig planning_config;
 
-DuckStatePlanning::DuckStatePlanning():DuckState(planning_config.id, planning_config.name){}
+DuckStatePlanning::DuckStatePlanning(Player& _player):DuckState(planning_config.id, planning_config.name, _player){}
 void DuckStatePlanning::update(Player& player) {
     (void)player;
     

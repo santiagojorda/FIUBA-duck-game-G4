@@ -6,7 +6,7 @@ struct DeadStateConfig {
 };
 DeadStateConfig dead_config;
 
-DuckStateDead::DuckStateDead(): DuckState(dead_config.id, dead_config.name){}
+DuckStateDead::DuckStateDead(Player& _player): DuckState(dead_config.id, dead_config.name, _player){}
 
 void DuckStateDead::update(Player& player) {
     (void)player;
