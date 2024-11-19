@@ -30,15 +30,14 @@ void lobby_form::on_pushButton_2_clicked() {
     Client client(hostnameStr, portStr, cantPlayers);
     client.run();
 
-    connect(ui->pushButton_2, &QPushButton::clicked, [this, hostnameStr, portStr]() {
-        open_loading_window(button_id, hostnameStr, portStr);
+    connect(ui->pushButton_2, &QPushButton::clicked, [this]() {
+        open_loading_window(button_id);
     });
 }
 
 void lobby_form::on_pushButton_clicked() { this->close(); }
 
-void lobby_form::open_loading_window(int _button_id, std::string& hostnameStr,
-                                     std::string& portStr) {
-    LoadingGame loading_game(_button_id, hostnameStr, portStr, this);
+void lobby_form::open_loading_window(int _button_id) {
+    LoadingGame loading_game(_button_id, this);
     loading_game.exec();
 }

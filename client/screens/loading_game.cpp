@@ -2,13 +2,12 @@
 
 #include "ui_loading_game.h"
 
-LoadingGame::LoadingGame(int button_id, std::string& hostnameStr, std::string& portStr,
+LoadingGame::LoadingGame(int button_id,
                          QWidget* parent):
-        QWidget(parent),
+        QDialog(parent),
         ui(new Ui::LoadingGame),
-        button_id(button_id),
-        hostnameStr(hostnameStr),
-        portStr(portStr) {
+        button_id(button_id)
+        {
     ui->setupUi(this);
 
     if (button_id == 1) {
@@ -23,9 +22,10 @@ LoadingGame::LoadingGame(int button_id, std::string& hostnameStr, std::string& p
 void LoadingGame::on_pushButton_2_clicked() { generate_conection(); }
 
 void LoadingGame::generate_conection() {
-    Socket skt(this->hostnameStr.c_str(), this->portStr.c_str());
+    /*Socket skt(this->hostnameStr.c_str(), this->portStr.c_str());
     ClientProtocol protocol(skt);
     protocol.send_init(0xFF);
+    */
 }
 
 

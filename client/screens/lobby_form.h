@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QMainWindow>
+#include "loading_game.h"
 
 #include "../client.h"
 
@@ -25,8 +26,9 @@ private slots:
 private:
     Ui::lobby_form* ui;
     int button_id;
+    std::string hostname;
 
-    void open_loading_window(int _button_id, std::string& hostnameStr, std::string& portStr);
+    void open_loading_window(int _button_id);
 };
 
 #endif  // LOBBY_FORM_H

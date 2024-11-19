@@ -1,7 +1,7 @@
 #ifndef LOADING_GAME_H
 #define LOADING_GAME_H
 
-#include <QWidget>
+#include <QDialog>
 
 #include "../../common/socket.h"
 #include "../client.h"
@@ -11,11 +11,11 @@ namespace Ui {
 class LoadingGame;
 }
 
-class LoadingGame: public QWidget {
+class LoadingGame: public QDialog {
     Q_OBJECT
 
 public:
-    explicit LoadingGame(int button_id, std::string& hostnameStr, std::string& portStr,
+    explicit LoadingGame(int button_id,
                          QWidget* parent = nullptr);
     ~LoadingGame();
 
@@ -25,8 +25,6 @@ private slots:
 private:
     Ui::LoadingGame* ui;
     int button_id;
-    std::string& hostnameStr;
-    std::string& portStr;
 
     void generate_conection();
 };

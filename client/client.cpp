@@ -4,7 +4,6 @@
 
 enum N_players { ONE_PLAYER = 1, TWO_PLAYER, MAX_PLAYER = 2 };
 
-// agregar queue
 Client::Client(const std::string& _hostname, const std::string& _servname):
         hostname(_hostname),
         servname(_servname),
