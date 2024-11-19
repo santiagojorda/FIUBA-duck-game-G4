@@ -5,16 +5,15 @@
 
 #include "../attributes/equippable.h"
 #include "../attributes/positionable.h"
-#include "../attributes/statable.h"
 #include "../guns/gun.h"
 #include "../guns/list_projectiles.h"
 #include "../player/inventory.h"
 #include "../game/game_physics.h"
 
 #include "../../common/direction.h"
+#include "state/duck_state_controller.h"
 
-
-class Player: public Positionable, public Statable {
+class Player: public Positionable {
 private:
     // cppcheck-suppress unusedStructMember
     uint8_t health;  // te lo dejo para ir pensado en la vida
@@ -22,7 +21,7 @@ private:
     Direction look_direction = Direction::RIGHT;
 
     Inventory inventory;
-
+    DuckStateController state;
     void looks_up();
     void looks_right();
     void looks_left();
@@ -39,8 +38,8 @@ public:
     void translate_y(int pasos) override;
     void move_back(ShootingRecoil tiles);
     // void move_back(int tiles);
-
-    void update() override;
+    void update();
+    
     Gun* get_gun();
     Armor* get_armor();
     Helmet* get_helmet();
@@ -51,6 +50,7 @@ public:
 
     void run_right();
     void run_left();
+    void run(Direction& direction); 
     void jump();
     void fall(GamePhysics& physics);
     void crouch();
@@ -62,6 +62,9 @@ public:
 
     bool is_jumping();
     bool is_dead();
+
+    DuckStateType get_state();
+    uint8_t get_frame();
 
     virtual ~Player();
 };

@@ -11,11 +11,8 @@ const int SPEED = 1;
 #define JUMP_STEP -10
 #define FALLING_STEP 1
 
-Player::Player(): Statable((uint8_t)DuckState::IS_IDLE) {}
-Player::Player(uint8_t _id):
-    Positionable(_id, _id, Coordinate(10, 10, 32, 32)), 
-    Statable(uint8_t(DuckState::IS_IDLE)) 
-    {}
+Player::Player() {}
+Player::Player(uint8_t _id): Positionable(_id, _id, Coordinate(10, 10, 32, 32)) {}
 
 Player::~Player() { Positionable::~Positionable(); }
 
@@ -24,31 +21,31 @@ void Player::looks_left() { look_direction = Direction::LEFT; }
 void Player::looks_up() { look_direction = Direction::UP; }
 
 void Player::update() {
+    state.update(*this);
+//     frame++;
+//     tick++;
 
-    frame++;
-    tick++;
+//     if (frame >= duck_state_frames[(DuckStateType)state].max_frames) {
+//         switch (state) {
+//             case (int)DuckStateType::IS_FALLING:
+//                 reset();
+//                 break;
 
-    if (frame >= duck_state_frames[(DuckState)state].max_frames) {
-        switch (state) {
-            case DuckState::IS_FALLING:
-                reset();
-                break;
+//             case (int)DuckStateType::IS_IDLE:
+//                 reset();
+//                 break;
 
-            case DuckState::IS_IDLE:
-                reset();
-                break;
+//             case (int)DuckStateType::IS_JUMPING:
+//                 set_state((int)DuckStateType::IS_FALLING);
+//                 break;                
 
-            case DuckState::IS_JUMPING:
-                set_state(DuckState::IS_FALLING);
-                break;                
-
-            case DuckState::IS_DEAD:
-                reset();
-                break;
-            default:
-                idle();
-        }
-    }
+//             case (int)DuckStateType::IS_DEAD:
+//                 reset();
+//                 break;
+//             default:
+//                 idle();
+//         }
+//     }
 }
 
 void Player::log_action(const std::string& action) {
@@ -57,70 +54,72 @@ void Player::log_action(const std::string& action) {
 
 
 void Player::run_right() {
-    if (state != DuckState::IS_RUNNING) {
-        set_state(DuckState::IS_RUNNING);
-        log_action("Runs to the right");
-    }
-    translate_x(RUN_STEP);
+    // if (state != (int)DuckStateType::IS_RUNNING) {
+    //     set_state(DuckStateType::IS_RUNNING);
+    //     log_action("Runs to the right");
+    // }
+    // translate_x(RUN_STEP);
 }
 void Player::run_left() {
-    if (state != DuckState::IS_RUNNING) {
-        set_state(DuckState::IS_RUNNING);
-        log_action("Runs to the left");
-    }
-    translate_x(-RUN_STEP);
+    // if (state != (int)DuckStateType::IS_RUNNING) {
+    //     set_state(DuckStateType::IS_RUNNING);
+    //     log_action("Runs to the left");
+    // }
+    // translate_x(-RUN_STEP);
 }
 void Player::jump() {
-    if (state != DuckState::IS_JUMPING) {
-        set_state(DuckState::IS_JUMPING);        
-        log_action("Jumps");
-    }
-    translate_y(JUMP_STEP);
+    // if (state != (int)DuckStateType::IS_JUMPING) {
+    //     set_state(DuckStateType::IS_JUMPING);        
+    //     log_action("Jumps");
+    // }
+    // translate_y(JUMP_STEP);
 }
 void Player::fall(GamePhysics& physics) {
-    if (state != DuckState::IS_FALLING) {
-        set_state(DuckState::IS_FALLING);
+    (void)physics;
+    // if (state != (int)DuckStateType::IS_FALLING) {
+    //     set_state(DuckStateType::IS_FALLING);
 
-    }
-    physics.falling(*this, 1);
-    log_action("Fall");
+    // }
+    // physics.falling(*this, 1);
+    // log_action("Fall");
 }
 void Player::crouch() {
-    if (state != DuckState::IS_CROUCHING) {
-        set_state(DuckState::IS_CROUCHING);
-        log_action("Crouches");
-    }
+    // if (state != (int)DuckStateType::IS_CROUCHING) {
+    //     set_state(DuckStateType::IS_CROUCHING);
+    //     log_action("Crouches");
+    // }
     // translate_y(1); // esto no deberia moverse
 }
 void Player::slip() { 
-    if(state != DuckState::IS_SLIPPING){
-        set_state(DuckState::IS_SLIPPING); 
-        log_action("Slips");
-    }
+    // if(state != (int)DuckStateType::IS_SLIPPING){
+    //     set_state(DuckStateType::IS_SLIPPING); 
+    //     log_action("Slips");
+    // }
 }
 void Player::recoil() { 
-    if(state != DuckState::IS_RECOILING){
-        set_state(DuckState::IS_RECOILING); 
-        log_action("Recoils");
-    }
+    // if(state != (int)DuckStateType::IS_RECOILING){
+    //     set_state(DuckStateType::IS_RECOILING); 
+    //     log_action("Recoils");
+    // }
 }
 void Player::plane() { 
-    if(state != DuckState::IS_PLANING){
-        set_state(DuckState::IS_PLANING);
-        log_action("Plans");
-    }
+    // if(state != (int)DuckStateType::IS_PLANING){
+    //     set_state(DuckStateType::IS_PLANING);
+    //     log_action("Plans");
+    // }
 }
 void Player::die() { 
-    if(state != DuckState::IS_DEAD){
-        set_state(DuckState::IS_DEAD); 
-        log_action("Deads");
-    }
+    health = 0;
+    // if(state != (int)DuckStateType::IS_DEAD){
+    //     // set_state(DuckStateType::IS_DEAD); 
+    //     log_action("Deads");
+    // }
 }
 void Player::idle() { 
-    if(state != DuckState::IS_IDLE){
-        set_state(DuckState::IS_IDLE);
-        log_action("Idle");
-    }
+    // if(state != (int)DuckStateType::IS_IDLE){
+    //     // set_state(DuckStateType::IS_IDLE);
+    //     log_action("Idle");
+    // }
 }
 
 uint8_t Player::get_id() const { return this->id; }
@@ -186,8 +185,11 @@ void Player::move_back(ShootingRecoil tiles) {
     (void)tiles;
 }
 
-bool Player::is_jumping(){ return state == DuckState::IS_JUMPING; }
-bool Player::is_dead(){ return state == DuckState::IS_DEAD; }
+bool Player::is_jumping(){ return state.is_jumping(); }
+bool Player::is_dead(){ return state.is_dead(); }
+
+DuckStateType Player::get_state(){ return state.get_state(); }
+uint8_t Player::get_frame(){ return state.get_frame(); }
 
 ListProjectiles Player::shoot() {
     Gun* gun = inventory.get_gun();
