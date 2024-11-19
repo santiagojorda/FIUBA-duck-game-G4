@@ -27,19 +27,15 @@ void lobby_form::on_pushButton_2_clicked() {
 
     std::string hostnameStr = hostname.toStdString();
     std::string portStr = port.toStdString();
-    std::cout << "hostnameStr: " << hostnameStr << " portStr " << portStr
-              << " cantPlayers : " << cantPlayers << "\n";
-    // Client client(hostnameStr, portStr, cantPlayers);
-    // client.run();
-
-    open_loading_window(button_id, hostnameStr);
+    Client client(hostnameStr, portStr, cantPlayers);
+    client.run();
+    open_loading_window(button_id, hostnameStr, portStr, cantPlayers, client);
 }
 
 void lobby_form::on_pushButton_clicked() { this->close(); }
 
-void lobby_form::open_loading_window(int _button_id, std::string hostnameStr) {
-    std::cout << "hostnameStr: " << hostnameStr << "\n";
-
-    LoadingGame loading_game(_button_id, hostnameStr, this);
+void lobby_form::open_loading_window(int _button_id, std::string hostnameStr, std::string portStr,
+                                     int cantPlayers, Client& client) {
+    LoadingGame loading_game(_button_id, hostnameStr, portStr, cantPlayers, client, this);
     loading_game.exec();
 }

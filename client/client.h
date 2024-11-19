@@ -47,6 +47,8 @@ public:
      */
     void run();
 
+    void active_drawer();
+
     /*
      * Deshabilitar copias.
      */

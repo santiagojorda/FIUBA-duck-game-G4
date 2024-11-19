@@ -31,7 +31,10 @@ Client::Client(const std::string& hostname, const std::string& servname, int N_p
 void Client::run() {
     receiver.start();
     sender.start();
+}
 
+
+void Client::active_drawer() {
     drawer.run();
 
     this->skt.shutdown(2);

@@ -27,7 +27,8 @@ private:
     Ui::lobby_form* ui;
     int button_id;
 
-    void open_loading_window(int _button_id, std::string hostnameStr);
+    void open_loading_window(int _button_id, std::string hostnameStr, std::string portStr,
+                             int cantPlayers, Client& client);
 };
 
 #endif  // LOBBY_FORM_H
