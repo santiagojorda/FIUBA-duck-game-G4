@@ -1,43 +1,36 @@
-# Ejemplo de CMAKE para el TP Final
+# Cómo compilar y ejecutar 
 
-**Importante:** el primer commit de este repositorio tiene el setup
-básico para el TP Final que incluye la instalación de la lib
-`libSDL2pp` (el wrapper de C++).
+## Introducción
+Este documento explica paso a paso cómo compilar y ejecutar el proyecto [Nombre del proyecto].
 
-El resto de los commits son a modo de ejemplo de como se pueden
-agregar mas código fuente al proyecto.
+## Requisitos previos
+* **Sistema operativo:** [Sistema operativo]
+* **Dependencias:**
+  * SDL2
+  * [Dependencia 2]
+  * ...
 
-Este ejemplo **no** incluye instalarse la librería `SDL2` ni tampoco
-instala otras librerías que puedan ser necesarias ni tampoco un
-instalador (aunque **si** incluye Google Tests)
+## Instalar
+1 - En la terminal ejecutar 
+```bash
+sudo apt-get install libjpeg-dev libpng-dev libfreetype-dev libopusfile-dev libflac-dev libxmp-dev libfluidsynth-dev libwavpack-dev cmake libmodplug-dev libsdl2-dev
+````
+2 - se deben descargar los siguietes .zip
 
-**Se deben agregar las librerias necesarias y el instalador.**
 
-También el ejemplo usa una estructura de carpetas muy simple:
+- libsdl2-image ( 2.6.3, https://github.com/libsdl-org/SDL_image/releases/tag/release-2.6.3)
+- libsdl2-mixer (2.6.3, https://github.com/libsdl-org/SDL_mixer/releases/tag/release-2.6.3)
+- libsdl2-ttf (2.20.2, https://github.com/libsdl-org/SDL_ttf/releases/tag/release-2.20.2)
 
-```
-client/
-server/
-editor/
-common/
-```
+3 - descompirmir y en cada una de las carpetas ejecutar 
 
-Bien se puede mejorar (cambiando el cmakefile) agregando mas
-sub-carpetas.
+```bash
+cd nombre_de_la carpeta_descomprimida
+mkdir build
+cd build
+cmake ..
+make -j4
+sudo make install
+````
 
-Asi tambien **deben** ser cambiados los *targets* del cmake (`taller_client`,
-`taller_server`, ...) por nombres mas acordes al TP que se este
-haciendo.
-
-Tambien, por default solo se compila una version *debug* sin
-optimizar. Si se quiere compilar binarios optimizados
-(lo que cmake llama *release*) se puede, solo hay modificar
-cmake.
-
-Aprender del ejemplo para saber como extenderlo!
-
-**Importante:** este repositorio **no** incluye pre-commits hooks,
-ni scripts adicionales (como correr valgrind).
-
-**Eso esta a cargo de los estudiantes,** tal como fue mostrado
-en los tps individuales, recaps y hands-on.
+4 - Ahora dentro de la carpeta de del repo FIUBA-duck-game-G4
