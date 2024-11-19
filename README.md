@@ -87,3 +87,20 @@ Para el cliente en la segunda
 ````bash  
 /taller_client 127.0.0.1 8080
 ````
+
+## Jugar
+Al iniciar el juego se vera una pantalla negra, una vez los jugadores esten conectados se debe apretar la tecla '"m" para lanzar el juego.
+
+Para cerrar usa la tecal "q" o "esc"
+
+controles player 1:
+saltar -> key up
+moverse a la derecha -> key right
+moverse a la izquierda -> key left
+disparar -> space
+
+controles player 2:
+saltar -> w
+moverse a la derecha -> d
+moverse a la izquierda -> a
+disparar -> space
