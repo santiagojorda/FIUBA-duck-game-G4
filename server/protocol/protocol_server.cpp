@@ -48,7 +48,7 @@ void ProtocolServer::send_players_state(GameState_t& state) {
     uint8_t count_players = state.players.size();
     send_byte(count_players);
     for (Player& player: state.players) {
-        send_byte(player.get_id());
+        send_byte(player.get_texture_id());
         // std::cout << "player" << static_cast<uint8_t>(player.get_state()) << std::endl;
         send_coordinates(player.get_coordinate());
         send_byte(static_cast<uint8_t>(player.get_direction()));
@@ -59,21 +59,12 @@ void ProtocolServer::send_players_state(GameState_t& state) {
 }
 
 void ProtocolServer::send_projectiles_state(GameState_t& state) {
-    // uint16_t count_projectiles = state.map.size();
-    // send_2_byte(count_projectiles);  //
-    // for (Positionable* item_map: state.map) {
-    //     send_byte(0);  // texture_id
-    //     send_coordinates(item_map->get_coordinate());
-    // }
-
-    (void)state;
-    uint16_t count_projectiles = 0;
+    uint16_t count_projectiles = state.map_projectiles.size();
     send_2_bytes(count_projectiles);
-    if (count_projectiles > 0) {
-        send_byte(0);                    // texture_id
-        send_coordinates(Coordinate());  // posicion del escenario
-        send_byte(0);                    // frame
-    }
+    for (Positionable* item_map : state.map_projectiles.get_items()) {
+         send_byte(0);  // texture_id
+        send_coordinates(item_map->get_coordinate());
+     }
 }
 
 
@@ -101,7 +92,7 @@ void ProtocolServer::send_boxes_state(GameState_t& state) {
 }
 
 void ProtocolServer::send_scenario_state(GameState_t& state) {
-    uint8_t count_map_items = state.map.size();
+    uint8_t count_map_items = state.map.size();    
     send_byte(count_map_items);  //
     for (Positionable* item_map: state.map) {
         send_byte(0);  // texture_id
@@ -117,20 +108,12 @@ void ProtocolServer::send_camera_state(GameState_t& state) {
 
 
 void ProtocolServer::send_map_guns_state(GameState_t& state) {
-    (void)state;
-
-    uint8_t count_map_weapons = 0;
-    send_byte(count_map_weapons);  //
-    if (count_map_weapons > 0) {
-        send_byte(0);                    // texture_id
-        send_coordinates(Coordinate());  // posicion del escenario
-    }
-    // uint8_t count_map_guns = state.map_guns.size();
-    // send_byte(count_map_guns);
-    // for(auto* gun: state.map_guns.get_items()){
-    //     send_byte(gun->get_texture_id());                    // texture_id
-    //     send_coordinates(gun->get_coordinate());  // posicion del escenario
-    // }
+       uint8_t count_map_guns = state.map_guns.size();
+    send_byte(count_map_guns);
+     for(auto* gun: state.map_guns.get_items()){
+            send_byte(gun->get_texture_id());                    // texture_id
+         send_coordinates(gun->get_coordinate());  // posicion del escenario
+     }
 }
 
 void ProtocolServer::send_game_state(GameState_t& state) {

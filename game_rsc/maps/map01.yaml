@@ -45,23 +45,58 @@ tiles:
     coordinate:
       x: 74
       y: 184
+  - map_id: 1 # naturetilset
+    tile_id: 3
+    coordinate:
+      x: 50
+      y: 184
+  - map_id: 1 # naturetilset
+    tile_id: 3
+    coordinate:
+      x: 200
+      y: 184
+  - map_id: 1 # naturetilset
+    tile_id: 3
+    coordinate:
+      x: 400
+      y: 216
+  - map_id: 1 # naturetilset
+    tile_id: 3
+    coordinate:
+      x: 250
+      y: 216
+  - map_id: 1 # naturetilset
+    tile_id: 3
+    coordinate:
+      x: 266
+      y: 190
+  - map_id: 1 # naturetilset
+    tile_id: 3
+    coordinate:
+      x: 300
+      y: 170
 
-# weapon_size: 32
-# weapons:
-#   - id: 3
-#     coordinate:
-#       x: 0
-#       y: 184
-#   - id: 5
-#     coordinate:
-#       x: 42
-#       y: 184
+weapon_size: 32
+weapons:
+  - id: 3
+    coordinate:
+     x: 250
+     y: 184
+  - id: 5
+    coordinate:
+     x: 400
+     y: 184
+  - id: 5
+    coordinate:
+     x: 500
+     y: 184
+
 
 player_size: 32
 players:
   - coordinate:
-      x: 10
+      x: 250
       y: 50
   - coordinate:
-      x: 26
-      y: 200
+      x: 400
+      y: 50

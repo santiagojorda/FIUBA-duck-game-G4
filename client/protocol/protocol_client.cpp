@@ -82,18 +82,14 @@ void ClientProtocol::receive_bullets(std::vector<bullet_t>& _bullets) {
     uint16_t cantidad_bullets;
     this->receive_2_bytes(cantidad_bullets);
 
-    std::vector<bullet_t> bullets;
-
     for (size_t i = 0; i < cantidad_bullets; i++) {
         sprite_t sprite;
         receive_sprite(sprite);
-        uint8_t frame;
-        this->receive_byte(frame);
+        uint8_t frame = 0x0;
+       // this->receive_byte(frame);
         bullet_t bullet{sprite, frame};
-        bullets.push_back(bullet);
+        _bullets.push_back(bullet);
     }
-
-    _bullets = std::move(bullets);
 }
 
 void ClientProtocol::receive_throwables(VectorThrowable& _throwables) {

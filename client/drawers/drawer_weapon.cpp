@@ -6,7 +6,7 @@
 #define WEAPON_INITIAL_Y 47
 
 #define SIZE_WEAPON_SPRITE 32
-#define TILE_SIZE_WEAPON 10
+#define TILE_SIZE_WEAPON 50
 
 
 DrawerWeapon::DrawerWeapon(SDL2pp::Renderer& renderer, const sprite_t& weapon):
