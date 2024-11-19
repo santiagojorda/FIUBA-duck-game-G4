@@ -3,96 +3,6 @@ tiles:
 - map_id: 1
   tile_id: 3
   coordinate:
-    x: 100
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 116
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 132
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 148
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 164
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 180
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 196
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 212
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 228
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 244
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 260
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 276
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 292
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 308
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 324
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 340
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 356
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 372
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
     x: 388
     y: 300
 - map_id: 1
@@ -135,61 +45,6 @@ tiles:
   coordinate:
     x: 516
     y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 532
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 548
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 564
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 580
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 596
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 100
-    y: 230
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 132
-    y: 230
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 164
-    y: 230
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 196
-    y: 230
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 228
-    y: 230
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 260
-    y: 230
 - map_id: 1
   tile_id: 3
   coordinate:
@@ -253,9 +108,12 @@ weapons:
      y: 184
   - id: 5
     coordinate:
-     x: 700
+     x: 400
      y: 184
-
+  - id: 5
+    coordinate:
+      x: 500
+      y: 184
 
 player_size: 32
 players:
@@ -263,7 +121,7 @@ players:
       x: 450
       y: 50
   - coordinate:
-      x: 600
+      x: 500
       y: 50
   - coordinate:
       x: 400

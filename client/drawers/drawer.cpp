@@ -22,16 +22,6 @@ void Drawer::run() try {
 
     Texture background(renderer, DATA_PATH "/background.png");
 
-    // chain bullet
-    Texture bala_r(renderer, DATA_PATH "/DuckGame-MachineGuns.png");
-
-    // shell creo que este era escopeta (?)
-    Texture bala_shell(renderer, DATA_PATH "/DuckGame-Shotguns.png");
-
-    // de laser
-    Texture bala_laser(renderer, DATA_PATH "/DuckGame-Laser.png");
-
-
     drawers_t drawers;
     client_game_state_t actual_game_state;
 
@@ -65,11 +55,6 @@ void Drawer::run() try {
 
         renderer.Copy(background, Rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
 
-        renderer.Copy(bala_r, SDL2pp::Rect(2, 205, 8, 8),
-                      SDL2pp::Rect(WINDOW_WIDTH / 2, 199, 10, 10));
-
-        renderer.Copy(bala_laser, SDL2pp::Rect(2, 205, 8, 8),
-                      SDL2pp::Rect(WINDOW_WIDTH / 2, 199, 10, 10));
 
         // Draw Players (Patos)
         for (size_t i = 0; i < actual_game_state.players.size(); i++) {
