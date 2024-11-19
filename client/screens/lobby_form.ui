@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>lobby_form</class>
- <widget class="QMainWindow" name="lobby_form">
+ <widget class="QDialog" name="lobby_form">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -24,8 +24,8 @@
      <rect>
       <x>200</x>
       <y>50</y>
-      <width>391</width>
-      <height>311</height>
+      <width>400</width>
+      <height>330</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -52,6 +52,9 @@
           <pointsize>18</pointsize>
          </font>
         </property>
+        <property name="styleSheet">
+         <string>color: white;</string>
+        </property>
         <property name="text">
          <string>Hostname</string>
         </property>
@@ -73,6 +76,9 @@
           <pointsize>18</pointsize>
          </font>
         </property>
+        <property name="styleSheet">
+         <string>color: white;</string>
+        </property>
         <property name="text">
          <string>Port</string>
         </property>
@@ -85,6 +91,9 @@
           <pointsize>18</pointsize>
          </font>
         </property>
+        <property name="styleSheet">
+         <string>color: white;</string>
+        </property>
        </widget>
       </item>
       <item>
@@ -93,6 +102,9 @@
          <font>
           <pointsize>18</pointsize>
          </font>
+        </property>
+        <property name="styleSheet">
+         <string>color: white;</string>
         </property>
         <property name="text">
          <string>Number of players</string>
