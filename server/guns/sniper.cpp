@@ -1,4 +1,5 @@
 #include "sniper.h"
+#include <functional>
 
 #include "../../common/weapons_id.h"
 
@@ -18,4 +19,9 @@ Sniper::Sniper(const Coordinate& _coordinate):
 ListProjectiles Sniper::shoot(Coordinate& shooter_position) {
     (void)shooter_position;
     return ListProjectiles();
+}
+
+void  Sniper::shoot(ListProjectiles& projectiles, Direction direction)  { 
+    (void)direction;
+    (void) projectiles;
 }

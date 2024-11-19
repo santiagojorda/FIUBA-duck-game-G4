@@ -18,6 +18,7 @@ enum DuckState : uint8_t {
 
 struct DuckStateInfo_t {
     uint8_t max_frames;
+    uint8_t frame_duration;
 };
 
 // Mapa que asocia el estado con su información de frames

@@ -9,8 +9,9 @@
 #include "../guns/gun.h"
 #include "../guns/list_projectiles.h"
 #include "../player/inventory.h"
+#include "../game/game_physics.h"
 
-#include "direction.h"
+#include "../../common/direction.h"
 
 
 class Player: public Positionable, public Statable {
@@ -25,6 +26,7 @@ private:
     void looks_up();
     void looks_right();
     void looks_left();
+    void log_action(const std::string& action);
 
 public:
     Player();
@@ -32,6 +34,7 @@ public:
     Player& operator=(const Player& _other);
     uint8_t get_id() const;
     void translate() override;
+    void adjust_position_to_floor(Positionable* floor);
     void translate_x(int pasos) override;
     void translate_y(int pasos) override;
     void move_back(ShootingRecoil tiles);
@@ -41,7 +44,7 @@ public:
     Gun* get_gun();
     Armor* get_armor();
     Helmet* get_helmet();
-    ListProjectiles shoot();
+    void shoot( ListProjectiles& projectiles);
     void equip(Equippable* item);
     Direction get_direction();
     Inventory& get_inventory();
@@ -49,13 +52,16 @@ public:
     void run_right();
     void run_left();
     void jump();
-    void fall();
+    void fall(GamePhysics& physics);
     void crouch();
     void slip();
     void recoil();
     void plane();
     void die();
     void idle();
+
+    bool is_jumping();
+    bool is_dead();
 
     virtual ~Player();
 };

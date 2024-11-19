@@ -20,11 +20,10 @@ private:
     ListProjectiles& map_projectiles;
     GamePhysics physics;
     Player& get_player(const uint8_t& player_id);
-    void log_player_action(Player& player, const std::string& action);
     void update_player_gravity(Player& player);
     void update_player_equip_collision(Player& player);
-
-    bool is_player_floor_collision(Player& player);
+    bool is_player_out_of_map(Player& player);
+    Positionable* get_player_floor_collision(const Player& player);
 
 public:
     explicit GameLogic(ListPlayers& _players, Map& _map, ListGuns& _map_guns,

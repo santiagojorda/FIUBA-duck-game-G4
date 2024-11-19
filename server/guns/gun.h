@@ -6,13 +6,14 @@
 #include "../../common/coordinate.h"
 #include "../attributes/equippable.h"
 #include "../attributes/positionable.h"
-// #include "../attributes/statable.h"
+
+
 #include "../../common/weapons_id.h"
 #include "../player/inventory.h"
-
 #include "list_projectiles.h"
 #include "projectile_range.h"
 #include "shooring_recoil.h"
+#include "../../common/direction.h"
 
 class Gun: public Positionable, public Equippable {
 protected:
@@ -31,12 +32,17 @@ public:
 
     virtual ListProjectiles shoot(Coordinate& shooter_position) = 0;
     ListProjectiles shoot(Coordinate& shooter_position, ShootingRecoil& _recoil);
+
+    virtual void shoot(ListProjectiles& projectiles, Direction direction) = 0;
+
     void equip(Inventory* inventory) override;
     void translate() override;
     void translate_x(int pasos) override;
     void translate_y(int pasos) override;
     uint8_t get_ammo();
     uint8_t get_max_ammo();
+    ShootingRecoil get_recoil();
+    virtual ~Gun();
 };
 
 

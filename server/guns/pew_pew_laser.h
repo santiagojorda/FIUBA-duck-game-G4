@@ -7,6 +7,8 @@ class PewPewLaser: public Gun {
 public:
     PewPewLaser(Coordinate _coordinate);
     ListProjectiles shoot(Coordinate& shooter_position) override;
+    void shoot(ListProjectiles& projectiles, Direction direction) override;
+
 };
 
 #endif

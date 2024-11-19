@@ -2,6 +2,8 @@
 
 #include "../../common/weapons_id.h"
 
+#include <functional>
+
 struct BananaConfig {
     WeaponTextureID id = WeaponTextureID::BANANA;
     uint8_t max_ammo = 1;
@@ -18,4 +20,9 @@ Banana::Banana(const Coordinate& _coordinate):
 ListProjectiles Banana::shoot(Coordinate& shooter_position) {
     (void)shooter_position;
     return ListProjectiles();
+}
+
+void  Banana::shoot(ListProjectiles& projectiles, Direction direction)  { 
+    (void)direction;
+    (void) projectiles;
 }

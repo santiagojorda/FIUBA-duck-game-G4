@@ -3,10 +3,13 @@
 
 #include "../attributes/positionable.h"
 
+#include <cstdint>
+
 class Ground: public Positionable {
 private:
 public:
     explicit Ground(const Coordinate& _coordinate);
+    explicit Ground(const Coordinate& _coordinate, const uint8_t& _texture_id, const uint8_t& map_id );
     void translate() override {}
     void translate_x(int pasos) override { (void)pasos; }
     void translate_y(int pasos) override { (void)pasos; }

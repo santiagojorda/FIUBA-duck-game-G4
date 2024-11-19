@@ -5,21 +5,21 @@ const int G_FORCE = 10;
 
 GamePhysics::GamePhysics() {}
 
-bool collision_point(const int& collision_point, const int& collision_min,
-                     const int& collision_max) {
-    return (collision_min <= collision_point) && (collision_point <= collision_max);
-}
+// bool collision_point(const int& collision_point, const int& collision_min,
+//                      const int& collision_max) {
+//     return (collision_min <= collision_point) && (collision_point <= collision_max);
+// }
 
-bool collision_segment(const int segment_a, const int segment_b, const int collision_min,
-                       const int collision_max) {
-    bool colision = false;
-    int i = segment_a;
-    while (!colision && i <= segment_b) {
-        colision = collision_point(i, collision_min, collision_max);
-        i++;
-    }
-    return colision;
-}
+// bool collision_segment(const int segment_a, const int segment_b, const int collision_min,
+//                        const int collision_max) {
+//     bool colision = false;
+//     int i = segment_a;
+//     while (!colision && i <= segment_b) {
+//         colision = collision_point(i, collision_min, collision_max);
+//         i++;
+//     }
+//     return colision;
+// }
 
 // bool GamePhysics::horizontal_touch(const Coordinate& a, const Coordinate& b) {
 
@@ -51,13 +51,13 @@ bool collision_segment(const int segment_a, const int segment_b, const int colli
 bool GamePhysics::collision(const Rectangle& a, const Rectangle& b) {
 
     // esto solo funciona para rectangulos en 2d no rotados
-    return collision_segment(a.get_x_min(), a.get_x_max(), b.get_x_min(), b.get_x_max()) &&
-           collision_segment(a.get_y_min(), a.get_y_max(), b.get_y_min(), b.get_y_max());
-
+    return !(a.get_x_max() < (b.get_x_min() - 1) || a.get_x_min() > b.get_x_max() ||
+             a.get_y_max() < (b.get_y_min() - 1) || a.get_y_min() > b.get_y_max());
     // return this->inside(a, b);
 }
 
 void GamePhysics::falling(Positionable& target, uint iter_frame) {
+    // target.translate_y();
     target.translate_y(iter_frame * iter_frame * (G_FORCE / 2));
 }
 

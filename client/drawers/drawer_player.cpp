@@ -2,7 +2,7 @@
 
 #include <map>
 
-#include "../../common/orientations.h"
+#include "../../common/direction.h"
 #include "../../common/weapons_id.h"
 #include "../game_state/player.h"
 
@@ -19,7 +19,7 @@ DrawerPlayer::DrawerPlayer(SDL2pp::Renderer& renderer, const player_t& player):
         texture(renderer, textures[player.sprite.id_texture]) {}
 
 void DrawerPlayer::draw(SDL2pp::Renderer& renderer, const player_t& player) {
-    bool flip = static_cast<orientations>(player.is_looking) == LEFT;
+    bool flip = static_cast<Direction>(player.is_looking) == Direction::LEFT;
 
     int x_duck = static_cast<DuckState>(player.state) == IS_CROUCHING ?
                          DUCK_INITIAL_X + SIZE_DUCK_SPRITE * 2 :

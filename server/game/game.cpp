@@ -4,7 +4,7 @@
 #include <iostream>
 
 #include "../events/event_player.h"
-#include "../guns/pew_pew_laser.h"
+#include "../guns/gun_factory.h"
 #include "../map/ground.h"
 #include "../player/player.h"
 #include "../yamel/map_deserialize.h"
@@ -18,18 +18,32 @@ void charge_ponits(ListPlayers& players, std::vector<Coordinate>& points) {
     for (auto& player: players) {
         player.set_coordinate(points[i]);
         i++;
+        std::cout << player.get_coordinate() << std::endl;
+    }
+}
+
+void charge_weapons(ListGuns& guns, std::list<data_weapon>& data_weapons){
+    GunFactory factory;
+    for (auto& weapon : data_weapons) {
+        guns.add(factory.create_gun(weapon.id, weapon.coordinate));
     }
 }
 
 void Game::load_map() {
     try {
         MapDeserialize deserialize(PATH_MAP);
-        deserialize.load_floors(this->map);
         std::vector<Coordinate> points;
+        std::list<data_weapon> data_weapons;
+
+        deserialize.load_floors(this->map);
         deserialize.load_inicial_points(points);
-        //        deserialize.load_weapons(); //esto hay que verlo
+        deserialize.load_weapons(data_weapons);
+        charge_ponits(this->players, points);
+        charge_weapons(this->map_guns, data_weapons);
     } catch (const std::exception& e) {
-        std::cerr << "error map.yaml" << e.what() << '\n';
+        std::cerr << "error map.yaml: " <<e.what() << '\n';
+    } catch (...) {
+        std::cerr << "Unespected error map.yaml"  << '\n';
     }
 }
 
