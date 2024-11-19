@@ -34,3 +34,13 @@ sudo make install
 ````
 
 4 - Ahora dentro de la carpeta de del repo FIUBA-duck-game-G4
+
+```bash
+mkdir build
+cd build
+cmake ..
+sudo make install
+````
+
+## Ejecutar
+Se requieren dos terminales 
