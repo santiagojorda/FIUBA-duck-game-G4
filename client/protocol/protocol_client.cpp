@@ -130,7 +130,7 @@ void ClientProtocol::receive_boxes(std::vector<box_t>& _boxes) {
         boxes.push_back(box);
     }
 
-    _boxes = std::move(boxes);  // para evitar copiar y mejorar eficiencia
+    _boxes = std::move(boxes);
 }
 
 void ClientProtocol::receive_floor_sprites(VectorSprite& _floor_sprites) {

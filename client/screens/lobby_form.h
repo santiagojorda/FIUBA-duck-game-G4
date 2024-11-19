@@ -1,18 +1,20 @@
 #ifndef LOBBY_FORM_H
 #define LOBBY_FORM_H
 
+#include <QDialog>
 #include <QMainWindow>
+
+#include "../client.h"
 
 namespace Ui {
 class lobby_form;
 }
 
-class lobby_form : public QMainWindow
-{
+class lobby_form: public QDialog {
     Q_OBJECT
 
 public:
-    explicit lobby_form(QWidget *parent = nullptr);
+    lobby_form(int button_id, QWidget* parent = nullptr);
     ~lobby_form();
 
 private slots:
@@ -21,7 +23,10 @@ private slots:
     void on_pushButton_clicked();
 
 private:
-    Ui::lobby_form *ui;
+    Ui::lobby_form* ui;
+    int button_id;
+
+    void open_loading_window(int _button_id, std::string& hostnameStr, std::string& portStr);
 };
 
-#endif // LOBBY_FORM_H
+#endif  // LOBBY_FORM_H

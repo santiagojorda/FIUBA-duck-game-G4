@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Join Game</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
@@ -90,9 +90,6 @@
          <font>
           <pointsize>18</pointsize>
          </font>
-        </property>
-        <property name="styleSheet">
-         <string>color: white;</string>
         </property>
        </widget>
       </item>

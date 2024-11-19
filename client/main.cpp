@@ -14,15 +14,12 @@ int main(int argc, char* argv[]) {
         QApplication a(argc, argv);
         PrincipalScreen principal_screen;
         principal_screen.show_screen();
-        // Inicia el bucle de eventos como: un usuario hace clic en un botón o cierra una ventana o se redibuja un widget
-        // devuelve un código de estado cuando el bucle de eventos termina.
         int qt_status = a.exec();
-        std::cout << qt_status << std::endl;
-        if (qt_status == SUCCESS) {
-            std::cout << "fue exitoso\n"; 
+        if (qt_status != SUCCESS) {
+            std::cerr << "Hubo un error al cargar la partida.\n"; 
+            return ERROR;
         }
-
-        std::cout << "qt_status :" << qt_status << "\n";
+      
         return SUCCESS;
     } catch (const std::exception& e) {
         std::cerr << "Ocurrió un problema: " << e.what() << '\n';

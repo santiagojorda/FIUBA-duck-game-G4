@@ -2,6 +2,7 @@
 #define CLIENT_H
 
 #include <string>
+#include <sstream>
 
 #include "../common/queue.h"
 #include "../common/socket.h"
@@ -15,6 +16,8 @@
 
 class Client {
 private:
+    std::string hostname;
+    std::string servname;
     Socket skt;
     ClientProtocol protocol;
     Queue<ClientEvent_t> commands;
@@ -22,6 +25,8 @@ private:
     ClientReceiver receiver;
     ClientSender sender;
     Drawer drawer;
+
+    void generate_conection();
 
 public:
     /*

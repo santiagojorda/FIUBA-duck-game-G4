@@ -1,6 +1,6 @@
-#include "lobby.h"
-
 #include <QApplication>
+
+#include "lobby.h"
 /*
 int main(int argc, char *argv[])
 {

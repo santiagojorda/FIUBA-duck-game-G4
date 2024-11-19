@@ -1,36 +1,35 @@
 #include "lobby.h"
+
+#include <QMessageBox>
+
 #include "./ui_lobby.h"
 
-Lobby::Lobby(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::Lobby)
-{
-    ui->setupUi(this);
+Lobby::Lobby(QWidget* parent): QMainWindow(parent), ui(new Ui::Lobby) { ui->setupUi(this); }
+
+Lobby::~Lobby() { delete ui; }
+
+// Join Game
+void Lobby::on_pushButton_2_clicked() {
+    connect(ui->pushButton_2, &QPushButton::clicked, [this]() { openLobbyForm(2); });
 }
 
-Lobby::~Lobby()
-{
-    delete ui;
-}
-
-void Lobby::on_pushButton_2_clicked()
-{
-    // Crear una nueva instancia de LobbyForm
-    LobbyForm *lobbyForm = new LobbyForm(this);
-
-    // Mostrar la nueva interfaz
-    lobbyForm->show();
+// New Game
+void Lobby::on_pushButton_clicked() {
+    connect(ui->pushButton, &QPushButton::clicked, [this]() { openLobbyForm(1); });
 }
 
 
-void Lobby::on_pushButton_clicked()
-{
+void Lobby::on_pushButton_3_clicked() {
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Exit", "Are you sure you want to exit?",
+                                  QMessageBox::Yes | QMessageBox::No);
 
+    if (reply == QMessageBox::Yes) {
+        this->close();
+    }
 }
 
-
-void Lobby::on_pushButton_3_clicked()
-{
-
+void Lobby::openLobbyForm(int button_id) {
+    lobby_form lobbyForm(button_id, this);
+    lobbyForm.exec();
 }
-

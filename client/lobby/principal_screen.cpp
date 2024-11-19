@@ -1,12 +1,7 @@
 #include "principal_screen.h"
 
-
 #include <QApplication>
 
-PrincipalScreen::PrincipalScreen(){
+PrincipalScreen::PrincipalScreen() {}
 
-}
-
-void PrincipalScreen::show_screen() {
-    screen.show();
-}
+void PrincipalScreen::show_screen() { screen.show(); }

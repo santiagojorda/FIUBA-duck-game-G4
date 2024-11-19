@@ -7,7 +7,6 @@ class PrincipalScreen {
     Lobby screen;
 
 private:
-    
 public:
     PrincipalScreen();
     void show_screen();
