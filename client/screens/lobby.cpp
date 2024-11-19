@@ -4,18 +4,23 @@
 
 #include "./ui_lobby.h"
 
-Lobby::Lobby(QWidget* parent): QMainWindow(parent), ui(new Ui::Lobby) { ui->setupUi(this); }
+Lobby::Lobby(QWidget* parent): QMainWindow(parent), ui(new Ui::Lobby) {
+    ui->setupUi(this);
+    connect(ui->pushButton_2, &QPushButton::clicked, this, [this]() { openLobbyForm(2); });
+    connect(ui->pushButton, &QPushButton::clicked, this, [this]() { openLobbyForm(1); });
+    connect(ui->pushButton_3, &QPushButton::clicked, this, &Lobby::on_pushButton_3_clicked);
+}
 
 Lobby::~Lobby() { delete ui; }
 
 // Join Game
 void Lobby::on_pushButton_2_clicked() {
-    connect(ui->pushButton_2, &QPushButton::clicked, [this]() { openLobbyForm(2); });
+    // connect(ui->pushButton_2, &QPushButton::clicked, [this]() { openLobbyForm(2); });
 }
 
 // New Game
 void Lobby::on_pushButton_clicked() {
-    connect(ui->pushButton, &QPushButton::clicked, [this]() { openLobbyForm(1); });
+    // connect(ui->pushButton, &QPushButton::clicked, [this]() { openLobbyForm(1); });
 }
 
 

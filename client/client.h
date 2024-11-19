@@ -16,8 +16,6 @@
 
 class Client {
 private:
-    std::string hostname;
-    std::string servname;
     Socket skt;
     ClientProtocol protocol;
     Queue<ClientEvent_t> commands;
@@ -26,7 +24,7 @@ private:
     ClientSender sender;
     Drawer drawer;
 
-    void generate_conection();
+    // void generate_conection();
 
 public:
     /*

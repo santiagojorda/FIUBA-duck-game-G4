@@ -15,8 +15,7 @@ class LoadingGame: public QDialog {
     Q_OBJECT
 
 public:
-    explicit LoadingGame(int button_id,
-                         QWidget* parent = nullptr);
+    LoadingGame(int button_id, std::string hostname, QWidget* parent = nullptr);
     ~LoadingGame();
 
 private slots:
@@ -25,6 +24,7 @@ private slots:
 private:
     Ui::LoadingGame* ui;
     int button_id;
+    std::string hostname;
 
     void generate_conection();
 };

@@ -2,13 +2,11 @@
 
 #include "ui_loading_game.h"
 
-LoadingGame::LoadingGame(int button_id,
-                         QWidget* parent):
-        QDialog(parent),
-        ui(new Ui::LoadingGame),
-        button_id(button_id)
-        {
+LoadingGame::LoadingGame(int button_id, std::string hostname, QWidget* parent):
+        QDialog(parent), ui(new Ui::LoadingGame), button_id(button_id), hostname(hostname) {
     ui->setupUi(this);
+
+    std::cout << "en loading game hostname: " << hostname << " \n";
 
     if (button_id == 1) {
         ui->pushButton_2->setText("Start Game");

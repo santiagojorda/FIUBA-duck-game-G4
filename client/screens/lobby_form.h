@@ -2,10 +2,10 @@
 #define LOBBY_FORM_H
 
 #include <QDialog>
-#include <QMainWindow>
-#include "loading_game.h"
 
 #include "../client.h"
+
+#include "loading_game.h"
 
 namespace Ui {
 class lobby_form;
@@ -26,9 +26,8 @@ private slots:
 private:
     Ui::lobby_form* ui;
     int button_id;
-    std::string hostname;
 
-    void open_loading_window(int _button_id);
+    void open_loading_window(int _button_id, std::string hostnameStr);
 };
 
 #endif  // LOBBY_FORM_H

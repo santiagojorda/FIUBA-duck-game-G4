@@ -4,10 +4,8 @@
 
 enum N_players { ONE_PLAYER = 1, TWO_PLAYER, MAX_PLAYER = 2 };
 
-Client::Client(const std::string& _hostname, const std::string& _servname):
-        hostname(_hostname),
-        servname(_servname),
-        skt(_hostname.c_str(), _servname.c_str()),
+Client::Client(const std::string& hostname, const std::string& servname):
+        skt(hostname.c_str(), servname.c_str()),
         protocol(skt),
         commands(),
         game_state(),
@@ -18,10 +16,8 @@ Client::Client(const std::string& _hostname, const std::string& _servname):
     this->protocol.send_init(ONE_PLAYER);
 }
 
-Client::Client(const std::string& _hostname, const std::string& _servname, int N_players):
-        hostname(_hostname),
-        servname(_servname),
-        skt(_hostname.c_str(), _servname.c_str()),
+Client::Client(const std::string& hostname, const std::string& servname, int N_players):
+        skt(hostname.c_str(), servname.c_str()),
         protocol(skt),
         commands(),
         game_state(),
@@ -42,13 +38,15 @@ void Client::run() {
     this->commands.close();
 }
 
+/**
 void Client::generate_conection() {
     Socket skt(this->hostname.c_str(), this->servname.c_str());
     ClientProtocol protocol(skt);
     protocol.send_init(0xFF);
-}
+} */
 
 Client::~Client(){
+    std::cout << "destructor client\n";
     receiver.stop();
     sender.stop();
 
