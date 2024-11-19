@@ -1,6 +1,8 @@
 #ifndef LOBBY_H
 #define LOBBY_H
 
+#include "lobby_form.h"
+
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE

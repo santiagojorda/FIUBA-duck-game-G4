@@ -1,7 +1,7 @@
 #ifndef PRINCIPAL_SCREEN_H
 #define PRINCIPAL_SCREEN_H
 
-#include "../GameDuckV2/lobby.h"
+#include "../screens/lobby.h"
 
 class PrincipalScreen {
     Lobby screen;

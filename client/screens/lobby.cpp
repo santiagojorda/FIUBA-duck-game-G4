@@ -15,7 +15,11 @@ Lobby::~Lobby()
 
 void Lobby::on_pushButton_2_clicked()
 {
+    // Crear una nueva instancia de LobbyForm
+    LobbyForm *lobbyForm = new LobbyForm(this);
 
+    // Mostrar la nueva interfaz
+    lobbyForm->show();
 }
 
 

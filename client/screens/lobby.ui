@@ -67,14 +67,15 @@
        </property>
        <property name="styleSheet">
         <string notr="true">QPushButton {
-    border: 3px solid white;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    font-weight: bold;
-    font-size: 20px;
-    border-radius: 10px;
-	height: 40px;
-}</string>
+            border: 3px solid white;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 10px;
+            height: 40px;
+        }
+        </string>
        </property>
        <property name="text">
         <string>New Game</string>
@@ -84,15 +85,17 @@
      <item>
       <widget class="QPushButton" name="pushButton_2">
        <property name="styleSheet">
-        <string notr="true">QPushButton {
-    border: 3px solid white;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    font-weight: bold;
-    font-size: 20px;
-    border-radius: 10px;
-	height: 40px;
-}</string>
+        <string notr="true">
+        QPushButton {
+            border: 3px solid white;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            border-radius: 10px;
+            height: 40px;
+        }
+        </string>
        </property>
        <property name="text">
         <string>Join Game</string>
@@ -102,15 +105,17 @@
      <item>
       <widget class="QPushButton" name="pushButton_3">
        <property name="styleSheet">
-        <string notr="true">QPushButton {
-    border: 3px solid white;
-    background-color: rgba(0, 0, 0, 0.7); 
-    color: white;
-    font-weight: bold;
-    font-size: 20px;
-    border-radius: 10px;
-	height: 40px;
-}</string>
+        <string notr="true">
+            QPushButton {
+                border: 3px solid white;
+                background-color: rgba(0, 0, 0, 0.7); 
+                color: white;
+                font-weight: bold;
+                font-size: 20px;
+                border-radius: 10px;
+                height: 40px;
+            }
+        </string>
        </property>
        <property name="text">
         <string>Exit</string>
