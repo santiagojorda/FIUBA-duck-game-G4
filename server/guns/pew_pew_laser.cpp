@@ -1,7 +1,9 @@
 #include "pew_pew_laser.h"
 
 #include "../../common/weapons_id.h"
+#include "bullet.h"
 
+#include <functional>
 
 struct PewPewLaserConfig {
     WeaponTextureID id = WeaponTextureID::PEW_PEW_LASER;
@@ -20,3 +22,15 @@ ListProjectiles PewPewLaser::shoot(Coordinate& shooter_position) {
     (void)shooter_position;
     return ListProjectiles();
 }
+
+void  PewPewLaser::shoot(ListProjectiles& projectiles, Direction direction)  { 
+    (void)direction;
+        for (int i = 0; i < pew_pew_laser_config.count_projectiles_x_shoot; i++){
+        if(this->ammo > 0){
+            projectiles.add(new Bullet(this->projectile_range ,this->get_coordinate()));
+            this->ammo--;
+        }
+    }
+}
+
+

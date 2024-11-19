@@ -99,12 +99,8 @@ void GameLogic::handle_event(uint8_t player_id, ActionCommand event) {
                 player.crouch();
                 break;
             case ActionCommand::SHOOT:
-                // chequear se pueda
                 log_player_action(player, "shoot");
-                ListProjectiles gun_projectiles = player.shoot();
-                for (auto* projectile: gun_projectiles.get_items()) {
-                    map_projectiles.transfer_item(projectile, gun_projectiles);
-                }
+                player.shoot(map_projectiles);
                 break;
         }
     } catch (const std::exception& e) {

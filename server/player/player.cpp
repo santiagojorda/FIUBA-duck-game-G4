@@ -1,6 +1,7 @@
 #include "player.h"
 
 #include <iostream>
+#include <functional>
 
 #include "../guns/gun.h"
 
@@ -165,19 +166,17 @@ void Player::move_back(ShootingRecoil tiles) {
 
 bool Player::is_jumping(){ return state == DuckState::IS_JUMPING; }
 
-ListProjectiles Player::shoot() {
+void Player::shoot(ListProjectiles& projectiles) {
     Gun* gun = inventory.get_gun();
     if (!gun) {
-        return ListProjectiles();
+        return;
     }
-
-    Coordinate actual_position = get_coordinate();
-    ShootingRecoil recoil;
-    ListProjectiles projectiles = gun->shoot(actual_position, recoil);
+    ShootingRecoil recoil = gun->get_recoil();
+    gun->shoot(projectiles, this->look_direction);
     if ((int)recoil > 0) {  // is there recoil? yes -> it could be a function
         move_back(recoil);
     }
-    return projectiles;
+    std::cout << "in playe suno uno" << projectiles.size() << std::endl;
 }
 
 // --------------------- STATE

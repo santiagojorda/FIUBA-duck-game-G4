@@ -4,6 +4,7 @@
 #include "event_jump.h"
 #include "event_move_left.h"
 #include "event_move_right.h"
+#include "event_shoot.h"
 
 
 EventFactory::EventFactory(uint8_t& _player_id): player_id(_player_id) {
@@ -12,6 +13,7 @@ EventFactory::EventFactory(uint8_t& _player_id): player_id(_player_id) {
     this->map_event[MOVE_RIGHT] = new EventMoveRight(player_id);
     this->map_event[JUMP] = new EventJump(player_id);
     this->map_event[CROUCH] = new EventCrouch(player_id);
+    this->map_event[SHOOT] = new EventShoot(player_id);
     // this->map_event[JUMP] = ;
     // this->map_event[CROUCH] = ;
     // this->map_event[MOVE_LEFT] = ;
