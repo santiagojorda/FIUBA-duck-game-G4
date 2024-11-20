@@ -27,7 +27,6 @@ private:
     void log_action(const std::string& action);
 
 public:
-    Player();
     explicit Player(uint8_t _id);
     Player& operator=(const Player& _other);
     uint8_t get_id() const;

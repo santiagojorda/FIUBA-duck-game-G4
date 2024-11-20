@@ -10,7 +10,7 @@ const int SPEED = 1;
 #define JUMP_STEP -10
 #define FALLING_STEP 1
 
-Player::Player(uint8_t _id): Positionable(_id, _id, Coordinate(10, 10, 32, 32)), state(*this) {}
+Player::Player(uint8_t _id): Positionable(_id, _id, Coordinate(10, 10, 32, 32)), state(id) {}
 
 Player::~Player() { Positionable::~Positionable(); }
 
@@ -32,10 +32,10 @@ void Player::crouch(GamePhysics& physics) { state.crouch(*this, physics); }
 void Player::slip(GamePhysics& physics) { state.slip(*this, physics); }
 void Player::recoil(GamePhysics& physics) { state.recoil(*this, physics); }
 void Player::plane(GamePhysics& physics) { state.plane(*this, physics); }
-void Player::idle() { state.idle(); }
+void Player::idle() { state.idle(*this); }
 void Player::die() {
     health = 0;
-    state.die();
+    state.die(*this);
 }
 
 uint8_t Player::get_id() const { return this->id; }

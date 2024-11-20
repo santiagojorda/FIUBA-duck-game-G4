@@ -2,10 +2,8 @@
 
 #include "../player.h"
 
-DuckStateController::DuckStateController(Player& _player):
-    player(_player)
-{
-    DuckState* initial_state = new DuckStateIdle(player.get_id());
+DuckStateController::DuckStateController(const uint8_t& _player_id){
+    DuckState* initial_state = new DuckStateIdle(_player_id);
     current_state = initial_state;
     direction = Direction::RIGHT;
 }
@@ -58,8 +56,8 @@ void DuckStateController::plane(Player& player, GamePhysics& physics){
     set_state(new DuckStatePlanning(player.get_id())); 
     current_state->execute(player, physics);
 }
-void DuckStateController::die(){ set_state(new DuckStateDead(player.get_id())); }
-void DuckStateController::idle(){ set_state(new DuckStateIdle(player.get_id())); }
+void DuckStateController::die(Player& player){ set_state(new DuckStateDead(player.get_id())); }
+void DuckStateController::idle(Player& player){ set_state(new DuckStateIdle(player.get_id())); }
 
 bool DuckStateController::is_in_state(DuckStateType state) {
     return current_state && current_state->get_id() == state;

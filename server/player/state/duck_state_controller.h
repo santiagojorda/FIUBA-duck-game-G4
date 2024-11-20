@@ -22,16 +22,14 @@ class GamePhysics;
 
 class DuckStateController {
 private:
-    Player& player;
     DuckState* current_state;
     Direction direction;
     void set_state(DuckState* new_state);
 
 public:
-    DuckStateController(Player& _player);
+    DuckStateController(const uint8_t& _player_id);
 
     void update(Player& player, GamePhysics& physics);
-
     void run_right(Player& player, GamePhysics& physics);
     void run_left(Player& player, GamePhysics& physics);
     void jump(Player& player, GamePhysics& physics);
@@ -40,8 +38,8 @@ public:
     void slip(Player& player, GamePhysics& physics);
     void recoil(Player& player, GamePhysics& physics);
     void plane(Player& player, GamePhysics& physics);
-    void die();
-    void idle();
+    void die(Player& player);
+    void idle(Player& player);
     bool is_in_state(DuckStateType state);
     bool is_jumping();
     bool is_dead();
