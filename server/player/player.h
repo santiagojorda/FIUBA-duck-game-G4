@@ -53,8 +53,10 @@ public:
     void idle();
 
     bool is_jumping();
-    bool is_dead();
     bool is_running();
+    bool is_falling();
+    bool is_idle();
+    bool is_dead();
 
     DuckStateType get_state();
     uint8_t get_frame();

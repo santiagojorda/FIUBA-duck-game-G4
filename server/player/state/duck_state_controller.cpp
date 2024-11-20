@@ -22,12 +22,16 @@ void DuckStateController::update(Player& player, GamePhysics& physics){
 
 void DuckStateController::run_right(Player& player, GamePhysics& physics){
     direction = Direction::RIGHT;
-    set_state(new DuckStateRunning(player.get_id(), direction));
+    if(!is_running()){
+        set_state(new DuckStateRunning(player.get_id(), direction));
+    }
     current_state->execute(player, physics);
 }
 void DuckStateController::run_left(Player& player, GamePhysics& physics){
     direction = Direction::LEFT;
-    set_state(new DuckStateRunning(player.get_id(), direction));
+    if(!is_running()){
+        set_state(new DuckStateRunning(player.get_id(), direction));
+    }
     current_state->execute(player, physics);
 }
 void DuckStateController::jump(Player& player, GamePhysics& physics){
@@ -58,7 +62,11 @@ void DuckStateController::plane(Player& player, GamePhysics& physics){
     current_state->execute(player, physics);
 }
 void DuckStateController::die(Player& player){ set_state(new DuckStateDead(player.get_id())); }
-void DuckStateController::idle(Player& player){ set_state(new DuckStateIdle(player.get_id())); }
+void DuckStateController::idle(Player& player){ 
+    if(!is_idle()){
+        set_state(new DuckStateIdle(player.get_id())); 
+    }
+}
 
 bool DuckStateController::is_in_state(DuckStateType state) { return current_state && current_state->get_id() == state;}
 

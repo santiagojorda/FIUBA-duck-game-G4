@@ -1,8 +1,10 @@
 #include "duck_state_running.h"
 
 #include "../player.h"
+#include <iostream>
 
-#define RUN_STEP 5
+#define RUN_STEP 3
+#define TICKS_PER_FRAME 1
 
 struct RunningStateConfig {
     DuckStateType id = DuckStateType::IS_RUNNING; 
@@ -16,17 +18,35 @@ DuckStateRunning::DuckStateRunning(const uint8_t& _player_id, Direction& _direct
     {}
 
 void DuckStateRunning::update(Player& player, GamePhysics& physics) {
-    DuckState::update(player, physics);
+    (void)physics;
+    std::cout << "steps updated    " << count_steps_updated << std::endl;
+    std::cout << "steps to execute " << count_steps_to_execute << std::endl;
+    if(count_steps_updated >= count_steps_to_execute){
+        player.idle();
+        return;
+    }
+    frame++;
+    count_steps_updated++;
+    move(player, direction);
+    if(frame >= max_frames){
+        reset();
+    }
 }
 
-void DuckStateRunning::execute(Player& player, GamePhysics& physics){
-    (void)physics;
+void DuckStateRunning::move(Player& player, Direction& direction){
     if (direction == Direction::RIGHT){
         player.translate_x(RUN_STEP);
     }
     else if(direction == Direction::LEFT){
         player.translate_x(-RUN_STEP);
     }
+}
+
+void DuckStateRunning::execute(Player& player, GamePhysics& physics){
+    (void)physics;
+    (void)player;
+
+    count_steps_to_execute++;
 }
 
 DuckStateRunning::~DuckStateRunning() {}

@@ -72,7 +72,9 @@ void GameLogic::update_player_gravity(Player& player) {
         // player.touch_floor(touched_floor);
         // si es que no baja mas, que acomode el sobrante
         player.adjust_position_to_floor(touched_floor);
-        player.idle(); 
+        if(player.is_falling()){
+            player.idle();
+        }
     } else {
         player.fall(physics);
         // physics.falling(player, player.get_frame());

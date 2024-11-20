@@ -20,12 +20,11 @@ void DuckStateJumping::update(Player& player, GamePhysics& physics) {
     (void)physics;
 
     player.translate_y(-JUMP_STEP);
-    if(tick == max_frame){
+    if(tick == max_frames){
         player.fall(physics);
         return;
     }
     frame++;
-    
 
 
 } 

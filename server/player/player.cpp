@@ -80,10 +80,13 @@ void Player::move_back(ShootingRecoil tiles) {
 }
 
 bool Player::is_jumping() { return state.is_jumping(); }
-bool Player::is_dead() { return state.is_dead(); }
 bool Player::is_running() { return state.is_running(); }
+bool Player::is_falling() { return state.is_falling(); }
+bool Player::is_idle() { return state.is_idle(); }
+bool Player::is_dead() { return state.is_dead(); } 
 
 DuckStateType Player::get_state() { return state.get_state(); }
+
 uint8_t Player::get_frame() { return state.get_frame(); }
 
 ListProjectiles Player::shoot() {

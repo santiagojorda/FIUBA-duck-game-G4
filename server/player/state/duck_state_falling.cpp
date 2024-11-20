@@ -17,6 +17,9 @@ DuckStateFalling::DuckStateFalling(const uint8_t& _player_id):
     
 void DuckStateFalling::update(Player& player, GamePhysics& physics) {
     player.translate_y(FALLING_STEP);
+    if(frame < max_frames){
+        frame++;
+    }
     (void)physics;
 }
 DuckStateFalling::~DuckStateFalling() {}
