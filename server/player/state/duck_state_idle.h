@@ -5,8 +5,7 @@
 
 class DuckStateIdle: public DuckState{
 public:
-    DuckStateIdle(Player& _player);
-    void update(Player& player) override;
+    DuckStateIdle(const uint8_t& _player_id);
     ~DuckStateIdle();
 };
 

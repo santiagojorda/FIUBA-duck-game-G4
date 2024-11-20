@@ -37,7 +37,6 @@ public:
     void translate_y(int pasos) override;
     void move_back(ShootingRecoil tiles);
     // void move_back(int tiles);
-    void update();
 
     Gun* get_gun();
     Armor* get_armor();
@@ -47,15 +46,16 @@ public:
     Direction get_direction();
     Inventory& get_inventory();
 
-    void run_right();
-    void run_left();
+    void update(GamePhysics& physics);
+    void run_right(GamePhysics& physics);
+    void run_left(GamePhysics& physics);
     void run(Direction& direction);
-    void jump();
+    void jump(GamePhysics& physics);
     void fall(GamePhysics& physics);
-    void crouch();
-    void slip();
-    void recoil();
-    void plane();
+    void crouch(GamePhysics& physics);
+    void slip(GamePhysics& physics);
+    void recoil(GamePhysics& physics);
+    void plane(GamePhysics& physics);
     void die();
     void idle();
 

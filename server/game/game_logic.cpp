@@ -13,7 +13,7 @@ GameLogic::GameLogic(ListPlayers& _players, Map& _map, ListGuns& _map_guns,
         map(_map),
         map_guns(_map_guns),
         map_projectiles(_map_projectiles),
-        physics() {}
+        physics(map) {}
 
 Positionable* GameLogic::get_player_floor_collision(const Player& player) {
     for (auto& tile: this->map) {
@@ -50,7 +50,7 @@ void GameLogic::update_players() {
             continue;
         }
 
-        player.update();
+        player.update(physics);
 
         if (is_player_out_of_map(player)) {
             player.die();
@@ -101,19 +101,19 @@ void GameLogic::handle_event(uint8_t player_id, ActionCommand event) {
         switch (event_code) {
             case ActionCommand::MOVE_RIGHT:
                 // chequear que se pueda
-                player.run_right();
+                player.run_right(physics);
                 break;
             case ActionCommand::MOVE_LEFT:
                 // chequear que se pueda
-                player.run_left();
+                player.run_left(physics);
                 break;
             case ActionCommand::JUMP:
                 // chequear se pueda
-                player.jump();
+                player.jump(physics);
                 break;
             case ActionCommand::CROUCH:
                 // chequear se pueda
-                player.crouch();
+                player.crouch(physics);
                 break;
             case ActionCommand::SHOOT:
                 // chequear se pueda

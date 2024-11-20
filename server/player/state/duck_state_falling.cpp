@@ -1,6 +1,7 @@
 #include "duck_state_falling.h"
 
 #include "../../attributes/positionable.h"
+#include "../player.h"
 
 struct FallingStateConfig {
     DuckStateType id = DuckStateType::IS_FALLING; 
@@ -8,14 +9,12 @@ struct FallingStateConfig {
 };
 FallingStateConfig falling_config;
 
-DuckStateFalling::DuckStateFalling(Player& _player, GamePhysics& _game_physics): 
-    DuckState(falling_config.id, falling_config.name, _player),
-    physics(_game_physics)
+DuckStateFalling::DuckStateFalling(const uint8_t& _player_id): 
+    DuckState(falling_config.id, falling_config.name, duck_state_frames[falling_config.id].max_frames, _player_id)
     {}
     
-void DuckStateFalling::update(Player& player) {
-    (void)player;
-    physics.falling((Positionable&)(player), 1);
-    // log_action("Fall");
-} 
+void DuckStateFalling::update(Player& player, GamePhysics& physics) {
+    player.translate_y(1);
+    (void)physics;
+}
 DuckStateFalling::~DuckStateFalling() {}

@@ -5,9 +5,9 @@
 
 class DuckStateJumping: public DuckState{
 public:
-    DuckStateJumping(Player& _player);
+    DuckStateJumping(const uint8_t& _player_id);
 
-    void update(Player& player) override;
+    void update(Player& player, GamePhysics& physics) override;
 
     ~DuckStateJumping();
 };

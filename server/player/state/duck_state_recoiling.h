@@ -5,8 +5,7 @@
 
 class DuckStateRecoiling: public DuckState{
 public:
-    DuckStateRecoiling(Player& _player);
-    void update(Player& player) override;
+    DuckStateRecoiling(const uint8_t& _player_id);
     ~DuckStateRecoiling();
 };
 

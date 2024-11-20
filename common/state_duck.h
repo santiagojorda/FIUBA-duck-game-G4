@@ -11,7 +11,7 @@ enum class DuckStateType : uint8_t {
     IS_RECOILING,
     IS_FALLING,
     IS_SLIPPING,
-    IS_PLANING,
+    IS_PLANNING,
     IS_IDLE,
     IS_DEAD
 };

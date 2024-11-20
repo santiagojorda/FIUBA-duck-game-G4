@@ -10,7 +10,6 @@ const int SPEED = 1;
 #define JUMP_STEP -10
 #define FALLING_STEP 1
 
-Player::Player(): state(*this) {}
 Player::Player(uint8_t _id): Positionable(_id, _id, Coordinate(10, 10, 32, 32)), state(*this) {}
 
 Player::~Player() { Positionable::~Positionable(); }
@@ -19,56 +18,25 @@ void Player::looks_right() { look_direction = Direction::RIGHT; }
 void Player::looks_left() { look_direction = Direction::LEFT; }
 void Player::looks_up() { look_direction = Direction::UP; }
 
-void Player::update() {
-    state.update(*this);
-    //     frame++;
-    //     tick++;
-
-    //     if (frame >= duck_state_frames[(DuckStateType)state].max_frames) {
-    //         switch (state) {
-    //             case (int)DuckStateType::IS_FALLING:
-    //                 reset();
-    //                 break;
-
-    //             case (int)DuckStateType::IS_IDLE:
-    //                 reset();
-    //                 break;
-
-    //             case (int)DuckStateType::IS_JUMPING:
-    //                 set_state((int)DuckStateType::IS_FALLING);
-    //                 break;
-
-    //             case (int)DuckStateType::IS_DEAD:
-    //                 reset();
-    //                 break;
-    //             default:
-    //                 idle();
-    //         }
-    //     }
+void Player::update(GamePhysics& physics) { 
+    state.update(*this, physics); 
 }
 
-void Player::log_action(const std::string& action) {
-    std::cout << "Player " << int(id) << " " << action << std::endl;
-}
+void Player::log_action(const std::string& action) { std::cout << "Player " << int(id) << " " << action << std::endl; }
 
-
-void Player::run_right() { state.run_right(*this); }
-void Player::run_left() { state.run_left(*this); }
-void Player::jump() {
-    state.jump(*this);
-    // translate_y(JUMP_STEP);
-}
+void Player::run_right(GamePhysics& physics) { state.run_right(*this, physics); }
+void Player::run_left(GamePhysics& physics) { state.run_left(*this, physics); }
+void Player::jump(GamePhysics& physics) { state.jump(*this, physics); }
 void Player::fall(GamePhysics& physics) { state.fall(*this, physics); }
-void Player::crouch() { state.crouch(*this); }
-void Player::slip() { state.slip(*this); }
-void Player::recoil() { state.recoil(*this); }
-void Player::plane() { state.plane(*this); }
+void Player::crouch(GamePhysics& physics) { state.crouch(*this, physics); }
+void Player::slip(GamePhysics& physics) { state.slip(*this, physics); }
+void Player::recoil(GamePhysics& physics) { state.recoil(*this, physics); }
+void Player::plane(GamePhysics& physics) { state.plane(*this, physics); }
+void Player::idle() { state.idle(); }
 void Player::die() {
     health = 0;
-
-    state.die(*this);
+    state.die();
 }
-void Player::idle() { state.idle(*this); }
 
 uint8_t Player::get_id() const { return this->id; }
 Gun* Player::get_gun() { return inventory.get_gun(); }
@@ -94,8 +62,7 @@ void Player::adjust_position_to_floor(Positionable* floor) {
 }
 
 void Player::translate() {}
-
-void Player::translate_x(int pasos) {  // cambiar la variable
+void Player::translate_x(int pasos) { 
     if (pasos > 0) {
         looks_right();
     } else if (pasos < 0) {
@@ -106,7 +73,7 @@ void Player::translate_x(int pasos) {  // cambiar la variable
     this->space = new_pos;
 }
 
-void Player::translate_y(int pasos) {  // cambiar la variable
+void Player::translate_y(int pasos) { 
     Rectangle new_pos(this->space.get_coordinates() + Coordinate(0, pasos * SPEED, 0, 0));
     this->space = new_pos;
 }
@@ -118,17 +85,7 @@ Player& Player::operator=(const Player& _other) {
 }
 
 void Player::equip(Equippable* item) { inventory.equip(item); }
-
 void Player::move_back(ShootingRecoil tiles) {
-    // if(look_direction == Direction::LEFT){
-    //     translate_x()
-    // }
-    // else{
-    //     translate_x();
-    // }
-
-    // esto tiene que ser de forma iterativa -> stado
-
     (void)tiles;
 }
 
@@ -154,4 +111,3 @@ ListProjectiles Player::shoot() {
     return projectiles;
 }
 
-// --------------------- STATE

@@ -6,10 +6,8 @@ struct DeadStateConfig {
 };
 DeadStateConfig dead_config;
 
-DuckStateDead::DuckStateDead(Player& _player): DuckState(dead_config.id, dead_config.name, _player){}
-
-void DuckStateDead::update(Player& player) {
-    (void)player;
-} 
+DuckStateDead::DuckStateDead(const uint8_t& _player_id): 
+    DuckState(dead_config.id, dead_config.name, duck_state_frames[dead_config.id].max_frames, _player_id)
+    {}
 
 DuckStateDead::~DuckStateDead() {}

@@ -6,9 +6,8 @@ struct IdleStateConfig {
 };
 IdleStateConfig idle_config;
 
-DuckStateIdle::DuckStateIdle(Player& _player): DuckState(idle_config.id, idle_config.name, _player){}
+DuckStateIdle::DuckStateIdle(const uint8_t& _player_id): 
+    DuckState(idle_config.id, idle_config.name, duck_state_frames[idle_config.id].max_frames, _player_id)
+    {}
 
-void DuckStateIdle::update(Player& player) {
-    (void)player;
-} 
 DuckStateIdle::~DuckStateIdle() {}

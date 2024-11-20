@@ -5,9 +5,8 @@
 
 class DuckStateSlipping: public DuckState{
 public:
-    DuckStateSlipping(Player& _player);
+    DuckStateSlipping(const uint8_t& _player_id);
 
-    void update(Player& player) override;
     ~DuckStateSlipping();
 };
 
