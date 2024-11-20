@@ -31,14 +31,15 @@ void DuckStateController::run_left(Player& player, GamePhysics& physics){
     current_state->execute(player, physics);
 }
 void DuckStateController::jump(Player& player, GamePhysics& physics){
-    if(!is_jumping()){
+    (void)physics;
+    if(!is_jumping() && !is_falling()){
         set_state(new DuckStateJumping(player.get_id()));
-        current_state->execute(player, physics);
     }
 }
 void DuckStateController::fall(Player& player, GamePhysics& physics){ 
+    (void)physics;
     set_state(new DuckStateFalling(player.get_id())); 
-    current_state->execute(player, physics);
+    // current_state->execute(player, physics);
 }
 void DuckStateController::crouch(Player& player, GamePhysics& physics){ 
     set_state(new DuckStateCrouching(player.get_id())); 
@@ -59,17 +60,17 @@ void DuckStateController::plane(Player& player, GamePhysics& physics){
 void DuckStateController::die(Player& player){ set_state(new DuckStateDead(player.get_id())); }
 void DuckStateController::idle(Player& player){ set_state(new DuckStateIdle(player.get_id())); }
 
-bool DuckStateController::is_in_state(DuckStateType state) {
-    return current_state && current_state->get_id() == state;
-}
+bool DuckStateController::is_in_state(DuckStateType state) { return current_state && current_state->get_id() == state;}
 
 bool DuckStateController::is_jumping() { return is_in_state(DuckStateType::IS_JUMPING);}
-bool DuckStateController::is_dead() { return is_in_state(DuckStateType::IS_DEAD);}
 bool DuckStateController::is_running() { return is_in_state(DuckStateType::IS_RUNNING);}
+bool DuckStateController::is_falling() { return is_in_state(DuckStateType::IS_FALLING);}
+bool DuckStateController::is_dead() { return is_in_state(DuckStateType::IS_DEAD);}
+bool DuckStateController::is_idle() { return is_in_state(DuckStateType::IS_IDLE);}
 
 DuckStateType DuckStateController::get_state() { return current_state->get_id();};
 uint8_t DuckStateController::get_frame() { return current_state->get_frame(); };
-
+Direction DuckStateController::get_direction() { return direction; }
 DuckStateController::~DuckStateController() {
     delete current_state;
 }

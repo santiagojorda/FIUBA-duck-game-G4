@@ -3,6 +3,8 @@
 #include "../../attributes/positionable.h"
 #include "../player.h"
 
+#define FALLING_STEP 5
+
 struct FallingStateConfig {
     DuckStateType id = DuckStateType::IS_FALLING; 
     std::string name = "Falling"; 
@@ -14,7 +16,7 @@ DuckStateFalling::DuckStateFalling(const uint8_t& _player_id):
     {}
     
 void DuckStateFalling::update(Player& player, GamePhysics& physics) {
-    player.translate_y(1);
+    player.translate_y(FALLING_STEP);
     (void)physics;
 }
 DuckStateFalling::~DuckStateFalling() {}

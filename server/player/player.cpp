@@ -14,10 +14,6 @@ Player::Player(uint8_t _id): Positionable(_id, _id, Coordinate(10, 10, 32, 32)),
 
 Player::~Player() { Positionable::~Positionable(); }
 
-void Player::looks_right() { look_direction = Direction::RIGHT; }
-void Player::looks_left() { look_direction = Direction::LEFT; }
-void Player::looks_up() { look_direction = Direction::UP; }
-
 void Player::update(GamePhysics& physics) { 
     state.update(*this, physics); 
 }
@@ -43,7 +39,7 @@ Gun* Player::get_gun() { return inventory.get_gun(); }
 Armor* Player::get_armor() { return inventory.get_armor(); }
 Helmet* Player::get_helmet() { return inventory.get_helmet(); }
 Inventory& Player::get_inventory() { return inventory; }
-Direction Player::get_direction() { return look_direction; }
+Direction Player::get_direction() { return state.get_direction(); }
 
 void Player::adjust_position_to_floor(Positionable* floor) {
     if (floor) {
@@ -63,12 +59,6 @@ void Player::adjust_position_to_floor(Positionable* floor) {
 
 void Player::translate() {}
 void Player::translate_x(int pasos) { 
-    if (pasos > 0) {
-        looks_right();
-    } else if (pasos < 0) {
-        looks_left();
-    }
-
     Rectangle new_pos(this->space.get_coordinates() + Coordinate(pasos * SPEED, 0, 0, 0));
     this->space = new_pos;
 }

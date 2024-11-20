@@ -1,6 +1,10 @@
 #include "duck_state_jumping.h"
 #include "../player.h"
 
+#include <iostream>
+
+#define JUMP_STEP 7
+
 struct JumpingStateConfig {
     DuckStateType id = DuckStateType::IS_JUMPING; 
     std::string name = "Jumping"; 
@@ -12,18 +16,16 @@ DuckStateJumping::DuckStateJumping(const uint8_t& _player_id):
     {}
 
 void DuckStateJumping::update(Player& player, GamePhysics& physics) {
+    DuckState::update(player, physics);
     (void)physics;
 
-    player.translate_y(-10);
-
-    if(tick == 6){
+    player.translate_y(-JUMP_STEP);
+    if(tick == max_frame){
         player.fall(physics);
         return;
     }
-
-    if (tick == 2 || tick == 4){
-        frame++;
-    }
+    frame++;
+    
 
 
 } 

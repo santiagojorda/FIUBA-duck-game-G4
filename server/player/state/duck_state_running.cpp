@@ -2,7 +2,7 @@
 
 #include "../player.h"
 
-#define RUN_STEP 10
+#define RUN_STEP 5
 
 struct RunningStateConfig {
     DuckStateType id = DuckStateType::IS_RUNNING; 
@@ -21,7 +21,12 @@ void DuckStateRunning::update(Player& player, GamePhysics& physics) {
 
 void DuckStateRunning::execute(Player& player, GamePhysics& physics){
     (void)physics;
-    player.translate_x(RUN_STEP);
+    if (direction == Direction::RIGHT){
+        player.translate_x(RUN_STEP);
+    }
+    else if(direction == Direction::LEFT){
+        player.translate_x(-RUN_STEP);
+    }
 }
 
 DuckStateRunning::~DuckStateRunning() {}

@@ -16,14 +16,8 @@ class Player: public Positionable {
 private:
     // cppcheck-suppress unusedStructMember
     uint8_t health;  // te lo dejo para ir pensado en la vida
-    // cppcheck-suppress unusedStructMember
-    Direction look_direction = Direction::RIGHT;
-
     Inventory inventory;
     DuckStateController state;
-    void looks_up();
-    void looks_right();
-    void looks_left();
     void log_action(const std::string& action);
 
 public:
