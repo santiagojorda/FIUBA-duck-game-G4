@@ -3,267 +3,132 @@ tiles:
 - map_id: 1
   tile_id: 3
   coordinate:
-    x: 100
-    y: 300
+    x: 96
+    y: 304
 - map_id: 1
   tile_id: 3
   coordinate:
-    x: 116
-    y: 300
+    x: 112
+    y: 304
 - map_id: 1
   tile_id: 3
   coordinate:
-    x: 132
-    y: 300
+    x: 128
+    y: 304
 - map_id: 1
   tile_id: 3
   coordinate:
-    x: 148
-    y: 300
+    x: 144
+    y: 304
 - map_id: 1
   tile_id: 3
   coordinate:
-    x: 164
-    y: 300
+    x: 160
+    y: 304
 - map_id: 1
   tile_id: 3
   coordinate:
-    x: 180
-    y: 300
+    x: 176
+    y: 304
 - map_id: 1
   tile_id: 3
   coordinate:
-    x: 196
-    y: 300
+    x: 192
+    y: 304
 - map_id: 1
   tile_id: 3
   coordinate:
-    x: 212
-    y: 300
+    x: 208
+    y: 304
 - map_id: 1
   tile_id: 3
   coordinate:
-    x: 228
-    y: 300
+    x: 224
+    y: 304
 - map_id: 1
   tile_id: 3
   coordinate:
-    x: 244
-    y: 300
+    x: 240
+    y: 304
 - map_id: 1
   tile_id: 3
   coordinate:
-    x: 260
-    y: 300
+    x: 256
+    y: 304
 - map_id: 1
   tile_id: 3
   coordinate:
-    x: 276
-    y: 300
+    x: 272
+    y: 304
 - map_id: 1
   tile_id: 3
   coordinate:
-    x: 292
-    y: 300
+    x: 288
+    y: 304
 - map_id: 1
   tile_id: 3
   coordinate:
-    x: 308
-    y: 300
+    x: 304
+    y: 304
 - map_id: 1
   tile_id: 3
   coordinate:
-    x: 324
-    y: 300
+    x: 320
+    y: 304
 - map_id: 1
   tile_id: 3
   coordinate:
-    x: 340
-    y: 300
+    x: 336
+    y: 304
 - map_id: 1
   tile_id: 3
   coordinate:
-    x: 356
-    y: 300
+    x: 352
+    y: 304
 - map_id: 1
   tile_id: 3
   coordinate:
-    x: 372
-    y: 300
+    x: 368
+    y: 304
 - map_id: 1
   tile_id: 3
   coordinate:
-    x: 388
-    y: 300
+    x: 384
+    y: 304
 - map_id: 1
   tile_id: 3
   coordinate:
-    x: 404
-    y: 300
+    x: 96
+    y: 96
 - map_id: 1
   tile_id: 3
   coordinate:
-    x: 420
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 436
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 452
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 468
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 484
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 500
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 516
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 532
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 548
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 564
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 580
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 596
-    y: 300
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 100
-    y: 230
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 132
-    y: 230
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 164
-    y: 230
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 196
-    y: 230
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 228
-    y: 230
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 260
-    y: 230
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 292
-    y: 230
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 324
-    y: 230
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 356
-    y: 230
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 388
-    y: 230
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 420
-    y: 230
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 452
-    y: 230
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 484
-    y: 230
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 516
-    y: 230
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 548
-    y: 230
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 580
-    y: 230
+    x: 224
+    y: 96
 
 weapon_size: 32
 weapons:
   - id: 3
     coordinate:
-     x: 550
+     x: 250
      y: 184
   - id: 5
     coordinate:
-     x: 600
+     x: 300
      y: 184
   - id: 5
     coordinate:
-     x: 700
+     x: 330
      y: 184
 
 
 player_size: 32
 players:
   - coordinate:
-      x: 450
+      x: 96
       y: 50
   - coordinate:
-      x: 600
+      x: 224
       y: 50
   - coordinate:
       x: 400
