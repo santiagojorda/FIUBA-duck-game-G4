@@ -52,7 +52,7 @@ void ProtocolServer::send_players_state(GameState_t& state) {
         // std::cout << "player" << static_cast<uint8_t>(player.get_state()) << std::endl;
         send_coordinates(player.get_coordinate());
         send_byte(static_cast<uint8_t>(player.get_direction()));
-        send_byte(player.get_state());
+        send_byte(static_cast<uint8_t>(player.get_state()));
         send_byte(static_cast<uint8_t>(player.get_frame()));
         send_inventory(player.get_inventory());
     }

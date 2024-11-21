@@ -5,7 +5,8 @@ Positionable::Positionable(): space(1, 11, 32, 32) {}  // DUMMY
 Positionable::Positionable(const uint8_t& _texture_id, const Coordinate& _coordinate):
         texture_id(_texture_id), space(_coordinate) {}
 
-Positionable::Positionable(const uint8_t& _id, const uint8_t& _texture_id, const Coordinate& _coordinate):
+Positionable::Positionable(const uint8_t& _id, const uint8_t& _texture_id,
+                           const Coordinate& _coordinate):
         texture_id(_texture_id), id(_id), space(_coordinate) {}
 
 Coordinate Positionable::get_coordinate() const { return this->space.get_coordinates(); }

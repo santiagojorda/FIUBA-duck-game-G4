@@ -14,7 +14,7 @@ uint8_t Statable::get_state() { return state; };
 uint8_t Statable::get_frame() { return frame; };
 uint8_t Statable::get_tick() { return tick; };
 
-void Statable::reset() { 
+void Statable::reset() {
     frame = 0;
     tick = 0;
 }
