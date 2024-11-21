@@ -1,6 +1,6 @@
 #include "drawer.h"
 
-#include <chrono>
+#include "../../common/sleep_special.h"
 
 using namespace SDL2pp;
 
@@ -22,11 +22,10 @@ void Drawer::run() try {
 
     Texture background(renderer, DATA_PATH "/background.png");
 
+    SleepSpecial sleep(MILISECONDS_30_FPS);
+    int iteration = 0;
     drawers_t drawers;
     client_game_state_t actual_game_state;
-
-    auto chrono_now = std::chrono::high_resolution_clock::now();
-    auto chrono_prev = chrono_now;
 
     ZoomHandler zoom_handler;
     // desde el LOBBY ya le di a startear game, por lo tanto no necesito darle a la "m", de entrada
@@ -124,13 +123,7 @@ void Drawer::run() try {
         zoom_handler.apply_zoom(renderer, render_target);
         renderer.Present();
 
-        chrono_now = std::chrono::high_resolution_clock::now();
-        auto delta_chrono = (chrono_now - chrono_prev);
-        if (delta_chrono < std::chrono::milliseconds(MILISECONDS_30_FPS)) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(MILISECONDS_30_FPS));
-        }
-
-        chrono_prev = std::chrono::high_resolution_clock::now();
+        sleep.sleep_rate(iteration);
 
         SDL_Event event;
         keyboard_controller.procesar_comando(event);

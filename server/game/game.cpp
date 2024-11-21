@@ -1,8 +1,8 @@
 #include "game.h"
 
-#include <chrono>
 #include <iostream>
 
+#include "../../common/sleep_special.h"
 #include "../events/event_player.h"
 #include "../guns/gun_factory.h"
 #include "../map/ground.h"
@@ -61,8 +61,6 @@ Game::Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEventPla
     this->load_map();
 }
 
-void Game::sleep() { std::this_thread::sleep_for(std::chrono::milliseconds(MILISECONDS_30_FPS)); }
-
 void Game::execute_new_events() {
     EventPlayer* event = nullptr;
     while (queue_event.try_pop(event)) {
@@ -78,13 +76,9 @@ void Game::broadcast_gamestate() { monitor_client.broadcast(get_gamestate()); }
 
 GameState_t Game::get_gamestate() { return GameState_t{players, map, map_guns, map_projectiles}; }
 
-auto get_actual_milliseconds() { return std::chrono::high_resolution_clock::now(); }
 
 void Game::run() {
-
-    auto chrono_now = get_actual_milliseconds();
-    auto chrono_prev = chrono_now;
-
+    SleepSpecial sleep(MILISECONDS_30_FPS);
     try {
 
         while (_keep_running && monitor_client.they_are_alive()) {
@@ -93,13 +87,7 @@ void Game::run() {
             // *(2) o podria procesar todos los mensajes en la cola y luego enviar un gamestate como
             // broadcast_gamestate
             broadcast_gamestate();
-
-            chrono_now = get_actual_milliseconds();
-            auto delta_chrono = chrono_now - chrono_prev;
-            if (delta_chrono < std::chrono::milliseconds(MILISECONDS_30_FPS)) {
-                sleep();
-            }
-            chrono_prev = get_actual_milliseconds();
+            sleep.sleep_rate();
         }
         stop();
     } catch (std::exception& e) {
