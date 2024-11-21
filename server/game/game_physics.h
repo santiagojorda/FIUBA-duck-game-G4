@@ -3,11 +3,13 @@
 
 #include "../../common/coordinate.h"
 #include "../attributes/positionable.h"
+#include "../map/map.h"
 
 class GamePhysics {
 private:
+    Map& map;
 public:
-    GamePhysics();
+    GamePhysics(Map& _map);
 
     /*
     // a esta tocando a target  (en la misma recta horizontal )

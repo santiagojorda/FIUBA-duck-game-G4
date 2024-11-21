@@ -1,6 +1,7 @@
 #include "game_logic.h"
 
 #include <iostream>
+
 #include "../../common/state_duck.h"
 
 #define GAME_WIDTH 800
@@ -12,7 +13,7 @@ GameLogic::GameLogic(ListPlayers& _players, Map& _map, ListGuns& _map_guns,
         map(_map),
         map_guns(_map_guns),
         map_projectiles(_map_projectiles),
-        physics() {}
+        physics(map) {}
 
 Positionable* GameLogic::get_player_floor_collision(const Player& player) {
     for (auto& tile: this->map) {
@@ -33,9 +34,10 @@ void GameLogic::update_player_equip_collision(Player& player) {
     }
 }
 
-bool GameLogic::is_player_out_of_map(Player& player){
+bool GameLogic::is_player_out_of_map(Player& player) {
     Rectangle player_space = player.get_rectangle();
-    if (player_space.get_x_max() < 0 || player_space.get_y_max() < 0 || player_space.get_x_min() > GAME_WIDTH || player_space.get_y_min() > GAME_HEIGHT) {
+    if (player_space.get_x_max() < 0 || player_space.get_y_max() < 0 ||
+        player_space.get_x_min() > GAME_WIDTH || player_space.get_y_min() > GAME_HEIGHT) {
         return true;
     }
     return false;
@@ -43,34 +45,40 @@ bool GameLogic::is_player_out_of_map(Player& player){
 
 void GameLogic::update_players() {
     for (Player& player: players) {
-        if(player.is_dead()){
+
+        if (player.is_dead()) {
             continue;
         }
-        player.update();
-        if(is_player_out_of_map(player)){
+
+        player.update(physics);
+
+        if (is_player_out_of_map(player)) {
             player.die();
             continue;
         }
-        else{
-        if(!player.is_jumping()){
-            update_player_gravity(player);
-        }
-        update_player_equip_collision(player);
+
+        else {
+            if (!player.is_jumping()) {
+                update_player_gravity(player);
+            }
+            update_player_equip_collision(player);
         }
     }
 }
 
 void GameLogic::update_player_gravity(Player& player) {
-    Positionable* touched_floor = get_player_floor_collision(player); 
+    Positionable* touched_floor = get_player_floor_collision(player);
     if (touched_floor) {
         // player.touch_floor(touched_floor);
         // si es que no baja mas, que acomode el sobrante
         player.adjust_position_to_floor(touched_floor);
-    }
-    else {
+        if(player.is_falling()){
+            player.idle();
+        }
+    } else {
         player.fall(physics);
         // physics.falling(player, player.get_frame());
-        
+
         // player.fall();
         // physics.falling(player, 1);
     }
@@ -89,26 +97,26 @@ void GameLogic::handle_event(uint8_t player_id, ActionCommand event) {
     try {
         Player& player = get_player(player_id);
         uint8_t event_code = static_cast<uint8_t>(event);  // Emitirá un error si es incompatible
-        if (player.is_dead()){
+        if (player.is_dead()) {
             return;
         }
         std::cout << (int)player_id << " position: " << player.get_coordinate() << std::endl;
         switch (event_code) {
             case ActionCommand::MOVE_RIGHT:
                 // chequear que se pueda
-                player.run_right();
+                player.run_right(physics);
                 break;
             case ActionCommand::MOVE_LEFT:
                 // chequear que se pueda
-                player.run_left();
+                player.run_left(physics);
                 break;
             case ActionCommand::JUMP:
                 // chequear se pueda
-                player.jump();
+                player.jump(physics);
                 break;
             case ActionCommand::CROUCH:
                 // chequear se pueda
-                player.crouch();
+                player.crouch(physics);
                 break;
             case ActionCommand::SHOOT:
                 player.shoot(map_projectiles);

@@ -4,9 +4,8 @@
 
 #include "gun.h"
 
-class GunFactory{
+class GunFactory {
 private:
-
 public:
     GunFactory();
 
@@ -16,7 +15,4 @@ public:
 };
 
 
-
-
-
-#endif // GUN_FACTORY_H
+#endif  // GUN_FACTORY_H
