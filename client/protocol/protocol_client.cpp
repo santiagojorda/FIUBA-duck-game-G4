@@ -22,11 +22,11 @@ void ClientProtocol::receive_sprite(sprite_t& sprite) {
     sprite = sprite_t{id_texture, coordinate};
 }
 
-void ClientProtocol::send_action(uint8_t& id_jugador, ActionCommand& type_action) {
+void ClientProtocol::send_action(uint8_t& id_jugador, ActionEvent& type_action) {
     std::vector<uint8_t> vector_data;
     vector_data.push_back(HEADER_CLIENT);
     vector_data.push_back(id_jugador);
-    vector_data.push_back(type_action);
+    vector_data.push_back((int)type_action);
     this->skt.sendall(vector_data.data(), vector_data.size(), &this->was_closed);
 }
 
@@ -86,7 +86,7 @@ void ClientProtocol::receive_bullets(std::vector<bullet_t>& _bullets) {
         sprite_t sprite;
         receive_sprite(sprite);
         uint8_t frame = 0x0;
-       // this->receive_byte(frame);
+        // this->receive_byte(frame);
         bullet_t bullet{sprite, frame};
         _bullets.push_back(bullet);
     }

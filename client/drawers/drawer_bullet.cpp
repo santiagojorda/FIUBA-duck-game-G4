@@ -13,8 +13,7 @@ static std::map<TEXTURE_BULLET, std::string> textures = {
 
 DrawerBullet::DrawerBullet(bullet_t _bullet, SDL2pp::Renderer& renderer):
         bullet(_bullet),
-        texture(renderer, textures[static_cast<TEXTURE_BULLET>(bullet.bullet.id_texture)])
-        {     }
+        texture(renderer, textures[static_cast<TEXTURE_BULLET>(bullet.bullet.id_texture)]) {}
 
 void DrawerBullet::draw(SDL2pp::Renderer& renderer) {
     int src_x = 10;

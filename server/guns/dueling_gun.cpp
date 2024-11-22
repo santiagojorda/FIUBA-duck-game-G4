@@ -1,7 +1,9 @@
 #include "dueling_gun.h"
 
-#include "../../common/weapons_id.h"
 #include <functional>
+
+#include "../../common/weapons_id.h"
+
 #include "bullet.h"
 
 struct DuelingConfig {
@@ -22,11 +24,11 @@ ListProjectiles DuelingGun::shoot(Coordinate& shooter_position) {
     return ListProjectiles();
 }
 
-void  DuelingGun::shoot(ListProjectiles& projectiles, Direction direction)  { 
+void DuelingGun::shoot(ListProjectiles& projectiles, Direction direction) {
     (void)direction;
-    for (int i = 0; i < dueling_config.count_projectiles_x_shoot; i++){
-        if(this->ammo > 0){
-            projectiles.add(new Bullet(this->projectile_range ,this->get_coordinate()));
+    for (int i = 0; i < dueling_config.count_projectiles_x_shoot; i++) {
+        if (this->ammo > 0) {
+            projectiles.add(new Bullet(this->projectile_range, this->get_coordinate()));
             this->ammo--;
         }
     }

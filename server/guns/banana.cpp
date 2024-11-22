@@ -1,8 +1,8 @@
 #include "banana.h"
 
-#include "../../common/weapons_id.h"
-
 #include <functional>
+
+#include "../../common/weapons_id.h"
 
 struct BananaConfig {
     WeaponTextureID id = WeaponTextureID::BANANA;
@@ -22,7 +22,7 @@ ListProjectiles Banana::shoot(Coordinate& shooter_position) {
     return ListProjectiles();
 }
 
-void  Banana::shoot(ListProjectiles& projectiles, Direction direction)  { 
+void Banana::shoot(ListProjectiles& projectiles, Direction direction) {
     (void)direction;
-    (void) projectiles;
+    (void)projectiles;
 }

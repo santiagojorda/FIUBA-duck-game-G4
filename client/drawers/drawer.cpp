@@ -41,7 +41,7 @@ void Drawer::run() try {
          std::cout << "Loading..." << std::endl;
          std::this_thread::sleep_for(std::chrono::milliseconds(MILISECONDS_30_FPS));
      }*/
-    
+
     // -----------------------------------------------------------------------------------------
     while (true) {
 

@@ -34,7 +34,7 @@ public:
     Gun* get_gun();
     Armor* get_armor();
     Helmet* get_helmet();
-    void shoot( ListProjectiles& projectiles);
+    void shoot(ListProjectiles& projectiles);
     void equip(Equippable* item);
     Direction get_direction();
     Inventory& get_inventory();

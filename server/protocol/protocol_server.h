@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <string>
 
+#include "../../common/action_events.h"
 #include "../../common/protocol.h"
 #include "../../common/socket.h"
 #include "../game/game_state.h"
@@ -32,7 +33,7 @@ public:
 
     uint8_t receive_count_players();
 
-    void receive_event(uint8_t& player_id, uint8_t& event_id);
+    void receive_event(uint8_t& player_id, ActionEvent& event_id);
 
     ~ProtocolServer();
 };

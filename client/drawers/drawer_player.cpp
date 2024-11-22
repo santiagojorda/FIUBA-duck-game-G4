@@ -21,17 +21,16 @@ DrawerPlayer::DrawerPlayer(SDL2pp::Renderer& renderer, const player_t& player):
 void DrawerPlayer::draw(SDL2pp::Renderer& renderer, const player_t& player) {
     bool flip = static_cast<Direction>(player.is_looking) == Direction::LEFT;
 
-    int x_duck = static_cast<DuckStateType>(player.state) == DuckStateType::IS_CROUCHING ?
+    int x_duck = static_cast<DuckStateType>(player.state) == DuckStateType::CROUCHING ?
                          DUCK_INITIAL_X + SIZE_DUCK_SPRITE * 2 :
                          DUCK_INITIAL_X;
-    int y_duck = static_cast<DuckStateType>(player.state) == DuckStateType::IS_CROUCHING ?
+    int y_duck = static_cast<DuckStateType>(player.state) == DuckStateType::CROUCHING ?
                          DUCK_INITIAL_Y + SIZE_DUCK_SPRITE * 6 :
                          DUCK_INITIAL_Y;
 
     RenderConfig playerConfig(texture, x_duck, y_duck, SIZE_DUCK_SPRITE, SIZE_DUCK_SPRITE, flip);
-    int frame = static_cast<DuckStateType>(player.state) == DuckStateType::IS_RUNNING ?
-                        player.frame :
-                        0;
+    int frame =
+            static_cast<DuckStateType>(player.state) == DuckStateType::RUNNING ? player.frame : 0;
     playerConfig.adjust_for_frame(frame, SIZE_DUCK_SPRITE);
 
     RendererHelper::render(playerConfig, renderer, player.sprite.coordinate.get_x(),

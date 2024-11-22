@@ -65,9 +65,9 @@ void Game::execute_new_events() {
     EventPlayer* event = nullptr;
     while (queue_event.try_pop(event)) {
         if (event != nullptr) {
-            event->execute(game_logic);  // *(1) creo que deberia devolver un gamestate
+            event->execute(game_logic);
         }
-        // delete event; // ver logica de events
+        // delete event;
         event = nullptr;
     }
 }
@@ -84,8 +84,6 @@ void Game::run() {
         while (_keep_running && monitor_client.they_are_alive()) {
             execute_new_events();
             game_logic.update_players();
-            // *(2) o podria procesar todos los mensajes en la cola y luego enviar un gamestate como
-            // broadcast_gamestate
             broadcast_gamestate();
             sleep.sleep_rate();
         }

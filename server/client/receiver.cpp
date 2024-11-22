@@ -6,13 +6,14 @@ Receiver::Receiver(QueueEventPlayer& _queue, ProtocolServer& _protocol,
 
 void Receiver::init_factories() {
     for (uint8_t& player_id: players_id) {
-        this->factories.push_back(EventFactory(player_id));
+        EventFactory new_factory(player_id);
+        this->factories.push_back(std::move(new_factory));
     }
 }
 
-void Receiver::push_event(const uint8_t& _player_id, const uint8_t& _event_id) {
+void Receiver::push_event(const uint8_t& _player_id, const ActionEvent& _event_id) {
     if (_player_id < factories.size()) {
-        EventPlayer* event = factories[_player_id].get_event(_event_id);
+        EventPlayer* event = factories[_player_id].get(_event_id);
         if (event) {
             this->queue.push(event);
         }
@@ -25,14 +26,8 @@ void Receiver::run() {
         this->init_factories();
         while (this->_keep_running) {
             uint8_t player_id = 0;
-            uint8_t event_id = 0;
+            ActionEvent event_id;
             this->protocol.receive_event(player_id, event_id);
-
-            // buscar en la lista
-            // players_id.begin()
-            uint8_t id = players_id[player_id];
-            std::cout << "Player: " << (int)id << " event: " << int(event_id) << std::endl;
-
             this->push_event(player_id, event_id);
         }
 

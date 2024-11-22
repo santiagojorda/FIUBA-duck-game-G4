@@ -3,7 +3,7 @@
 
 #include "duck_state.h"
 
-class DuckStateDead: public DuckState{
+class DuckStateDead: public DuckState {
 public:
     DuckStateDead(const uint8_t& _player_id);
 

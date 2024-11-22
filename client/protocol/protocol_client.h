@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "../../common/action_commands.h"
+#include "../../common/action_events.h"
 #include "../../common/coordinate.h"
 #include "../../common/protocol.h"
 #include "../../common/socket.h"
@@ -48,7 +48,7 @@ public:
     /*
      *
      */
-    void send_action(uint8_t& id_jugador, ActionCommand& type_action);
+    void send_action(uint8_t& id_jugador, ActionEvent& type_action);
 
     /*
      *

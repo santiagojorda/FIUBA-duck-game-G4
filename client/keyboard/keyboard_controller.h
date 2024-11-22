@@ -4,7 +4,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2pp/SDL2pp.hh>
 
-#include "../../common/action_commands.h"
+#include "../../common/action_events.h"
 #include "../../common/queue.h"
 #include "../../common/socket.h"
 #include "../client_event.h"

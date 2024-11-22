@@ -5,9 +5,6 @@
 #include "../../common/state_duck.h"
 #include "../guns/gun.h"
 
-#include "../../common/state_duck.h"
-#include "../guns/gun.h"
-
 const int SPEED = 1;
 #define RUN_STEP 10
 #define JUMP_STEP -40
@@ -17,11 +14,11 @@ Player::Player(uint8_t _id): Positionable(_id, _id, Coordinate(10, 10, 32, 32)),
 
 Player::~Player() { Positionable::~Positionable(); }
 
-void Player::update(GamePhysics& physics) { 
-    state.update(*this, physics); 
-}
+void Player::update(GamePhysics& physics) { state.update(*this, physics); }
 
-void Player::log_action(const std::string& action) { std::cout << "Player " << int(id) << " " << action << std::endl; }
+void Player::log_action(const std::string& action) {
+    std::cout << "Player " << int(id) << " " << action << std::endl;
+}
 
 void Player::run_right(GamePhysics& physics) { state.run_right(*this, physics); }
 void Player::run_left(GamePhysics& physics) { state.run_left(*this, physics); }
@@ -61,12 +58,12 @@ void Player::adjust_position_to_floor(Positionable* floor) {
 }
 
 void Player::translate() {}
-void Player::translate_x(int pasos) { 
+void Player::translate_x(int pasos) {
     Rectangle new_pos(this->space.get_coordinates() + Coordinate(pasos * SPEED, 0, 0, 0));
     this->space = new_pos;
 }
 
-void Player::translate_y(int pasos) { 
+void Player::translate_y(int pasos) {
     Rectangle new_pos(this->space.get_coordinates() + Coordinate(0, pasos * SPEED, 0, 0));
     this->space = new_pos;
 }
@@ -78,15 +75,13 @@ Player& Player::operator=(const Player& _other) {
 }
 
 void Player::equip(Equippable* item) { inventory.equip(item); }
-void Player::move_back(ShootingRecoil tiles) {
-    (void)tiles;
-}
+void Player::move_back(ShootingRecoil tiles) { (void)tiles; }
 
 bool Player::is_jumping() { return state.is_jumping(); }
 bool Player::is_running() { return state.is_running(); }
 bool Player::is_falling() { return state.is_falling(); }
 bool Player::is_idle() { return state.is_idle(); }
-bool Player::is_dead() { return state.is_dead(); } 
+bool Player::is_dead() { return state.is_dead(); }
 
 DuckStateType Player::get_state() { return state.get_state(); }
 
@@ -104,4 +99,3 @@ void Player::shoot(ListProjectiles& projectiles) {
     }
     std::cout << "in playe suno uno" << projectiles.size() << std::endl;
 }
-

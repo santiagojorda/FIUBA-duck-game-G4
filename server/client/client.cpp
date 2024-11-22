@@ -22,7 +22,7 @@ void Client::shutdown() {
     skt.close();
 }
 
-Client::~Client(){
+Client::~Client() {
     this->receiver.join();
     this->sender.join();
 }
