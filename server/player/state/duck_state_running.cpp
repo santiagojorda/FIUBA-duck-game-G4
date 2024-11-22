@@ -19,18 +19,11 @@ DuckStateRunning::DuckStateRunning(const uint8_t& _player_id, Direction& _direct
 
 void DuckStateRunning::update(Player& player, GamePhysics& physics) {
     (void)physics;
-    std::cout << "steps updated    " << count_steps_updated << std::endl;
-    std::cout << "steps to execute " << count_steps_to_execute << std::endl;
-    if(count_steps_updated >= count_steps_to_execute){
-        player.idle();
-        return;
-    }
-    frame++;
-    count_steps_updated++;
-    move(player, direction);
+    (void)player;
     if(frame >= max_frames){
         reset();
-    }
+    } 
+
 }
 
 void DuckStateRunning::move(Player& player, Direction& direction){
@@ -44,7 +37,8 @@ void DuckStateRunning::move(Player& player, Direction& direction){
 
 void DuckStateRunning::execute(Player& player, GamePhysics& physics){
     (void)physics;
-    (void)player;
+    move(player, direction);
+    frame++;
 
     count_steps_to_execute++;
 }

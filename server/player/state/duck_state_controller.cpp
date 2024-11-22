@@ -32,7 +32,7 @@ void DuckStateController::run_left(Player& player, GamePhysics& physics){
     if(!is_running()){
         set_state(new DuckStateRunning(player.get_id(), direction));
     }
-    current_state->execute(player, physics);
+   current_state->execute(player, physics);
 }
 void DuckStateController::jump(Player& player, GamePhysics& physics){
     (void)physics;

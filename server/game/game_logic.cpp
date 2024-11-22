@@ -121,6 +121,9 @@ void GameLogic::handle_event(uint8_t player_id, ActionCommand event) {
             case ActionCommand::SHOOT:
                 player.shoot(map_projectiles);
                 break;
+            case ActionCommand::IDLE:
+                player.idle();
+                break;
         }
     } catch (const std::exception& e) {
         std::cerr << "Error handle event player " << int(player_id) << ": " << e.what()

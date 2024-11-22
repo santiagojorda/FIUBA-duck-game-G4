@@ -13,7 +13,8 @@ enum ActionCommand {
     GRAB_OR_RELEASE,  // Tomar / soltar un arma/casco/armadura
     SHOOT,            // Disparar
     AIM_UP,           // Apuntar hacia arriba
-    CROUCH            // Tirarse al piso
+    CROUCH,           // Tirarse al piso
+    IDLE                    // nada
 };
 
 #endif  // ACTION_COMMANDS_H
