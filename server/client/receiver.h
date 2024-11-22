@@ -31,6 +31,7 @@ public:
                       VectorPlayerID& _players_id);
 
     void run() override;
+    ~Receiver();
 };
 
 #endif

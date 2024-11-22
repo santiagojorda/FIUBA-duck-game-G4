@@ -26,15 +26,16 @@ ListProjectiles Shotgun::shoot(Coordinate& shooter_position) {
 
 void Shotgun::shoot(ListProjectiles& projectiles, Direction direction) {
     (void)direction;
-    if (this->reloaded) {
-        this->reloaded = false;
-    } else {
-        for (int i = 0; i < shotgun_config.count_projectiles_x_shoot; i++) {
-            if (this->ammo > 0) {
-                projectiles.add(new Bullet(this->projectile_range, this->get_coordinate()));
-                this->ammo--;
-            }
-        }
-        this->reloaded = true;
-    }
+    (void)projectiles;
+    // if (this->reloaded) {
+    //     this->reloaded = false;
+    // } else {
+    //     for (int i = 0; i < shotgun_config.count_projectiles_x_shoot; i++) {
+    //         if (this->ammo > 0) {
+    //             projectiles.add(new Bullet(this->projectile_range, this->get_coordinate()));
+    //             this->ammo--;
+    //         }
+    //     }
+    //     this->reloaded = true;
+    // }
 }

@@ -23,7 +23,7 @@ GunFactory::GunFactory() {
     // map_guns[WeaponTextureID::BANANA] = [](Coordinate c) { return new Banana(c); };
     // map_guns[WeaponTextureID::PEW_PEW_LASER] = [](Coordinate c) { return new PewPewLaser(c); };
     // map_guns[WeaponTextureID::LASER_RIFLE] = [](Coordinate c) { return new LaserRifle(c); };
-    // map_guns[WeaponTextureID::AK_47] = [](Coordinate c) { return new AK47(c); };
+    map_guns[WeaponTextureID::AK_47] = [](Coordinate c) { return new AK47(c); };
     // map_guns[WeaponTextureID::DUELING_GUN] = [](Coordinate c) { return new DuelingGun(c); };
     // map_guns[WeaponTextureID::COWBOY_GUN] = [](Coordinate c) { return new CowboyGun(c); };
     // map_guns[WeaponTextureID::MAGNUM] = [](Coordinate c) { return new Magnum(c); };

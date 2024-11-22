@@ -57,15 +57,14 @@ void Player::adjust_position_to_floor(Positionable* floor) {
     }
 }
 
-void Player::translate() {}
 void Player::translate_x(int pasos) {
-    Rectangle new_pos(this->space.get_coordinates() + Coordinate(pasos * SPEED, 0, 0, 0));
-    this->space = new_pos;
+    int boost_speed = 1;
+    Positionable::translate_x(pasos*boost_speed);
 }
 
 void Player::translate_y(int pasos) {
-    Rectangle new_pos(this->space.get_coordinates() + Coordinate(0, pasos * SPEED, 0, 0));
-    this->space = new_pos;
+    int boost_speed = 1; // si queremos 
+    Positionable::translate_y(pasos*boost_speed);
 }
 
 Player& Player::operator=(const Player& _other) {
@@ -97,5 +96,5 @@ void Player::shoot(ListProjectiles& projectiles) {
     if ((int)recoil > 0) {  // is there recoil? yes -> it could be a function
         move_back(recoil);
     }
-    std::cout << "in playe suno uno" << projectiles.size() << std::endl;
+    // std::cout << "in playe suno uno" << projectiles.size() << std::endl;
 }

@@ -24,11 +24,14 @@ private:
     void update_player_equip_collision(Player& player);
     bool is_player_out_of_map(Player& player);
     Positionable* get_player_floor_collision(const Player& player);
+    void update_players();
+    void update_projectiles();
+
 public:
     explicit GameLogic(ListPlayers& _players, Map& _map, ListGuns& _map_guns,
                        ListProjectiles& _map_projectiles);
     void handle_event(uint8_t player_id, ActionEvent event);
-    void update_players();
+    void update();
     ~GameLogic();
 };
 

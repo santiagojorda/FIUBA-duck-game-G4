@@ -38,6 +38,8 @@ public:
         add(DuckStateType::IDLE, new DuckStateIdle(_player_id));
     }
 
+    // DuckStateFactory(DuckStateFactory&& other) noexcept : map(std::move(other.map)) {}
+
     void add(const DuckStateType& state_id, DuckState* state){
         states[state_id] = state;
     }

@@ -26,10 +26,11 @@ ListProjectiles DuelingGun::shoot(Coordinate& shooter_position) {
 
 void DuelingGun::shoot(ListProjectiles& projectiles, Direction direction) {
     (void)direction;
-    for (int i = 0; i < dueling_config.count_projectiles_x_shoot; i++) {
-        if (this->ammo > 0) {
-            projectiles.add(new Bullet(this->projectile_range, this->get_coordinate()));
-            this->ammo--;
-        }
-    }
+    (void)projectiles;
+    // for (int i = 0; i < dueling_config.count_projectiles_x_shoot; i++) {
+    //     if (this->ammo > 0) {
+    //         projectiles.add(new Bullet(this->projectile_range, this->get_coordinate()));
+    //         this->ammo--;
+    //     }
+    // }
 }

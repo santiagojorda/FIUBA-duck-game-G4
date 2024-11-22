@@ -24,13 +24,18 @@ ListProjectiles AK47::shoot(Coordinate& shooter_position) {
 }
 
 void AK47::shoot(ListProjectiles& projectiles, Direction direction) {
-    (void)direction;
-    for (int i = 0; i < ak_config.count_projectiles_x_shoot; i++) {
-        if (this->ammo > 0) {
-            projectiles.add(new Bullet(this->projectile_range, this->get_coordinate()));
-            this->ammo--;
-        }
-    }
+    int angle = 0;
+    projectiles.add(new Bullet(this->projectile_range, this->get_coordinate(), direction, angle));
+    angle = 45;
+    projectiles.add(new Bullet(this->projectile_range, this->get_coordinate(), direction, angle));
+
+    
+    // for (int i = 0; i < ak_config.count_projectiles_x_shoot; i++) {
+    //     if (this->ammo > 0) {
+    //         projectiles.add(new Bullet(this->projectile_range, this->get_coordinate(), direction, 0));
+    //         this->ammo--;
+    //     }
+    // }
 }
 
 AK47::~AK47() {}

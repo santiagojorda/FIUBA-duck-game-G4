@@ -43,6 +43,22 @@ bool GameLogic::is_player_out_of_map(Player& player) {
     return false;
 }
 
+
+void GameLogic::update_projectiles(){
+
+    for (Projectile* projectile: map_projectiles.get_items()){
+        projectile->update(physics);
+    }
+}
+
+
+void GameLogic::update(){
+
+    update_projectiles();
+    update_players();
+
+}
+
 void GameLogic::update_players() {
     for (Player& player: players) {
 
@@ -117,6 +133,7 @@ void GameLogic::handle_event(uint8_t player_id, ActionEvent event) {
                 player.crouch(physics);
                 break;
             case (int)ActionEvent::SHOOT:
+                std::cout << "player shoot" << std::endl;
                 player.shoot(map_projectiles);
                 break;
             case (int)ActionEvent::IDLE:

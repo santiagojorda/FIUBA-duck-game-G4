@@ -37,9 +37,9 @@ void Game::load_map() {
 
         deserialize.load_floors(this->map);
         deserialize.load_inicial_points(points);
-        // deserialize.load_weapons(data_weapons);
+        deserialize.load_weapons(data_weapons);
         charge_ponits(this->players, points);
-        // charge_weapons(this->map_guns, data_weapons);
+        charge_weapons(this->map_guns, data_weapons);
     } catch (const std::exception& e) {
         std::cerr << "error map.yaml: " << e.what() << '\n';
     } catch (...) {
@@ -76,14 +76,13 @@ void Game::broadcast_gamestate() { monitor_client.broadcast(get_gamestate()); }
 
 GameState_t Game::get_gamestate() { return GameState_t{players, map, map_guns, map_projectiles}; }
 
-
 void Game::run() {
     SleepSpecial sleep(MILISECONDS_30_FPS);
     try {
 
         while (_keep_running && monitor_client.they_are_alive()) {
             execute_new_events();
-            game_logic.update_players();
+            game_logic.update();
             broadcast_gamestate();
             sleep.sleep_rate();
         }

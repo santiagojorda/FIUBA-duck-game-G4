@@ -6,8 +6,7 @@ Receiver::Receiver(QueueEventPlayer& _queue, ProtocolServer& _protocol,
 
 void Receiver::init_factories() {
     for (uint8_t& player_id: players_id) {
-        EventFactory new_factory(player_id);
-        this->factories.push_back(std::move(new_factory));
+        this->factories.emplace_back(player_id);
     }
 }
 
@@ -38,3 +37,5 @@ void Receiver::run() {
     }
     stop();
 }
+
+Receiver::~Receiver() { factories.clear(); }
