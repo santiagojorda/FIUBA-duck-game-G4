@@ -2,7 +2,7 @@
 #define GAME_CONFIG_H
 
 // Tamaño tile por default en pantalla
-#define TILE_SIZE 50
+#define TILE_SIZE 40
 
 #define GAME_TITLE "Duck Game"
 

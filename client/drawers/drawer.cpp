@@ -15,11 +15,10 @@ void Drawer::run() try {
 
     Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-    // Textura principal
-    Texture render_target(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET,
+    Texture main_texture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET,
                           WINDOW_WIDTH, WINDOW_HEIGHT);
 
-    render_target.SetBlendMode(SDL_BLENDMODE_BLEND);
+    main_texture.SetBlendMode(SDL_BLENDMODE_BLEND);
 
     Texture background(renderer, DATA_PATH "/background.png");
 
@@ -38,7 +37,7 @@ void Drawer::run() try {
 
     // ---------------------------- Iniciar partida primer escenario ----------------------------
     // Mientras no reciba un primer escenario, queda en el ciclo
-    /*while (!game_state.try_pop(actual_game_state)) {
+    /*while (!game_state.try_pop(actual_game_state)) { TODO: cambiar a pop
          std::cout << "Loading..." << std::endl;
          std::this_thread::sleep_for(std::chrono::milliseconds(MILISECONDS_30_FPS));
      }*/
@@ -51,7 +50,7 @@ void Drawer::run() try {
 
         renderer.Copy(background, Rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
 
-        SDL_SetRenderTarget(renderer.Get(), render_target.Get());
+        SDL_SetRenderTarget(renderer.Get(), main_texture.Get());
 
         renderer.SetDrawColor(0, 0, 0, 0);
     
@@ -124,7 +123,7 @@ void Drawer::run() try {
         SDL_SetRenderTarget(renderer.Get(), nullptr);
 
         zoom_handler.calculate_zoom(actual_game_state.players);
-        zoom_handler.apply_zoom(renderer, render_target);
+        zoom_handler.apply_zoom(renderer, main_texture);
         renderer.Present();
 
         sleep.sleep_rate(iteration);
