@@ -13,6 +13,7 @@
 
 #include "animation.h"
 #include "animation_loader.h"
+#include "drawable.h"
 #include "renderer_helper.h"
 #include "weapon_properties.h"
 
@@ -29,15 +30,17 @@ static std::map<uint8_t, std::string> textures = {
         {DUCK_ORANGE, DATA_PATH "/DuckGame-OrangeDuck.png"},
         {DUCK_WHITE, DATA_PATH "/DuckGame-WhiteDuck.png"}};
 
-class DrawerPlayer {
+class DrawerPlayer: public Drawable {
 private:
     SDL2pp::Texture texture;
-    std::map<std::string, Animation> animations;
+
+    void update_animation(const std::string type_animation, int frame, int coor_x, int coor_y, int scale_w, int scale_h);
 
 public:
-    DrawerPlayer(SDL2pp::Renderer& renderer, const player_t& _player);
+    DrawerPlayer(SDL2pp::Renderer& renderer, uint8_t texture_id, bool flip);
 
-    void draw(SDL2pp::Renderer& renderer, const player_t& _player);
+
+    void draw(const player_t& _player);
 };
 
 #endif  // DRAWER_PLAYER_H
