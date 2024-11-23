@@ -27,7 +27,7 @@ DrawerPlayer::DrawerPlayer(SDL2pp::Renderer& renderer, uint8_t texture_id, uint8
 void DrawerPlayer::draw(const player_t& player) {
     this->flip = static_cast<Direction>(player.is_looking) == Direction::LEFT;
     this->coordenada_x = player.sprite.coordinate.get_x();
-    this->coordenada_y = player.sprite.coordinate.get_y();
+    this->coordenada_y = player.sprite.coordinate.get_y() - OFFSET_Y;
     this->scale_height = TILE_SIZE;
     this->scale_width = TILE_SIZE;
     int frame = static_cast<int>(player.frame);
@@ -35,19 +35,19 @@ void DrawerPlayer::draw(const player_t& player) {
     DuckStateType duck_state = static_cast<DuckStateType>(player.state);
 
     switch (duck_state) {
-        case DuckStateType::IS_IDLE:
+        case DuckStateType::IDLE:
             this->update_animation("idle", frame);
             break;
-        case DuckStateType::IS_CROUCHING:
+        case DuckStateType::CROUCHING:
             this->update_animation("crouching", frame);
             break;
-        case DuckStateType::IS_RUNNING:
+        case DuckStateType::RUNNING:
             this->update_animation("running", frame);
             break;
-        case DuckStateType::IS_JUMPING:
+        case DuckStateType::JUMPING:
             this->update_animation("jumping", frame);
             break;
-        case DuckStateType::IS_FALLING:
+        case DuckStateType::FALLING:
             this->update_animation("falling", frame);
             break;
         default:
@@ -76,14 +76,14 @@ void DrawerPlayer::draw(const player_t& player) {
 
         WeaponConfig weapon_config(weapon_id, flip, player.sprite.coordinate);
         RendererHelper::render(render_config, renderer, weapon_config.offset_x,
-                               weapon_config.offset_y - OFFSET_Y, weapon_config.scale_width,
+                               weapon_config.offset_y - 10, weapon_config.scale_width,
                                weapon_config.scale_height);
 
         int x_ala = flip ? 16 : 12;
         RenderConfig playerAlaConfig(*this->texture, 1, 566, SIZE_DUCK_ALA, SIZE_DUCK_ALA, flip);
         playerAlaConfig.adjust_for_frame(frame, SIZE_DUCK_ALA);
         RendererHelper::render(playerAlaConfig, renderer, this->coordenada_x + x_ala,
-                               this->coordenada_y + 16 - OFFSET_Y, TILE_SIZE_ALA, TILE_SIZE_ALA);
+                               this->coordenada_y + 16, TILE_SIZE_ALA, TILE_SIZE_ALA);
     }
 }
 
