@@ -1,12 +1,14 @@
 #ifndef ACTION_COMMANDS_H
 #define ACTION_COMMANDS_H
 
+#include <cstdint>
+
 enum HeaderProtocol {
     HEADER_CLIENT = 0xA,
     HEADER_SERVER = 0xB,
 };
 
-enum ActionCommand {
+enum class ActionEvent : uint8_t {
     MOVE_LEFT,        // Moverse a la izquierda
     MOVE_RIGHT,       // Moverse a la derecha
     JUMP,             // Salta / aletear

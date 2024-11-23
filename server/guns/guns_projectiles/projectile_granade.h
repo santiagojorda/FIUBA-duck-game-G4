@@ -1,11 +1,12 @@
 #ifndef PROJECTILE_GRANADE_H
 #define PROJECTILE_GRANADE_H
 
-#include "../projectile.h"
+#include "projectile.h"
+
+#include "../attributes/statable.h"
 
 
-
-class ProjectileGranade : Projectile
+class ProjectileGranade : Projectile , Statable
 {
 private:
     /* data */
@@ -14,20 +15,9 @@ public:
     ~ProjectileGranade();
 };
 
-ProjectileGranade::ProjectileGranade(/* args */)
-{
-}
+ProjectileGranade::ProjectileGranade(/* args */) {}
 
-ProjectileGranade::~ProjectileGranade()
-{
-}
+ProjectileGranade::~ProjectileGranade() {}
 
 
-
-
-
-
-
-
-
-#endif // PROJECTILE_GRANADE_H
+#endif  // PROJECTILE_GRANADE_H

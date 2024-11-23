@@ -15,5 +15,5 @@ clean:
 
 
 format: .clang-format
-	clang-format -i server/*/*.cpp server/*/*.h common/*.cpp common/*.h client/*/*.cpp client/*/*.h
+	clang-format -i server/*/*/*.cpp server/*/*/*.h common/*.cpp common/*.h client/*/*.cpp client/*/*.h
 	echo fin

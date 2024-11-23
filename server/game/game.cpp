@@ -37,9 +37,9 @@ void Game::load_map() {
 
         deserialize.load_floors(this->map);
         deserialize.load_inicial_points(points);
-        // deserialize.load_weapons(data_weapons);
+        deserialize.load_weapons(data_weapons);
         charge_ponits(this->players, points);
-        // charge_weapons(this->map_guns, data_weapons);
+        charge_weapons(this->map_guns, data_weapons);
     } catch (const std::exception& e) {
         std::cerr << "error map.yaml: " << e.what() << '\n';
     } catch (...) {
@@ -65,9 +65,9 @@ void Game::execute_new_events() {
     EventPlayer* event = nullptr;
     while (queue_event.try_pop(event)) {
         if (event != nullptr) {
-            event->execute(game_logic);  // *(1) creo que deberia devolver un gamestate
+            event->execute(game_logic);
         }
-        // delete event; // ver logica de events
+        // delete event;
         event = nullptr;
     }
 }
@@ -76,16 +76,13 @@ void Game::broadcast_gamestate() { monitor_client.broadcast(get_gamestate()); }
 
 GameState_t Game::get_gamestate() { return GameState_t{players, map, map_guns, map_projectiles}; }
 
-
 void Game::run() {
     SleepSpecial sleep(MILISECONDS_30_FPS);
     try {
 
         while (_keep_running && monitor_client.they_are_alive()) {
             execute_new_events();
-            game_logic.update_players();
-            // *(2) o podria procesar todos los mensajes en la cola y luego enviar un gamestate como
-            // broadcast_gamestate
+            game_logic.update();
             broadcast_gamestate();
             sleep.sleep_rate();
         }

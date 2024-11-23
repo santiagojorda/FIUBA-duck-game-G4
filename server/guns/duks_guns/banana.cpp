@@ -1,7 +1,5 @@
 #include "banana.h"
 
-#include <functional>
-
 struct BananaConfig {
     WeaponTextureID id = WeaponTextureID::BANANA;
     uint8_t max_ammo = 1;

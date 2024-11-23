@@ -18,9 +18,10 @@ DuelingGun::DuelingGun(const Coordinate& _coordinate):
 
 void  DuelingGun::trigger(ListProjectiles& projectiles, Direction direction)  { 
     (void)direction;
+    (void)projectiles;
     for (int i = 0; i < dueling_config.count_projectiles_x_shoot; i++){
         if(this->ammo > 0){
-            projectiles.add(new Bullet(this->projectile_range ,this->get_coordinate()));
+            projectiles.add(new Bullet(this->projectile_range ,this->get_coordinate(), direction,  0));
             this->ammo--;
         }
     }

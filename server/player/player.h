@@ -26,7 +26,6 @@ public:
     explicit Player(uint8_t _id);
     Player& operator=(const Player& _other);
     uint8_t get_id() const;
-    void translate() override;
     void adjust_position_to_floor(Positionable* floor);
     void translate_x(int pasos) override;
     void translate_y(int pasos) override;

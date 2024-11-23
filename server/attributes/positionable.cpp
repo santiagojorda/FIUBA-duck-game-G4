@@ -15,6 +15,17 @@ void Positionable::set_coordinate(const Coordinate& new_coordinate) {
     this->space.operator=(Rectangle(new_coordinate));
 }
 
+void Positionable::translate() {}
+void Positionable::translate_x(int steps) {
+    Rectangle new_pos(this->space.get_coordinates() + Coordinate(steps, 0, 0, 0));
+    this->space = new_pos;
+}
+
+void Positionable::translate_y(int steps) {
+    Rectangle new_pos(this->space.get_coordinates() + Coordinate(0, steps, 0, 0));
+    this->space = new_pos;
+}
+
 Rectangle Positionable::get_rectangle() const { return this->space; }
 
 uint8_t Positionable::get_id() { return id; }

@@ -5,7 +5,7 @@
 
 class Granade: public Gun {
 public:
-    Granade(const Coordinate& _coordinate);
+    explicit Granade(const Coordinate& _coordinate);
 
     // 
     virtual void trigger(ListProjectiles& projectiles, Direction direction) override;

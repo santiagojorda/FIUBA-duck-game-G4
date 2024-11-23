@@ -3,7 +3,7 @@
 
 #include "bullet.h"
 
-class BulletBounce : public Bullet{
+class BulletBounce: public Bullet {
 private:
     /* data */
 public:
@@ -15,9 +15,4 @@ public:
 };
 
 
-
-
-
-
-
-#endif // BULLET_BOUNCE_H
+#endif  // BULLET_BOUNCE_H

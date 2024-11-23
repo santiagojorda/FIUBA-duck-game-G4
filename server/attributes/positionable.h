@@ -25,9 +25,9 @@ public:
 
     Rectangle get_rectangle() const;
 
-    virtual void translate() = 0;
-    virtual void translate_x(int pasos) = 0;
-    virtual void translate_y(int pasos) = 0;
+    virtual void translate();
+    virtual void translate_x(int steps);
+    virtual void translate_y(int steps);
     uint8_t get_id();
     uint8_t get_texture_id();
     virtual ~Positionable();

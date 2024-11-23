@@ -20,7 +20,7 @@ void CowboyGun::trigger(ListProjectiles& projectiles,  Direction direction){
     if(!this->blocked){
         for (int i = 0; i < cowboy_config.count_projectiles_x_shoot; i++) {
             if(this->ammo > 0){
-                projectiles.add(new Bullet(this->projectile_range ,this->get_coordinate()));
+                projectiles.add(new Bullet(this->projectile_range ,this->get_coordinate(), direction, 0));
                 this->ammo--;
             }
         }

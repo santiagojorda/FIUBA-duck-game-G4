@@ -43,6 +43,22 @@ bool GameLogic::is_player_out_of_map(Player& player) {
     return false;
 }
 
+
+void GameLogic::update_projectiles(){
+
+    for (Projectile* projectile: map_projectiles.get_items()){
+        projectile->update(physics);
+    }
+}
+
+
+void GameLogic::update(){
+
+    update_projectiles();
+    update_players();
+
+}
+
 void GameLogic::update_players() {
     for (Player& player: players) {
 
@@ -87,35 +103,33 @@ Player& GameLogic::get_player(const uint8_t& _player_id) {
     throw std::runtime_error("Player con ID no encontrado");
 }
 
-void GameLogic::handle_event(uint8_t player_id, ActionCommand event) {
+void GameLogic::handle_event(uint8_t player_id, ActionEvent event) {
     try {
         Player& player = get_player(player_id);
-        uint8_t event_code = static_cast<uint8_t>(event);  // Emitirá un error si es incompatible
         if (player.is_dead()) {
             return;
         }
-        std::cout << (int)player_id << " position: " << player.get_coordinate() << std::endl;
-        switch (event_code) {
-            case ActionCommand::MOVE_RIGHT:
+        switch ((int)event) {
+            case (int)ActionEvent::MOVE_RIGHT:
                 // chequear que se pueda
                 player.run_right(physics);
                 break;
-            case ActionCommand::MOVE_LEFT:
+            case (int)ActionEvent::MOVE_LEFT:
                 // chequear que se pueda
                 player.run_left(physics);
                 break;
-            case ActionCommand::JUMP:
+            case (int)ActionEvent::JUMP:
                 // chequear se pueda
                 player.jump(physics);
                 break;
-            case ActionCommand::CROUCH:
+            case (int)ActionEvent::CROUCH:
                 // chequear se pueda
                 player.crouch(physics);
                 break;
-            case ActionCommand::SHOOT:
+            case (int)ActionEvent::SHOOT:
                 player.shoot(map_projectiles, ModeShoot::TRIGGER);
                 break;
-            case ActionCommand::IDLE:
+            case (int)ActionEvent::IDLE:
                 player.idle();
                 break;
         }

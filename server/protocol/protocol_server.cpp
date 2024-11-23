@@ -61,9 +61,9 @@ void ProtocolServer::send_players_state(GameState_t& state) {
 void ProtocolServer::send_projectiles_state(GameState_t& state) {
     uint16_t count_projectiles = state.map_projectiles.size();
     send_2_bytes(count_projectiles);
-    for (Positionable* item_map: state.map_projectiles.get_items()) {
-        send_byte(0);  // texture_id
-        send_coordinates(item_map->get_coordinate());
+    for (Projectile* projectile: state.map_projectiles.get_items()) {
+        send_byte(projectile->get_texture_id());  // texture_id
+        send_coordinates(projectile->get_coordinate());
     }
 }
 
@@ -100,13 +100,6 @@ void ProtocolServer::send_scenario_state(GameState_t& state) {
     }
 }
 
-void ProtocolServer::send_camera_state(GameState_t& state) {
-    (void)state;
-    send_2_bytes(0);  // zoom_min
-    send_2_bytes(0);  // zoom_max
-}
-
-
 void ProtocolServer::send_map_guns_state(GameState_t& state) {
     uint8_t count_map_guns = state.map_guns.size();
     send_byte(count_map_guns);
@@ -123,7 +116,6 @@ void ProtocolServer::send_game_state(GameState_t& state) {
     send_boxes_state(state);
     send_scenario_state(state);
     send_map_guns_state(state);
-    // send_camera_state(state);
 }
 
 uint8_t ProtocolServer::receive_count_players() {
@@ -132,12 +124,14 @@ uint8_t ProtocolServer::receive_count_players() {
     return count_players;
 }
 
-void ProtocolServer::receive_event(uint8_t& player_id, uint8_t& event_id) {
+void ProtocolServer::receive_event(uint8_t& player_id, ActionEvent& event_id) {
     uint8_t code_client = 0;
     receive_byte(code_client);
     if (code_client == BYTE_CLIENT) {
         receive_byte(player_id);
-        receive_byte(event_id);
+        uint8_t event_id_byte = 0;
+        receive_byte(event_id_byte);
+        event_id = static_cast<ActionEvent>(event_id_byte);
     }
 }
 

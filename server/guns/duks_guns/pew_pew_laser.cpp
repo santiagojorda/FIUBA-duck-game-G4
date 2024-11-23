@@ -20,11 +20,10 @@ PewPewLaser::PewPewLaser(Coordinate _coordinate):
             pew_pew_laser_config.range, _coordinate) , blocked(false){}
 
 void  PewPewLaser::trigger(ListProjectiles& projectiles, Direction direction)  { 
-    (void)direction;
     if(!this->blocked){    
         for (int i = 0; i < pew_pew_laser_config.count_projectiles_x_shoot; i++) {
             if(this->ammo > 0){
-                projectiles.add(new Bullet(this->projectile_range ,this->get_coordinate()));
+                projectiles.add(new Bullet(this->projectile_range ,this->get_coordinate(), direction, 0));
                 this->ammo--;
             }
         }
@@ -38,3 +37,6 @@ void  PewPewLaser::trigger_out(ListProjectiles& projectiles, Direction direction
     (void)projectiles;
     this->blocked = false;
 }
+
+
+PewPewLaser::~PewPewLaser() {}

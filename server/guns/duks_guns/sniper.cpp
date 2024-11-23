@@ -17,11 +17,10 @@ Sniper::Sniper(const Coordinate& _coordinate):
             _coordinate) ,blocked(false) {}
 
 void Sniper::trigger(ListProjectiles& projectiles,  Direction direction){
-    (void)direction;
     if(!this->blocked){
         for (int i = 0; i < sniper_config.count_projectiles_x_shoot; i++) {
             if(this->ammo > 0){
-                projectiles.add(new Bullet(this->projectile_range ,this->get_coordinate()));
+                projectiles.add(new Bullet(this->projectile_range ,this->get_coordinate(), direction, 5));
                 this->ammo--;
             }
         }

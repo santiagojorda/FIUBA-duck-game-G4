@@ -20,7 +20,7 @@ void AK47::trigger(ListProjectiles& projectiles,  Direction direction){
     this->dispersion++;
     for (int i = 0; i < ak_config.count_projectiles_x_shoot; i++) {
         if(this->ammo > 0){
-            projectiles.add(new Bullet(this->projectile_range ,this->get_coordinate() /*dispersionm direcions*/));
+            projectiles.add(new Bullet(this->projectile_range ,this->get_coordinate(), direction,  this->dispersion));
             this->ammo--;
         }
     }
@@ -32,6 +32,4 @@ void AK47::trigger_out(ListProjectiles& projectiles, Direction direction){
     this->dispersion = 0;
 }
 
-AK47::~AK47(){
-
-}
+AK47::~AK47() {}

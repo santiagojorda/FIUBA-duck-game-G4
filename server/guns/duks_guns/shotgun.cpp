@@ -12,20 +12,20 @@ struct ShotgunConfig {
 };
 ShotgunConfig shotgun_config;
 
-Shotgun::Shotgun(const Coordinate& _coordinate) :
+Shotgun::Shotgun(const Coordinate& _coordinate):
         Gun(shotgun_config.id, shotgun_config.max_ammo, shotgun_config.recoil, shotgun_config.range,
-            _coordinate) , reloaded(false) {}
+            _coordinate),
+        reloaded(false) {}
 
 
 
 void  Shotgun::trigger(ListProjectiles& projectiles, Direction direction)  { 
-    (void)direction;
-    if(this->reloaded) {
+ if(this->reloaded) {
         this->reloaded = false;
     } else {
     for (int i = 0; i < shotgun_config.count_projectiles_x_shoot; i++){
         if(this->ammo > 0){
-            projectiles.add(new Bullet(this->projectile_range ,this->get_coordinate()));
+            projectiles.add(new Bullet(this->projectile_range ,this->get_coordinate(), direction, 20));
             this->ammo--;
         }
     }

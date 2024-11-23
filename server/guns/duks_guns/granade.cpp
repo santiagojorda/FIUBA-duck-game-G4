@@ -1,6 +1,5 @@
 #include "granade.h"
 
-//#include "../guns_projectiles/projectile_granade.h"
 
 #define MAX_RANGE_TILES 1
 
@@ -24,9 +23,9 @@ void Granade::trigger(ListProjectiles& projectiles, Direction direction) {
 }
 
 
-void Granade::trigger_out(ListProjectiles& projectiles, Direction direction) {
-    (void)projectiles;
+void  Granade::trigger_out(ListProjectiles& projectiles, Direction direction)  { 
     (void)direction;
+    (void) projectiles;
 }
 
 Granade::~Granade(){}
