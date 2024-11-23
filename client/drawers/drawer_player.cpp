@@ -31,7 +31,6 @@ void DrawerPlayer::draw(const player_t& player) {
     int duck_x = player.sprite.coordinate.get_x();
     int duck_y = player.sprite.coordinate.get_y();
     int frame = static_cast<int>(player.frame);
-    std::cout << "frame: " << frame << "\n";
 
     switch (duck_state) {
         case DuckStateType::IS_IDLE:
@@ -43,7 +42,14 @@ void DrawerPlayer::draw(const player_t& player) {
         case DuckStateType::IS_RUNNING:
             this->update_animation("running", frame, duck_x, duck_y, TILE_SIZE, TILE_SIZE);
             break;
+        case DuckStateType::IS_JUMPING:
+            this->update_animation("jumping", frame, duck_x, duck_y, TILE_SIZE, TILE_SIZE);
+            break;
+        case DuckStateType::IS_FALLING:
+            this->update_animation("falling", frame, duck_x, duck_y, TILE_SIZE, TILE_SIZE);
+            break;
         default:
+            this->update_animation("idle", frame, duck_x, duck_y, TILE_SIZE, TILE_SIZE);
             break;
     }
 }
