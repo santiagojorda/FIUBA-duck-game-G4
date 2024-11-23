@@ -120,6 +120,23 @@ void Drawer::run() try {
             drawers.weapons[i]->draw(renderer, weapon);
         }
 
+        // Draw Bullet
+        if (drawers.bullets.size() != actual_game_state.bullets.size()) {
+            drawers.bullets.resize(actual_game_state.bullets.size());
+            for (size_t i = 0; i < actual_game_state.bullets.size(); ++i) {
+                if (!drawers.bullets[i]) {
+                    auto bullet = actual_game_state.bullets[i];
+                    drawers.bullets[i] = std::make_unique<DrawerBullet>(bullet, renderer);
+                }
+            }
+        }
+
+        for (size_t i = 0; i < actual_game_state.bullets.size(); ++i) {
+            auto bullet = actual_game_state.bullets[i];
+            drawers.bullets[i]->update_bullet(bullet);
+            drawers.bullets[i]->draw(renderer);
+        }
+
         SDL_SetRenderTarget(renderer.Get(), nullptr);
 
         zoom_handler.calculate_zoom(actual_game_state.players);

@@ -15,6 +15,7 @@
 #include "../zoom/zoom_handler.h"
 
 #include "drawer_box.h"
+#include "drawer_bullet.h"
 #include "drawer_floor.h"
 #include "drawer_player.h"
 #include "drawer_weapon.h"
@@ -24,6 +25,7 @@ struct drawers_t {
     std::vector<std::unique_ptr<DrawerFloor>> floors;
     std::vector<std::unique_ptr<DrawerBox>> boxes;
     std::vector<std::unique_ptr<DrawerWeapon>> weapons;
+    std::vector<std::unique_ptr<DrawerBullet>> bullets;
 };
 
 class Drawer {
