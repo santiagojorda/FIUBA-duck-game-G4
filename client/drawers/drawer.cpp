@@ -15,10 +15,10 @@ void Drawer::run() try {
 
     Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-    // Textura principal
-    Texture render_target(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET,
-                          WINDOW_WIDTH, WINDOW_HEIGHT);
+    Texture main_texture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WINDOW_WIDTH,
+                         WINDOW_HEIGHT);
 
+    main_texture.SetBlendMode(SDL_BLENDMODE_BLEND);
 
     Texture background(renderer, DATA_PATH "/background.png");
 
@@ -37,7 +37,7 @@ void Drawer::run() try {
 
     // ---------------------------- Iniciar partida primer escenario ----------------------------
     // Mientras no reciba un primer escenario, queda en el ciclo
-    /*while (!game_state.try_pop(actual_game_state)) {
+    /*while (!game_state.try_pop(actual_game_state)) { TODO: cambiar a pop
          std::cout << "Loading..." << std::endl;
          std::this_thread::sleep_for(std::chrono::milliseconds(MILISECONDS_30_FPS));
      }*/
@@ -46,26 +46,29 @@ void Drawer::run() try {
     while (true) {
 
         while (game_state.try_pop(actual_game_state)) {}
-
-        SDL_SetRenderTarget(renderer.Get(), render_target.Get());
-
-        init_scenery(renderer, actual_game_state, drawers);
         renderer.Clear();
 
         renderer.Copy(background, Rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
 
+        SDL_SetRenderTarget(renderer.Get(), main_texture.Get());
+
+        renderer.SetDrawColor(0, 0, 0, 0);
+
+        renderer.Clear();
+
+        init_scenery(renderer, actual_game_state, drawers);
 
         // Draw Players (Patos)
-        for (size_t i = 0; i < actual_game_state.players.size(); i++) {
+        /*for (size_t i = 0; i < actual_game_state.players.size(); i++) {
             auto player = actual_game_state.players[i];
             drawers.players[player.sprite.id_texture] =
                     std::make_unique<DrawerPlayer>(renderer, player);
             drawers.players[player.sprite.id_texture]->draw(renderer, player);
-        }
+        }*/
 
         for (size_t i = 0; i < actual_game_state.players.size(); i++) {
             player_t player = actual_game_state.players[i];
-            drawers.players[player.sprite.id_texture]->draw(renderer, player);
+            drawers.players[player.sprite.id_texture]->draw(player);
         }
 
         // Draw Floor
@@ -117,10 +120,27 @@ void Drawer::run() try {
             drawers.weapons[i]->draw(renderer, weapon);
         }
 
+        // Draw Bullet
+        if (drawers.bullets.size() != actual_game_state.bullets.size()) {
+            drawers.bullets.resize(actual_game_state.bullets.size());
+            for (size_t i = 0; i < actual_game_state.bullets.size(); ++i) {
+                if (!drawers.bullets[i]) {
+                    auto bullet = actual_game_state.bullets[i];
+                    drawers.bullets[i] = std::make_unique<DrawerBullet>(bullet, renderer);
+                }
+            }
+        }
+
+        for (size_t i = 0; i < actual_game_state.bullets.size(); ++i) {
+            auto bullet = actual_game_state.bullets[i];
+            drawers.bullets[i]->update_bullet(bullet);
+            drawers.bullets[i]->draw(renderer);
+        }
+
         SDL_SetRenderTarget(renderer.Get(), nullptr);
+
         zoom_handler.calculate_zoom(actual_game_state.players);
-        renderer.Clear();
-        zoom_handler.apply_zoom(renderer, render_target);
+        zoom_handler.apply_zoom(renderer, main_texture);
         renderer.Present();
 
         sleep.sleep_rate(iteration);
@@ -136,11 +156,15 @@ void Drawer::run() try {
 void Drawer::init_scenery(Renderer& renderer, const client_game_state_t& actual_game_state,
                           drawers_t& drawers) {
     // Player
+    if (actual_game_state.players.size() == drawers.players.size()) {
+        return;
+    }
+
     for (size_t i = 0; i < actual_game_state.players.size(); i++) {
         auto player = actual_game_state.players[i];
-        drawers.players[player.sprite.id_texture] =
-                std::make_unique<DrawerPlayer>(renderer, player);
-        drawers.players[player.sprite.id_texture]->draw(renderer, player);
+        drawers.players[player.sprite.id_texture] = std::make_unique<DrawerPlayer>(
+                renderer, player.sprite.id_texture, player.is_looking);
+        drawers.players[player.sprite.id_texture]->draw(player);
     }
     /*
         // Floor
