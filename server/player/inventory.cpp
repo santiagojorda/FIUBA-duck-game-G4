@@ -2,7 +2,7 @@
 
 #include "../equipment/armor.h"
 #include "../equipment/helmet.h"
-#include "../guns/gun.h"
+#include "../weapons/gun.h"
 
 Inventory::Inventory(): gun(nullptr), armor(nullptr), helmet(nullptr) {}
 

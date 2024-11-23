@@ -7,12 +7,11 @@
 #include "../attributes/equippable.h"
 #include "../attributes/positionable.h"
 #include "../game/game_physics.h"
-#include "../guns/gun.h"
-#include "../guns/list_projectiles.h"
+#include "../weapons/gun.h"
+#include "../weapons/list_projectiles.h"
 #include "../player/inventory.h"
-#include "state/duck_state_controller.h"
-
-enum class ModeShoot : uint8_t { TRIGGER, TRIGGER_OUT };
+#include "duck_state_controller.h"
+#include "../weapons/mode_shoot.h"
 
 class Player: public Positionable {
 private:
@@ -45,7 +44,6 @@ public:
     void update(GamePhysics& physics);
     void run_right(GamePhysics& physics);
     void run_left(GamePhysics& physics);
-    void run(Direction& direction);
     void jump(GamePhysics& physics);
     void fall(GamePhysics& physics);
     void crouch(GamePhysics& physics);

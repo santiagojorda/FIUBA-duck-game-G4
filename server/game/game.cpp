@@ -4,7 +4,7 @@
 
 #include "../../common/sleep_special.h"
 #include "../events/event_player.h"
-#include "../guns/gun_factory.h"
+#include "../weapons/gun_factory.h"
 #include "../map/ground.h"
 #include "../player/player.h"
 #include "../yamel/map_deserialize.h"

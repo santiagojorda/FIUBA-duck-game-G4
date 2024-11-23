@@ -44,11 +44,19 @@ bool GameLogic::is_player_out_of_map(Player& player) {
 }
 
 
-void GameLogic::update_projectiles(){
 
+
+void GameLogic::update_projectiles(){
     for (Projectile* projectile: map_projectiles.get_items()){
+        if(projectile->is_dead()){
+            map_projectiles.remove_and_delete(projectile);
+            return;
+        }
         projectile->update(physics);
+
     }
+
+    
 }
 
 
@@ -103,35 +111,37 @@ Player& GameLogic::get_player(const uint8_t& _player_id) {
     throw std::runtime_error("Player con ID no encontrado");
 }
 
-void GameLogic::handle_event(uint8_t player_id, ActionEvent event) {
+void GameLogic::handle_event(const uint8_t& player_id,const ActionEvent& event) {
     try {
         Player& player = get_player(player_id);
         if (player.is_dead()) {
             return;
         }
-        switch ((int)event) {
-            case (int)ActionEvent::MOVE_RIGHT:
+        switch (event) {
+            case ActionEvent::MOVE_RIGHT:
                 // chequear que se pueda
                 player.run_right(physics);
                 break;
-            case (int)ActionEvent::MOVE_LEFT:
+            case ActionEvent::MOVE_LEFT:
                 // chequear que se pueda
                 player.run_left(physics);
                 break;
-            case (int)ActionEvent::JUMP:
+            case ActionEvent::JUMP:
                 // chequear se pueda
                 player.jump(physics);
                 break;
-            case (int)ActionEvent::CROUCH:
+            case ActionEvent::CROUCH:
                 // chequear se pueda
                 player.crouch(physics);
                 break;
-            case (int)ActionEvent::SHOOT:
+            case ActionEvent::SHOOT:
                 player.shoot(map_projectiles, ModeShoot::TRIGGER);
                 break;
-            case (int)ActionEvent::IDLE:
+            case ActionEvent::IDLE:
                 player.idle();
                 break;
+            default:
+                break;  
         }
     } catch (const std::exception& e) {
         std::cerr << "Error handle event player " << int(player_id) << ": " << e.what()

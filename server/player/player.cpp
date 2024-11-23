@@ -3,7 +3,7 @@
 #include <iostream>
 
 #include "../../common/state_duck.h"
-#include "../guns/gun.h"
+#include "../weapons/gun.h"
 
 const int SPEED = 1;
 #define RUN_STEP 10
@@ -14,7 +14,9 @@ Player::Player(uint8_t _id): Positionable(_id, _id, Coordinate(10, 10, 32, 32)),
 
 Player::~Player() { Positionable::~Positionable(); }
 
-void Player::update(GamePhysics& physics) { state.update(*this, physics); }
+void Player::update(GamePhysics& physics) {     
+    state.update(*this, physics); 
+}
 
 void Player::log_action(const std::string& action) {
     std::cout << "Player " << int(id) << " " << action << std::endl;
@@ -86,18 +88,20 @@ DuckStateType Player::get_state() { return state.get_state(); }
 
 uint8_t Player::get_frame() { return state.get_frame(); }
 
-void Player::shoot(ListProjectiles& projectiles, const   ModeShoot& mode) {
+void Player::shoot(ListProjectiles& projectiles, const ModeShoot& mode) {
     Gun* gun = inventory.get_gun();
     if (!gun) {
         return;
     }
+    gun->set_coordinate(this->get_coordinate());
+    gun->set_direction(this->get_direction());
     ShootingRecoil recoil = gun->get_recoil();
     switch (mode)  {
         case ModeShoot::TRIGGER:
-            gun->trigger(projectiles, state.get_direction());
+            gun->trigger(projectiles);
             break;
         case ModeShoot::TRIGGER_OUT:
-            gun->trigger_out(projectiles, state.get_direction());
+            gun->trigger_out(projectiles);
             break;
         default:
             break;
