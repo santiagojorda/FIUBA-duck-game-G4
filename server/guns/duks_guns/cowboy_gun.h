@@ -9,11 +9,11 @@ private:
 
 public:
     CowboyGun(const Coordinate& _coordinate);
-    
-     //Comportamiento cuando se preciona el gatillo
-    virtual void trigger(ListProjectiles& projectiles, Direction direction) override; 
 
-    //Comportamiento cuando se suelta el gatillo
+    // Comportamiento cuando se preciona el gatillo
+    virtual void trigger(ListProjectiles& projectiles, Direction direction) override;
+
+    // Comportamiento cuando se suelta el gatillo
     virtual void trigger_out(ListProjectiles& projectiles, Direction direction) override;
 
     ~CowboyGun();

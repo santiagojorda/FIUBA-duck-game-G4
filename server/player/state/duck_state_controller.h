@@ -23,7 +23,7 @@ private:
     void set_direction(const Direction& new_direction);
     void execute(Player& player, GamePhysics& physics);
     void run(Direction direction, Player& player, GamePhysics& physics);
-    
+
 public:
     DuckStateController(const uint8_t& _player_id);
 

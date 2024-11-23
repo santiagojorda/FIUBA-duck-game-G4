@@ -40,10 +40,10 @@ void DuckState::reset() {
     frame = 0;
 }
 
-void DuckState::start() { 
+void DuckState::start() {
     std::cout << "Player " << (int)player_id << " is " << state_name << std::endl;
 
-    reset(); 
+    reset();
 }
 
 void DuckState::finish() { reset(); }

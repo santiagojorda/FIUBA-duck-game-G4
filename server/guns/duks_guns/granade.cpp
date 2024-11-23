@@ -23,10 +23,9 @@ void Granade::trigger(ListProjectiles& projectiles, Direction direction) {
 }
 
 
-void  Granade::trigger_out(ListProjectiles& projectiles, Direction direction)  { 
+void Granade::trigger_out(ListProjectiles& projectiles, Direction direction) {
     (void)direction;
-    (void) projectiles;
+    (void)projectiles;
 }
 
-Granade::~Granade(){}
-
+Granade::~Granade() {}

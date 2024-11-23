@@ -1,9 +1,6 @@
 #include "pew_pew_laser.h"
 
-
 #include "../guns_projectiles/bullet.h"
-
-
 
 
 struct PewPewLaserConfig {
@@ -15,24 +12,26 @@ struct PewPewLaserConfig {
 };
 PewPewLaserConfig pew_pew_laser_config;
 
-PewPewLaser::PewPewLaser(Coordinate _coordinate): 
+PewPewLaser::PewPewLaser(Coordinate _coordinate):
         Gun(pew_pew_laser_config.id, pew_pew_laser_config.max_ammo, pew_pew_laser_config.recoil,
-            pew_pew_laser_config.range, _coordinate) , blocked(false){}
+            pew_pew_laser_config.range, _coordinate),
+        blocked(false) {}
 
-void  PewPewLaser::trigger(ListProjectiles& projectiles, Direction direction)  { 
-    if(!this->blocked){    
+void PewPewLaser::trigger(ListProjectiles& projectiles, Direction direction) {
+    if (!this->blocked) {
         for (int i = 0; i < pew_pew_laser_config.count_projectiles_x_shoot; i++) {
-            if(this->ammo > 0){
-                projectiles.add(new Bullet(this->projectile_range ,this->get_coordinate(), direction, 0));
+            if (this->ammo > 0) {
+                projectiles.add(
+                        new Bullet(this->projectile_range, this->get_coordinate(), direction, 0));
                 this->ammo--;
             }
         }
         this->blocked = true;
     }
-} 
+}
 
 
-void  PewPewLaser::trigger_out(ListProjectiles& projectiles, Direction direction)  { 
+void PewPewLaser::trigger_out(ListProjectiles& projectiles, Direction direction) {
     (void)direction;
     (void)projectiles;
     this->blocked = false;

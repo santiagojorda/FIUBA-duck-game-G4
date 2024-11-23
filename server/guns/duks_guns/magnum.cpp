@@ -15,21 +15,23 @@ MagnumConfig magnum_config;
 
 Magnum::Magnum(const Coordinate& _coordinate):
         Gun(magnum_config.id, magnum_config.max_ammo, magnum_config.recoil, magnum_config.range,
-            _coordinate), blocked(false) {}
+            _coordinate),
+        blocked(false) {}
 
-void Magnum::trigger(ListProjectiles& projectiles,  Direction direction){
-    if(!this->blocked){
+void Magnum::trigger(ListProjectiles& projectiles, Direction direction) {
+    if (!this->blocked) {
         for (int i = 0; i < magnum_config.count_projectiles_x_shoot; i++) {
-            if(this->ammo > 0){
-                projectiles.add(new Bullet(this->projectile_range ,this->get_coordinate(), direction, 10));
+            if (this->ammo > 0) {
+                projectiles.add(
+                        new Bullet(this->projectile_range, this->get_coordinate(), direction, 10));
                 this->ammo--;
             }
         }
         this->blocked = true;
     }
-} 
+}
 
-void Magnum::trigger_out(ListProjectiles& projectiles, Direction direction){
+void Magnum::trigger_out(ListProjectiles& projectiles, Direction direction) {
     (void)direction;
     (void)projectiles;
     this->blocked = false;

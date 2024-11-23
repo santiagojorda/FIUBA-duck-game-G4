@@ -9,10 +9,10 @@ public:
     Banana(const Coordinate& _coordinate);
 
 
-    //vemos
-    virtual void trigger(ListProjectiles& projectiles, Direction direction) override; 
+    // vemos
+    virtual void trigger(ListProjectiles& projectiles, Direction direction) override;
 
-    //vemos
+    // vemos
     virtual void trigger_out(ListProjectiles& projectiles, Direction direction) override;
 
     ~Banana();

@@ -12,10 +12,10 @@ public:
     Shotgun(const Coordinate& _coordinate);
 
 
-    //dispara o libera el cartucho
-    virtual void trigger(ListProjectiles& projectiles, Direction direction) override; 
+    // dispara o libera el cartucho
+    virtual void trigger(ListProjectiles& projectiles, Direction direction) override;
 
-    //nada
+    // nada
     virtual void trigger_out(ListProjectiles& projectiles, Direction direction) override;
 
     ~Shotgun();

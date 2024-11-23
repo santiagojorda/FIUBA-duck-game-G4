@@ -8,10 +8,10 @@ class LaserRifle: public Gun {
 public:
     LaserRifle(const Coordinate& _coordinate);
 
-    //Dispara aumentado dispersion 
-    void trigger(ListProjectiles& projectiles, Direction direction) override; 
+    // Dispara aumentado dispersion
+    void trigger(ListProjectiles& projectiles, Direction direction) override;
 
-    //nada
+    // nada
     void trigger_out(ListProjectiles& projectiles, Direction direction) override;
 
     ~LaserRifle();

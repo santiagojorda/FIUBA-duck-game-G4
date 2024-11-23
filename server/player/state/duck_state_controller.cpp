@@ -1,7 +1,8 @@
 #include "duck_state_controller.h"
 
-#include "../player.h"
 #include <iostream>
+
+#include "../player.h"
 
 DuckStateController::DuckStateController(const uint8_t& _player_id):
         states(_player_id), current_state(nullptr) {
@@ -14,10 +15,9 @@ void DuckStateController::set_state(const DuckStateType& new_state) {
         current_state->finish();
     }
     current_state = states.get(new_state);
-    if(current_state){
+    if (current_state) {
         current_state->start();
-    }
-    else {
+    } else {
         std::cout << "No hay estado" << std::endl;
     }
 }
@@ -43,7 +43,7 @@ void DuckStateController::run(Direction direction, Player& player, GamePhysics& 
     if (!is_running()) {
         set_state(DuckStateType::RUNNING);
     }
-    if(current_state->get_direction() != direction) {
+    if (current_state->get_direction() != direction) {
         set_direction(direction);
     }
     execute(player, physics);
@@ -53,7 +53,6 @@ void DuckStateController::run(Direction direction, Player& player, GamePhysics& 
 
 void DuckStateController::run_right(Player& player, GamePhysics& physics) {
     run(Direction::RIGHT, player, physics);
-
 }
 void DuckStateController::run_left(Player& player, GamePhysics& physics) {
     run(Direction::LEFT, player, physics);

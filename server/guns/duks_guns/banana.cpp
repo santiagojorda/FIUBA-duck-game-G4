@@ -13,12 +13,12 @@ Banana::Banana(const Coordinate& _coordinate):
         Gun(banana_config.id, banana_config.max_ammo, banana_config.recoil, banana_config.range,
             _coordinate) {}
 
-void Banana::trigger(ListProjectiles& projectiles, Direction direction){
+void Banana::trigger(ListProjectiles& projectiles, Direction direction) {
     (void)direction;
     (void)projectiles;
 }
 
-void Banana::trigger_out(ListProjectiles& projectiles, Direction direction){
+void Banana::trigger_out(ListProjectiles& projectiles, Direction direction) {
     (void)direction;
     (void)projectiles;
 }

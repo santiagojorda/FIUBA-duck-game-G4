@@ -1,6 +1,5 @@
 #include "ak_47.h"
 
-
 #include "../guns_projectiles/bullet.h"
 
 struct AKConfig {
@@ -15,18 +14,19 @@ AKConfig ak_config;
 AK47::AK47(const Coordinate& _coordinate):
         Gun(ak_config.id, ak_config.max_ammo, ak_config.recoil, ak_config.range, _coordinate) {}
 
-void AK47::trigger(ListProjectiles& projectiles,  Direction direction){
+void AK47::trigger(ListProjectiles& projectiles, Direction direction) {
     (void)direction;
     this->dispersion++;
     for (int i = 0; i < ak_config.count_projectiles_x_shoot; i++) {
-        if(this->ammo > 0){
-            projectiles.add(new Bullet(this->projectile_range ,this->get_coordinate(), direction,  this->dispersion));
+        if (this->ammo > 0) {
+            projectiles.add(new Bullet(this->projectile_range, this->get_coordinate(), direction,
+                                       this->dispersion));
             this->ammo--;
         }
     }
-} 
+}
 
-void AK47::trigger_out(ListProjectiles& projectiles, Direction direction){
+void AK47::trigger_out(ListProjectiles& projectiles, Direction direction) {
     (void)direction;
     (void)projectiles;
     this->dispersion = 0;

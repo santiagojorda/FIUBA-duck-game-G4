@@ -18,22 +18,22 @@ Shotgun::Shotgun(const Coordinate& _coordinate):
         reloaded(false) {}
 
 
-
-void  Shotgun::trigger(ListProjectiles& projectiles, Direction direction)  { 
- if(this->reloaded) {
+void Shotgun::trigger(ListProjectiles& projectiles, Direction direction) {
+    if (this->reloaded) {
         this->reloaded = false;
     } else {
-    for (int i = 0; i < shotgun_config.count_projectiles_x_shoot; i++){
-        if(this->ammo > 0){
-            projectiles.add(new Bullet(this->projectile_range ,this->get_coordinate(), direction, 20));
-            this->ammo--;
+        for (int i = 0; i < shotgun_config.count_projectiles_x_shoot; i++) {
+            if (this->ammo > 0) {
+                projectiles.add(
+                        new Bullet(this->projectile_range, this->get_coordinate(), direction, 20));
+                this->ammo--;
+            }
         }
-    }
         this->reloaded = true;
     }
 }
 
-void  Shotgun::trigger_out(ListProjectiles& projectiles, Direction direction)  { 
+void Shotgun::trigger_out(ListProjectiles& projectiles, Direction direction) {
     (void)direction;
     (void)projectiles;
 }
