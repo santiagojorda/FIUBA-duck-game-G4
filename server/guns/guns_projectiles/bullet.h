@@ -1,7 +1,7 @@
 #ifndef BULLET
 #define BULLET
 
-#include "projectile.h"
+#include "../projectile.h"
 
 #define MAX_RANGE_TILES 1  // medio
 

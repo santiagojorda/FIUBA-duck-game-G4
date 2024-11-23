@@ -1,7 +1,6 @@
 #include "granade.h"
 
-#include "../../common/weapons_id.h"
-#include <functional>
+//#include "../guns_projectiles/projectile_granade.h"
 
 #define MAX_RANGE_TILES 1
 
@@ -19,12 +18,16 @@ Granade::Granade(const Coordinate& _coordinate):
             _coordinate) {}
 
 
-ListProjectiles Granade::shoot(Coordinate& shooter_position) {
-    (void)shooter_position;
-    return ListProjectiles();
+void Granade::trigger(ListProjectiles& projectiles, Direction direction) {
+    (void)projectiles;
+    (void)direction;
 }
 
-void  Granade::shoot(ListProjectiles& projectiles, Direction direction)  { 
+
+void Granade::trigger_out(ListProjectiles& projectiles, Direction direction) {
+    (void)projectiles;
     (void)direction;
-    (void) projectiles;
 }
+
+Granade::~Granade(){}
+

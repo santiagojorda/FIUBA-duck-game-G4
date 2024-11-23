@@ -86,7 +86,7 @@ void ClientProtocol::receive_bullets(std::vector<bullet_t>& _bullets) {
         sprite_t sprite;
         receive_sprite(sprite);
         uint8_t frame = 0x0;
-       // this->receive_byte(frame);
+        // this->receive_byte(frame);
         bullet_t bullet{sprite, frame};
         _bullets.push_back(bullet);
     }

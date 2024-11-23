@@ -1,7 +1,7 @@
 #include "ak_47.h"
-#include <functional>
-#include "bullet.h"
-#include "../../common/weapons_id.h"
+
+
+#include "../guns_projectiles/bullet.h"
 
 struct AKConfig {
     WeaponTextureID id = WeaponTextureID::AK_47;
@@ -15,19 +15,21 @@ AKConfig ak_config;
 AK47::AK47(const Coordinate& _coordinate):
         Gun(ak_config.id, ak_config.max_ammo, ak_config.recoil, ak_config.range, _coordinate) {}
 
-ListProjectiles AK47::shoot(Coordinate& shooter_position) {
-    (void)shooter_position;
-    return ListProjectiles();
-}
-
-void  AK47::shoot(ListProjectiles& projectiles, Direction direction) {
+void AK47::trigger(ListProjectiles& projectiles,  Direction direction){
     (void)direction;
+    this->dispersion++;
     for (int i = 0; i < ak_config.count_projectiles_x_shoot; i++) {
         if(this->ammo > 0){
-            projectiles.add(new Bullet(this->projectile_range ,this->get_coordinate()));
+            projectiles.add(new Bullet(this->projectile_range ,this->get_coordinate() /*dispersionm direcions*/));
             this->ammo--;
         }
     }
+} 
+
+void AK47::trigger_out(ListProjectiles& projectiles, Direction direction){
+    (void)direction;
+    (void)projectiles;
+    this->dispersion = 0;
 }
 
 AK47::~AK47(){

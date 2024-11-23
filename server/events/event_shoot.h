@@ -4,7 +4,7 @@
 #include "event_player.h"
 
 
-class EventShoot : public EventPlayer {
+class EventShoot: public EventPlayer {
 private:
 public:
     explicit EventShoot(uint8_t& _player_id);
@@ -15,9 +15,4 @@ public:
 };
 
 
-
-
-
-
-
-#endif // EVENT_SHOOT_H
+#endif  // EVENT_SHOOT_H

@@ -14,7 +14,7 @@ enum ActionCommand {
     SHOOT,            // Disparar
     AIM_UP,           // Apuntar hacia arriba
     CROUCH,           // Tirarse al piso
-    IDLE                    // nada
+    IDLE              // nada
 };
 
 #endif  // ACTION_COMMANDS_H

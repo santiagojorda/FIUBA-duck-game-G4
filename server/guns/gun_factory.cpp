@@ -5,16 +5,16 @@
 
 #include "../../common/weapons_id.h"
 
-#include "ak_47.h"
-#include "banana.h"
-#include "cowboy_gun.h"
-#include "dueling_gun.h"
-#include "granade.h"
-#include "laser_rifle.h"
-#include "magnum.h"
-#include "pew_pew_laser.h"
-#include "shotgun.h"
-#include "sniper.h"
+#include "duks_guns/ak_47.h"
+#include "duks_guns/banana.h"
+#include "duks_guns/cowboy_gun.h"
+#include "duks_guns/dueling_gun.h"
+#include "duks_guns/granade.h"
+#include "duks_guns/laser_rifle.h"
+#include "duks_guns/magnum.h"
+#include "duks_guns/pew_pew_laser.h"
+#include "duks_guns/shotgun.h"
+#include "duks_guns/sniper.h"
 
 std::map<WeaponTextureID, std::function<Gun*(Coordinate)>> map_guns;
 

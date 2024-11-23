@@ -12,6 +12,8 @@
 #include "../player/inventory.h"
 #include "state/duck_state_controller.h"
 
+enum class ModeShoot : uint8_t { TRIGGER, TRIGGER_OUT };
+
 class Player: public Positionable {
 private:
     // cppcheck-suppress unusedStructMember
@@ -29,12 +31,14 @@ public:
     void translate_x(int pasos) override;
     void translate_y(int pasos) override;
     void move_back(ShootingRecoil tiles);
-    // void move_back(int tiles);
+
 
     Gun* get_gun();
     Armor* get_armor();
     Helmet* get_helmet();
-    void shoot( ListProjectiles& projectiles);
+
+    void shoot(ListProjectiles& projectiles, const   ModeShoot&  mode);
+
     void equip(Equippable* item);
     Direction get_direction();
     Inventory& get_inventory();

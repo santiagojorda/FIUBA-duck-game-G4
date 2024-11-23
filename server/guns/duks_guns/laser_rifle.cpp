@@ -1,8 +1,8 @@
 #include "laser_rifle.h"
 
-#include "../../common/weapons_id.h"
-#include "bullet_bounce.h"
-#include <functional>
+
+#include "../guns_projectiles/bullet_bounce.h"
+
 
 struct LaserConfig {
     WeaponTextureID id = WeaponTextureID::LASER_RIFLE;
@@ -13,23 +13,25 @@ struct LaserConfig {
 };
 LaserConfig laser_config;
 
+
 LaserRifle::LaserRifle(const Coordinate& _coordinate):
         Gun(laser_config.id, laser_config.max_ammo, laser_config.recoil, laser_config.range,
             _coordinate) {}
 
-ListProjectiles LaserRifle::shoot(Coordinate& shooter_position) {
-    (void)shooter_position;
-    return ListProjectiles();
-}
-
-
-void  LaserRifle::shoot(ListProjectiles& projectiles, Direction direction)  { 
+void LaserRifle::trigger(ListProjectiles& projectiles,  Direction direction){
     (void)direction;
     for (int i = 0; i < laser_config.count_projectiles_x_shoot; i++) {
         if(this->ammo > 0){
-            projectiles.add(new BulletBounce(this->projectile_range ,this->get_coordinate()));
+            projectiles.add(new BulletBounce(this->projectile_range ,this->get_coordinate() /*dispersionm direcions*/));
             this->ammo--;
         }
     }
+} 
+
+void LaserRifle::trigger_out(ListProjectiles& projectiles, Direction direction){
+    (void)direction;
+    (void)projectiles;
 }
-    
+
+
+LaserRifle::~LaserRifle() {}

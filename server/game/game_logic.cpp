@@ -69,18 +69,12 @@ void GameLogic::update_players() {
 void GameLogic::update_player_gravity(Player& player) {
     Positionable* touched_floor = get_player_floor_collision(player);
     if (touched_floor) {
-        // player.touch_floor(touched_floor);
-        // si es que no baja mas, que acomode el sobrante
         player.adjust_position_to_floor(touched_floor);
-        if(player.is_falling()){
+        if (player.is_falling()) {
             player.idle();
         }
     } else {
         player.fall(physics);
-        // physics.falling(player, player.get_frame());
-
-        // player.fall();
-        // physics.falling(player, 1);
     }
 }
 
@@ -119,7 +113,7 @@ void GameLogic::handle_event(uint8_t player_id, ActionCommand event) {
                 player.crouch(physics);
                 break;
             case ActionCommand::SHOOT:
-                player.shoot(map_projectiles);
+                player.shoot(map_projectiles, ModeShoot::TRIGGER);
                 break;
             case ActionCommand::IDLE:
                 player.idle();

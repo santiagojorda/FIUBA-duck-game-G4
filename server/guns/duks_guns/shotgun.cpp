@@ -1,8 +1,7 @@
 #include "shotgun.h"
-#include "bullet.h"
 
+#include "../guns_projectiles/bullet.h"
 
-#include "../../common/weapons_id.h"
 
 struct ShotgunConfig {
     WeaponTextureID id = WeaponTextureID::SHOTGUN;
@@ -18,12 +17,8 @@ Shotgun::Shotgun(const Coordinate& _coordinate) :
             _coordinate) , reloaded(false) {}
 
 
-ListProjectiles Shotgun::shoot(Coordinate& shooter_position) {
-    (void)shooter_position;
-    return ListProjectiles();
-}
 
-void  Shotgun::shoot(ListProjectiles& projectiles, Direction direction)  { 
+void  Shotgun::trigger(ListProjectiles& projectiles, Direction direction)  { 
     (void)direction;
     if(this->reloaded) {
         this->reloaded = false;
@@ -38,3 +33,9 @@ void  Shotgun::shoot(ListProjectiles& projectiles, Direction direction)  {
     }
 }
 
+void  Shotgun::trigger_out(ListProjectiles& projectiles, Direction direction)  { 
+    (void)direction;
+    (void)projectiles;
+}
+
+Shotgun::~Shotgun() {}

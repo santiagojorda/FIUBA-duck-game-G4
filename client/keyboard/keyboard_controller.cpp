@@ -26,12 +26,12 @@ void KeyboardController::procesar_keyup(SDL_Event& event) {
     ClientEvent_t client_event;
     switch (event.key.keysym.sym) {
         case SDLK_RIGHT:
-        client_event = {PLAYER_1, IDLE};
-        this->commands.push(client_event);
+            client_event = {PLAYER_1, IDLE};
+            this->commands.push(client_event);
             break;
         case SDLK_LEFT:
-        client_event = {PLAYER_1, IDLE};
-        this->commands.push(client_event);
+            client_event = {PLAYER_1, IDLE};
+            this->commands.push(client_event);
             break;
     }
 }
