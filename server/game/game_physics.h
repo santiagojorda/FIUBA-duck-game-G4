@@ -8,6 +8,7 @@
 class GamePhysics {
 private:
     Map& map;
+
 public:
     GamePhysics(Map& _map);
 

@@ -19,7 +19,7 @@ void MonitorClients::broadcast(GameState_t gamestate) {
     }
 }
 
-bool MonitorClients::they_are_alive(){
+bool MonitorClients::they_are_alive() {
     std::lock_guard<std::mutex> lock(mtx);
     int alive_count = 0;
     for (Client& client: list) {

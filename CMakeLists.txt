@@ -58,6 +58,9 @@ target_include_directories(taller_common PUBLIC .)
 
 # 
 add_definitions(-DDATA_PATH="${PROJECT_SOURCE_DIR}/game_rsc/sprites")
+
+add_definitions(-DANIMATION_PATH="${PROJECT_SOURCE_DIR}/client/animations_config")
+
 # Install libSDL2pp (for client or editor)
 # HEY!! TODO XXX: add more dependendies (either for client, server or editor)
 if(TALLER_CLIENT OR TALLER_EDITOR)
@@ -115,7 +118,7 @@ if(TALLER_CLIENT)
 
 
    # Link the taller_common lib target
-   target_link_libraries(taller_client taller_common SDL2pp::SDL2pp)
+   target_link_libraries(taller_client taller_common SDL2pp::SDL2pp yaml-cpp::yaml-cpp)
 endif()
 
 

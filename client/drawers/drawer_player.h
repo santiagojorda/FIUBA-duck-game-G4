@@ -11,6 +11,8 @@
 #include "../config/game_config.h"
 #include "../game_state/player.h"
 
+#include "animation.h"
+#include "animation_loader.h"
 #include "renderer_helper.h"
 #include "weapon_properties.h"
 
@@ -30,6 +32,7 @@ static std::map<uint8_t, std::string> textures = {
 class DrawerPlayer {
 private:
     SDL2pp::Texture texture;
+    std::map<std::string, Animation> animations;
 
 public:
     DrawerPlayer(SDL2pp::Renderer& renderer, const player_t& _player);

@@ -1,7 +1,8 @@
 #include "cowboy_gun.h"
 
-#include "../../common/weapons_id.h"
 #include <functional>
+
+#include "../../common/weapons_id.h"
 
 struct CowboyConfig {
     WeaponTextureID id = WeaponTextureID::COWBOY_GUN;
@@ -21,8 +22,7 @@ ListProjectiles CowboyGun::shoot(Coordinate& shooter_position) {
     return ListProjectiles();
 }
 
-void  CowboyGun::shoot(ListProjectiles& projectiles, Direction direction)  { 
+void CowboyGun::shoot(ListProjectiles& projectiles, Direction direction) {
     (void)direction;
-    (void) projectiles;
+    (void)projectiles;
 }
-

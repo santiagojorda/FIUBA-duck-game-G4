@@ -3,7 +3,7 @@
 const int G_FORCE = 10;
 #include <iostream>
 
-GamePhysics::GamePhysics(Map& _map) : map(_map) {}
+GamePhysics::GamePhysics(Map& _map): map(_map) {}
 
 bool GamePhysics::collision(const Rectangle& a, const Rectangle& b) {
     // esto solo funciona para rectangulos en 2d no rotados

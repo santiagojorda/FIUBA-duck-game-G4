@@ -4,16 +4,15 @@
 #include <cstdint>
 
 #include "../../common/coordinate.h"
+#include "../../common/direction.h"
+#include "../../common/weapons_id.h"
 #include "../attributes/equippable.h"
 #include "../attributes/positionable.h"
-
-
-#include "../../common/weapons_id.h"
 #include "../player/inventory.h"
+
 #include "list_projectiles.h"
 #include "projectile_range.h"
 #include "shooring_recoil.h"
-#include "../../common/direction.h"
 
 class Gun: public Positionable, public Equippable {
 protected:

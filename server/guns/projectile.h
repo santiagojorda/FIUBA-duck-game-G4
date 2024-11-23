@@ -2,6 +2,7 @@
 #define PROJECTILE_H
 
 #include "../attributes/positionable.h"
+
 #include "projectile_range.h"
 
 class Projectile: public Positionable {  // es un statable
@@ -13,4 +14,4 @@ public:
                         Coordinate _coordinate);
 };
 
-#endif // PROJECTILE_H
+#endif  // PROJECTILE_H

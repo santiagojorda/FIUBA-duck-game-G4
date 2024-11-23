@@ -15,8 +15,8 @@ void Drawer::run() try {
 
     Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-    Texture main_texture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET,
-                          WINDOW_WIDTH, WINDOW_HEIGHT);
+    Texture main_texture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WINDOW_WIDTH,
+                         WINDOW_HEIGHT);
 
     main_texture.SetBlendMode(SDL_BLENDMODE_BLEND);
 
@@ -41,7 +41,7 @@ void Drawer::run() try {
          std::cout << "Loading..." << std::endl;
          std::this_thread::sleep_for(std::chrono::milliseconds(MILISECONDS_30_FPS));
      }*/
-    
+
     // -----------------------------------------------------------------------------------------
     while (true) {
 
@@ -53,18 +53,18 @@ void Drawer::run() try {
         SDL_SetRenderTarget(renderer.Get(), main_texture.Get());
 
         renderer.SetDrawColor(0, 0, 0, 0);
-    
+
         renderer.Clear();
 
         init_scenery(renderer, actual_game_state, drawers);
 
         // Draw Players (Patos)
-        for (size_t i = 0; i < actual_game_state.players.size(); i++) {
+        /*for (size_t i = 0; i < actual_game_state.players.size(); i++) {
             auto player = actual_game_state.players[i];
             drawers.players[player.sprite.id_texture] =
                     std::make_unique<DrawerPlayer>(renderer, player);
             drawers.players[player.sprite.id_texture]->draw(renderer, player);
-        }
+        }*/
 
         for (size_t i = 0; i < actual_game_state.players.size(); i++) {
             player_t player = actual_game_state.players[i];
@@ -139,6 +139,10 @@ void Drawer::run() try {
 void Drawer::init_scenery(Renderer& renderer, const client_game_state_t& actual_game_state,
                           drawers_t& drawers) {
     // Player
+    if (actual_game_state.players.size() == drawers.players.size()) {
+        return;
+    }
+
     for (size_t i = 0; i < actual_game_state.players.size(); i++) {
         auto player = actual_game_state.players[i];
         drawers.players[player.sprite.id_texture] =

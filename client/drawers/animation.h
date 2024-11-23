@@ -1,25 +1,25 @@
 #ifndef ANIMATION_H
 #define ANIMATION_H
 
-#include <map>
+#include <string>
+#include <vector>
 
-#include <SDL2/SDL.h>
-#include <SDL2pp/SDL2pp.hh>
-#include <SDL2pp/Texture.hh>
+#include <SDL2pp/Rect.hh>
 
-#include "../config/game_config.h"
-#include "../game_state/sprite.h"
+struct Frame {
+    int x, y, w, h;
+};
 
-#include "drawable.h"
-
-class DrawerFloor {
+class Animation {
 private:
-    SDL2pp::Texture texture;
+    std::vector<Frame> frames;
 
 public:
-    DrawerFloor(SDL2pp::Renderer& renderer, const sprite_t& floor);
+    Animation() = default;
 
-    void draw(SDL2pp::Renderer& renderer, const sprite_t& floor);
+    explicit Animation(const std::vector<Frame>& frames);
+
+    SDL2pp::Rect get_current_frame(int frame) const;
 };
 
 #endif  // ANIMATION_H

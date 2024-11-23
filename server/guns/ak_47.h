@@ -10,7 +10,7 @@ private:
     // ListProjectiles generate_list_projectiles(Coordinate& shooter_position) override;
 public:
     explicit AK47(const Coordinate& _coordinate);
-    
+
     ListProjectiles shoot(Coordinate& shooter_position) override;
 
     void shoot(ListProjectiles& projectiles, Direction direction) override;
