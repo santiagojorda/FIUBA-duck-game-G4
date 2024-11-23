@@ -14,13 +14,17 @@ protected:
     SDL2pp::Renderer& renderer;
     bool flip;
     std::map<std::string, Animation> animations;
-    std::unique_ptr<SDL2pp::Texture>
-            texture;  // -> SDL2pp::Texture no tiene un constructor por defecto.
+    // -> SDL2pp::Texture no tiene un constructor por defecto.
+    std::unique_ptr<SDL2pp::Texture> texture;
+    int coordenada_x;
+    int coordenada_y;
+    int scale_width;
+    int scale_height;
 
 public:
     Drawable(SDL2pp::Renderer& renderer, bool flip);
 
-    void render(const SDL2pp::Rect& rect, int coor_x, int coor_y, int scale_w, int scale_h);
+    void render(const SDL2pp::Rect& rect);
 
     virtual ~Drawable();
 };

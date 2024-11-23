@@ -32,8 +32,7 @@ static std::map<uint8_t, std::string> textures = {
 
 class DrawerPlayer: public Drawable {
 private:
-    void update_animation(const std::string type_animation, int frame, int coor_x, int coor_y,
-                          int scale_w, int scale_h);
+    void update_animation(const std::string type_animation, int frame);
 
 public:
     DrawerPlayer(SDL2pp::Renderer& renderer, uint8_t texture_id, uint8_t is_looking);

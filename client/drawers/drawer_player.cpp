@@ -26,36 +26,37 @@ DrawerPlayer::DrawerPlayer(SDL2pp::Renderer& renderer, uint8_t texture_id, uint8
 
 void DrawerPlayer::draw(const player_t& player) {
     this->flip = static_cast<Direction>(player.is_looking) == Direction::LEFT;
-    DuckStateType duck_state = static_cast<DuckStateType>(player.state);
-
-    int duck_x = player.sprite.coordinate.get_x();
-    int duck_y = player.sprite.coordinate.get_y();
+    this->coordenada_x = player.sprite.coordinate.get_x();
+    this->coordenada_y = player.sprite.coordinate.get_y();
+    this->scale_height = TILE_SIZE;
+    this->scale_width = TILE_SIZE;
     int frame = static_cast<int>(player.frame);
+
+    DuckStateType duck_state = static_cast<DuckStateType>(player.state);
 
     switch (duck_state) {
         case DuckStateType::IS_IDLE:
-            this->update_animation("idle", frame, duck_x, duck_y, TILE_SIZE, TILE_SIZE);
+            this->update_animation("idle", frame);
             break;
         case DuckStateType::IS_CROUCHING:
-            this->update_animation("crouching", frame, duck_x, duck_y, TILE_SIZE, TILE_SIZE);
+            this->update_animation("crouching", frame);
             break;
         case DuckStateType::IS_RUNNING:
-            this->update_animation("running", frame, duck_x, duck_y, TILE_SIZE, TILE_SIZE);
+            this->update_animation("running", frame);
             break;
         case DuckStateType::IS_JUMPING:
-            this->update_animation("jumping", frame, duck_x, duck_y, TILE_SIZE, TILE_SIZE);
+            this->update_animation("jumping", frame);
             break;
         case DuckStateType::IS_FALLING:
-            this->update_animation("falling", frame, duck_x, duck_y, TILE_SIZE, TILE_SIZE);
+            this->update_animation("falling", frame);
             break;
         default:
-            this->update_animation("idle", frame, duck_x, duck_y, TILE_SIZE, TILE_SIZE);
+            this->update_animation("idle", frame);
             break;
     }
 }
 
-void DrawerPlayer::update_animation(const std::string type_animation, int frame, int coor_x,
-                                    int coor_y, int scale_w, int scale_h) {
+void DrawerPlayer::update_animation(const std::string type_animation, int frame) {
     auto anim = this->animations[type_animation].get_current_frame(frame);
-    render(anim, coor_x, coor_y, scale_w, scale_h);
+    render(anim);
 }
