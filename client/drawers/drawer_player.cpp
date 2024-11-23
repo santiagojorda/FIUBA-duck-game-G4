@@ -54,6 +54,37 @@ void DrawerPlayer::draw(const player_t& player) {
             this->update_animation("idle", frame);
             break;
     }
+
+    // ------------------------ Inventario ------------------------
+
+    if (static_cast<int>(player.inventory.armor) != 0) {
+        SDL2pp::Texture armadura_texture(renderer, DATA_PATH "/DuckGame-Equipment.png");
+        RenderConfig armorConfig(armadura_texture, 387, 11, SIZE_DUCK_SPRITE, SIZE_DUCK_SPRITE,
+                                 flip);
+        armorConfig.adjust_for_frame(frame, SIZE_DUCK_SPRITE);
+        RendererHelper::render(armorConfig, renderer, player.sprite.coordinate.get_x(),
+                               player.sprite.coordinate.get_y() + 3 - OFFSET_Y, TILE_SIZE,
+                               TILE_SIZE);
+    }
+
+    if (static_cast<int>(player.inventory.weapon) != 0) {
+        auto weapon_id = static_cast<WeaponTextureID>(player.inventory.weapon);
+        auto weapon_props = weapon_properties[weapon_id];
+        SDL2pp::Texture weapon_texture(renderer, weapon_props.texturePath);
+        RenderConfig render_config(weapon_texture, weapon_props.src_x, weapon_props.src_y,
+                                   weapon_props.width, weapon_props.height, flip);
+
+        WeaponConfig weapon_config(weapon_id, flip, player.sprite.coordinate);
+        RendererHelper::render(render_config, renderer, weapon_config.offset_x,
+                               weapon_config.offset_y - OFFSET_Y, weapon_config.scale_width,
+                               weapon_config.scale_height);
+
+        int x_ala = flip ? 16 : 12;
+        RenderConfig playerAlaConfig(*this->texture, 1, 566, SIZE_DUCK_ALA, SIZE_DUCK_ALA, flip);
+        playerAlaConfig.adjust_for_frame(frame, SIZE_DUCK_ALA);
+        RendererHelper::render(playerAlaConfig, renderer, this->coordenada_x + x_ala,
+                               this->coordenada_y + 16 - OFFSET_Y, TILE_SIZE_ALA, TILE_SIZE_ALA);
+    }
 }
 
 void DrawerPlayer::update_animation(const std::string type_animation, int frame) {
