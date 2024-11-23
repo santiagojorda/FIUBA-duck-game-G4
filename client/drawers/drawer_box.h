@@ -7,7 +7,6 @@
 #include <SDL2pp/SDL2pp.hh>
 #include <SDL2pp/Texture.hh>
 
-#include "../../common/action_commands.h"
 #include "../config/game_config.h"
 #include "../game_state/elements.h"
 

@@ -4,7 +4,6 @@
 #include "../attributes/equippable.h"
 #include "../attributes/positionable.h"
 
-
 class Armor: public Positionable, public Equippable {
 public:
     Armor();

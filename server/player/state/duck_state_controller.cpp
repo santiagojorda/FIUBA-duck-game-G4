@@ -1,84 +1,121 @@
 #include "duck_state_controller.h"
 
 #include "../player.h"
+#include <iostream>
 
-DuckStateController::DuckStateController(const uint8_t& _player_id){
-    DuckState* initial_state = new DuckStateIdle(_player_id);
-    current_state = initial_state;
-    direction = Direction::RIGHT;
+DuckStateController::DuckStateController(const uint8_t& _player_id):
+        states(_player_id), current_state(nullptr) {
+    set_state(DuckStateType::IDLE);
+    direction = current_state->get_direction();
 }
 
-void DuckStateController::set_state(DuckState* new_state){
-    if(new_state){
-        delete current_state;
-        current_state = new_state;
+void DuckStateController::set_state(const DuckStateType& new_state) {
+    if (current_state) {
+        current_state->finish();
+    }
+    current_state = states.get(new_state);
+    if(current_state){
+        current_state->start();
+    }
+    else {
+        std::cout << "No hay estado" << std::endl;
     }
 }
-void DuckStateController::update(Player& player, GamePhysics& physics){
-    if(current_state){
+
+void DuckStateController::set_direction(const Direction& new_direction) {
+    if (new_direction != current_state->get_direction()) {
+        direction = new_direction;
+        current_state->set_direction(direction);
+    }
+}
+
+void DuckStateController::update(Player& player, GamePhysics& physics) {
+    if (current_state) {
         current_state->update(player, physics);
     }
 };
 
-void DuckStateController::run_right(Player& player, GamePhysics& physics){
-    direction = Direction::RIGHT;
-    if(!is_running()){
-        set_state(new DuckStateRunning(player.get_id(), direction));
-    }
+void DuckStateController::execute(Player& player, GamePhysics& physics) {
     current_state->execute(player, physics);
 }
-void DuckStateController::run_left(Player& player, GamePhysics& physics){
-    direction = Direction::LEFT;
-    if(!is_running()){
-        set_state(new DuckStateRunning(player.get_id(), direction));
+
+void DuckStateController::run(Direction direction, Player& player, GamePhysics& physics) {
+    if (!is_running()) {
+        set_state(DuckStateType::RUNNING);
     }
-    current_state->execute(player, physics);
+    if(current_state->get_direction() != direction) {
+        set_direction(direction);
+    }
+    execute(player, physics);
 }
-void DuckStateController::jump(Player& player, GamePhysics& physics){
+
+////
+
+void DuckStateController::run_right(Player& player, GamePhysics& physics) {
+    run(Direction::RIGHT, player, physics);
+
+}
+void DuckStateController::run_left(Player& player, GamePhysics& physics) {
+    run(Direction::LEFT, player, physics);
+}
+
+void DuckStateController::jump(Player& player, GamePhysics& physics) {
+    (void)player;
     (void)physics;
-    if(!is_jumping() && !is_falling()){
-        set_state(new DuckStateJumping(player.get_id()));
+    if (!is_jumping() && !is_falling()) {
+        set_state(DuckStateType::JUMPING);
     }
 }
-void DuckStateController::fall(Player& player, GamePhysics& physics){ 
+void DuckStateController::fall(Player& player, GamePhysics& physics) {
+    (void)player;
     (void)physics;
-    set_state(new DuckStateFalling(player.get_id())); 
-    // current_state->execute(player, physics);
+    set_state(DuckStateType::FALLING);
 }
-void DuckStateController::crouch(Player& player, GamePhysics& physics){ 
-    set_state(new DuckStateCrouching(player.get_id())); 
-    current_state->execute(player, physics);
+void DuckStateController::crouch(Player& player, GamePhysics& physics) {
+    (void)player;
+    (void)physics;
+    set_state(DuckStateType::CROUCHING);
 }
-void DuckStateController::slip(Player& player, GamePhysics& physics){ 
-    set_state(new DuckStateSlipping(player.get_id())); 
-    current_state->execute(player, physics);
+void DuckStateController::slip(Player& player, GamePhysics& physics) {
+    (void)player;
+    (void)physics;
+    set_state(DuckStateType::SLIPPING);
 }
-void DuckStateController::recoil(Player& player, GamePhysics& physics){ 
-    set_state(new DuckStateRecoiling(player.get_id())); 
-    current_state->execute(player, physics);
+void DuckStateController::recoil(Player& player, GamePhysics& physics) {
+    (void)player;
+    (void)physics;
+    set_state(DuckStateType::RECOILING);
 }
-void DuckStateController::plane(Player& player, GamePhysics& physics){ 
-    set_state(new DuckStatePlanning(player.get_id())); 
-    current_state->execute(player, physics);
+void DuckStateController::plane(Player& player, GamePhysics& physics) {
+    (void)player;
+    (void)physics;
+    set_state(DuckStateType::PLANNING);
+    execute(player, physics);
 }
-void DuckStateController::die(Player& player){ set_state(new DuckStateDead(player.get_id())); }
-void DuckStateController::idle(Player& player){ 
-    if(!is_idle()){
-        set_state(new DuckStateIdle(player.get_id())); 
+void DuckStateController::die(Player& player) {
+    (void)player;
+    if (!is_dead()) {
+        set_state(DuckStateType::DEAD);
+    }
+}
+void DuckStateController::idle(Player& player) {
+    (void)player;
+    if (!is_idle()) {
+        set_state(DuckStateType::IDLE);
     }
 }
 
-bool DuckStateController::is_in_state(DuckStateType state) { return current_state && current_state->get_id() == state;}
+bool DuckStateController::is_in_state(DuckStateType state) {
+    return current_state && current_state->get_id() == state;
+}
 
-bool DuckStateController::is_jumping() { return is_in_state(DuckStateType::IS_JUMPING);}
-bool DuckStateController::is_running() { return is_in_state(DuckStateType::IS_RUNNING);}
-bool DuckStateController::is_falling() { return is_in_state(DuckStateType::IS_FALLING);}
-bool DuckStateController::is_dead() { return is_in_state(DuckStateType::IS_DEAD);}
-bool DuckStateController::is_idle() { return is_in_state(DuckStateType::IS_IDLE);}
+bool DuckStateController::is_jumping() { return is_in_state(DuckStateType::JUMPING); }
+bool DuckStateController::is_running() { return is_in_state(DuckStateType::RUNNING); }
+bool DuckStateController::is_falling() { return is_in_state(DuckStateType::FALLING); }
+bool DuckStateController::is_dead() { return is_in_state(DuckStateType::DEAD); }
+bool DuckStateController::is_idle() { return is_in_state(DuckStateType::IDLE); }
 
-DuckStateType DuckStateController::get_state() { return current_state->get_id();};
+DuckStateType DuckStateController::get_state() { return current_state->get_id(); };
 uint8_t DuckStateController::get_frame() { return current_state->get_frame(); };
 Direction DuckStateController::get_direction() { return direction; }
-DuckStateController::~DuckStateController() {
-    delete current_state;
-}
+DuckStateController::~DuckStateController() {}

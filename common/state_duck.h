@@ -5,15 +5,15 @@
 #include <unordered_map>
 
 enum class DuckStateType : uint8_t {
-    IS_JUMPING,
-    IS_RUNNING,
-    IS_CROUCHING,
-    IS_RECOILING,
-    IS_FALLING,
-    IS_SLIPPING,
-    IS_PLANNING,
-    IS_IDLE,
-    IS_DEAD
+    JUMPING,
+    RUNNING,
+    CROUCHING,
+    RECOILING,
+    FALLING,
+    SLIPPING,
+    PLANNING,
+    IDLE,
+    DEAD
 };
 
 struct DuckStateInfo_t {

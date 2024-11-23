@@ -27,10 +27,11 @@ ListProjectiles LaserRifle::shoot(Coordinate& shooter_position) {
 
 void LaserRifle::shoot(ListProjectiles& projectiles, Direction direction) {
     (void)direction;
-    for (int i = 0; i < laser_config.count_projectiles_x_shoot; i++) {
-        if (this->ammo > 0) {
-            projectiles.add(new BulletBounce(this->projectile_range, this->get_coordinate()));
-            this->ammo--;
-        }
-    }
+    (void)projectiles;
+    // for (int i = 0; i < laser_config.count_projectiles_x_shoot; i++) {
+    //     if (this->ammo > 0) {
+    //         projectiles.add(new BulletBounce(this->projectile_range, this->get_coordinate()));
+    //         this->ammo--;
+    //     }
+    // }
 }

@@ -23,10 +23,15 @@ void KeyboardController::procesar_comando(SDL_Event& event) {
 }
 
 void KeyboardController::procesar_keyup(SDL_Event& event) {
+    ClientEvent_t client_event;
     switch (event.key.keysym.sym) {
         case SDLK_RIGHT:
+            client_event = {PLAYER_1, ActionEvent::IDLE};
+            this->commands.push(client_event);
             break;
         case SDLK_LEFT:
+            client_event = {PLAYER_1, ActionEvent::IDLE};
+            this->commands.push(client_event);
             break;
     }
 }
@@ -70,20 +75,20 @@ void KeyboardController::procesar_accion_player_1(SDL_Event& event) {
     ClientEvent_t client_event;
     switch (event.key.keysym.sym) {
         case SDLK_RIGHT:
-            client_event = {PLAYER_1, MOVE_RIGHT};
+            client_event = {PLAYER_1, ActionEvent::MOVE_RIGHT};
             this->commands.push(client_event);
             break;
         case SDLK_LEFT:
-            client_event = {PLAYER_1, MOVE_LEFT};
+            client_event = {PLAYER_1, ActionEvent::MOVE_LEFT};
             this->commands.push(client_event);
             break;
         case SDLK_UP:
-            client_event = {PLAYER_1, JUMP};
+            client_event = {PLAYER_1, ActionEvent::JUMP};
             this->commands.push(client_event);
             std::cout << "Saltar" << std::endl;
             break;
         case SDLK_SPACE:  // disparar espacio
-            client_event = {PLAYER_1, SHOOT};
+            client_event = {PLAYER_1, ActionEvent::SHOOT};
             std::cout << "Disparar" << std::endl;
             this->commands.push(client_event);
             break;
@@ -94,7 +99,7 @@ void KeyboardController::procesar_accion_player_1(SDL_Event& event) {
             std::cout << "Apuntando hacia arriba" << std::endl;
             break;
         case SDLK_DOWN:  // flecha hacia abajo para agacharse
-            client_event = {PLAYER_1, CROUCH};
+            client_event = {PLAYER_1, ActionEvent::CROUCH};
             this->commands.push(client_event);
             std::cout << "Agacharse" << std::endl;
             break;
@@ -105,20 +110,20 @@ void KeyboardController::procesar_accion_player_2(SDL_Event& event) {
     ClientEvent_t client_event;
     switch (event.key.keysym.sym) {
         case SDLK_d:
-            client_event = {PLAYER_2, MOVE_RIGHT};
+            client_event = {PLAYER_2, ActionEvent::MOVE_RIGHT};
             this->commands.push(client_event);
             break;
         case SDLK_a:
-            client_event = {PLAYER_2, MOVE_LEFT};
+            client_event = {PLAYER_2, ActionEvent::MOVE_LEFT};
             this->commands.push(client_event);
             break;
         case SDLK_w:  // tecla W para saltar
-            client_event = {PLAYER_2, JUMP};
+            client_event = {PLAYER_2, ActionEvent::JUMP};
             this->commands.push(client_event);
             std::cout << "Saltar (Jugador 2)" << std::endl;
             break;
         case SDLK_s:  // tecla S para agacharse
-            client_event = {PLAYER_2, CROUCH};
+            client_event = {PLAYER_2, ActionEvent::CROUCH};
             this->commands.push(client_event);
             std::cout << "Agacharse (Jugador 2)" << std::endl;
             break;

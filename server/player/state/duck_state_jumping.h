@@ -3,7 +3,7 @@
 
 #include "duck_state.h"
 
-class DuckStateJumping: public DuckState{
+class DuckStateJumping: public DuckState {
 public:
     DuckStateJumping(const uint8_t& _player_id);
 

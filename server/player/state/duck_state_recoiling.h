@@ -3,7 +3,7 @@
 
 #include "duck_state.h"
 
-class DuckStateRecoiling: public DuckState{
+class DuckStateRecoiling: public DuckState {
 public:
     DuckStateRecoiling(const uint8_t& _player_id);
     ~DuckStateRecoiling();
