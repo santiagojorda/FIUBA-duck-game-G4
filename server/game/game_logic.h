@@ -4,8 +4,8 @@
 #include <list>
 
 #include "../../common/action_events.h"
-#include "../guns/list_guns.h"
-#include "../guns/list_projectiles.h"
+#include "../weapons/list_guns.h"
+#include "../weapons/list_projectiles.h"
 #include "../map/map.h"
 #include "../player/list_players.h"
 #include "../player/player.h"
@@ -30,7 +30,7 @@ private:
 public:
     explicit GameLogic(ListPlayers& _players, Map& _map, ListGuns& _map_guns,
                        ListProjectiles& _map_projectiles);
-    void handle_event(uint8_t player_id, ActionEvent event);
+    void handle_event(const uint8_t& player_id,const ActionEvent& event);
     void update();
     ~GameLogic();
 };
