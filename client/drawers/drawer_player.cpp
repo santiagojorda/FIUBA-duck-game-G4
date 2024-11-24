@@ -8,15 +8,6 @@
 
 #define TILE_SIZE_ALA 22
 #define SIZE_DUCK_ALA 16
-#define OFFSET_Y 12
-
-/* Initial values */
-#define SIZE_DUCK_SPRITE 32
-#define DUCK_IDLE_X 1
-#define DUCK_IDLE_Y 11
-
-#define DUCK_SPRITE_CROUCHING_X 5
-#define DUCK_SPRITE_CROUCHING_Y 1
 
 DrawerPlayer::DrawerPlayer(SDL2pp::Renderer& renderer, uint8_t texture_id,
                            std::map<std::string, Animation>& _animations, uint8_t is_looking):
@@ -29,7 +20,7 @@ DrawerPlayer::DrawerPlayer(SDL2pp::Renderer& renderer, uint8_t texture_id,
 void DrawerPlayer::draw(const player_t& player, std::map<std::string, AnimationWeapon>& animation) {
     this->flip = static_cast<Direction>(player.is_looking) == Direction::LEFT;
     this->coordenada_x = player.sprite.coordinate.get_x();
-    this->coordenada_y = player.sprite.coordinate.get_y() - OFFSET_Y;
+    this->coordenada_y = player.sprite.coordinate.get_y() - OFFSET_Y_DUCK;
     this->scale_height = TILE_SIZE;
     this->scale_width = TILE_SIZE;
     this->frame = static_cast<int>(player.frame);
@@ -52,18 +43,6 @@ void DrawerPlayer::draw(const player_t& player, std::map<std::string, AnimationW
 
 
         if (static_cast<int>(player.inventory.weapon) != 0) {
-            auto weapon_id = static_cast<WeaponTextureID>(player.inventory.weapon);
-            auto weapon_props = weapon_properties[weapon_id];
-            SDL2pp::Texture weapon_texture(renderer, weapon_props.texturePath);
-            RenderConfig render_config(weapon_texture, weapon_props.src_x, weapon_props.src_y,
-                                       weapon_props.width, weapon_props.height, flip);
-
-            WeaponConfig weapon_config(weapon_id, flip, player.sprite.coordinate);
-
-            RendererHelper::render(render_config, renderer, weapon_config.offset_x,
-                                   weapon_config.offset_y - 10, weapon_config.scale_width,
-                                   weapon_config.scale_height);
-
             int x_ala = flip ? 16 : 12;
             RenderConfig playerAlaConfig(*this->texture, 1, 566, SIZE_DUCK_ALA, SIZE_DUCK_ALA,
        flip); playerAlaConfig.adjust_for_frame(frame, SIZE_DUCK_ALA);

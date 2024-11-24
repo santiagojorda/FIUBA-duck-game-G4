@@ -9,7 +9,7 @@
 #include "animation.h"
 
 struct properties_t {
-    int offset_x, offset_y, scale_width, scale_height;
+    int offset_right_x, offset_left_x, offset_y, scale_width, scale_height;
 };
 
 class AnimationWeapon: public Animation {
@@ -22,7 +22,7 @@ public:
 
     AnimationWeapon(const std::vector<Frame>& frames, std::string path, properties_t props);
 
-    std::tuple<int, int, int, int> get_render_config() const;
+    std::tuple<int, int, int, int, int> get_render_config() const;
 
     std::string get_path() const;
 };

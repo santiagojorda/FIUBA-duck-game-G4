@@ -40,13 +40,15 @@ std::map<std::string, AnimationWeapon> AnimationLoader::load_animations<Animatio
                                    rect["h"].as<int>()});
         }
 
-        int offset_x = state.second["offset_x"].as<int>();
+        int offset_right_x = state.second["offset_right_x"].as<int>();
+        int offset_left_x = state.second["offset_left_x"].as<int>();
         int offset_y = state.second["offset_y"].as<int>();
         int scale_width = state.second["scale_width"].as<int>();
         int scale_height = state.second["scale_height"].as<int>();
 
         animations[state_name] = AnimationWeapon(
-                frames, path, properties_t{offset_x, offset_y, scale_width, scale_height});
+                frames, path,
+                properties_t{offset_right_x, offset_left_x, offset_y, scale_width, scale_height});
     }
 
     return animations;
