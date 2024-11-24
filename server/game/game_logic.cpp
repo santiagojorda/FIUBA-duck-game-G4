@@ -44,11 +44,19 @@ bool GameLogic::is_player_out_of_map(Player& player) {
 }
 
 
-void GameLogic::update_projectiles(){
 
+
+void GameLogic::update_projectiles(){
     for (Projectile* projectile: map_projectiles.get_items()){
+        if(projectile->is_dead()){
+            map_projectiles.remove_and_delete(projectile);
+            return;
+        }
         projectile->update(physics);
+
     }
+
+    
 }
 
 
@@ -85,18 +93,12 @@ void GameLogic::update_players() {
 void GameLogic::update_player_gravity(Player& player) {
     Positionable* touched_floor = get_player_floor_collision(player);
     if (touched_floor) {
-        // player.touch_floor(touched_floor);
-        // si es que no baja mas, que acomode el sobrante
         player.adjust_position_to_floor(touched_floor);
         if (player.is_falling()) {
             player.idle();
         }
     } else {
         player.fall(physics);
-        // physics.falling(player, player.get_frame());
-
-        // player.fall();
-        // physics.falling(player, 1);
     }
 }
 
@@ -109,36 +111,37 @@ Player& GameLogic::get_player(const uint8_t& _player_id) {
     throw std::runtime_error("Player con ID no encontrado");
 }
 
-void GameLogic::handle_event(uint8_t player_id, ActionEvent event) {
+void GameLogic::handle_event(const uint8_t& player_id,const ActionEvent& event) {
     try {
         Player& player = get_player(player_id);
         if (player.is_dead()) {
             return;
         }
-        switch ((int)event) {
-            case (int)ActionEvent::MOVE_RIGHT:
+        switch (event) {
+            case ActionEvent::MOVE_RIGHT:
                 // chequear que se pueda
                 player.run_right(physics);
                 break;
-            case (int)ActionEvent::MOVE_LEFT:
+            case ActionEvent::MOVE_LEFT:
                 // chequear que se pueda
                 player.run_left(physics);
                 break;
-            case (int)ActionEvent::JUMP:
+            case ActionEvent::JUMP:
                 // chequear se pueda
                 player.jump(physics);
                 break;
-            case (int)ActionEvent::CROUCH:
+            case ActionEvent::CROUCH:
                 // chequear se pueda
                 player.crouch(physics);
                 break;
-            case (int)ActionEvent::SHOOT:
-                std::cout << "player shoot" << std::endl;
-                player.shoot(map_projectiles);
+            case ActionEvent::SHOOT:
+                player.shoot(map_projectiles, ModeShoot::TRIGGER);
                 break;
-            case (int)ActionEvent::IDLE:
+            case ActionEvent::IDLE:
                 player.idle();
                 break;
+            default:
+                break;  
         }
     } catch (const std::exception& e) {
         std::cerr << "Error handle event player " << int(player_id) << ": " << e.what()

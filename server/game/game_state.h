@@ -3,8 +3,8 @@
 
 #include <list>
 
-#include "../guns/list_guns.h"
-#include "../guns/list_projectiles.h"
+#include "../weapons/list_guns.h"
+#include "../weapons/list_projectiles.h"
 #include "../map/map.h"
 #include "../player/list_players.h"
 #include "../player/player.h"
