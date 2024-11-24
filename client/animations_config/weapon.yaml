@@ -1,0 +1,119 @@
+granate:
+  texture: "/DuckGame-Grenades.png"
+  rects:
+    - x: 1
+      y: 21
+      w: 15
+      h: 15
+  offset_x: 5
+  offset_y: 10
+  scale_width: 24
+  scale_height: 24
+
+banana:
+  texture: "/DuckGame-Grenades.png"
+  rects:
+    - x: 1
+      y: 51
+      w: 15
+      h: 15
+  offset_x: 10
+  offset_y: 5
+  scale_width: 24
+  scale_height: 24
+
+pew_pew_laser:
+  texture: "/DuckGame-Laser.png"
+  rects:
+    - x: 336
+      y: 94
+      w: 32
+      h: 32
+  offset_x: 5
+  offset_y: 6
+  scale_width: 38
+  scale_height: 38
+
+laser_rifle:
+  texture: "/DuckGame-Laser.png"
+  rects:
+    - x: 1
+      y: 97
+      w: 32
+      h: 32
+  offset_x: 5
+  offset_y: 6
+  scale_width: 38
+  scale_height: 38
+
+ak_47:
+  texture: "/DuckGame-MachineGuns.png"
+  rects:
+    - x: 1
+      y: 19
+      w: 32
+      h: 32
+  offset_x: 5
+  offset_y: 6
+  scale_width: 38
+  scale_height: 38
+
+dueling_gun:
+  texture: "/DuckGame-Pistol.png"
+  rects:
+    - x: 35
+      y: 68
+      w: 18
+      h: 10
+  offset_x: 5
+  offset_y: 17
+  scale_width: 25
+  scale_height: 17
+
+cowboy_gun:
+  texture: "/DuckGame-Pistol.png"
+  rects:
+    - x: 1
+      y: 20
+      w: 22
+      h: 11
+  offset_x: 6
+  offset_y: 17
+  scale_width: 27
+  scale_height: 16
+
+magnum:
+  texture: "/DuckGame-Pistol.png"
+  rects:
+    - x: 1
+      y: 47
+      w: 32
+      h: 32
+  offset_x: 5
+  offset_y: 6
+  scale_width: 38
+  scale_height: 38
+
+shotgun:
+  texture: "/DuckGame-MoreWeapons.png"
+  rects:
+    - x: 60
+      y: 114
+      w: 41
+      h: 11
+  offset_x: -5
+  offset_y: 17
+  scale_width: 43
+  scale_height: 13
+
+sniper:
+  texture: "/DuckGame-MoreWeapons.png"
+  rects:
+    - x: 36
+      y: 237
+      w: 33
+      h: 9
+  offset_x: 0
+  offset_y: 17
+  scale_width: 35
+  scale_height: 11
