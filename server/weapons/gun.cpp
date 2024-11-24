@@ -7,11 +7,11 @@ Gun::Gun(const WeaponTextureID& _texture_id, const uint8_t& _max_ammo,
          const ShootingRecoil& _recoil, const ProjectileRange& _projectile_range,
          const Coordinate& _coordinate):
         Positionable((uint8_t)_texture_id, _coordinate),
+        Directionable(Direction::RIGHT),
         max_ammo(_max_ammo),
         ammo(_max_ammo),
         recoil(_recoil),
-        projectile_range(_projectile_range),
-        direction(Direction::RIGHT)
+        projectile_range(_projectile_range)
         {}
 
 void Gun::equip(Inventory* inventory) { inventory->equip(this); };
@@ -26,15 +26,6 @@ void Gun::trigger_out(ListProjectiles& projectiles){
 
 void Gun::trigger(ListProjectiles& projectiles){
         (void)projectiles;
-}
-
-Direction Gun::get_direction() { return direction; }
-
-void Gun::set_direction(const Direction& new_direction) { 
-        if(direction != new_direction){
-                std::cout << "arma cambio de direccion" << std::endl;
-                direction = new_direction; 
-        }
 }
 
 ShootingRecoil Gun::get_recoil() { return this->recoil; }

@@ -4,12 +4,12 @@
 #include <cstdint>
 #include <string>
 
-#include "../../common/direction.h"
+#include "../attributes/directionable.h"
 #include "../../common/state_duck.h"
 #include "../game/game_physics.h"
 class Player;
 
-class DuckState {
+class DuckState : public Directionable  {
 protected:
     DuckStateType state_id;
     std::string state_name;
@@ -17,7 +17,6 @@ protected:
     uint8_t frame;
     uint8_t max_frames;
     uint8_t player_id;
-    Direction direction;
     void reset();
     void init_state(const uint8_t& player_id);
 
@@ -28,8 +27,6 @@ public:
               const uint8_t& _max_frames, const uint8_t& _player_id, const Direction& _direction);
     virtual void start();
     virtual void finish();
-    virtual void set_direction(const Direction& _direction);
-    virtual Direction get_direction();
     virtual void update(Player& player, GamePhysics& physics);
     virtual void execute(Player& player, GamePhysics& physics);
     DuckStateType get_id();

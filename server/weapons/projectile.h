@@ -4,7 +4,7 @@
 #include "../attributes/positionable.h"
 
 #include "projectile_range.h"
-#include "../../common/direction.h"
+#include "../attributes/directionable.h"
 #include "../game/game_physics.h"
 
 
@@ -14,7 +14,7 @@ enum class ProjectileState: uint8_t {
     // THROWING,
 };
 
-class Projectile: public Positionable {  // es un statable
+class Projectile: public Positionable, public Directionable {  // es un statable
 protected:
     ProjectileRange range_tiles;
     uint8_t count_tiles_moved;
@@ -27,7 +27,6 @@ public:
                         Coordinate _coordinate, const Direction& _direction);
     virtual void update(GamePhysics& physics);
     bool is_dead();
-    Direction get_direction();
 };
 
 #endif  // PROJECTILE_H

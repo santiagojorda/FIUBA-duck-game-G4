@@ -5,7 +5,7 @@
 
 
 class Directionable{
-private:
+protected:
     Direction direction;
 
 public:
@@ -13,38 +13,11 @@ public:
 
     virtual Direction get_direction() const;
 
-    virtual Direction set_direction(const Direction& diretion);
+    virtual void set_direction(const Direction& diretion);
 
     virtual int  get_direction_int();
 
-    ~Directionable();
+    virtual ~Directionable();
 };
-
-Directionable::Directionable(const Direction& _diretion) : direction(_diretion)  {}
-
-virtual Directionable::Direction get_direction() const { return this->direction; }
-
-virtual Directionable::Direction set_direction(const Direction& new_diretion){
-    this->direction = new_diretion;
-}
-
-virtual int  Directionable::get_direction_int() {
-    return (this->direction == Direction::RIGHT) ? 1 : -1;
-}
-
-Directionable::~Directionable() {}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #endif // DIRECTIONABLE_H

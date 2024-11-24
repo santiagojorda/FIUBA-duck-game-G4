@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-#include "../../common/direction.h"
+#include "../attributes/directionable.h"
 #include "../../common/weapons_id.h"
 #include "../attributes/equippable.h"
 #include "../attributes/positionable.h"
@@ -13,7 +13,7 @@
 #include "projectile_range.h"
 #include "shooring_recoil.h"
 
-class Gun: public Positionable, public Equippable {
+class Gun: public Positionable, public Equippable, public Directionable {
 protected:
     // cppcheck-suppress unusedStructMember
     uint8_t max_ammo;
@@ -21,7 +21,6 @@ protected:
     uint8_t ammo;
     ShootingRecoil recoil;
     ProjectileRange projectile_range;
-    Direction direction;
 
 public:
     explicit Gun(const WeaponTextureID& _texture_id, const uint8_t& _max_ammo,
@@ -34,9 +33,6 @@ public:
 
     // Comportamiento cuando se suelta el gatillo
     virtual void trigger_out(ListProjectiles& projectiles);
-
-    Direction get_direction();
-    void set_direction(const Direction& new_direction);
 
     void equip(Inventory* inventory) override;
 

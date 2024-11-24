@@ -8,11 +8,11 @@
 DuckState::DuckState(const DuckStateType& _state_id, const std::string& _state_name,
                      const uint8_t& _max_frames, const uint8_t& _player_id,
                      const Direction& _direction):
-        state_id(_state_id),
+          Directionable(_direction) ,
+          state_id(_state_id),
         state_name(_state_name),
         max_frames(_max_frames),
-        player_id(_player_id),
-        direction(_direction) {
+        player_id(_player_id)   {
     init_state(_player_id);
 }
 
@@ -48,9 +48,7 @@ void DuckState::start() {
 
 void DuckState::finish() { reset(); }
 
-void DuckState::set_direction(const Direction& _direction) { direction = _direction; }
-Direction DuckState::get_direction() { return direction; }
-
-
 DuckStateType DuckState::get_id() { return state_id; }
+
 uint8_t DuckState::get_frame() { return frame; }
+
