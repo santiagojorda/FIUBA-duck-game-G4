@@ -25,6 +25,8 @@ private:
 
     void update_weapon(const player_t& _player, std::map<std::string, AnimationWeapon>& animation);
 
+    void update_wings();
+
 public:
     DrawerPlayer(SDL2pp::Renderer& renderer, uint8_t texture_id,
                  std::map<std::string, Animation>& animations, uint8_t is_looking);
