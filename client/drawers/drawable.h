@@ -22,14 +22,16 @@ protected:
     int scale_height;
 
 public:
-    Drawable(SDL2pp::Renderer& renderer, std::unique_ptr<SDL2pp::Texture> texture, bool flip);
+    Drawable(SDL2pp::Renderer& renderer, std::unique_ptr<SDL2pp::Texture> texture,
+             bool flip = false);
+
+    Drawable(SDL2pp::Renderer& renderer, bool flip = false);
 
     void render(const SDL2pp::Rect& rect);
 
     virtual ~Drawable();
 };
 
-// Definición del constructor:
 template <typename AnimationType>
 Drawable<AnimationType>::Drawable(SDL2pp::Renderer& renderer,
                                   std::unique_ptr<SDL2pp::Texture> texture, bool flip):
@@ -41,7 +43,16 @@ Drawable<AnimationType>::Drawable(SDL2pp::Renderer& renderer,
         scale_width(0),
         scale_height(0) {}
 
-// Definición de la función render:
+template <typename AnimationType>
+Drawable<AnimationType>::Drawable(SDL2pp::Renderer& renderer, bool flip):
+        renderer(renderer),
+        texture(nullptr),
+        flip(flip),
+        coordenada_x(0),
+        coordenada_y(0),
+        scale_width(0),
+        scale_height(0) {}
+
 template <typename AnimationType>
 void Drawable<AnimationType>::render(const SDL2pp::Rect& rect) {
     if (this->texture) {
@@ -53,7 +64,6 @@ void Drawable<AnimationType>::render(const SDL2pp::Rect& rect) {
     }
 }
 
-// Definición del destructor:
 template <typename AnimationType>
 Drawable<AnimationType>::~Drawable() {}
 

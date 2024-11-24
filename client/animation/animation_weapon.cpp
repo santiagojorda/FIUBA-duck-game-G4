@@ -13,3 +13,5 @@ AnimationWeapon::AnimationWeapon(const std::vector<Frame>& frames, std::string p
 std::tuple<int, int, int, int> AnimationWeapon::get_render_config() const {
     return std::make_tuple(offset_x, offset_y, scale_width, scale_height);
 }
+
+std::string AnimationWeapon::get_path() const { return path; }

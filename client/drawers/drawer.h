@@ -33,6 +33,7 @@ private:
     Queue<ClientEvent_t>& commands;
     Queue<client_game_state_t>& game_state;
     KeyboardController keyboard_controller;
+    drawers_t drawers;
 
 public:
     /*

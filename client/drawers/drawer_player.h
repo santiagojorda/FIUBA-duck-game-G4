@@ -12,23 +12,11 @@
 #include "../animation/animation_loader.h"
 #include "../config/game_config.h"
 #include "../game_state/player.h"
+#include "../textures/textures.h"
 
 #include "drawable.h"
 #include "renderer_helper.h"
 #include "weapon_properties.h"
-
-enum TEXTURE_DUCKS {
-    DUCK_YELLOW,
-    DUCK_GREY,
-    DUCK_ORANGE,
-    DUCK_WHITE,
-};
-
-static std::map<uint8_t, std::string> textures = {
-        {DUCK_YELLOW, DATA_PATH "/DuckGame-YellowDuck.png"},
-        {DUCK_GREY, DATA_PATH "/DuckGame-GreyDuck.png"},
-        {DUCK_ORANGE, DATA_PATH "/DuckGame-OrangeDuck.png"},
-        {DUCK_WHITE, DATA_PATH "/DuckGame-WhiteDuck.png"}};
 
 class DrawerPlayer: public Drawable<Animation> {
 private:

@@ -23,6 +23,8 @@ public:
                     int scale_width, int scale_height);
 
     std::tuple<int, int, int, int> get_render_config() const;
+
+    std::string get_path() const;
 };
 
 #endif  // ANIMATION_WEAPON_H
