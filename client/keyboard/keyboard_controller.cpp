@@ -8,7 +8,7 @@ KeyboardController::KeyboardController(Queue<ClientEvent_t>& _commands, int _num
 enum PlayerKeyboard { PLAYER_1, PLAYER_2 };
 
 void KeyboardController::procesar_comando(SDL_Event& event) {
-    while (SDL_PollEvent(&event)) {  // este es un Sender :) se envian los datos al servidor
+    while (SDL_PollEvent(&event)) {
 
         if (event.type == SDL_QUIT) {
             throw std::runtime_error("Cierre del juego");
@@ -18,9 +18,12 @@ void KeyboardController::procesar_comando(SDL_Event& event) {
         if (event.type == SDL_KEYDOWN) {
             procesar_keydown(event);
             // Este evento ocurre cuando la tecla es liberada
-        } /*else if (event.type == SDL_KEYUP) {
-            procesar_keyup(event);
-        }*/
+        } else if (event.type == SDL_KEYUP) {
+            procesar_keyup_player_1(event);
+            if (num_players == 2) {
+                procesar_keyup_player_2(event);
+            }
+        }
     }
 
     const Uint8* state = SDL_GetKeyboardState(NULL);
@@ -29,6 +32,38 @@ void KeyboardController::procesar_comando(SDL_Event& event) {
 
     if (num_players == 2) {
         procesar_accion_player_2(state);
+    }
+}
+
+void KeyboardController::procesar_keyup_player_1(SDL_Event& event) {
+    ClientEvent_t client_event;
+    switch (event.key.keysym.sym) {
+        case SDLK_RIGHT:
+            client_event = {PLAYER_1, ActionEvent::IDLE};
+            this->commands.push(client_event);
+            break;
+        case SDLK_LEFT:
+            client_event = {PLAYER_1, ActionEvent::IDLE};
+            this->commands.push(client_event);
+            break;
+        case SDLK_SPACE:
+            client_event = {PLAYER_1, ActionEvent::TRIGGER_OUT};
+            this->commands.push(client_event);
+            break;
+    }
+}
+
+void KeyboardController::procesar_keyup_player_2(SDL_Event& event) {
+    ClientEvent_t client_event;
+    switch (event.key.keysym.sym) {
+        case SDLK_a:
+            client_event = {PLAYER_2, ActionEvent::IDLE};
+            this->commands.push(client_event);
+            break;
+        case SDLK_d:
+            client_event = {PLAYER_2, ActionEvent::IDLE};
+            this->commands.push(client_event);
+            break;
     }
 }
 
@@ -70,7 +105,7 @@ void KeyboardController::procesar_accion_player_1(const Uint8* state) {
         this->commands.push(client_event);
     }
     if (state[SDL_SCANCODE_SPACE]) {
-        client_event = {PLAYER_1, ActionEvent::SHOOT};
+        client_event = {PLAYER_1, ActionEvent::TRIGGER};
         this->commands.push(client_event);
     }
     if (state[SDL_SCANCODE_E]) {
