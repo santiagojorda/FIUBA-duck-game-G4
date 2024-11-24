@@ -2,6 +2,7 @@
 #define DRAWER_WEAPON_H
 
 #include <map>
+#include <string>
 
 #include <SDL2/SDL.h>
 #include <SDL2pp/SDL2pp.hh>
@@ -15,13 +16,13 @@
 
 #include "drawable.h"
 #include "weapon_properties.h"
-
 class DrawerWeapon: public Drawable<AnimationWeapon> {
 private:
     std::string type_weapon;
 
 public:
-    DrawerWeapon(SDL2pp::Renderer& renderer, uint8_t texture_id);
+    DrawerWeapon(SDL2pp::Renderer& renderer, uint8_t texture_id,
+                 std::map<std::string, AnimationWeapon>& animations);
 
     void draw(const sprite_t& weapon);
 };

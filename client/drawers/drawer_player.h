@@ -20,11 +20,13 @@
 
 class DrawerPlayer: public Drawable<Animation> {
 private:
-    void update_animation(const std::string type_animation, int frame);
+    void update_animation(const std::string type_animation);
+
+    void update_inventory();
 
 public:
-    DrawerPlayer(SDL2pp::Renderer& renderer, uint8_t texture_id, uint8_t is_looking);
-
+    DrawerPlayer(SDL2pp::Renderer& renderer, uint8_t texture_id,
+                 std::map<std::string, Animation>& animations, uint8_t is_looking);
 
     void draw(const player_t& _player);
 };

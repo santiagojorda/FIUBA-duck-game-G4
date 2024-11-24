@@ -4,10 +4,9 @@
 
 #define UNIQUE_FRAME 0
 
-DrawerWeapon::DrawerWeapon(SDL2pp::Renderer& renderer, uint8_t texture_id):
-        Drawable<AnimationWeapon>(renderer), type_weapon("") {
-    this->animations =
-            AnimationLoader::load_animations<AnimationWeapon>(ANIMATION_PATH "/weapon.yaml");
+DrawerWeapon::DrawerWeapon(SDL2pp::Renderer& renderer, uint8_t texture_id,
+                           std::map<std::string, AnimationWeapon>& animations):
+        Drawable<AnimationWeapon>(renderer, animations), type_weapon("") {
     this->type_weapon = textures_weapons[static_cast<WeaponTextureID>(texture_id)];
     std::string texture_weapon = this->animations[this->type_weapon].get_path();
     this->texture = std::make_unique<SDL2pp::Texture>(renderer, DATA_PATH + texture_weapon);

@@ -5,7 +5,11 @@
 using namespace SDL2pp;
 
 Drawer::Drawer(Queue<ClientEvent_t>& commands, Queue<client_game_state_t>& game_state):
-        commands(commands), game_state(game_state), keyboard_controller(commands, 2), drawers() {}
+        commands(commands),
+        game_state(game_state),
+        keyboard_controller(commands, 2),
+        drawers(),
+        animations() {}
 
 void Drawer::run() try {
     SDL sdl(SDL_INIT_VIDEO);
@@ -27,6 +31,10 @@ void Drawer::run() try {
     client_game_state_t actual_game_state;
 
     ZoomHandler zoom_handler;
+    animations.animation_duck =
+            AnimationLoader::load_animations<Animation>(ANIMATION_PATH "/duck.yaml");
+    animations.animation_weapon =
+            AnimationLoader::load_animations<AnimationWeapon>(ANIMATION_PATH "/weapon.yaml");
     // desde el LOBBY ya le di a startear game, por lo tanto no necesito darle a la "m", de entrada
     // recibo la data lo traigo para acá así no hay drama
 
@@ -102,8 +110,8 @@ void Drawer::run() try {
             for (size_t i = 0; i < actual_game_state.weapons.size(); ++i) {
                 if (!drawers.weapons[i]) {
                     auto weapon = actual_game_state.weapons[i];
-                    drawers.weapons[i] =
-                            std::make_unique<DrawerWeapon>(renderer, weapon.id_texture);
+                    drawers.weapons[i] = std::make_unique<DrawerWeapon>(
+                            renderer, weapon.id_texture, animations.animation_weapon);
                 }
             }
         }
@@ -156,7 +164,7 @@ void Drawer::init_scenery(Renderer& renderer, const client_game_state_t& actual_
     for (size_t i = 0; i < actual_game_state.players.size(); i++) {
         auto player = actual_game_state.players[i];
         drawers.players[player.sprite.id_texture] = std::make_unique<DrawerPlayer>(
-                renderer, player.sprite.id_texture, player.is_looking);
+                renderer, player.sprite.id_texture, animations.animation_duck, player.is_looking);
         drawers.players[player.sprite.id_texture]->draw(player);
     }
     /*
@@ -177,7 +185,7 @@ void Drawer::init_scenery(Renderer& renderer, const client_game_state_t& actual_
         // Weapon
         for (size_t i = 0; i < actual_game_state.weapons.size(); i++) {
             auto weapon = actual_game_state.weapons[i];
-            drawers.weapons.push_back(std::make_unique<DrawerWeapon>(renderer, weapon));
-            drawers.weapons.back()->draw(renderer, weapon);
+            drawers.weapons.push_back(std::make_unique<DrawerWeapon>(renderer, weapon,
+       animations.animation_weapon)); drawers.weapons.back()->draw(renderer, weapon);
         }*/
 }

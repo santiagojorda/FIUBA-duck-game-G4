@@ -18,12 +18,11 @@
 #define DUCK_SPRITE_CROUCHING_X 5
 #define DUCK_SPRITE_CROUCHING_Y 1
 
-DrawerPlayer::DrawerPlayer(SDL2pp::Renderer& renderer, uint8_t texture_id, uint8_t is_looking):
+DrawerPlayer::DrawerPlayer(SDL2pp::Renderer& renderer, uint8_t texture_id,
+                           std::map<std::string, Animation>& _animations, uint8_t is_looking):
         Drawable<Animation>(renderer,
                             std::make_unique<SDL2pp::Texture>(renderer, textures_ducks[texture_id]),
-                            static_cast<Direction>(is_looking) == Direction::LEFT) {
-    this->animations = AnimationLoader::load_animations<Animation>(ANIMATION_PATH "/duck.yaml");
-}
+                            _animations, static_cast<Direction>(is_looking) == Direction::LEFT) {}
 
 void DrawerPlayer::draw(const player_t& player) {
     this->flip = static_cast<Direction>(player.is_looking) == Direction::LEFT;
@@ -31,32 +30,12 @@ void DrawerPlayer::draw(const player_t& player) {
     this->coordenada_y = player.sprite.coordinate.get_y() - OFFSET_Y;
     this->scale_height = TILE_SIZE;
     this->scale_width = TILE_SIZE;
-    int frame = static_cast<int>(player.frame);
+    this->frame = static_cast<int>(player.frame);
 
     DuckStateType duck_state = static_cast<DuckStateType>(player.state);
 
-    switch (duck_state) {
-        case DuckStateType::IDLE:
-            this->update_animation("idle", frame);
-            break;
-        case DuckStateType::CROUCHING:
-            this->update_animation("crouching", frame);
-            break;
-        case DuckStateType::RUNNING:
-            this->update_animation("running", frame);
-            break;
-        case DuckStateType::JUMPING:
-            this->update_animation("jumping", frame);
-            break;
-        case DuckStateType::FALLING:
-            this->update_animation("falling", frame);
-            break;
-        default:
-            this->update_animation("idle", frame);
-            break;
-    }
-
-    // ------------------------ Inventario ------------------------
+    std::string type_action = textures_action_ducks.at(duck_state);
+    this->update_animation(type_action);
 
     if (static_cast<int>(player.inventory.armor) != 0) {
         SDL2pp::Texture armadura_texture(renderer, DATA_PATH "/DuckGame-Equipment.png");
@@ -69,6 +48,7 @@ void DrawerPlayer::draw(const player_t& player) {
     }
 
     if (static_cast<int>(player.inventory.weapon) != 0) {
+        std::cout << "tatic_cast<int>(player.inventory.weapon): " << static_cast<int>(player.inventory.weapon) << "\n";
         auto weapon_id = static_cast<WeaponTextureID>(player.inventory.weapon);
         auto weapon_props = weapon_properties[weapon_id];
         SDL2pp::Texture weapon_texture(renderer, weapon_props.texturePath);
@@ -88,7 +68,9 @@ void DrawerPlayer::draw(const player_t& player) {
     }
 }
 
-void DrawerPlayer::update_animation(const std::string type_animation, int frame) {
-    auto anim = this->animations[type_animation].get_current_frame(frame);
+void DrawerPlayer::update_animation(const std::string type_animation) {
+    auto anim = this->animations[type_animation].get_current_frame(this->frame);
     render(anim);
 }
+
+void DrawerPlayer::update_inventory() {}

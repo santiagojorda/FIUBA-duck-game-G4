@@ -3,8 +3,10 @@
 
 #include <map>
 
+#include "../../common/state_duck.h"
 #include "../../common/weapons_id.h"
 #include "../animation/animation_weapon.h"
+
 
 static std::map<WeaponTextureID, std::string> textures_weapons = {
         {WeaponTextureID::GRANATE, "granate"},
@@ -30,5 +32,16 @@ static std::map<uint8_t, std::string> textures_ducks = {
         {DUCK_GREY, DATA_PATH "/DuckGame-GreyDuck.png"},
         {DUCK_ORANGE, DATA_PATH "/DuckGame-OrangeDuck.png"},
         {DUCK_WHITE, DATA_PATH "/DuckGame-WhiteDuck.png"}};
+
+static std::map<DuckStateType, std::string> textures_action_ducks = {
+        {DuckStateType::JUMPING, "jumping"},
+        {DuckStateType::RUNNING, "running"},
+        {DuckStateType::CROUCHING, "crouching"},
+        {DuckStateType::RECOILING, "recoiling"},
+        {DuckStateType::FALLING, "falling"},
+        {DuckStateType::SLIPPING, "slipping"},
+        {DuckStateType::PLANNING, "planning"},
+        {DuckStateType::IDLE, "idle"},
+        {DuckStateType::DEAD, "dead"}};
 
 #endif  // TEXTURES_H
