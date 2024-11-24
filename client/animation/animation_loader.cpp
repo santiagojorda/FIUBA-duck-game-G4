@@ -30,6 +30,8 @@ std::map<std::string, AnimationWeapon> AnimationLoader::load_animations<Animatio
 
     for (const auto& state: root) {
         std::string state_name = state.first.as<std::string>();
+        std::string path = state.second["texture"].as<std::string>();
+
         const auto& rects = state.second["rects"];
         std::vector<Frame> frames;
 
@@ -44,7 +46,7 @@ std::map<std::string, AnimationWeapon> AnimationLoader::load_animations<Animatio
         int scale_height = state.second["scale_height"].as<int>();
 
         animations[state_name] =
-                AnimationWeapon(frames, offset_x, offset_y, scale_width, scale_height);
+                AnimationWeapon(frames, path, offset_x, offset_y, scale_width, scale_height);
     }
 
     return animations;

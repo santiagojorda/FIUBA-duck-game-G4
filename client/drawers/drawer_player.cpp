@@ -19,8 +19,13 @@
 #define DUCK_SPRITE_CROUCHING_Y 1
 
 DrawerPlayer::DrawerPlayer(SDL2pp::Renderer& renderer, uint8_t texture_id, uint8_t is_looking):
-        Drawable(renderer, static_cast<Direction>(is_looking) == Direction::LEFT) {
-    this->texture = std::make_unique<SDL2pp::Texture>(renderer, textures[texture_id]);
+        Drawable<Animation>(renderer,
+                            std::make_unique<SDL2pp::Texture>(renderer, textures[texture_id]),
+                            static_cast<Direction>(is_looking) == Direction::LEFT) {
+
+    // TODO: mover el load al drawer así lo cargo una sola vez. Se lo paso por parámetro al
+    // constructor
+    // TODO: load animation dentro del Drawable?
     this->animations = AnimationLoader::load_animations<Animation>(ANIMATION_PATH "/duck.yaml");
 }
 

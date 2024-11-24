@@ -8,11 +8,11 @@
 #include <SDL2pp/Texture.hh>
 
 #include "../../common/state_duck.h"
+#include "../animation/animation.h"
+#include "../animation/animation_loader.h"
 #include "../config/game_config.h"
 #include "../game_state/player.h"
 
-#include "animation.h"
-#include "animation_loader.h"
 #include "drawable.h"
 #include "renderer_helper.h"
 #include "weapon_properties.h"
@@ -30,7 +30,7 @@ static std::map<uint8_t, std::string> textures = {
         {DUCK_ORANGE, DATA_PATH "/DuckGame-OrangeDuck.png"},
         {DUCK_WHITE, DATA_PATH "/DuckGame-WhiteDuck.png"}};
 
-class DrawerPlayer: public Drawable {
+class DrawerPlayer: public Drawable<Animation> {
 private:
     void update_animation(const std::string type_animation, int frame);
 

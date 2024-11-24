@@ -10,6 +10,7 @@
 
 class AnimationWeapon: public Animation {
 private:
+    std::string path;
     int offset_x;
     int offset_y;
     int scale_width;
@@ -18,8 +19,8 @@ private:
 public:
     AnimationWeapon() = default;
 
-    AnimationWeapon(const std::vector<Frame>& frames, int offset_x, int offset_y, int scale_width,
-                    int scale_height);
+    AnimationWeapon(const std::vector<Frame>& frames, std::string path, int offset_x, int offset_y,
+                    int scale_width, int scale_height);
 
     std::tuple<int, int, int, int> get_render_config() const;
 };
