@@ -9,6 +9,7 @@
 
 #include "../animation/animation_loader.h"
 #include "../animation/animation_weapon.h"
+#include "../config/game_config.h"
 #include "../game_state/sprite.h"
 #include "../textures/textures.h"
 

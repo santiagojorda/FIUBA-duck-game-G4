@@ -3,6 +3,7 @@
 
 // Tamaño tile por default en pantalla
 #define TILE_SIZE 50
+#define TILE_SIZE_WEAPON 50
 
 #define GAME_TITLE "Duck Game"
 

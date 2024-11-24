@@ -9,8 +9,6 @@ enum TEXTURE_BOX { BOX };
 
 static std::map<uint8_t, std::string> textures = {{BOX, DATA_PATH "/DuckGame-Props.png"}};
 
-// estado del box
-
 DrawerBox::DrawerBox(SDL2pp::Renderer& renderer, const box_t& box):
         texture(renderer, textures[box.box.id_texture]) {}
 
