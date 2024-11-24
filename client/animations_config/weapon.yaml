@@ -81,17 +81,17 @@ dueling_gun:
   scale_height: 20
 
 cowboy_gun:
-  texture: "/DuckGame-Pistol.png"
+  texture: "/CowboyPistol.png"
   rects:
-    - x: 1
-      y: 20
-      w: 22
-      h: 11
-  offset_right_x: 18
-  offset_left_x: 6
-  offset_y: 17
-  scale_width: 27
-  scale_height: 16
+    - x: 0
+      y: 0
+      w: 135
+      h: 135
+  offset_right_x: 11
+  offset_left_x: 11
+  offset_y: 9
+  scale_width: 29
+  scale_height: 29
 
 magnum:
   texture: "/DuckGame-Pistol.png"
@@ -103,31 +103,31 @@ magnum:
   offset_right_x: 7
   offset_left_x: 5
   offset_y: 6
-  scale_width: 38
-  scale_height: 38
+  scale_width: 39
+  scale_height: 39
 
 shotgun:
-  texture: "/DuckGame-MoreWeapons.png"
+  texture: "/Shotgun.png"
   rects:
-    - x: 60
-      y: 114
-      w: 41
-      h: 11
-  offset_right_x: 15
-  offset_left_x: -5
-  offset_y: 17
-  scale_width: 43
-  scale_height: 13
+    - x: 0
+      y: 0
+      w: 165
+      h: 165
+  offset_right_x: 11
+  offset_left_x: 9
+  offset_y: 8
+  scale_width: 30
+  scale_height: 30
 
 sniper:
-  texture: "/DuckGame-MoreWeapons.png"
+  texture: "/Sniper.png"
   rects:
-    - x: 36
-      y: 237
-      w: 33
-      h: 9
-  offset_right_x: 15
-  offset_left_x: 0
-  offset_y: 17
-  scale_width: 35
-  scale_height: 11
+    - x: 0
+      y: 0
+      w: 200
+      h: 200
+  offset_right_x: 9
+  offset_left_x: -7
+  offset_y: -1
+  scale_width: 48
+  scale_height: 48
