@@ -20,18 +20,24 @@ static std::map<WeaponTextureID, std::string> textures_weapons = {
         {WeaponTextureID::SHOTGUN, "shotgun"},
         {WeaponTextureID::SNIPER, "sniper"}};
 
-enum TEXTURE_DUCKS {
+enum class TextureDucks {
     DUCK_YELLOW,
     DUCK_GREY,
     DUCK_ORANGE,
     DUCK_WHITE,
 };
 
-static std::map<uint8_t, std::string> textures_ducks = {
-        {DUCK_YELLOW, DATA_PATH "/DuckGame-YellowDuck.png"},
-        {DUCK_GREY, DATA_PATH "/DuckGame-GreyDuck.png"},
-        {DUCK_ORANGE, DATA_PATH "/DuckGame-OrangeDuck.png"},
-        {DUCK_WHITE, DATA_PATH "/DuckGame-WhiteDuck.png"}};
+enum class InventoryDuck {
+    HAS_ARMOR = 1,
+    HAS_WEAPON,
+    WINGS,
+};
+
+static std::map<TextureDucks, std::string> textures_ducks = {
+        {TextureDucks::DUCK_YELLOW, DATA_PATH "/DuckGame-YellowDuck.png"},
+        {TextureDucks::DUCK_GREY, DATA_PATH "/DuckGame-GreyDuck.png"},
+        {TextureDucks::DUCK_ORANGE, DATA_PATH "/DuckGame-OrangeDuck.png"},
+        {TextureDucks::DUCK_WHITE, DATA_PATH "/DuckGame-WhiteDuck.png"}};
 
 static std::map<DuckStateType, std::string> textures_action_ducks = {
         {DuckStateType::JUMPING, "jumping"},
@@ -44,4 +50,9 @@ static std::map<DuckStateType, std::string> textures_action_ducks = {
         {DuckStateType::IDLE, "idle"},
         {DuckStateType::DEAD, "dead"}};
 
+/*
+static std::map<uint8_t, std::string> textures_equipment_ducks = {
+        {InventoryDuck::HAS_ARMOR, "has_armor"},
+        {InventoryDuck::HAS_WEAPON, "has_weapon"},
+        {InventoryDuck::WINGS, "wings"}};*/
 #endif  // TEXTURES_H

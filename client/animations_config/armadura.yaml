@@ -1,0 +1,15 @@
+armor:
+  texture: "/DuckGame-Equipment.png"
+  rects:
+    - x: 387
+      y: 11
+      w: 32
+      h: 32
+    - x: 419
+      y: 11
+      w: 32
+      h: 32
+  offset_x: 0
+  offset_y: 3
+  scale_width: 50
+  scale_height: 50

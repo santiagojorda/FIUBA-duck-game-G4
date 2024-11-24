@@ -68,7 +68,7 @@ void Drawer::run() try {
         // Draw Players (Patos)
         for (size_t i = 0; i < actual_game_state.players.size(); i++) {
             player_t player = actual_game_state.players[i];
-            drawers.players[player.sprite.id_texture]->draw(player);
+            drawers.players[player.sprite.id_texture]->draw(player, animations.animation_weapon);
         }
 
         // Draw Floor
@@ -165,7 +165,7 @@ void Drawer::init_scenery(Renderer& renderer, const client_game_state_t& actual_
         auto player = actual_game_state.players[i];
         drawers.players[player.sprite.id_texture] = std::make_unique<DrawerPlayer>(
                 renderer, player.sprite.id_texture, animations.animation_duck, player.is_looking);
-        drawers.players[player.sprite.id_texture]->draw(player);
+        drawers.players[player.sprite.id_texture]->draw(player, animations.animation_weapon);
     }
     /*
         // Floor

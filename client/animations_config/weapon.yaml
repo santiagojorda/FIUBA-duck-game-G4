@@ -54,7 +54,7 @@ ak_47:
       w: 32
       h: 32
   offset_x: 5
-  offset_y: 6
+  offset_y: -2
   scale_width: 38
   scale_height: 38
 

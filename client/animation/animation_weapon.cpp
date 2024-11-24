@@ -1,17 +1,11 @@
 #include "animation_weapon.h"
 
-AnimationWeapon::AnimationWeapon(const std::vector<Frame>& frames, std::string path, int offset_x,
-                                 int offset_y, int scale_width, int scale_height):
-        Animation(frames),
-        path(path),
-        offset_x(offset_x),
-        offset_y(offset_y),
-        scale_width(scale_width),
-        scale_height(scale_height) {}
-
+AnimationWeapon::AnimationWeapon(const std::vector<Frame>& frames, std::string path,
+                                 properties_t props):
+        Animation(frames), path(path), props(props) {}
 
 std::tuple<int, int, int, int> AnimationWeapon::get_render_config() const {
-    return std::make_tuple(offset_x, offset_y, scale_width, scale_height);
+    return std::make_tuple(props.offset_x, props.offset_y, props.scale_width, props.scale_height);
 }
 
 std::string AnimationWeapon::get_path() const { return path; }

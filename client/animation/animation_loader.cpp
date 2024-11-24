@@ -45,8 +45,8 @@ std::map<std::string, AnimationWeapon> AnimationLoader::load_animations<Animatio
         int scale_width = state.second["scale_width"].as<int>();
         int scale_height = state.second["scale_height"].as<int>();
 
-        animations[state_name] =
-                AnimationWeapon(frames, path, offset_x, offset_y, scale_width, scale_height);
+        animations[state_name] = AnimationWeapon(
+                frames, path, properties_t{offset_x, offset_y, scale_width, scale_height});
     }
 
     return animations;

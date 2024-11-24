@@ -13,11 +13,22 @@ DrawerWeapon::DrawerWeapon(SDL2pp::Renderer& renderer, uint8_t texture_id,
 }
 
 void DrawerWeapon::draw(const sprite_t& weapon) {
-    // auto offset_x, offset_y, _scale_width, _scale_height = get_render_config();
     this->coordenada_x = weapon.coordinate.get_x();
     this->coordenada_y = weapon.coordinate.get_y();
     this->scale_width = TILE_SIZE_WEAPON;
     this->scale_height = TILE_SIZE_WEAPON;
+    auto anim = this->animations[this->type_weapon].get_current_frame(UNIQUE_FRAME);
+    render(anim);
+}
+
+void DrawerWeapon::draw_with_coordinates(const Coordinate& coordinate, uint8_t is_looking) {
+    auto [offset_x, offset_y, _scale_width, _scale_height] =
+            this->animations[this->type_weapon].get_render_config();
+    this->coordenada_x = coordinate.get_x() + offset_x;
+    this->coordenada_y = coordinate.get_y() + offset_y;
+    this->scale_width = _scale_width;
+    this->scale_height = _scale_height;
+    this->flip = static_cast<Direction>(is_looking) == Direction::LEFT;
     auto anim = this->animations[this->type_weapon].get_current_frame(UNIQUE_FRAME);
     render(anim);
 }
