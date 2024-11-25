@@ -4,13 +4,10 @@
 #include "event_player.h"
 
 class EventMoveRight: public EventPlayer {
-private:
 public:
-    explicit EventMoveRight(uint8_t& _player_id);
+    explicit EventMoveRight(uint8_t& _player_id) : EventPlayer(_player_id, ActionEvent::MOVE_RIGHT){}
 
-    void execute(GameLogic& game_logic) override;
-
-    ~EventMoveRight();
+    ~EventMoveRight() {};
 };
 
 

@@ -4,13 +4,10 @@
 #include "event_player.h"
 
 class EventIdle: public EventPlayer {
-private:
 public:
-    explicit EventIdle(uint8_t& _player_id);
+    explicit EventIdle(uint8_t& _player_id) : EventPlayer(_player_id, ActionEvent::IDLE){}
 
-    virtual void execute(GameLogic& _game_logic) override;
-
-    ~EventIdle();
+    ~EventIdle() {};
 };
 
-#endif  // EVENT_IDLE_H
+#endif  

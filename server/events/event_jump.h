@@ -4,13 +4,10 @@
 #include "event_player.h"
 
 class EventJump: public EventPlayer {
-private:
 public:
-    explicit EventJump(uint8_t& _player_id);
+    explicit EventJump(uint8_t& _player_id) : EventPlayer(_player_id, ActionEvent::JUMP){}
 
-    virtual void execute(GameLogic& _game_logic) override;
-
-    ~EventJump();
+    ~EventJump() {};
 };
 
-#endif  // EVENT_MOVE_LEFT_H
+#endif 

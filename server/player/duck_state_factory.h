@@ -36,6 +36,8 @@ public:
         add(DuckStateType::DEAD,        std::make_shared<DuckStateDead>(player_id));
         add(DuckStateType::IDLE,        std::make_shared<DuckStateIdle>(player_id));
     }
+
+    
 };
 
 #endif  // EVENT_FACTORY_h

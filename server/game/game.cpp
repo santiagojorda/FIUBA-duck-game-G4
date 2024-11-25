@@ -62,7 +62,7 @@ Game::Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEventPla
 }
 
 void Game::execute_new_events() {
-    EventPlayer* event = nullptr;
+    std::shared_ptr<EventPlayer> event = nullptr;
     while (queue_event.try_pop(event)) {
         if (event != nullptr) {
             event->execute(game_logic);

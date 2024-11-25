@@ -41,10 +41,12 @@ public:
         if (states.find(type_id) != states.end()) {
             return states[type_id];
         }
-        throw std::runtime_error("No existe este estado: " + (int)type_id); // deberia hacer un try pop en los get
+        return nullptr;
     }
 
-    virtual ~StateFactory() {}
+    virtual ~StateFactory() {
+        states.clear();
+    }
 };
 
 

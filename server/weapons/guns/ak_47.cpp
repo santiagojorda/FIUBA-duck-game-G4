@@ -8,7 +8,6 @@ struct AKConfig {
     ShootingRecoil recoil = ShootingRecoil::SHORT;
     ProjectileRange range = ProjectileRange::MEDIUM;
     uint8_t count_projectiles_x_shoot = 1;
-    uint8_t initial_dispersion = 0;
 };
 AKConfig ak_config;
 

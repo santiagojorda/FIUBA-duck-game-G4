@@ -3,15 +3,11 @@
 
 #include "event_player.h"
 
-
 class EventShoot: public EventPlayer {
-private:
 public:
-    explicit EventShoot(uint8_t& _player_id);
+    explicit EventShoot(uint8_t& _player_id) : EventPlayer(_player_id, ActionEvent::SHOOT){}
 
-    virtual void execute(GameLogic& _game_logic) override;
-
-    ~EventShoot();
+    ~EventShoot() {};
 };
 
 

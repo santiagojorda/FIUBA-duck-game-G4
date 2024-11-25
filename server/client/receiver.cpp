@@ -12,7 +12,7 @@ void Receiver::init_factories() {
 
 void Receiver::push_event(const uint8_t& _player_id, const ActionEvent& _event_id) {
     if (_player_id < factories.size()) {
-        EventPlayer* event = factories[_player_id].get(_event_id);
+        std::shared_ptr<EventPlayer> event = factories[_player_id].get(_event_id);
         if (event) {
             this->queue.push(event);
         }

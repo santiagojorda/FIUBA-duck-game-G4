@@ -33,6 +33,9 @@
 
 #include <cstdint>
 #include <map>
+#include <memory>
+
+#include <iostream>
 
 #include "../../common/action_events.h"
 #include "../utils/factory.h"
@@ -45,42 +48,41 @@
 #include "event_shoot.h"
 #include "event_idle.h"
 
-class EventFactory{
+class EventFactory : public Factory<ActionEvent, EventPlayer>{
 private:
-
-    // cppcheck-suppress unusedStructMember
-    std::map<ActionEvent, EventPlayer*> events;
 
     // cppcheck-suppress unusedStructMember
     uint8_t player_id;
 
 public:
     explicit EventFactory(const uint8_t& _player_id) : player_id(_player_id) {
-        add(ActionEvent::MOVE_LEFT, new EventMoveLeft(player_id));
-        add(ActionEvent::MOVE_RIGHT, new EventMoveRight(player_id));
-        add(ActionEvent::JUMP, new EventJump(player_id));
-        add(ActionEvent::CROUCH, new EventCrouch(player_id));
-        add(ActionEvent::SHOOT, new EventShoot(player_id));
-        add(ActionEvent::IDLE, new EventIdle(player_id));
-    }
-    
-    // hay que hacer por movimiento
-    EventFactory(const EventFactory& _other): EventFactory(_other.player_id) {}
-
-    void add(const ActionEvent& event_id, EventPlayer* event){
-        events[event_id] = event;
+        std::cout << "se creo un factory de player " << (int)player_id << std::endl;
+        add(ActionEvent::MOVE_LEFT,     std::make_shared<EventMoveLeft>(player_id));
+        add(ActionEvent::MOVE_RIGHT,    std::make_shared<EventMoveRight>(player_id));
+        add(ActionEvent::JUMP,          std::make_shared<EventJump>(player_id));
+        add(ActionEvent::CROUCH,        std::make_shared<EventCrouch>(player_id));
+        add(ActionEvent::SHOOT,         std::make_shared<EventShoot>(player_id));
+        add(ActionEvent::IDLE,          std::make_shared<EventIdle>(player_id));
     }
 
-    EventPlayer* get(const ActionEvent& event_id) {
-        return events[event_id];
-    }
+    // Constructor de movimiento
+    EventFactory(EventFactory&& other) noexcept 
+        : Factory<ActionEvent, EventPlayer>(std::move(other)),
+        player_id(other.player_id) {}
 
-    ~EventFactory(){
-        for (auto& event: events) {
-            delete event.second;
+    EventFactory(const EventFactory&) = delete;
+    EventFactory& operator=(const EventFactory& other) = delete;
+
+    // Operador de asignación por movimiento
+    EventFactory& operator=(EventFactory&& other) noexcept {
+        if (this != &other) {
+            Factory<ActionEvent, EventPlayer>::operator=(std::move(other));
+            player_id = std::move(other.player_id);
         }
-        events.clear();
-    };
+        return *this;
+    }
+
+    ~EventFactory() {}
 };
 
 #endif  // EVENT_FACTORY_h

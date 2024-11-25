@@ -5,11 +5,13 @@
 
 #include "event_player.h"
 
+#include <memory> 
+
 #define MAX_EVENTS_QUEUE 100
 
-class QueueEventPlayer: public Queue<EventPlayer*> {
+class QueueEventPlayer: public Queue<std::shared_ptr<EventPlayer>> {
 public:
-    QueueEventPlayer(): Queue<EventPlayer*>(MAX_EVENTS_QUEUE) {}
+    QueueEventPlayer(): Queue<std::shared_ptr<EventPlayer>>(MAX_EVENTS_QUEUE) {}
     ~QueueEventPlayer() {}
 };
 

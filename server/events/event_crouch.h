@@ -4,13 +4,10 @@
 #include "event_player.h"
 
 class EventCrouch: public EventPlayer {
-private:
 public:
-    explicit EventCrouch(uint8_t& _player_id);
+    explicit EventCrouch(uint8_t& _player_id) : EventPlayer(_player_id, ActionEvent::CROUCH){}
 
-    virtual void execute(GameLogic& _game_logic) override;
-
-    ~EventCrouch();
+    ~EventCrouch() {};
 };
 
-#endif  // EVENT_MOVE_LEFT_H
+#endif 
