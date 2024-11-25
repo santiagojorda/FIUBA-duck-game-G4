@@ -3,18 +3,17 @@
 
 #include <iostream>
 
-#include "player.h"
 
 DuckState::DuckState(const DuckStateType& _state_id, const std::string& _state_name,
                      const uint8_t& _max_frames, const uint8_t& _player_id,
                      const Direction& _direction):
-          Directionable(_direction) ,
-          state_id(_state_id),
-        state_name(_state_name),
-        max_frames(_max_frames),
-        player_id(_player_id)   {
-    init_state(_player_id);
-}
+        State<DuckStateType>(_state_id, _state_name),
+        player_id(_player_id),
+        direction_handler(_direction),
+        frame_handler(_max_frames)
+        {
+            init_state(_player_id);
+        }
 
 DuckState::DuckState(const DuckStateType& _state_id, const std::string& _state_name,
                      const uint8_t& _max_frames, const uint8_t& _player_id):
@@ -26,18 +25,18 @@ void DuckState::init_state(const uint8_t& player_id) {
     reset();
 }
 
-void DuckState::update(Player& player, GamePhysics& physics) {
+void DuckState::update_state(Positionable& positionable, GamePhysics& physics) {
     (void)physics;
-    (void)player;
+    (void)positionable;
 }
-void DuckState::execute(Player& player, GamePhysics& physics) {
+void DuckState::execute(Positionable& positionable, GamePhysics& physics) {
     (void)physics;
-    (void)player;
+    (void)positionable;
 }
 
 void DuckState::reset() {
-    tick = 0;
-    frame = 0;
+    frame_handler.reset();
+    Updatable::reset();
 }
 
 void DuckState::start() {
@@ -46,9 +45,11 @@ void DuckState::start() {
     reset();
 }
 
+Direction DuckState::get_direction(){ return direction_handler.get_direction(); }
+void DuckState::set_direction(const Direction& new_direction){ direction_handler.set_direction(new_direction);}
+uint8_t DuckState::get_frame() {return frame_handler.get_frame();}
+
 void DuckState::finish() { reset(); }
 
-DuckStateType DuckState::get_id() { return state_id; }
 
-uint8_t DuckState::get_frame() { return frame; }
-
+DuckState::~DuckState() {}

@@ -4,6 +4,7 @@
 #include <cstdint>
 
 #include "../../common/rectangle.h"
+class GamePhysics;
 
 class Positionable {
 
@@ -28,6 +29,7 @@ public:
     virtual void translate();
     virtual void translate_x(int steps);
     virtual void translate_y(int steps);
+    virtual void fall(GamePhysics& physics);
     uint8_t get_id();
     uint8_t get_texture_id();
     virtual ~Positionable();

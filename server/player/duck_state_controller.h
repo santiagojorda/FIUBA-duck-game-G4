@@ -11,23 +11,22 @@
 #include "duck_state.h"
 #include "duck_state_factory.h"
 
+#include "../utils/state_controller.h"
+
 class Player;
 class GamePhysics;
 
-class DuckStateController {
+class DuckStateController : public StateController<DuckStateType> {
 private:
-    DuckStateFactory states;
-    DuckState* current_state;
     Direction direction;
-    void set_state(const DuckStateType& new_state);
+
     void set_direction(const Direction& new_direction);
     void execute(Player& player, GamePhysics& physics);
-    void run(Direction direction, Player& player, GamePhysics& physics);
 
 public:
     DuckStateController(const uint8_t& _player_id);
 
-    void update(Player& player, GamePhysics& physics);
+    void run(Direction direction, Player& player, GamePhysics& physics);
     void run_right(Player& player, GamePhysics& physics);
     void run_left(Player& player, GamePhysics& physics);
     void jump(Player& player, GamePhysics& physics);
@@ -38,7 +37,6 @@ public:
     void plane(Player& player, GamePhysics& physics);
     void die(Player& player);
     void idle(Player& player);
-    bool is_in_state(DuckStateType state);
     bool is_jumping();
     bool is_running();
     bool is_falling();

@@ -17,6 +17,7 @@ AK47::AK47(const Coordinate& _coordinate):
 void AK47::trigger(ListProjectiles& projectiles) {
     this->dispersion++;
 
+    // esto hay que refactorizar
     Rectangle cañonaso = this->space;
     int x;
     if (get_direction() == Direction::RIGHT) {
@@ -25,8 +26,8 @@ void AK47::trigger(ListProjectiles& projectiles) {
         x = cañonaso.get_x_min();
     }
 
-    Coordinate bullet_postion(x, ((cañonaso.get_y_min() + cañonaso.get_y_max()) / 2) - 5, 0,
-                              0);  // refactorizar
+    // refactorizar
+    Coordinate bullet_postion(x, ((cañonaso.get_y_min() + cañonaso.get_y_max()) / 2) - 5, 0, 0); 
 
     for (int i = 0; i < ak_config.count_projectiles_x_shoot; i++) {
         if (this->ammo > 0) {

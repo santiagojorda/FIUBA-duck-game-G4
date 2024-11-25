@@ -4,23 +4,12 @@
 
 #include "player.h"
 
-DuckStateController::DuckStateController(const uint8_t& _player_id):
-        states(_player_id), current_state(nullptr) {
-    set_state(DuckStateType::IDLE);
-    direction = current_state->get_direction();
-}
-
-void DuckStateController::set_state(const DuckStateType& new_state) {
-    if (current_state) {
-        current_state->finish();
-    }
-    current_state = states.get(new_state);
-    if (current_state) {
-        current_state->start();
-    } else {
-        std::cout << "No hay estado" << std::endl;
-    }
-}
+DuckStateController::DuckStateController(const uint8_t& _player_id)
+        : StateController(std::make_shared<DuckStateFactory>(_player_id))
+        {
+            set_state(DuckStateType::IDLE);
+            direction = current_state->get_direction();
+        }
 
 void DuckStateController::set_direction(const Direction& new_direction) {
     if (new_direction != current_state->get_direction()) {
@@ -28,12 +17,6 @@ void DuckStateController::set_direction(const Direction& new_direction) {
         current_state->set_direction(direction);
     }
 }
-
-void DuckStateController::update(Player& player, GamePhysics& physics) {
-    if (current_state) {
-        current_state->update(player, physics);
-    }
-};
 
 void DuckStateController::execute(Player& player, GamePhysics& physics) {
     current_state->execute(player, physics);
@@ -103,11 +86,6 @@ void DuckStateController::idle(Player& player) {
         set_state(DuckStateType::IDLE);
     }
 }
-
-bool DuckStateController::is_in_state(DuckStateType state) {
-    return current_state && current_state->get_id() == state;
-}
-
 bool DuckStateController::is_jumping() { return is_in_state(DuckStateType::JUMPING); }
 bool DuckStateController::is_running() { return is_in_state(DuckStateType::RUNNING); }
 bool DuckStateController::is_falling() { return is_in_state(DuckStateType::FALLING); }

@@ -16,9 +16,9 @@ Bullet::Bullet(const ProjectileRange& _range_tiles, const Coordinate& _coordinat
 {}
 
 
-void Bullet::update(GamePhysics& physics) {
+void Bullet::update_state(GamePhysics& physics) {
+    Updatable::update();
     (void)physics;
-    tick++;
 
     if ((steps * HORIZONTAL_STEP) / (16) >= int(range_tiles)) {
         state = ProjectileState::DEAD;
@@ -26,7 +26,7 @@ void Bullet::update(GamePhysics& physics) {
         return;
     }
 
-    if (tick % TICKS_PER_STEP == 0) {
+    if (is_divisible_by(TICKS_PER_STEP)) {
         steps++;
         double new_x = HORIZONTAL_STEP * std::cos(dispersion_angle);  // Velocidad inicial en X
         double new_y = VERTICAL_STEP * std::sin(dispersion_angle);    // Velocidad inicial en Y

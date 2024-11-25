@@ -1,7 +1,6 @@
 #include "duck_state_falling.h"
 
 #include "../../attributes/positionable.h"
-#include "../player.h"
 
 #define FALLING_STEP 5
 
@@ -15,11 +14,9 @@ DuckStateFalling::DuckStateFalling(const uint8_t& _player_id):
         DuckState(falling_config.id, falling_config.name,
                   duck_state_frames[falling_config.id].max_frames, _player_id) {}
 
-void DuckStateFalling::update(Player& player, GamePhysics& physics) {
-    player.translate_y(FALLING_STEP);
-    if (frame < max_frames) {
-        frame++;
-    }
+void DuckStateFalling::update_state(Positionable& positionable, GamePhysics& physics) {
+    positionable.translate_y(FALLING_STEP);
+    frame_handler.increment_frame();
     (void)physics;
 }
 DuckStateFalling::~DuckStateFalling() {}

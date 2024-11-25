@@ -16,16 +16,16 @@ DuckStateJumping::DuckStateJumping(const uint8_t& _player_id):
         DuckState(jumping_config.id, jumping_config.name,
                   duck_state_frames[jumping_config.id].max_frames, _player_id) {}
 
-void DuckStateJumping::update(Player& player, GamePhysics& physics) {
-    (void)physics;
+void DuckStateJumping::update_state(Positionable& positionable, GamePhysics& physics) {
     tick++;
 
-    player.translate_y(-JUMP_STEP);
-    if (tick == max_frames) {
-        player.fall(physics);
+    positionable.translate_y(-JUMP_STEP);
+    if (tick == frame_handler.get_max_frames()) {
+        positionable.fall(physics);
+        // positionable.fall(physics); //decirle al physics que le haga fall
         return;
     }
-    frame++;
+    frame_handler.increment_frame();
 }
 
 DuckStateJumping::~DuckStateJumping() {}

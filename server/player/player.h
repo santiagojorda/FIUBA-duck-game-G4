@@ -10,6 +10,7 @@
 #include "../weapons/gun.h"
 #include "../weapons/list_projectiles.h"
 #include "../player/inventory.h"
+// #include "duck_state_controller.h"
 #include "duck_state_controller.h"
 #include "../weapons/mode_shoot.h"
 
@@ -45,7 +46,7 @@ public:
     void run_right(GamePhysics& physics);
     void run_left(GamePhysics& physics);
     void jump(GamePhysics& physics);
-    void fall(GamePhysics& physics);
+    void fall(GamePhysics& physics) override;
     void crouch(GamePhysics& physics);
     void slip(GamePhysics& physics);
     void recoil(GamePhysics& physics);
