@@ -15,7 +15,7 @@
 
 void charge_ponits(ListPlayers& players, std::vector<Coordinate>& points) {
     int i = 0;
-    for (auto& player: players) {
+    for (Player& player: players) {
         player.set_coordinate(points[i]);
         i++;
         std::cout << player.get_coordinate() << std::endl;

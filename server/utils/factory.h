@@ -34,10 +34,11 @@ public:
     }
 
     std::shared_ptr<PRODUCT> get(const TYPE& type_id) {
-        if (items.find(type_id) != items.end()) {
-            return items[type_id];
+        auto it = items.find(type_id);
+        if (it != items.end()) {
+            return it->second;
         }
-        return nullptr;
+        throw std::runtime_error("Item no encontrado para el tipo proporcionado.");
     }
 
     virtual ~Factory() {

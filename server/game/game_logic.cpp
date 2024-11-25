@@ -111,7 +111,7 @@ Player& GameLogic::get_player(const uint8_t& _player_id) {
     throw std::runtime_error("Player con ID no encontrado");
 }
 
-void GameLogic::handle_event(const uint8_t& player_id,const ActionEvent& event) {
+void GameLogic::handle_event(const uint8_t& player_id, const ActionEvent& event) {
     try {
         Player& player = get_player(player_id);
         if (player.is_dead()) {
@@ -144,7 +144,7 @@ void GameLogic::handle_event(const uint8_t& player_id,const ActionEvent& event) 
                 break;  
         }
     } catch (const std::exception& e) {
-        std::cerr << "Error handle event player " << int(player_id) << ": " << e.what()
+        std::cerr << "No existe player de id " << int(player_id) << ": " << e.what()
                   << std::endl;
     }
 }
