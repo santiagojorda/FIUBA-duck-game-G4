@@ -11,7 +11,7 @@ struct Frame {
 };
 
 class Animation {
-private:
+protected:
     std::vector<Frame> frames;
 
 public:

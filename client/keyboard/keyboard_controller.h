@@ -15,13 +15,15 @@ private:
     Queue<ClientEvent_t>& commands;
     int num_players;
 
-    void procesar_keyup(SDL_Event& event);
+    void procesar_keyup_player_1(SDL_Event& event);
+
+    void procesar_keyup_player_2(SDL_Event& event);
 
     void procesar_keydown(SDL_Event& event);
 
-    void procesar_accion_player_1(SDL_Event& event);
+    void procesar_accion_player_1(const Uint8* state);
 
-    void procesar_accion_player_2(SDL_Event& event);
+    void procesar_accion_player_2(const Uint8* state);
 
 public:
     /*

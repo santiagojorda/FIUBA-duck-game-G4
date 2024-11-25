@@ -7,10 +7,12 @@
 #include <yaml-cpp/yaml.h>
 
 #include "animation.h"
+#include "animation_weapon.h"
 
 class AnimationLoader {
 public:
-    static std::map<std::string, Animation> load_animations(const std::string& file_path);
+    template <typename T>
+    static std::map<std::string, T> load_animations(const std::string& file_path);
 };
 
 #endif  // ANIMATION_LOADER_H

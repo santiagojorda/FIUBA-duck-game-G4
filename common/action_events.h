@@ -16,7 +16,9 @@ enum class ActionEvent : uint8_t {
     SHOOT,            // Disparar
     AIM_UP,           // Apuntar hacia arriba
     CROUCH,           // Tirarse al piso
-    IDLE              // nada
+    IDLE,             // nada
+    TRIGGER,
+    TRIGGER_OUT
 };
 
 #endif  // ACTION_COMMANDS_H

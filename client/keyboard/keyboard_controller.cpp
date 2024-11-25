@@ -1,12 +1,14 @@
 #include "keyboard_controller.h"
 
+#include <SDL2/SDL.h>
+
 KeyboardController::KeyboardController(Queue<ClientEvent_t>& _commands, int _num_players):
         commands(_commands), num_players(_num_players) {}
 
 enum PlayerKeyboard { PLAYER_1, PLAYER_2 };
 
 void KeyboardController::procesar_comando(SDL_Event& event) {
-    while (SDL_PollEvent(&event)) {  // este es un Sender :) se envian los datos al servidor
+    while (SDL_PollEvent(&event)) {
 
         if (event.type == SDL_QUIT) {
             throw std::runtime_error("Cierre del juego");
@@ -17,12 +19,23 @@ void KeyboardController::procesar_comando(SDL_Event& event) {
             procesar_keydown(event);
             // Este evento ocurre cuando la tecla es liberada
         } else if (event.type == SDL_KEYUP) {
-            procesar_keyup(event);
+            procesar_keyup_player_1(event);
+            if (num_players == 2) {
+                procesar_keyup_player_2(event);
+            }
         }
+    }
+
+    const Uint8* state = SDL_GetKeyboardState(NULL);
+
+    procesar_accion_player_1(state);
+
+    if (num_players == 2) {
+        procesar_accion_player_2(state);
     }
 }
 
-void KeyboardController::procesar_keyup(SDL_Event& event) {
+void KeyboardController::procesar_keyup_player_1(SDL_Event& event) {
     ClientEvent_t client_event;
     switch (event.key.keysym.sym) {
         case SDLK_RIGHT:
@@ -31,6 +44,24 @@ void KeyboardController::procesar_keyup(SDL_Event& event) {
             break;
         case SDLK_LEFT:
             client_event = {PLAYER_1, ActionEvent::IDLE};
+            this->commands.push(client_event);
+            break;
+        case SDLK_SPACE:
+            client_event = {PLAYER_1, ActionEvent::TRIGGER_OUT};
+            this->commands.push(client_event);
+            break;
+    }
+}
+
+void KeyboardController::procesar_keyup_player_2(SDL_Event& event) {
+    ClientEvent_t client_event;
+    switch (event.key.keysym.sym) {
+        case SDLK_a:
+            client_event = {PLAYER_2, ActionEvent::IDLE};
+            this->commands.push(client_event);
+            break;
+        case SDLK_d:
+            client_event = {PLAYER_2, ActionEvent::IDLE};
             this->commands.push(client_event);
             break;
     }
@@ -54,78 +85,58 @@ void KeyboardController::procesar_keydown(SDL_Event& event) {
             }
 
             break;
-        case SDLK_RIGHT:
-        case SDLK_LEFT:
-        case SDLK_UP:
-        case SDLK_SPACE:
-        case SDLK_e:
-        case SDLK_f:
-        case SDLK_DOWN:
-            procesar_accion_player_1(event);
-            break;
-        default:
-            if (num_players == 2) {
-                procesar_accion_player_2(event);
-            }
-            break;
     }
 }
 
-void KeyboardController::procesar_accion_player_1(SDL_Event& event) {
+
+void KeyboardController::procesar_accion_player_1(const Uint8* state) {
     ClientEvent_t client_event;
-    switch (event.key.keysym.sym) {
-        case SDLK_RIGHT:
-            client_event = {PLAYER_1, ActionEvent::MOVE_RIGHT};
-            this->commands.push(client_event);
-            break;
-        case SDLK_LEFT:
-            client_event = {PLAYER_1, ActionEvent::MOVE_LEFT};
-            this->commands.push(client_event);
-            break;
-        case SDLK_UP:
-            client_event = {PLAYER_1, ActionEvent::JUMP};
-            this->commands.push(client_event);
-            std::cout << "Saltar" << std::endl;
-            break;
-        case SDLK_SPACE:  // disparar espacio
-            client_event = {PLAYER_1, ActionEvent::SHOOT};
-            std::cout << "Disparar" << std::endl;
-            this->commands.push(client_event);
-            break;
-        case SDLK_e:  // recoger o soltar un arma/objeto
-            std::cout << "Tomar/soltar objeto" << std::endl;
-            break;
-        case SDLK_f:  // apuntar hacia arriba
-            std::cout << "Apuntando hacia arriba" << std::endl;
-            break;
-        case SDLK_DOWN:  // flecha hacia abajo para agacharse
-            client_event = {PLAYER_1, ActionEvent::CROUCH};
-            this->commands.push(client_event);
-            std::cout << "Agacharse" << std::endl;
-            break;
+
+    if (state[SDL_SCANCODE_RIGHT]) {
+        client_event = {PLAYER_1, ActionEvent::MOVE_RIGHT};
+        this->commands.push(client_event);
+    }
+    if (state[SDL_SCANCODE_LEFT]) {
+        client_event = {PLAYER_1, ActionEvent::MOVE_LEFT};
+        this->commands.push(client_event);
+    }
+    if (state[SDL_SCANCODE_UP]) {
+        client_event = {PLAYER_1, ActionEvent::JUMP};
+        this->commands.push(client_event);
+    }
+    if (state[SDL_SCANCODE_SPACE]) {
+        client_event = {PLAYER_1, ActionEvent::TRIGGER};
+        this->commands.push(client_event);
+    }
+    if (state[SDL_SCANCODE_E]) {
+        std::cout << "Tomar/soltar objeto" << std::endl;
+    }
+    if (state[SDL_SCANCODE_F]) {
+        std::cout << "Apuntando hacia arriba" << std::endl;
+    }
+    if (state[SDL_SCANCODE_DOWN]) {
+        client_event = {PLAYER_1, ActionEvent::CROUCH};
+        this->commands.push(client_event);
     }
 }
 
-void KeyboardController::procesar_accion_player_2(SDL_Event& event) {
+void KeyboardController::procesar_accion_player_2(const Uint8* state) {
     ClientEvent_t client_event;
-    switch (event.key.keysym.sym) {
-        case SDLK_d:
-            client_event = {PLAYER_2, ActionEvent::MOVE_RIGHT};
-            this->commands.push(client_event);
-            break;
-        case SDLK_a:
-            client_event = {PLAYER_2, ActionEvent::MOVE_LEFT};
-            this->commands.push(client_event);
-            break;
-        case SDLK_w:  // tecla W para saltar
-            client_event = {PLAYER_2, ActionEvent::JUMP};
-            this->commands.push(client_event);
-            std::cout << "Saltar (Jugador 2)" << std::endl;
-            break;
-        case SDLK_s:  // tecla S para agacharse
-            client_event = {PLAYER_2, ActionEvent::CROUCH};
-            this->commands.push(client_event);
-            std::cout << "Agacharse (Jugador 2)" << std::endl;
-            break;
+
+    if (state[SDL_SCANCODE_D]) {
+        client_event = {PLAYER_2, ActionEvent::MOVE_RIGHT};
+        this->commands.push(client_event);
+    }
+    if (state[SDL_SCANCODE_A]) {
+        client_event = {PLAYER_2, ActionEvent::MOVE_LEFT};
+        this->commands.push(client_event);
+    }
+    if (state[SDL_SCANCODE_W]) {
+        client_event = {PLAYER_2, ActionEvent::JUMP};
+        this->commands.push(client_event);
+    }
+    if (state[SDL_SCANCODE_S]) {
+        client_event = {PLAYER_2, ActionEvent::CROUCH};
+        this->commands.push(client_event);
     }
 }

@@ -9,7 +9,6 @@
 #include "../../common/protocol.h"
 #include "../../common/socket.h"
 #include "../game_state/client_game_state.h"
-#include "../player_position.h"
 #include "../zoom/zoom.h"
 
 class ClientProtocol: public Protocol {
