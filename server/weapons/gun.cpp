@@ -10,6 +10,7 @@ Gun::Gun(const WeaponTextureID& _texture_id, const uint8_t& _max_ammo,
         Directionable(Direction::RIGHT),
         max_ammo(_max_ammo),
         ammo(_max_ammo),
+        dispersion(INITIAL_DISPERSION),
         recoil(_recoil),
         projectile_range(_projectile_range)
         {}

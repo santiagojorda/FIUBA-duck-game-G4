@@ -8,11 +8,13 @@ struct AKConfig {
     ShootingRecoil recoil = ShootingRecoil::SHORT;
     ProjectileRange range = ProjectileRange::MEDIUM;
     uint8_t count_projectiles_x_shoot = 1;
+    uint8_t initial_dispersion = 0;
 };
 AKConfig ak_config;
 
 AK47::AK47(const Coordinate& _coordinate):
-        Gun(ak_config.id, ak_config.max_ammo, ak_config.recoil, ak_config.range, _coordinate) {}
+        Gun(ak_config.id, ak_config.max_ammo, ak_config.recoil, ak_config.range, _coordinate)
+        {}
 
 void AK47::trigger(ListProjectiles& projectiles) {
     this->dispersion++;

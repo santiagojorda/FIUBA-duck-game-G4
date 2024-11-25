@@ -14,7 +14,7 @@ public:
 
     uint8_t get_tick();
 
-    bool is_divisible_by(const uint8_t& divisor); 
+    bool is_ready_for_action(const uint8_t& divisor); 
 
     void reset();
 

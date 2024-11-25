@@ -5,8 +5,6 @@
 
 class AK47: public Gun {
 private:
-    int dispersion;
-
 public:
     explicit AK47(const Coordinate& _coordinate);
 

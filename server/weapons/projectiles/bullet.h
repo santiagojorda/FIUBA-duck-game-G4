@@ -7,7 +7,7 @@
 
 #define MAX_RANGE_TILES 1  // medio
 
-class Bullet: public Projectile, public Updatable {
+class Bullet: public Projectile{
 private:
     double dispersion_angle;  // radianes
     uint8_t steps = 0;
@@ -15,7 +15,7 @@ private:
 public:
     explicit Bullet(const ProjectileRange& _range_tiles, const Coordinate& _coordinate,
                     const Direction& _direction, const int& _dispersion_angle);
-    void update_state(GamePhysics& physics);
+    void update(GamePhysics& physics) override;
 };
 
 #endif

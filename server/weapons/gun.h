@@ -13,12 +13,16 @@
 #include "projectile_range.h"
 #include "shooring_recoil.h"
 
+#define INITIAL_DISPERSION 0
+
 class Gun: public Positionable, public Equippable, public Directionable {
 protected:
     // cppcheck-suppress unusedStructMember
     uint8_t max_ammo;
     // cppcheck-suppress unusedStructMember
     uint8_t ammo;
+    // cppcheck-suppress unusedStructMember
+    int dispersion;
     ShootingRecoil recoil;
     ProjectileRange projectile_range;
 

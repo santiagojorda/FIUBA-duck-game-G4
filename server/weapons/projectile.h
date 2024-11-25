@@ -2,6 +2,7 @@
 #define PROJECTILE_H
 
 #include "../attributes/positionable.h"
+#include "../attributes/updatable.h"
 
 #include "projectile_range.h"
 #include "../attributes/directionable.h"
@@ -20,6 +21,7 @@ protected:
     uint8_t count_tiles_moved;
     Direction direction;
     ProjectileState state;
+    Updatable update_handler;
     
 
 public:
