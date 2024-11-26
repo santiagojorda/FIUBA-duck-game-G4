@@ -13,7 +13,8 @@
 // GranadeConfig granade_config;
 
 // Granade::Granade(const Coordinate& _coordinate):
-//         Gun(granade_config.id, granade_config.max_ammo, granade_config.recoil, granade_config.range,
+//         Gun(granade_config.id, granade_config.max_ammo, granade_config.recoil,
+//         granade_config.range,
 //             _coordinate) {}
 
 

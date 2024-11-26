@@ -7,7 +7,7 @@
 
 #define MAX_RANGE_TILES 1  // medio
 
-class Bullet: public Projectile{
+class Bullet: public Projectile {
 private:
     double dispersion_angle;  // radianes
     uint8_t steps = 0;

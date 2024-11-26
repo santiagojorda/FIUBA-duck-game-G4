@@ -4,26 +4,18 @@
 
 #include "../projectiles/bullet.h"
 
-struct CowboyConfig {
-    WeaponTextureID id = WeaponTextureID::COWBOY_GUN;
-    uint8_t max_ammo = 6;
-    ShootingRecoil recoil = ShootingRecoil::NONE;
-    ProjectileRange range = ProjectileRange::LARGE;
-    uint8_t count_projectiles_x_shoot = 1;
-};
-CowboyConfig cowboy_config;
+gun_config cowboy_config = {WeaponTextureID::COWBOY_GUN, 6, ShootingRecoil::NONE,
+                            ProjectileRange::LARGE,      1, 1};
 
 CowboyGun::CowboyGun(const Coordinate& _coordinate):
-        Gun(cowboy_config.id, cowboy_config.max_ammo, cowboy_config.recoil, cowboy_config.range,
-            _coordinate),
-        blocked(false) {}
+        Gun(cowboy_config, _coordinate), blocked(false) {}
 
 void CowboyGun::trigger(ListProjectiles& projectiles) {
     if (!this->blocked) {
         for (int i = 0; i < cowboy_config.count_projectiles_x_shoot; i++) {
             if (this->ammo > 0) {
-                projectiles.add(std::make_shared<Bullet>(this->projectile_range, this->get_coordinate(),
-                                           this->get_direction(), 0));
+                projectiles.add(std::make_shared<Bullet>(
+                        this->projectile_range, this->get_coordinate(), this->get_direction(), 0));
                 this->ammo--;
             }
         }

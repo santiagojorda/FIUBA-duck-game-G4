@@ -8,12 +8,23 @@
 #include "../attributes/equippable.h"
 #include "../attributes/positionable.h"
 #include "../player/inventory.h"
+#include "../utils/circular_counter.h"
 
 #include "list_projectiles.h"
 #include "projectile_range.h"
 #include "shooring_recoil.h"
 
 #define INITIAL_DISPERSION 0
+
+struct  gun_config{
+    WeaponTextureID id;
+    uint8_t max_ammo;
+    ShootingRecoil recoil;
+    ProjectileRange range;
+    uint8_t count_projectiles_x_shoot;
+    uint8_t daley_shoot;
+};
+
 
 class Gun: public Positionable, public Equippable, public Directionable, public std::enable_shared_from_this<Gun> {
 protected:
@@ -25,11 +36,15 @@ protected:
     int dispersion;
     ShootingRecoil recoil;
     ProjectileRange projectile_range;
+    CircularCounter delay_counter;
 
 public:
+
     explicit Gun(const WeaponTextureID& _texture_id, const uint8_t& _max_ammo,
-                 const ShootingRecoil& _recoil, const ProjectileRange& _projectile_range,
-                 const Coordinate& _coordinate);
+                    const ShootingRecoil& _recoil, const ProjectileRange& _projectile_range,
+                    const Coordinate& _coordinate, uint8_t _daley_shoot);
+    
+    Gun(const gun_config& _config, const Coordinate& _coordinate);
 
 
     // Comportamiento cuando se preciona el gatillo

@@ -14,7 +14,7 @@ Bullet::Bullet(const ProjectileRange& _range_tiles, const Coordinate& _coordinat
         Projectile(TEXTURE_ID, _range_tiles, _coordinate, _direction),
         dispersion_angle(_dispersion_angle * M_PI / 180.0)  // lo pasa a radianes
 {
-        std::cout << "Nueva bala" << std::endl;
+    std::cout << "Nueva bala" << std::endl;
 }
 
 
