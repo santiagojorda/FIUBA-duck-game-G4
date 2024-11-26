@@ -15,7 +15,7 @@ enum class ProjectileState: uint8_t {
     // THROWING,
 };
 
-class Projectile: public Positionable, public Directionable {  // es un statable
+class Projectile: public Positionable, public Directionable, public std::enable_shared_from_this<Projectile>  {  // es un statable
 protected:
     ProjectileRange range_tiles;
     uint8_t count_tiles_moved;
