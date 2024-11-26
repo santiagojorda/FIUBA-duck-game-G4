@@ -45,7 +45,7 @@ void MapDeserialize::load_floors(Map& charge_map) {
         int x = tile[enum_string(COORDINATE)][enum_string(X)].as<int>();
         int y = tile[enum_string(COORDINATE)][enum_string(Y)].as<int>();
 
-        charge_map.add(new Ground(Coordinate(x, y, tile_size, tile_size), tile_id, map_id));
+        charge_map.add(std::make_shared<Ground>(Coordinate(x, y, tile_size, tile_size), tile_id, map_id));
     }
 }
 

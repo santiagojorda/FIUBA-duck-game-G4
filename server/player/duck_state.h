@@ -15,12 +15,8 @@ class Player;
 
 class DuckState : public State<DuckStateType>, public Updatable  {
 protected:
-    // DuckStateType state_id;
-    // std::string state_name;
     uint8_t player_id;
-    Directionable direction_handler;
-    Frameable frame_handler;
-    void reset();
+    void reset() override;
     void init_state(const uint8_t& player_id);
 
 public:
@@ -33,9 +29,6 @@ public:
     virtual void update_state(Positionable& positionable, GamePhysics& physics) override;
     virtual void execute(Positionable& positionable, GamePhysics& physics) override;
     
-    Direction get_direction() override;
-    void set_direction(const Direction& new_direction) override;
-    uint8_t get_frame() override;
     virtual ~DuckState();
 };
 

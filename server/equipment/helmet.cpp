@@ -4,4 +4,4 @@
 
 Helmet::Helmet() {}
 
-void Helmet::equip(Inventory* inventory) { inventory->equip(this); };
+void Helmet::equip(Inventory& inventory) { inventory.equip(std::shared_ptr<Helmet>(this)); };

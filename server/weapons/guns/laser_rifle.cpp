@@ -22,7 +22,7 @@ void LaserRifle::trigger(ListProjectiles& projectiles) {
 
     for (int i = 0; i < laser_config.count_projectiles_x_shoot; i++) {
         if (this->ammo > 0) {
-            //  projectiles.add(new BulletBounce(this->projectile_range this->get_coordinate(),
+            //  projectiles.add(std::make_shared<BulletBounce>(this->projectile_range this->get_coordinate(),
             //  this->get_direction(), 0));
             this->ammo--;
         }

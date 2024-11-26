@@ -15,7 +15,7 @@
 
 #define INITIAL_DISPERSION 0
 
-class Gun: public Positionable, public Equippable, public Directionable {
+class Gun: public Positionable, public Equippable, public Directionable, public std::enable_shared_from_this<Gun> {
 protected:
     // cppcheck-suppress unusedStructMember
     uint8_t max_ammo;
@@ -38,7 +38,7 @@ public:
     // Comportamiento cuando se suelta el gatillo
     virtual void trigger_out(ListProjectiles& projectiles);
 
-    void equip(Inventory* inventory) override;
+    void equip(Inventory& inventory) override;
 
     uint8_t get_ammo();
 

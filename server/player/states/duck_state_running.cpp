@@ -18,15 +18,15 @@ DuckStateRunning::DuckStateRunning(uint8_t _player_id):
 void DuckStateRunning::update_state(Positionable& positionable, GamePhysics& physics) {
     (void)physics;
     (void)positionable;
-    if (frame_handler.has_reached_max_frames()) {
+    if (has_reached_max_frames()) {
         reset();
     }
 }
 
 void DuckStateRunning::move(Positionable& positionable) {
-    if (direction_handler.is_right()) {
+    if (is_right()) {
         positionable.translate_x(RUN_STEP);
-    } else if (direction_handler.is_left()) {
+    } else if (is_left()) {
         positionable.translate_x(-RUN_STEP);
     }
 }
@@ -34,7 +34,7 @@ void DuckStateRunning::move(Positionable& positionable) {
 void DuckStateRunning::execute(Positionable& positionable, GamePhysics& physics) {
     DuckState::execute(positionable, physics);
     move(positionable);
-    frame_handler.increment_frame();
+    increment_frame();
 }
 
 DuckStateRunning::~DuckStateRunning() {}

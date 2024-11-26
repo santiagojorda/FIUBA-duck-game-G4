@@ -6,32 +6,29 @@
 
 Inventory::Inventory(): gun(nullptr), armor(nullptr), helmet(nullptr) {}
 
-void Inventory::equip(Equippable* new_item) { new_item->equip(this); }
+void Inventory::equip(std::shared_ptr<Equippable> new_item) { new_item->equip(*this); }
 
-void Inventory::equip(Gun* new_gun) {
+void Inventory::equip(std::shared_ptr<Gun> new_gun) {
     if (!gun) {
-        gun = new_gun;
+        gun = std::move(new_gun);
     }
 }
 
-void Inventory::equip(Armor* new_armor) {
+void Inventory::equip(std::shared_ptr<Armor> new_armor) {
     if (!armor) {
-        armor = new_armor;
+        armor = std::move(new_armor);
     }
 }
 
-void Inventory::equip(Helmet* new_helmet) {
+void Inventory::equip(std::shared_ptr<Helmet> new_helmet) {
     if (!helmet) {
-        helmet = new_helmet;
+        helmet = std::move(new_helmet);
     }
 }
 
-Gun* Inventory::get_gun() { return gun; }
-Armor* Inventory::get_armor() { return armor; }
-Helmet* Inventory::get_helmet() { return helmet; }
+std::shared_ptr<Gun> Inventory::get_gun() { return gun; }
+std::shared_ptr<Armor> Inventory::get_armor() { return armor; }
+std::shared_ptr<Helmet> Inventory::get_helmet() { return helmet; }
 
 Inventory::~Inventory() {
-    delete gun;
-    delete armor;
-    delete helmet;
 }

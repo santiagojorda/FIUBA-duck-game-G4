@@ -16,7 +16,8 @@
 #include "event_move_right.h"
 #include "event_jump.h"
 #include "event_crouch.h"
-#include "event_shoot.h"
+#include "event_trigger.h"
+#include "event_trigger_out.h"
 #include "event_idle.h"
 
 class EventFactory{
@@ -34,27 +35,18 @@ public:
         events[ActionEvent::MOVE_RIGHT] = std::make_shared<EventMoveRight>(player_id);
         events[ActionEvent::JUMP] = std::make_shared<EventJump>(player_id);
         events[ActionEvent::CROUCH] = std::make_shared<EventCrouch>(player_id);
-        events[ActionEvent::SHOOT] = std::make_shared<EventShoot>(player_id);
+        events[ActionEvent::TRIGGER] = std::make_shared<EventTrigger>(player_id);
+        events[ActionEvent::TRIGGER_OUT] = std::make_shared<EventTriggerOut>(player_id);
         events[ActionEvent::IDLE] = std::make_shared<EventIdle>(player_id);
     }
     
-    // hay que hacer por movimiento
     EventFactory(const EventFactory& _other): EventFactory(_other.player_id) {}
-
-    // void add(const ActionEvent& event_id, EventPlayer* event){
-    //     events[event_id] = event;
-    // }
 
     std::shared_ptr<EventPlayer> get(const ActionEvent& event_id) {
         return events[event_id];
     }
 
-    ~EventFactory(){
-        // for (auto& event: events) {
-        //     delete event.second;
-        // }
-        // events.clear();
-    };
+    ~EventFactory(){};
 };
 
 #endif  // EVENT_FACTORY_h

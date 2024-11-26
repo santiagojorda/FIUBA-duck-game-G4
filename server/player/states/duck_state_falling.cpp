@@ -16,7 +16,7 @@ DuckStateFalling::DuckStateFalling(const uint8_t& _player_id):
 
 void DuckStateFalling::update_state(Positionable& positionable, GamePhysics& physics) {
     positionable.translate_y(FALLING_STEP);
-    frame_handler.increment_frame();
+    increment_frame();
     (void)physics;
 }
 DuckStateFalling::~DuckStateFalling() {}

@@ -21,24 +21,25 @@ private:
     Inventory inventory;
     DuckStateController state;
     void log_action(const std::string& action);
+    bool touch_floor;
 
 public:
     explicit Player(uint8_t _id);
     Player& operator=(const Player& _other);
     uint8_t get_id() const;
-    void adjust_position_to_floor(Positionable* floor);
+    void adjust_position_to_floor(std::shared_ptr<Positionable> floor);
     void translate_x(int pasos) override;
     void translate_y(int pasos) override;
     void move_back(ShootingRecoil tiles);
 
 
-    Gun* get_gun();
-    Armor* get_armor();
-    Helmet* get_helmet();
+    std::shared_ptr<Gun> get_gun();
+    std::shared_ptr<Armor> get_armor();
+    std::shared_ptr<Helmet> get_helmet();
 
     void shoot(ListProjectiles& projectiles, const   ModeShoot&  mode);
 
-    void equip(Equippable* item);
+    void equip(std::shared_ptr<Equippable> item);
     Direction get_direction();
     Inventory& get_inventory();
 
@@ -59,6 +60,8 @@ public:
     bool is_falling();
     bool is_idle();
     bool is_dead();
+    bool is_touching_floor();
+    void set_touching_floor(const bool& new_touch);
 
     DuckStateType get_state();
     uint8_t get_frame();

@@ -32,7 +32,7 @@ void AK47::trigger(ListProjectiles& projectiles) {
 
     for (int i = 0; i < ak_config.count_projectiles_x_shoot; i++) {
         if (this->ammo > 0) {
-            projectiles.add(new Bullet(this->projectile_range, bullet_postion,
+            projectiles.add(std::make_shared<Bullet>(this->projectile_range, bullet_postion,
                                        this->get_direction(), this->dispersion));
             this->ammo--;
         }

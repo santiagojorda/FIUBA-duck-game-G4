@@ -2,6 +2,7 @@
 #define GAME_LOGIC_H
 
 #include <list>
+#include <memory>
 
 #include "../../common/action_events.h"
 #include "../weapons/list_guns.h"
@@ -14,7 +15,7 @@
 
 class GameLogic {
 private:
-    ListPlayers& players;
+    ListPlayers players;
     Map& map;
     ListGuns& map_guns;
     ListProjectiles& map_projectiles;
@@ -23,7 +24,7 @@ private:
     void update_player_gravity(Player& player);
     void update_player_equip_collision(Player& player);
     bool is_player_out_of_map(Player& player);
-    Positionable* get_player_floor_collision(const Player& player);
+    std::shared_ptr<Positionable> get_player_floor_collision(Player& player);
     void update_players();
     void update_projectiles();
 

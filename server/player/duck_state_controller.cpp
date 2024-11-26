@@ -32,8 +32,6 @@ void DuckStateController::run(Direction direction, Player& player, GamePhysics& 
     execute(player, physics);
 }
 
-////
-
 void DuckStateController::run_right(Player& player, GamePhysics& physics) {
     run(Direction::RIGHT, player, physics);
 }
@@ -44,24 +42,30 @@ void DuckStateController::run_left(Player& player, GamePhysics& physics) {
 void DuckStateController::jump(Player& player, GamePhysics& physics) {
     (void)player;
     (void)physics;
-    if (!is_jumping() && !is_falling()) {
+    if (player.is_touching_floor()) {
         set_state(DuckStateType::JUMPING);
     }
 }
 void DuckStateController::fall(Player& player, GamePhysics& physics) {
     (void)player;
     (void)physics;
-    set_state(DuckStateType::FALLING);
+    // if(!player.){
+        set_state(DuckStateType::FALLING);
+    // }
 }
 void DuckStateController::crouch(Player& player, GamePhysics& physics) {
     (void)player;
     (void)physics;
-    set_state(DuckStateType::CROUCHING);
+    // if(player.is_touching_floor()){
+        set_state(DuckStateType::CROUCHING);
+    // }
 }
 void DuckStateController::slip(Player& player, GamePhysics& physics) {
     (void)player;
     (void)physics;
-    set_state(DuckStateType::SLIPPING);
+    // if(player.is_touching_floor()){
+        set_state(DuckStateType::SLIPPING);
+    // }
 }
 void DuckStateController::recoil(Player& player, GamePhysics& physics) {
     (void)player;
@@ -71,8 +75,10 @@ void DuckStateController::recoil(Player& player, GamePhysics& physics) {
 void DuckStateController::plane(Player& player, GamePhysics& physics) {
     (void)player;
     (void)physics;
-    set_state(DuckStateType::PLANNING);
-    execute(player, physics);
+    // if(!player.is_touching_floor()){
+        set_state(DuckStateType::PLANNING);
+        execute(player, physics);
+    // }
 }
 void DuckStateController::die(Player& player) {
     (void)player;
@@ -82,9 +88,9 @@ void DuckStateController::die(Player& player) {
 }
 void DuckStateController::idle(Player& player) {
     (void)player;
-    if (!is_idle()) {
+    // if (player.is_touching_floor()) {
         set_state(DuckStateType::IDLE);
-    }
+    // }
 }
 bool DuckStateController::is_jumping() { return is_in_state(DuckStateType::JUMPING); }
 bool DuckStateController::is_running() { return is_in_state(DuckStateType::RUNNING); }

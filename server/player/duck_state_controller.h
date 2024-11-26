@@ -19,7 +19,7 @@ class GamePhysics;
 class DuckStateController : public StateController<DuckStateType> {
 private:
     Direction direction;
-
+    // uint8_t jump; // 0 -> control de cantidad de saltos
     void set_direction(const Direction& new_direction);
     void execute(Player& player, GamePhysics& physics);
 
@@ -43,7 +43,7 @@ public:
     bool is_idle();
     bool is_dead();
 
-
+    bool is_touching_floor();
     Direction get_direction();
     DuckStateType get_state();
     uint8_t get_frame();

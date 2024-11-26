@@ -2,6 +2,7 @@
 
 #include "../equipment/armor.h"
 #include "../equipment/helmet.h"
+#include <memory>
 
 #define BYTE_CLIENT 0xA
 
@@ -20,7 +21,7 @@ void ProtocolServer::send_inventory(Inventory& inventory) {
     send_helmet(inventory.get_helmet());
 }
 
-void ProtocolServer::send_gun(Gun* gun) {
+void ProtocolServer::send_gun(std::shared_ptr<Gun> gun) {
     if (gun) {
         send_byte(gun->get_texture_id());
         send_byte(gun->get_ammo());
@@ -29,14 +30,14 @@ void ProtocolServer::send_gun(Gun* gun) {
     }
 }
 
-void ProtocolServer::send_armor(Armor* armor) {
+void ProtocolServer::send_armor(std::shared_ptr<Armor> armor) {
     if (armor) {
         send_byte(armor->get_texture_id());
     } else {
         send_byte(false);
     }
 }
-void ProtocolServer::send_helmet(Helmet* helmet) {
+void ProtocolServer::send_helmet(std::shared_ptr<Helmet> helmet) {
     if (helmet) {
         send_byte(helmet->get_texture_id());
     } else {
@@ -61,7 +62,7 @@ void ProtocolServer::send_players_state(GameState_t& state) {
 void ProtocolServer::send_projectiles_state(GameState_t& state) {
     uint16_t count_projectiles = state.map_projectiles.size();
     send_2_bytes(count_projectiles);
-    for (Projectile* projectile: state.map_projectiles.get_items()) {
+    for (std::shared_ptr<Projectile> projectile: state.map_projectiles.get_items()) {
         send_byte(projectile->get_texture_id());  // texture_id
         send_coordinates(projectile->get_coordinate());
     }
@@ -94,7 +95,7 @@ void ProtocolServer::send_boxes_state(GameState_t& state) {
 void ProtocolServer::send_scenario_state(GameState_t& state) {
     uint8_t count_map_items = state.map.size();
     send_byte(count_map_items);  //
-    for (Positionable* item_map: state.map) {
+    for (std::shared_ptr<Positionable> item_map: state.map) {
         send_byte(0);  // texture_id
         send_coordinates(item_map->get_coordinate());
     }
@@ -103,7 +104,7 @@ void ProtocolServer::send_scenario_state(GameState_t& state) {
 void ProtocolServer::send_map_guns_state(GameState_t& state) {
     uint8_t count_map_guns = state.map_guns.size();
     send_byte(count_map_guns);
-    for (auto* gun: state.map_guns.get_items()) {
+    for (std::shared_ptr<Gun> gun: state.map_guns.get_items()) {
         send_byte(gun->get_texture_id());         // texture_id
         send_coordinates(gun->get_coordinate());  // posicion del escenario
     }

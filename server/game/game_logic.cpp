@@ -6,18 +6,20 @@
 
 #define GAME_WIDTH 800
 #define GAME_HEIGHT 500
+#define IS_TOUCHING_FLOOR true
 
 GameLogic::GameLogic(ListPlayers& _players, Map& _map, ListGuns& _map_guns,
                      ListProjectiles& _map_projectiles):
-        players(_players),
+        players(std::move(_players)),
         map(_map),
         map_guns(_map_guns),
         map_projectiles(_map_projectiles),
         physics(map) {}
 
-Positionable* GameLogic::get_player_floor_collision(const Player& player) {
+std::shared_ptr<Positionable> GameLogic::get_player_floor_collision(Player& player) {
     for (auto& tile: this->map) {
         if (this->physics.collision(player.get_rectangle(), tile->get_rectangle())) {
+            player.set_touching_floor(IS_TOUCHING_FLOOR);
             return tile;
         }
     }
@@ -25,7 +27,7 @@ Positionable* GameLogic::get_player_floor_collision(const Player& player) {
 }
 
 void GameLogic::update_player_equip_collision(Player& player) {
-    for (auto& gun: map_guns.get_items()) {
+    for (std::shared_ptr<Gun> gun: map_guns.get_items()) {
         if (this->physics.collision(player.get_rectangle(), gun->get_rectangle())) {
             player.equip(gun);
             map_guns.remove(gun);
@@ -47,9 +49,9 @@ bool GameLogic::is_player_out_of_map(Player& player) {
 
 
 void GameLogic::update_projectiles(){
-    for (Projectile* projectile: map_projectiles.get_items()){
+    for (std::shared_ptr<Projectile> projectile: map_projectiles.get_items()){
         if(projectile->is_dead()){
-            map_projectiles.remove_and_delete(projectile);
+            map_projectiles.remove(projectile);
             return;
         }
         projectile->update(physics);
@@ -91,7 +93,7 @@ void GameLogic::update_players() {
 }
 
 void GameLogic::update_player_gravity(Player& player) {
-    Positionable* touched_floor = get_player_floor_collision(player);
+    std::shared_ptr<Positionable> touched_floor = get_player_floor_collision(player);
     if (touched_floor) {
         player.adjust_position_to_floor(touched_floor);
         if (player.is_falling()) {
@@ -99,6 +101,7 @@ void GameLogic::update_player_gravity(Player& player) {
         }
     } else {
         player.fall(physics);
+        player.set_touching_floor(!IS_TOUCHING_FLOOR);
     }
 }
 
@@ -134,8 +137,11 @@ void GameLogic::handle_event(const uint8_t& player_id, const ActionEvent& event)
                 // chequear se pueda
                 player.crouch(physics);
                 break;
-            case ActionEvent::SHOOT:
+            case ActionEvent::TRIGGER:
                 player.shoot(map_projectiles, ModeShoot::TRIGGER);
+                break;
+            case ActionEvent::TRIGGER_OUT:
+                player.shoot(map_projectiles, ModeShoot::TRIGGER_OUT);
                 break;
             case ActionEvent::IDLE:
                 player.idle();

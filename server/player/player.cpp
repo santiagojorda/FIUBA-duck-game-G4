@@ -10,7 +10,7 @@ const int SPEED = 1;
 #define JUMP_STEP -40
 #define FALLING_STEP 1
 
-Player::Player(uint8_t _id): Positionable(_id, _id, Coordinate(10, 10, 32, 32)), state(id) {}
+Player::Player(uint8_t _id): Positionable(_id, _id, Coordinate(10, 10, 32, 32)), state(id), touch_floor(false) {}
 
 Player::~Player() { Positionable::~Positionable(); }
 
@@ -37,13 +37,13 @@ void Player::die() {
 }
 
 uint8_t Player::get_id() const { return this->id; }
-Gun* Player::get_gun() { return inventory.get_gun(); }
-Armor* Player::get_armor() { return inventory.get_armor(); }
-Helmet* Player::get_helmet() { return inventory.get_helmet(); }
+std::shared_ptr<Gun> Player::get_gun() { return inventory.get_gun(); }
+std::shared_ptr<Armor> Player::get_armor() { return inventory.get_armor(); }
+std::shared_ptr<Helmet> Player::get_helmet() { return inventory.get_helmet(); }
 Inventory& Player::get_inventory() { return inventory; }
 Direction Player::get_direction() { return state.get_direction(); }
 
-void Player::adjust_position_to_floor(Positionable* floor) {
+void Player::adjust_position_to_floor(std::shared_ptr<Positionable> floor) {
     if (floor) {
 
         int player_bottom = space.get_y_max();
@@ -75,7 +75,7 @@ Player& Player::operator=(const Player& _other) {
     return *this;
 }
 
-void Player::equip(Equippable* item) { inventory.equip(item); }
+void Player::equip(std::shared_ptr<Equippable> item) { inventory.equip(item); }
 void Player::move_back(ShootingRecoil tiles) { (void)tiles; }
 
 bool Player::is_jumping() { return state.is_jumping(); }
@@ -88,8 +88,11 @@ DuckStateType Player::get_state() { return state.get_state(); }
 
 uint8_t Player::get_frame() { return state.get_frame(); }
 
+bool Player::is_touching_floor() { return touch_floor; }
+void Player::set_touching_floor(const bool& new_touch) { touch_floor = new_touch; }
+
 void Player::shoot(ListProjectiles& projectiles, const ModeShoot& mode) {
-    Gun* gun = inventory.get_gun();
+    std::shared_ptr<Gun> gun = inventory.get_gun();
     if (!gun) {
         return;
     }

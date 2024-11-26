@@ -20,12 +20,12 @@ void DuckStateJumping::update_state(Positionable& positionable, GamePhysics& phy
     tick++;
 
     positionable.translate_y(-JUMP_STEP);
-    if (tick == frame_handler.get_max_frames()) {
+    if (tick == get_max_frames()) {
         positionable.fall(physics);
         // positionable.fall(physics); //decirle al physics que le haga fall
         return;
     }
-    frame_handler.increment_frame();
+    increment_frame();
 }
 
 DuckStateJumping::~DuckStateJumping() {}

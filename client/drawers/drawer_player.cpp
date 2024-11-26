@@ -27,8 +27,10 @@ void DrawerPlayer::draw(const player_t& player, std::map<std::string, AnimationW
     DuckStateType duck_state = static_cast<DuckStateType>(player.state);
 
     std::string type_action = textures_action_ducks.at(duck_state);
+    if(duck_state == DuckStateType::DEAD){
+        return;
+    }
     this->update_animation(type_action);
-
     if (static_cast<int>(player.inventory.weapon) != 0) {
         this->update_weapon(player, animation);
         this->update_wings();

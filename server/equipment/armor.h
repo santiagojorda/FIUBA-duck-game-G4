@@ -7,7 +7,7 @@
 class Armor: public Positionable, public Equippable {
 public:
     Armor();
-    void equip(Inventory* inventory) override;
+    void equip(Inventory& inventory) override;
 };
 
 #endif

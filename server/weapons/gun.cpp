@@ -15,7 +15,7 @@ Gun::Gun(const WeaponTextureID& _texture_id, const uint8_t& _max_ammo,
         projectile_range(_projectile_range)
         {}
 
-void Gun::equip(Inventory* inventory) { inventory->equip(this); };
+void Gun::equip(Inventory& inventory) { inventory.equip(shared_from_this()); };
 
 uint8_t Gun::get_max_ammo() { return max_ammo; }
 

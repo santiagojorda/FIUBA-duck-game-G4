@@ -9,7 +9,7 @@ public:
     explicit AK47(const Coordinate& _coordinate);
 
     // Dispara aumentado dispersion
-    virtual void trigger(ListProjectiles& projectiles) override;
+    void trigger(ListProjectiles& projectiles) override;
 
     // reinicia dispersion
     virtual void trigger_out(ListProjectiles& projectiles) override;
