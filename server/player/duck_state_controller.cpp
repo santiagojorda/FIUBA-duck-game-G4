@@ -42,9 +42,9 @@ void DuckStateController::run_left(Player& player, GamePhysics& physics) {
 void DuckStateController::jump(Player& player, GamePhysics& physics) {
     (void)player;
     (void)physics;
-    if (player.is_touching_floor()) {
+    // if (player.is_touching_floor()) {
         set_state(DuckStateType::JUMPING);
-    }
+    // }
 }
 void DuckStateController::fall(Player& player, GamePhysics& physics) {
     (void)player;

@@ -15,7 +15,7 @@
 
 class GameLogic {
 private:
-    ListPlayers players;
+    ListPlayers& players;
     Map& map;
     ListGuns& map_guns;
     ListProjectiles& map_projectiles;

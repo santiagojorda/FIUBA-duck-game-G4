@@ -10,7 +10,7 @@
 
 GameLogic::GameLogic(ListPlayers& _players, Map& _map, ListGuns& _map_guns,
                      ListProjectiles& _map_projectiles):
-        players(std::move(_players)),
+        players(_players),
         map(_map),
         map_guns(_map_guns),
         map_projectiles(_map_projectiles),
@@ -19,7 +19,7 @@ GameLogic::GameLogic(ListPlayers& _players, Map& _map, ListGuns& _map_guns,
 std::shared_ptr<Positionable> GameLogic::get_player_floor_collision(Player& player) {
     for (auto& tile: this->map) {
         if (this->physics.collision(player.get_rectangle(), tile->get_rectangle())) {
-            player.set_touching_floor(IS_TOUCHING_FLOOR);
+            // player.set_touching_floor(IS_TOUCHING_FLOOR);
             return tile;
         }
     }
@@ -101,7 +101,7 @@ void GameLogic::update_player_gravity(Player& player) {
         }
     } else {
         player.fall(physics);
-        player.set_touching_floor(!IS_TOUCHING_FLOOR);
+        // player.set_touching_floor(!IS_TOUCHING_FLOOR);
     }
 }
 

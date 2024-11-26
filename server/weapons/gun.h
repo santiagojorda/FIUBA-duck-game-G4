@@ -40,6 +40,8 @@ public:
 
     void equip(Inventory& inventory) override;
 
+    std::shared_ptr<Gun> get_shared_ptr() { return shared_from_this(); }
+
     uint8_t get_ammo();
 
     uint8_t get_max_ammo();

@@ -15,7 +15,7 @@
 
 class Game: public Thread {
 private:
-    ListPlayers players;
+    ListPlayers& players;
     Map map;
     ListGuns map_guns;
     ListProjectiles map_projectiles;
@@ -26,7 +26,6 @@ private:
 
     void load_map();
 
-    void sleep();
     void execute_new_events();
     void broadcast_gamestate();
     GameState_t get_gamestate();
