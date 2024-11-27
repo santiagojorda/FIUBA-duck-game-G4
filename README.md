@@ -1,43 +1,102 @@
-# Ejemplo de CMAKE para el TP Final
+> Hola! 👋🏼 El trabajo aun no esta finalizado, seguimos en desarrollo! 💪🏼☕ - 19/11 
 
-**Importante:** el primer commit de este repositorio tiene el setup
-básico para el TP Final que incluye la instalación de la lib
-`libSDL2pp` (el wrapper de C++).
+> autores name - name - Felipe D'alto
 
-El resto de los commits son a modo de ejemplo de como se pueden
-agregar mas código fuente al proyecto.
+# Cómo compilar y ejecutar 
 
-Este ejemplo **no** incluye instalarse la librería `SDL2` ni tampoco
-instala otras librerías que puedan ser necesarias ni tampoco un
-instalador (aunque **si** incluye Google Tests)
+## Introducción
+Este documento explica paso a paso cómo compilar y ejecutar el proyecto [Nombre del proyecto].
 
-**Se deben agregar las librerias necesarias y el instalador.**
+## Requisitos previos
+## Uso de bibliotecas
 
-También el ejemplo usa una estructura de carpetas muy simple:
+1. **Biblioteca de Sockets de la cátedra Veiga** | Autor: eldipa | Licencia: GPL v2
+    - [https://github.com/eldipa/hands-on-sockets-in-cpp](https://github.com/eldipa/hands-on-sockets-in-cpp)
 
-```
-client/
-server/
-editor/
-common/
-```
+2. **Biblioteca de Threads y Queque de la cátedra Veiga** | Autor: eldipa | Licencia: GPL v2
+    - [https://github.com/eldipa/hands-on-threads](https://github.com/eldipa/hands-on-threads)
 
-Bien se puede mejorar (cambiando el cmakefile) agregando mas
-sub-carpetas.
+3. **Blioteca SDL2** 
+    - [https://github.com/libsdl-org/SDL](https://github.com/libsdl-org/SDL)
 
-Asi tambien **deben** ser cambiados los *targets* del cmake (`taller_client`,
-`taller_server`, ...) por nombres mas acordes al TP que se este
-haciendo.
+4. **Biblioteca  yaml-cpp**
+    - [https://github.com/jbeder/yaml-cpp.git](https://github.com/jbeder/yaml-cpp.git)
 
-Tambien, por default solo se compila una version *debug* sin
-optimizar. Si se quiere compilar binarios optimizados
-(lo que cmake llama *release*) se puede, solo hay modificar
-cmake.
+## Instalar
 
-Aprender del ejemplo para saber como extenderlo!
+Menos SDL2, Cmake se encarga de de instalar las dependencias necesarias 
 
-**Importante:** este repositorio **no** incluye pre-commits hooks,
-ni scripts adicionales (como correr valgrind).
+1 - En la terminal ejecutar 
+```bash
+sudo apt-get install libjpeg-dev libpng-dev libfreetype-dev libopusfile-dev libflac-dev libxmp-dev libfluidsynth-dev libwavpack-dev cmake libmodplug-dev libsdl2-dev
+````
+2 - se deben descargar los siguietes .zip
 
-**Eso esta a cargo de los estudiantes,** tal como fue mostrado
-en los tps individuales, recaps y hands-on.
+
+- libsdl2-image ( 2.6.3, https://github.com/libsdl-org/SDL_image/releases/tag/release-2.6.3)
+- libsdl2-mixer (2.6.3, https://github.com/libsdl-org/SDL_mixer/releases/tag/release-2.6.3)
+- libsdl2-ttf (2.20.2, https://github.com/libsdl-org/SDL_ttf/releases/tag/release-2.20.2)
+
+3 - descompirmir y en cada una de las carpetas ejecutar 
+
+```bash
+cd nombre_de_la carpeta_descomprimida
+mkdir build
+cd build
+cmake ..
+make -j4
+sudo make install
+````
+
+4 - Ahora dentro de la carpeta de del repo FIUBA-duck-game-G4
+
+```bash
+mkdir build
+cd build
+cmake ..
+sudo make install
+````
+
+## Ejecutar
+Se requieren dos terminales 
+
+Para el server en la primera:
+```bash
+ ./taller_server
+````
+
+Para el cliente en la segunda 
+(por defecto se conecta en el peurto 8080)
+
+```bash
+ ./taller_client  <hostname> 8080
+````
+
+### Ejemplo
+- Servidor: 
+````bash  
+./taller_server
+````
+- Cliente:
+````bash  
+/taller_client 127.0.0.1 8080
+````
+
+## Jugar 
+Al iniciar el juego se vera una pantalla negra, una vez los jugadores esten conectados se debe apretar la tecla '"m" para lanzar el juego.
+
+Para cerrar usa la tecal "q" o "esc"
+
+controles player 1:
+- saltar -> key up 
+- moverse a la derecha -> key up 
+- moverse a la izquierda -> key up 
+- disparar -> space 
+
+controles player 2:
+- saltar -> w
+- moverse a la derecha -> d
+- moverse a la izquierda -> a
+- disparar -> space 
+
+

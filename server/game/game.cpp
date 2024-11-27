@@ -1,10 +1,10 @@
 #include "game.h"
 
-#include <chrono>
 #include <iostream>
 
+#include "../../common/sleep_special.h"
 #include "../events/event_player.h"
-#include "../guns/pew_pew_laser.h"
+#include "../weapons/gun_factory.h"
 #include "../map/ground.h"
 #include "../player/player.h"
 #include "../yamel/map_deserialize.h"
@@ -18,18 +18,32 @@ void charge_ponits(ListPlayers& players, std::vector<Coordinate>& points) {
     for (auto& player: players) {
         player.set_coordinate(points[i]);
         i++;
+        std::cout << player.get_coordinate() << std::endl;
+    }
+}
+
+void charge_weapons(ListGuns& guns, std::list<data_weapon>& data_weapons) {
+    GunFactory factory;
+    for (auto& weapon: data_weapons) {
+        guns.add(factory.create_gun(weapon.id, weapon.coordinate));
     }
 }
 
 void Game::load_map() {
     try {
         MapDeserialize deserialize(PATH_MAP);
-        deserialize.load_floors(this->map);
         std::vector<Coordinate> points;
+        std::list<data_weapon> data_weapons;
+
+        deserialize.load_floors(this->map);
         deserialize.load_inicial_points(points);
-        //        deserialize.load_weapons(); //esto hay que verlo
+        deserialize.load_weapons(data_weapons);
+        charge_ponits(this->players, points);
+        charge_weapons(this->map_guns, data_weapons);
     } catch (const std::exception& e) {
-        std::cerr << "error map.yaml" << e.what() << '\n';
+        std::cerr << "error map.yaml: " << e.what() << '\n';
+    } catch (...) {
+        std::cerr << "Unespected error map.yaml" << '\n';
     }
 }
 
@@ -47,15 +61,13 @@ Game::Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEventPla
     this->load_map();
 }
 
-void Game::sleep() { std::this_thread::sleep_for(std::chrono::milliseconds(MILISECONDS_30_FPS)); }
-
 void Game::execute_new_events() {
     EventPlayer* event = nullptr;
     while (queue_event.try_pop(event)) {
         if (event != nullptr) {
-            event->execute(game_logic);  // *(1) creo que deberia devolver un gamestate
+            event->execute(game_logic);
         }
-        // delete event; // ver logica de events
+        // delete event;
         event = nullptr;
     }
 }
@@ -64,28 +76,15 @@ void Game::broadcast_gamestate() { monitor_client.broadcast(get_gamestate()); }
 
 GameState_t Game::get_gamestate() { return GameState_t{players, map, map_guns, map_projectiles}; }
 
-auto get_actual_milliseconds() { return std::chrono::high_resolution_clock::now(); }
-
 void Game::run() {
-
-    auto chrono_now = get_actual_milliseconds();
-    auto chrono_prev = chrono_now;
-
+    SleepSpecial sleep(MILISECONDS_30_FPS);
     try {
 
-        while (_keep_running) {
+        while (_keep_running && monitor_client.they_are_alive()) {
             execute_new_events();
-            game_logic.update_players();
-            // *(2) o podria procesar todos los mensajes en la cola y luego enviar un gamestate como
-            // broadcast_gamestate
+            game_logic.update();
             broadcast_gamestate();
-
-            chrono_now = get_actual_milliseconds();
-            auto delta_chrono = chrono_now - chrono_prev;
-            if (delta_chrono < std::chrono::milliseconds(MILISECONDS_30_FPS)) {
-                sleep();
-            }
-            chrono_prev = get_actual_milliseconds();
+            sleep.sleep_rate();
         }
         stop();
     } catch (std::exception& e) {

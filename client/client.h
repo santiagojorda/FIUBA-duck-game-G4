@@ -12,7 +12,6 @@
 
 #include "client_receiver.h"
 #include "client_sender.h"
-#include "player_position.h"
 
 class Client {
 private:

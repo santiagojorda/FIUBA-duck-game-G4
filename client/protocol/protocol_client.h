@@ -4,12 +4,11 @@
 #include <string>
 #include <vector>
 
-#include "../../common/action_commands.h"
+#include "../../common/action_events.h"
 #include "../../common/coordinate.h"
 #include "../../common/protocol.h"
 #include "../../common/socket.h"
 #include "../game_state/client_game_state.h"
-#include "../player_position.h"
 #include "../zoom/zoom.h"
 
 class ClientProtocol: public Protocol {
@@ -48,7 +47,7 @@ public:
     /*
      *
      */
-    void send_action(uint8_t& id_jugador, ActionCommand& type_action);
+    void send_action(uint8_t& id_jugador, ActionEvent& type_action);
 
     /*
      *

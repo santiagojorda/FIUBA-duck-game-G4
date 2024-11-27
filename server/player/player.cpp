@@ -2,104 +2,71 @@
 
 #include <iostream>
 
-#include "../guns/gun.h"
+#include "../../common/state_duck.h"
+#include "../weapons/gun.h"
 
 const int SPEED = 1;
 #define RUN_STEP 10
-#define JUMP_STEP -10
-#define FALLING_STEP 10
+#define JUMP_STEP -40
+#define FALLING_STEP 1
 
-Player::Player(): Statable(DuckState::IS_IDLE) {}
-Player::Player(uint8_t _id):
-        Positionable(_id, Coordinate(10, 10, 32, 32)), Statable(DuckState::IS_IDLE) {}
+Player::Player(uint8_t _id): Positionable(_id, _id, Coordinate(10, 10, 32, 32)), state(id) {}
+
 Player::~Player() { Positionable::~Positionable(); }
 
-void Player::looks_right() { look_direction = Direction::RIGHT; }
-void Player::looks_left() { look_direction = Direction::LEFT; }
-void Player::looks_up() { look_direction = Direction::UP; }
-
-void Player::update() {
-
-    frame++;
-
-    if (frame >= duck_state_frames[state].max_frames) {
-        switch (state) {
-            case DuckState::IS_FALLING:
-                reset();
-                break;
-
-            case DuckState::IS_IDLE:
-                reset();
-                break;
-
-            case DuckState::IS_JUMPING:
-
-                break;
-            default:
-                set_state(DuckState::IS_IDLE);
-        }
-    }
+void Player::update(GamePhysics& physics) {     
+    state.update(*this, physics); 
 }
 
-void Player::run_right() {
-    if (state != DuckState::IS_RUNNING) {
-        set_state(DuckState::IS_RUNNING);
-    }
-    translate_x(RUN_STEP);
+void Player::log_action(const std::string& action) {
+    std::cout << "Player " << int(id) << " " << action << std::endl;
 }
-void Player::run_left() {
-    if (state != DuckState::IS_RUNNING) {
-        set_state(DuckState::IS_RUNNING);
-    }
-    translate_x(-RUN_STEP);
-}
-void Player::jump() {
-    if (state != DuckState::IS_JUMPING) {
-        set_state(DuckState::IS_JUMPING);
-    }
 
-    translate_y(JUMP_STEP);
+void Player::run_right(GamePhysics& physics) { state.run_right(*this, physics); }
+void Player::run_left(GamePhysics& physics) { state.run_left(*this, physics); }
+void Player::jump(GamePhysics& physics) { state.jump(*this, physics); }
+void Player::fall(GamePhysics& physics) { state.fall(*this, physics); }
+void Player::crouch(GamePhysics& physics) { state.crouch(*this, physics); }
+void Player::slip(GamePhysics& physics) { state.slip(*this, physics); }
+void Player::recoil(GamePhysics& physics) { state.recoil(*this, physics); }
+void Player::plane(GamePhysics& physics) { state.plane(*this, physics); }
+void Player::idle() { state.idle(*this); }
+void Player::die() {
+    health = 0;
+    state.die(*this);
 }
-void Player::fall() {
-    if (state != DuckState::IS_FALLING) {
-        set_state(DuckState::IS_FALLING);
-    }
-    translate_y(FALLING_STEP);
-}
-void Player::crouch() {
-    if (state != DuckState::IS_CROUCHING) {
-        set_state(DuckState::IS_CROUCHING);
-    }
-    // translate_y(1); // esto no deberia moverse
-}
-void Player::slip() { set_state(DuckState::IS_SLIPPING); }
-void Player::recoil() { set_state(DuckState::IS_RECOILING); }
-void Player::plane() { set_state(DuckState::IS_PLANING); }
-void Player::die() { set_state(DuckState::IS_DEAD); }
-void Player::idle() { set_state(DuckState::IS_IDLE); }
 
 uint8_t Player::get_id() const { return this->id; }
 Gun* Player::get_gun() { return inventory.get_gun(); }
 Armor* Player::get_armor() { return inventory.get_armor(); }
 Helmet* Player::get_helmet() { return inventory.get_helmet(); }
 Inventory& Player::get_inventory() { return inventory; }
-Direction Player::get_direction() { return look_direction; }
+Direction Player::get_direction() { return state.get_direction(); }
 
-void Player::translate() {}
-void Player::translate_x(int pasos) {  // cambiar la variable
-    if (pasos > 0) {
-        looks_right();
-    } else if (pasos < 0) {
-        looks_left();
+void Player::adjust_position_to_floor(Positionable* floor) {
+    if (floor) {
+
+        int player_bottom = space.get_y_max();
+        Rectangle floor_points = floor->get_rectangle();
+        int floor_top = floor_points.get_y_min();
+        int difference = player_bottom - floor_top;
+
+        if (difference < 1) {
+            translate_y(-(difference + 1));
+        } else {
+            translate_y(-(difference - 1));
+        }
     }
-
-    Rectangle new_pos(this->space.get_coordinates() + Coordinate(pasos * SPEED, 0, 0, 0));
-    this->space = new_pos;
 }
 
-void Player::translate_y(int pasos) {  // cambiar la variable
-    Rectangle new_pos(this->space.get_coordinates() + Coordinate(0, pasos * SPEED, 0, 0));
-    this->space = new_pos;
+void Player::translate_x(int pasos) {
+    int boost_speed = 1;
+    Positionable::translate_x(pasos*boost_speed);
+}
+
+void Player::translate_y(int pasos) {
+    int boost_speed = 1; // si queremos 
+    Positionable::translate_y(pasos*boost_speed);
 }
 
 Player& Player::operator=(const Player& _other) {
@@ -109,33 +76,37 @@ Player& Player::operator=(const Player& _other) {
 }
 
 void Player::equip(Equippable* item) { inventory.equip(item); }
+void Player::move_back(ShootingRecoil tiles) { (void)tiles; }
 
-void Player::move_back(ShootingRecoil tiles) {
-    // if(look_direction == Direction::LEFT){
-    //     translate_x()
-    // }
-    // else{
-    //     translate_x();
-    // }
+bool Player::is_jumping() { return state.is_jumping(); }
+bool Player::is_running() { return state.is_running(); }
+bool Player::is_falling() { return state.is_falling(); }
+bool Player::is_idle() { return state.is_idle(); }
+bool Player::is_dead() { return state.is_dead(); }
 
-    // esto tiene que ser de forma iterativa -> stado
+DuckStateType Player::get_state() { return state.get_state(); }
 
-    (void)tiles;
-}
+uint8_t Player::get_frame() { return state.get_frame(); }
 
-ListProjectiles Player::shoot() {
+void Player::shoot(ListProjectiles& projectiles, const ModeShoot& mode) {
     Gun* gun = inventory.get_gun();
     if (!gun) {
-        return ListProjectiles();
+        return;
     }
-
-    Coordinate actual_position = get_coordinate();
-    ShootingRecoil recoil;
-    ListProjectiles projectiles = gun->shoot(actual_position, recoil);
+    gun->set_coordinate(this->get_coordinate());
+    gun->set_direction(this->get_direction());
+    ShootingRecoil recoil = gun->get_recoil();
+    switch (mode)  {
+        case ModeShoot::TRIGGER:
+            gun->trigger(projectiles);
+            break;
+        case ModeShoot::TRIGGER_OUT:
+            gun->trigger_out(projectiles);
+            break;
+        default:
+            break;
+    }
     if ((int)recoil > 0) {  // is there recoil? yes -> it could be a function
         move_back(recoil);
     }
-    return projectiles;
 }
-
-// --------------------- STATE

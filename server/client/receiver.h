@@ -3,6 +3,7 @@
 
 #include <vector>
 
+#include "../../common/action_events.h"
 #include "../../common/queue.h"
 #include "../../common/thread.h"
 #include "../events/event_factory.h"
@@ -22,7 +23,7 @@ private:
     std::vector<EventFactory> factories;
 
     void init_factories();
-    void push_event(const uint8_t& _player_id, const uint8_t& _event_id);
+    void push_event(const uint8_t& _player_id, const ActionEvent& _event_id);
 
 
 public:
@@ -30,6 +31,7 @@ public:
                       VectorPlayerID& _players_id);
 
     void run() override;
+    ~Receiver();
 };
 
 #endif

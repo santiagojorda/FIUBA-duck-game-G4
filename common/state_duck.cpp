@@ -1,6 +1,10 @@
 #include "state_duck.h"
 
-std::unordered_map<DuckState, DuckStateInfo_t> duck_state_frames = {
-        {IS_JUMPING, {6}},   {IS_RUNNING, {6}}, {IS_CROUCHING, {1}},
-        {IS_RECOILING, {3}}, {IS_FALLING, {1}}, {IS_SLIPPING, {2}},
-        {IS_PLANING, {6}},   {IS_IDLE, {1}},    {IS_DEAD, {1}}};
+// se agrego la cantidad de ticks por frame
+
+std::unordered_map<DuckStateType, DuckStateInfo_t> duck_state_frames = {
+        {DuckStateType::JUMPING, {6}},   {DuckStateType::RUNNING, {6}},
+        {DuckStateType::CROUCHING, {1}}, {DuckStateType::RECOILING, {3}},
+        {DuckStateType::FALLING, {1}},   {DuckStateType::SLIPPING, {2}},
+        {DuckStateType::PLANNING, {6}},  {DuckStateType::IDLE, {1}},
+        {DuckStateType::DEAD, {8}}};

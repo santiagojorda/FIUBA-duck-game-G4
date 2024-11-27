@@ -2,37 +2,32 @@
 
 #include "../../common/weapons_id.h"
 
-#define WEAPON_INITIAL_X 1
-#define WEAPON_INITIAL_Y 47
+DrawerWeapon::DrawerWeapon(SDL2pp::Renderer& renderer, uint8_t texture_id,
+                           std::map<std::string, Animation>& animations):
+        Drawable(renderer, animations) {
+    this->type_animation =
+            texture_provider.get_weapon_texture(static_cast<WeaponTextureID>(texture_id));
+    std::string path = this->animations[this->type_animation].get_path();
+    this->texture = std::make_unique<SDL2pp::Texture>(renderer, DATA_PATH + path);
+}
 
-#define SIZE_WEAPON_SPRITE 32
-#define TILE_SIZE_WEAPON 10
+// TODO: agregarle un is_looking al arma que se muestra por pantalla tambien
+void DrawerWeapon::draw(const Coordinate& coordinate) {
+    // this->flip = static_cast<Direction>(is_looking) == Direction::LEFT;
+    this->coordenada_x = coordinate.get_x();
+    this->coordenada_y = coordinate.get_y();
+    this->scale_width = TILE_SIZE_WEAPON;
+    this->scale_height = TILE_SIZE_WEAPON;
+    this->render();
+}
 
-
-DrawerWeapon::DrawerWeapon(SDL2pp::Renderer& renderer, const sprite_t& weapon):
-        texture(renderer,
-                weapon_properties[static_cast<WeaponTextureID>(weapon.id_texture)].texturePath) {}
-
-void DrawerWeapon::draw(SDL2pp::Renderer& renderer, const sprite_t& weapon) {
-    auto& properties = weapon_properties[static_cast<WeaponTextureID>(weapon.id_texture)];
-
-    static std::map<WeaponTextureID, std::string> textures = {
-            {WeaponTextureID::GRANATE, DATA_PATH "/DuckGame-Grenades.png "},    // ok
-            {WeaponTextureID::BANANA, DATA_PATH "/DuckGame-Grenades.png "},     // ok
-            {WeaponTextureID::PEW_PEW_LASER, DATA_PATH "/DuckGame-Laser.png"},  // ok
-            {WeaponTextureID::LASER_RIFLE, DATA_PATH "/DuckGame-Laser.png"},    // ok
-            {WeaponTextureID::AK_47, DATA_PATH "/DuckGame-MachineGuns.png"},    // ok
-            {WeaponTextureID::DUELING_GUN,
-             DATA_PATH "/DuckGame-Pistol.png"},  // ????????? supongo que es la pistol
-            {WeaponTextureID::COWBOY_GUN, DATA_PATH "/DuckGame-Pistol.png"},  // ok
-            {WeaponTextureID::MAGNUM, DATA_PATH "/DuckGame-Pistol.png"},      // ok
-            {WeaponTextureID::SHOTGUN, DATA_PATH "/DuckGame-Props.png"},
-            {WeaponTextureID::SNIPER, DATA_PATH "/DuckGame-MoreWeapons.png"}  // ok
-    };
-
-    renderer.Copy(
-            texture,
-            SDL2pp::Rect(properties.src_x, properties.src_y, properties.width, properties.height),
-            SDL2pp::Rect(weapon.coordinate.get_x(), weapon.coordinate.get_y(), TILE_SIZE_WEAPON,
-                         TILE_SIZE_WEAPON));
+void DrawerWeapon::draw_inventory(const Coordinate& coordinate, uint8_t is_looking) {
+    auto config = this->animations.at(this->type_animation).get_config_screen();
+    this->flip = static_cast<Direction>(is_looking) == Direction::LEFT;
+    this->scale_width = config.scale_width;
+    this->scale_height = config.scale_height;
+    this->coordenada_x = this->flip ? coordinate.get_x() + config.offset_left_x :
+                                      coordinate.get_x() + config.offset_right_x;
+    this->coordenada_y = coordinate.get_y() + config.offset_y - OFFSET_Y_DUCK;
+    this->render();
 }
