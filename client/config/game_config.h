@@ -5,6 +5,7 @@
 #define TILE_SIZE 50
 #define TILE_SIZE_WEAPON 50
 #define TILE_SIZE_ALA 22
+#define ANIMATION_WINGS "wings_weapon"
 
 #define UNIQUE_FRAME 0
 

@@ -145,7 +145,6 @@ void Drawer::run() try {
         renderer.Present();
 
         sleep.sleep_rate(iteration);
-
         SDL_Event event;
         keyboard_controller.procesar_comando(event);
     }

@@ -27,12 +27,7 @@ void DrawerPlayer::draw(const player_t& player) {
     this->frame = static_cast<int>(player.frame);
     this->type_animation =
             texture_provider.get_duck_action_texture(static_cast<DuckStateType>(player.state));
-    /**
-    this->type_animation = "dead";
-    
-    if (type_animation == "dead") {
-        this->frame = this->frame % 3;
-    } */
+
     this->render();
 
     if (static_cast<int>(player.inventory.weapon) != 0) {
@@ -62,10 +57,11 @@ void DrawerPlayer::update_helmet(const player_t& player) {
 }
 
 void DrawerPlayer::update_wings() {
-    this->scale_height = TILE_SIZE_ALA;
-    this->scale_width = TILE_SIZE_ALA;
-    this->coordenada_x += flip ? 16 : 12;
-    this->coordenada_y += 15;
-    this->type_animation = "wings_weapon";
+    this->type_animation = ANIMATION_WINGS;
+    auto config = this->animations.at(this->type_animation).get_config_screen();
+    this->scale_height = config.scale_height;
+    this->scale_width = config.scale_width;
+    this->coordenada_x += flip ? config.offset_left_x : config.offset_right_x;
+    this->coordenada_y += config.offset_y;
     render();
 }

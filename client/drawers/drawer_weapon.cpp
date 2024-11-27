@@ -21,7 +21,6 @@ void DrawerWeapon::draw(const Coordinate& coordinate) {
     this->render();
 }
 
-
 void DrawerWeapon::draw_inventory(const Coordinate& coordinate, uint8_t is_looking) {
     auto config = this->animations.at(this->type_animation).get_config_screen();
     this->flip = static_cast<Direction>(is_looking) == Direction::LEFT;
