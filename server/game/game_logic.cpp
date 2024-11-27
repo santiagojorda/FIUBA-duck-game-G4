@@ -80,17 +80,8 @@ Player& GameLogic::get_player(const uint8_t& _player_id) {
     throw std::runtime_error("Player con ID no encontrado");
 }
 
-void GameLogic::handle_event(const uint8_t& player_id, Event& event) {
-    try {
-        Player& player = get_player(player_id);
-        if (player.is_dead()) {
-            return;
-        }
-        
-        event.execute(player, *this);
-    } catch (const std::exception& e) {
-        std::cerr << "No existe player de id " << int(player_id) << ": " << e.what()<< std::endl;
-    }
+void GameLogic::handle_event(Event& event) {
+    event.execute(*this);
 }
 
 ListProjectiles& GameLogic::get_projectiles() { return projectiles;}

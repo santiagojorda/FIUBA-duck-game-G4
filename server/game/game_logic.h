@@ -21,7 +21,6 @@ private:
     ListGuns& guns;
     ListProjectiles& projectiles;
     GamePhysics physics;
-    Player& get_player(const uint8_t& player_id);
     void update_player_equip_collision(Player& player);
     void update_players();
     void update_projectiles();
@@ -29,10 +28,11 @@ private:
 public:
     explicit GameLogic(ListPlayers& _players, Map& _map, ListGuns& _guns,
                        ListProjectiles& _projectiles);
-    void handle_event(const uint8_t& player_id, Event& event);
+    void handle_event(Event& event);
     void update();
     ListProjectiles& get_projectiles();
     GamePhysics& get_physics();
+    Player& get_player(const uint8_t& player_id);
 
     ~GameLogic();
 };

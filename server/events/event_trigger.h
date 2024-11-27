@@ -7,7 +7,7 @@ class EventTrigger: public Event {
 public:
     explicit EventTrigger(uint8_t& _player_id);
 
-    virtual void execute(Player& player, GameLogic& game_logic) override; 
+    virtual void execute(GameLogic& game_logic) override; 
     ~EventTrigger();
 };
 
