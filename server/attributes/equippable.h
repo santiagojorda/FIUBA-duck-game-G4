@@ -3,11 +3,15 @@
 
 #include <cstdint>
 #include <memory>
+#include "positionable.h"
+#include "../../common/coordinate.h"
 
 class Inventory;
 
-class Equippable {
+class Equippable: public Positionable {
 public:
+    Equippable() : Positionable() {}
+    explicit Equippable(const uint8_t& _texture_id, const Coordinate& _coordinate) : Positionable(_texture_id, _coordinate) {}
     virtual void equip(Inventory& inventory) = 0;
     virtual ~Equippable() {}
 };

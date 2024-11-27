@@ -7,27 +7,34 @@
 #include "../../common/state_duck.h"
 
 
-GameLogic::GameLogic(ListPlayers& _players, Map& _map, ListGuns& _guns,
+GameLogic::GameLogic(ListPlayers& _players, Map& _map, ListItemsMap& _items,
                      ListProjectiles& _projectiles):
         players(_players),
         map(_map),
-        guns(_guns),
+        items(_items),
         projectiles(_projectiles),
         physics(map) {}
 
 void GameLogic::update_player_equip_collision(Player& player) {
 
     // deberiamos chequear armas, armors y helmets
-    for (std::shared_ptr<Gun> gun: guns.get_items()) {
-        if (this->physics.exist_collision(player.get_rectangle(), gun->get_rectangle())) {
-            player.equip(gun);
+    for (std::shared_ptr<Equippable> item: items.get_items()) {
+        if (this->physics.exist_collision(player.get_rectangle(), item->get_rectangle())) {
+            player.equip(item);
+
+            std::shared_ptr<Gun> gun = std::dynamic_pointer_cast<Gun>(item);
             if(gun == player.get_gun()){
-                guns.remove(gun);
+                items.remove(item);
             }
             return;
         }
     }
 }
+
+void GameLogic::handle_drop(std::shared_ptr<Equippable> item){
+    items.add(item);
+}
+
 
 void GameLogic::update_projectiles(){
     for (std::shared_ptr<Projectile> projectile: projectiles.get_items()){

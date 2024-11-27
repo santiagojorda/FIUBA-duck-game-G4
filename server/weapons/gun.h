@@ -26,7 +26,7 @@ struct  gun_config{
 };
 
 
-class Gun: public Positionable, public Equippable, public Directionable, public std::enable_shared_from_this<Gun> {
+class Gun: public Equippable, public Directionable, public std::enable_shared_from_this<Gun> {
 protected:
     // cppcheck-suppress unusedStructMember
     uint8_t max_ammo;

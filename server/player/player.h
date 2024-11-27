@@ -6,13 +6,14 @@
 #include "../../common/direction.h"
 #include "../attributes/equippable.h"
 #include "../attributes/positionable.h"
-#include "../game/game_physics.h"
 #include "../weapons/gun.h"
 #include "../weapons/list_projectiles.h"
 #include "../player/inventory.h"
 // #include "duck_state_controller.h"
 #include "duck_state_controller.h"
 #include "../weapons/mode_shoot.h"
+
+class GameLogic;
 
 class Player: public Positionable {
 private:
@@ -55,9 +56,9 @@ public:
     void plane(GamePhysics& physics);
     void die();
     void idle();
-    void drop_gun(GamePhysics& physics);
-    void drop_armor(GamePhysics& physics);
-    void drop_helmet(GamePhysics& physics);
+    void drop_gun(GameLogic& game_logic);
+    void drop_armor();
+    void drop_helmet();
 
     bool is_jumping();
     bool is_running();

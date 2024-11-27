@@ -2,8 +2,8 @@
 #define INVENTORY
 
 #include "../attributes/equippable.h"
-#include "../game/game_physics.h"
 
+class GameLogic;
 class Gun;
 class Armor;
 class Helmet;
@@ -25,9 +25,9 @@ public:
     std::shared_ptr<Gun> get_gun();
     std::shared_ptr<Armor> get_armor();
     std::shared_ptr<Helmet> get_helmet();
-    void drop_gun(GamePhysics& physics);
-    void drop_armor(GamePhysics& physics);
-    void drop_helmet(GamePhysics& physics);
+    void drop_gun(GameLogic& game_logic);
+    void drop_armor();
+    void drop_helmet();
     // void drop_item(std::shared_ptr<Positionable> item, GamePhysics physics);
 
     ~Inventory();

@@ -17,9 +17,9 @@ Game::Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEvents& 
            QueueGameState& _queue_gamestate):
         players(_players),
         map(),
-        map_guns(),
+        map_items(),
         map_projectiles(),
-        game_logic(players, map, map_guns, map_projectiles),
+        game_logic(players, map, map_items, map_projectiles),
         monitor_client(_monitor_client),
         queue_events(_queue_events),
         queue_gamestate(_queue_gamestate) {
@@ -35,10 +35,11 @@ void charge_ponits(ListPlayers& players, std::vector<Coordinate>& points) {
     }
 }
 
-void charge_weapons(ListGuns& guns, std::list<data_weapon>& data_weapons) {
+void charge_weapons(ListItemsMap& items, std::list<data_weapon>& data_weapons) {
     GunFactory factory;
     for (auto& weapon: data_weapons) {
-        guns.add(factory.create_gun(weapon.id, weapon.coordinate));
+        std::shared_ptr<Equippable> new_item = factory.create_gun(weapon.id, weapon.coordinate);
+        items.add(new_item);
     }
 }
 
@@ -52,7 +53,7 @@ void Game::load_map() {
         deserialize.load_inicial_points(points);
         deserialize.load_weapons(data_weapons);
         charge_ponits(this->players, points);
-        charge_weapons(this->map_guns, data_weapons);
+        charge_weapons(this->map_items, data_weapons);
     } catch (const std::exception& e) {
         std::cerr << "error map.yaml: " << e.what() << '\n';
     } catch (...) {
@@ -73,7 +74,7 @@ void Game::execute_new_events() {
 
 void Game::broadcast_gamestate() { monitor_client.broadcast(get_gamestate()); }
 
-GameState_t Game::get_gamestate() { return GameState_t{players, map, map_guns, map_projectiles}; }
+GameState_t Game::get_gamestate() { return GameState_t{players, map, map_items, map_projectiles}; }
 
 void Game::run() {
     SleepSpecial sleep(MILISECONDS_30_FPS);

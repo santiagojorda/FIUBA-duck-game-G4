@@ -6,7 +6,7 @@
 Gun::Gun(const WeaponTextureID& _texture_id, const uint8_t& _max_ammo,
          const ShootingRecoil& _recoil, const ProjectileRange& _projectile_range,
          const Coordinate& _coordinate, uint8_t _delay_shoot):
-        Positionable((uint8_t)_texture_id, _coordinate),
+        Equippable((uint8_t)_texture_id, _coordinate),
         Directionable(Direction::RIGHT),
         max_ammo(_max_ammo),
         ammo(_max_ammo),
@@ -17,7 +17,7 @@ Gun::Gun(const WeaponTextureID& _texture_id, const uint8_t& _max_ammo,
         {}
 
 Gun::Gun(const gun_config& _config, const Coordinate& _coordinate) : 
-        Positionable((uint8_t)_config.id, _coordinate),
+        Equippable((uint8_t)_config.id, _coordinate),
         Directionable(Direction::RIGHT),
         max_ammo(_config.max_ammo),
         ammo(_config.max_ammo),

@@ -4,6 +4,7 @@
 
 #include "../../common/state_duck.h"
 #include "../weapons/gun.h"
+#include "../game/game_logic.h"
 
 const int SPEED = 1;
 #define RUN_STEP 10
@@ -46,15 +47,15 @@ void Player::update_gun_position(){
     gun->set_direction(this->get_direction());
 }
 
-void Player::drop_gun(GamePhysics& physics){ 
+void Player::drop_gun(GameLogic& game_logic){ 
     update_gun_position();
-    inventory.drop_gun(physics); 
+    inventory.drop_gun(game_logic); 
 }
-void Player::drop_armor(GamePhysics& physics){ 
-    inventory.drop_armor(physics); 
+void Player::drop_armor(){ 
+    inventory.drop_armor(); 
 }
-void Player::drop_helmet(GamePhysics& physics){ 
-    inventory.drop_helmet(physics); 
+void Player::drop_helmet(){ 
+    inventory.drop_helmet(); 
 }
 
 uint8_t Player::get_id() const { return this->id; }

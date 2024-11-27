@@ -24,10 +24,6 @@ std::shared_ptr<Positionable> GamePhysics::get_player_floor_collision(Player& pl
     return nullptr;
 }
 
-void GamePhysics::handle_drop(std::shared_ptr<Positionable> item){
-    (void)item;
-}
-
 
 bool GamePhysics::is_player_out_of_map(Player& player) {
     Rectangle player_space = player.get_rectangle();

@@ -102,11 +102,11 @@ void ProtocolServer::send_scenario_state(GameState_t& state) {
 }
 
 void ProtocolServer::send_map_guns_state(GameState_t& state) {
-    uint8_t count_map_guns = state.map_guns.size();
-    send_byte(count_map_guns);
-    for (std::shared_ptr<Gun> gun: state.map_guns.get_items()) {
-        send_byte(gun->get_texture_id());         // texture_id
-        send_coordinates(gun->get_coordinate());  // posicion del escenario
+    uint8_t count_map_items = state.map_items.size();
+    send_byte(count_map_items);
+    for (std::shared_ptr<Equippable> item: state.map_items.get_items()) {
+        send_byte(item->get_texture_id());         // texture_id
+        send_coordinates(item->get_coordinate());  // posicion del escenario
     }
 }
 
