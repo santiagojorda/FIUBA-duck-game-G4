@@ -5,7 +5,7 @@
 
 Gun::Gun(const WeaponTextureID& _texture_id, const uint8_t& _max_ammo,
          const ShootingRecoil& _recoil, const ProjectileRange& _projectile_range,
-         const Coordinate& _coordinate, uint8_t _daley_shoot):
+         const Coordinate& _coordinate, uint8_t _delay_shoot):
         Positionable((uint8_t)_texture_id, _coordinate),
         Directionable(Direction::RIGHT),
         max_ammo(_max_ammo),
@@ -13,7 +13,7 @@ Gun::Gun(const WeaponTextureID& _texture_id, const uint8_t& _max_ammo,
         dispersion(INITIAL_DISPERSION),
         recoil(_recoil),
         projectile_range(_projectile_range),
-        delay_counter(_daley_shoot)
+        delay_counter(_delay_shoot)
         {}
 
 Gun::Gun(const gun_config& _config, const Coordinate& _coordinate) : 
@@ -24,7 +24,7 @@ Gun::Gun(const gun_config& _config, const Coordinate& _coordinate) :
         dispersion(INITIAL_DISPERSION),
         recoil(_config.recoil),
         projectile_range(_config.range),
-        delay_counter(_config.daley_shoot)
+        delay_counter(_config.delay_shoot)
         {}
 
 void Gun::equip(Inventory& inventory) { inventory.equip(shared_from_this()); };

@@ -13,6 +13,19 @@
 
 #define MILISECONDS_30_FPS 33
 
+Game::Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEventPlayer& _queue_event,
+           QueueGameState& _queue_gamestate):
+        players(_players),
+        map(),
+        map_guns(),
+        map_projectiles(),
+        game_logic(players, map, map_guns, map_projectiles),
+        monitor_client(_monitor_client),
+        queue_event(_queue_event),
+        queue_gamestate(_queue_gamestate) {
+    this->load_map();
+}
+
 void charge_ponits(ListPlayers& players, std::vector<Coordinate>& points) {
     int i = 0;
     for (Player& player: players) {
@@ -47,25 +60,11 @@ void Game::load_map() {
     }
 }
 
-
-Game::Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEventPlayer& _queue_event,
-           QueueGameState& _queue_gamestate):
-        players(_players),
-        map(),
-        map_guns(),
-        map_projectiles(),
-        game_logic(players, map, map_guns, map_projectiles),
-        monitor_client(_monitor_client),
-        queue_event(_queue_event),
-        queue_gamestate(_queue_gamestate) {
-    this->load_map();
-}
-
 void Game::execute_new_events() {
     std::shared_ptr<EventPlayer> event = nullptr;
     while (queue_event.try_pop(event)) {
         if (event != nullptr) {
-            event->execute(game_logic);
+            event->start(game_logic);
         }
         // delete event;
         event = nullptr;

@@ -5,10 +5,10 @@
 
 class EventMoveRight: public EventPlayer {
 public:
-    explicit EventMoveRight(uint8_t& _player_id) : EventPlayer(_player_id, ActionEvent::MOVE_RIGHT){}
+    explicit EventMoveRight(uint8_t& _player_id);
 
-    ~EventMoveRight() {};
+    virtual void execute(Player& player, GameLogic& game_logic) override; 
+    ~EventMoveRight();
 };
 
-
-#endif  // EVENT_MOVE_RIGHT_H
+#endif

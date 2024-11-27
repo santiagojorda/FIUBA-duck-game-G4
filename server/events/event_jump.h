@@ -5,9 +5,10 @@
 
 class EventJump: public EventPlayer {
 public:
-    explicit EventJump(uint8_t& _player_id) : EventPlayer(_player_id, ActionEvent::JUMP){}
+    explicit EventJump(uint8_t& _player_id);
 
-    ~EventJump() {};
+    virtual void execute(Player& player, GameLogic& game_logic) override;
+    ~EventJump();
 };
 
 #endif 

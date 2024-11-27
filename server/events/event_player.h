@@ -16,7 +16,9 @@ protected:
 public:
     explicit EventPlayer(uint8_t& player_id, const ActionEvent& _action_event);
 
-    virtual void execute(GameLogic& game_logic);
+    virtual void start(GameLogic& game_logic);
+    
+    virtual void execute(Player& player, GameLogic& game_logic) = 0; 
 
     virtual ~EventPlayer();
 };

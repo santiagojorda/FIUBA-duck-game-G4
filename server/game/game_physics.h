@@ -4,6 +4,13 @@
 #include "../../common/coordinate.h"
 #include "../attributes/positionable.h"
 #include "../map/map.h"
+class Player;
+// #include "../player/player.h"
+
+#define GAME_WIDTH 800
+#define GAME_HEIGHT 500
+#define IS_TOUCHING_FLOOR true
+const int G_FORCE = 10;
 
 class GamePhysics {
 private:
@@ -11,6 +18,9 @@ private:
 
 public:
     GamePhysics(Map& _map);
+    void update_player_gravity(Player& player);
+    bool is_player_out_of_map(Player& player);
+    std::shared_ptr<Positionable> get_player_floor_collision(Player& player);
 
     /*
     // a esta tocando a target  (en la misma recta horizontal )

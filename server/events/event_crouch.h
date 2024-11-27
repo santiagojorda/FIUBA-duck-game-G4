@@ -5,9 +5,10 @@
 
 class EventCrouch: public EventPlayer {
 public:
-    explicit EventCrouch(uint8_t& _player_id) : EventPlayer(_player_id, ActionEvent::CROUCH){}
+    explicit EventCrouch(uint8_t& _player_id);
 
-    ~EventCrouch() {};
+    virtual void execute(Player& player, GameLogic& game_logic) override; 
+    ~EventCrouch();
 };
 
 #endif 

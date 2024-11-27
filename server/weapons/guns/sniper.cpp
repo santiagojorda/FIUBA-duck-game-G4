@@ -3,13 +3,10 @@
 #include "../projectiles/bullet.h"
 
 
-gun_config sniper_config  {WeaponTextureID::SNIPER, 6, ShootingRecoil::NONE,
-                           ProjectileRange::MAX,  1,  20};
+gun_config sniper_config{WeaponTextureID::SNIPER, 6, ShootingRecoil::NONE,
+                         ProjectileRange::MAX,    1, 20};
 
-Sniper::Sniper(const Coordinate& _coordinate):
-        Gun(sniper_config,
-            _coordinate),
-        blocked(false) {}
+Sniper::Sniper(const Coordinate& _coordinate): Gun(sniper_config, _coordinate), blocked(false) {}
 
 void Sniper::trigger(ListProjectiles& projectiles) {
     if (!this->blocked) {

@@ -11,13 +11,11 @@ struct ShotgunConfig {
     uint8_t count_projectiles_x_shoot = 1;
 };
 
-gun_config shotgun_config {WeaponTextureID::SHOTGUN, 2, ShootingRecoil::NONE,
-                           ProjectileRange::LARGE,  1,  1};
+gun_config shotgun_config{WeaponTextureID::SHOTGUN, 2, ShootingRecoil::NONE,
+                          ProjectileRange::LARGE,   1, 1};
 
 Shotgun::Shotgun(const Coordinate& _coordinate):
-        Gun(shotgun_config,
-            _coordinate),
-        reloaded(false) {}
+        Gun(shotgun_config, _coordinate), reloaded(false) {}
 
 
 void Shotgun::trigger(ListProjectiles& projectiles) {

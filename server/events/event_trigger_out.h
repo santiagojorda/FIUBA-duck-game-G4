@@ -5,9 +5,10 @@
 
 class EventTriggerOut: public EventPlayer {
 public:
-    explicit EventTriggerOut(uint8_t& _player_id) : EventPlayer(_player_id, ActionEvent::TRIGGER_OUT){}
+    explicit EventTriggerOut(uint8_t& _player_id);
 
-    ~EventTriggerOut() {};
+    virtual void execute(Player& player, GameLogic& game_logic) override; 
+    ~EventTriggerOut();
 };
 
 

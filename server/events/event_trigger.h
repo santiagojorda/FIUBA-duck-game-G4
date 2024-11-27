@@ -5,9 +5,10 @@
 
 class EventTrigger: public EventPlayer {
 public:
-    explicit EventTrigger(uint8_t& _player_id) : EventPlayer(_player_id, ActionEvent::TRIGGER){}
+    explicit EventTrigger(uint8_t& _player_id);
 
-    ~EventTrigger() {};
+    virtual void execute(Player& player, GameLogic& game_logic) override; 
+    ~EventTrigger();
 };
 
 

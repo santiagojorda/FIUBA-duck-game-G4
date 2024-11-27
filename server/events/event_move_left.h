@@ -5,9 +5,10 @@
 
 class EventMoveLeft: public EventPlayer {
 public:
-    explicit EventMoveLeft(uint8_t& _player_id) : EventPlayer(_player_id, ActionEvent::MOVE_LEFT){}
+    explicit EventMoveLeft(uint8_t& _player_id);
 
-    ~EventMoveLeft() {};
+    virtual void execute(Player& player, GameLogic& game_logic) override; 
+    ~EventMoveLeft();
 };
 
 #endif

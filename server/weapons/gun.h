@@ -22,7 +22,7 @@ struct  gun_config{
     ShootingRecoil recoil;
     ProjectileRange range;
     uint8_t count_projectiles_x_shoot;
-    uint8_t daley_shoot;
+    uint8_t delay_shoot;
 };
 
 
@@ -42,7 +42,7 @@ public:
 
     explicit Gun(const WeaponTextureID& _texture_id, const uint8_t& _max_ammo,
                     const ShootingRecoil& _recoil, const ProjectileRange& _projectile_range,
-                    const Coordinate& _coordinate, uint8_t _daley_shoot);
+                    const Coordinate& _coordinate, uint8_t _delay_shoot);
     
     Gun(const gun_config& _config, const Coordinate& _coordinate);
 

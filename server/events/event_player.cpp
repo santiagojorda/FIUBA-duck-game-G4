@@ -8,10 +8,10 @@ EventPlayer::EventPlayer(uint8_t& _player_id, const ActionEvent& _action_event)
     {}
 
 
-void EventPlayer::execute(GameLogic& game_logic) {
-    game_logic.handle_event(player_id, action_event);
+void EventPlayer::start(GameLogic& game_logic) {
+    game_logic.handle_event(player_id, *this);
 }
 
 EventPlayer::~EventPlayer() {
-    std::cout << "Se elimino action eventn de " << (int)player_id << std::endl;
+    std::cout << "Se elimino action evento de player: " << (int)player_id << std::endl;
 }
