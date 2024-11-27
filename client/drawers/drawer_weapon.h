@@ -17,7 +17,6 @@
 #include "../textures/textures.h"
 
 #include "drawable.h"
-#include "weapon_properties.h"
 
 class DrawerWeapon: public Drawable<AnimationWeapon> {
 private:

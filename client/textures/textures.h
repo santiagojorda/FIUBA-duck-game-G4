@@ -29,8 +29,7 @@ enum class TextureDucks {
 
 enum class InventoryDuck {
     HAS_ARMOR = 1,
-    HAS_WEAPON,
-    WINGS,
+    HAS_HELMET = 1,
 };
 
 static std::map<TextureDucks, std::string> textures_ducks = {
@@ -50,9 +49,10 @@ static std::map<DuckStateType, std::string> textures_action_ducks = {
         {DuckStateType::IDLE, "idle"},
         {DuckStateType::DEAD, "dead"}};
 
-/*
-static std::map<uint8_t, std::string> textures_equipment_ducks = {
+
+static std::map<InventoryDuck, std::string> textures_equipment_ducks = {
         {InventoryDuck::HAS_ARMOR, "has_armor"},
-        {InventoryDuck::HAS_WEAPON, "has_weapon"},
-        {InventoryDuck::WINGS, "wings"}};*/
+        {InventoryDuck::HAS_HELMET, "has_helmet"},
+};
+
 #endif  // TEXTURES_H

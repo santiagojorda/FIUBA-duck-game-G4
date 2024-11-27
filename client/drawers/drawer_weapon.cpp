@@ -2,8 +2,6 @@
 
 #include "../../common/weapons_id.h"
 
-#define UNIQUE_FRAME 0
-
 DrawerWeapon::DrawerWeapon(SDL2pp::Renderer& renderer, uint8_t texture_id,
                            std::map<std::string, AnimationWeapon>& animations):
         Drawable<AnimationWeapon>(renderer, animations), type_weapon("") {

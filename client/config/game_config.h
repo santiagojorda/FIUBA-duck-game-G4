@@ -4,6 +4,9 @@
 // Tamaño tile por default en pantalla
 #define TILE_SIZE 50
 #define TILE_SIZE_WEAPON 50
+#define TILE_SIZE_ALA 22
+
+#define UNIQUE_FRAME 0
 
 /* Se le agrega este offset para que el pato se vea bien, tocando el piso */
 #define OFFSET_Y_DUCK 12

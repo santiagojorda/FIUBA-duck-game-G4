@@ -41,7 +41,7 @@ Drawable<AnimationType>::Drawable(SDL2pp::Renderer& renderer,
                                   std::map<std::string, AnimationType>& animations, bool flip):
         renderer(renderer),
         texture(std::move(texture)),
-        flip(flip),
+        flip(flip),  //  siempre le paso algo por parámetro en el draw que actualiza el valor
         animations(animations),
         coordenada_x(0),
         coordenada_y(0),
@@ -49,7 +49,6 @@ Drawable<AnimationType>::Drawable(SDL2pp::Renderer& renderer,
         scale_height(0),
         frame(0) {}
 
-// Constructor solo con animaciones
 template <typename AnimationType>
 Drawable<AnimationType>::Drawable(SDL2pp::Renderer& renderer,
                                   std::map<std::string, AnimationType>& animations, bool flip):

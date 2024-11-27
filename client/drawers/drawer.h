@@ -33,6 +33,7 @@ struct drawers_t {
 struct animations_t {
     std::map<std::string, Animation> animation_duck;
     std::map<std::string, AnimationWeapon> animation_weapon;
+    std::map<std::string, AnimationWeapon> animation_armor;
 };
 
 class Drawer {

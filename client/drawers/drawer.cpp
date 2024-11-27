@@ -35,6 +35,9 @@ void Drawer::run() try {
             AnimationLoader::load_animations<Animation>(ANIMATION_PATH "/duck.yaml");
     animations.animation_weapon =
             AnimationLoader::load_animations<AnimationWeapon>(ANIMATION_PATH "/weapon.yaml");
+    animations.animation_armor =
+            AnimationLoader::load_animations<AnimationWeapon>(ANIMATION_PATH "/armor.yaml");
+
     // desde el LOBBY ya le di a startear game, por lo tanto no necesito darle a la "m", de entrada
     // recibo la data lo traigo para acá así no hay drama
 
