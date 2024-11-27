@@ -12,31 +12,33 @@
 #include "../animation/animation_loader.h"
 #include "../config/game_config.h"
 #include "../game_state/player.h"
-#include "../textures/textures.h"
+#include "../textures/texture_provider.h"
 
 #include "drawable.h"
 #include "drawer_equipment.h"
 #include "drawer_weapon.h"
 
-class DrawerPlayer: public Drawable<Animation> {
+class DrawerPlayer: public Drawable {
 private:
-    void update_animation(const std::string& type_animation);
+    std::map<std::string, Animation>& animation_weapon;
+    std::map<std::string, Animation>& animation_armor;
 
-    void update_weapon(const player_t& _player, std::map<std::string, AnimationWeapon>& animation);
+    void update_weapon(const player_t& _player);
+
+    void update_armor(const player_t& player);
+
+    void update_helmet(const player_t& player);
 
     void update_wings();
 
-    void update_equipment(const player_t& player,
-                          std::map<std::string, AnimationWeapon>& animation_armor,
-                          const InventoryDuck& type);
 
 public:
     DrawerPlayer(SDL2pp::Renderer& renderer, uint8_t texture_id,
-                 std::map<std::string, Animation>& animations, uint8_t is_looking);
+                 std::map<std::string, Animation>& animations,
+                 std::map<std::string, Animation>& animation_weapon,
+                 std::map<std::string, Animation>& animation_armor);
 
-    void draw(const player_t& player,
-                        std::map<std::string, AnimationWeapon>& animation_weapon,
-                        std::map<std::string, AnimationWeapon>& animation_armor);
+    void draw(const player_t& player);
 };
 
 #endif  // DRAWER_PLAYER_H

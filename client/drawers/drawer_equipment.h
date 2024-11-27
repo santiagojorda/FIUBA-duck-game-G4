@@ -13,19 +13,18 @@
 #include "../animation/animation_loader.h"
 #include "../config/game_config.h"
 #include "../game_state/player.h"
-#include "../textures/textures.h"
 
 #include "drawable.h"
 
-class DrawerEquipment: public Drawable<AnimationWeapon> {
+class DrawerEquipment: public Drawable {
 private:
     void update_animation(const std::string& type_animation);
 
 public:
     DrawerEquipment(SDL2pp::Renderer& renderer, uint8_t texture_id,
-                                 std::map<std::string, AnimationWeapon>& animations);
+                    std::map<std::string, Animation>& animations);
 
-    void draw(const player_t& player, const std::string& type_animation);
+    void draw(const player_t& player, bool frame_change = false);
 };
 
 #endif  // DRAWER_EQUIPMENT_H

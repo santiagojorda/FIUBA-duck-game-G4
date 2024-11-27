@@ -1,11 +1,18 @@
 idle:
+  texture: "/DuckGame-YellowDuck.png"
   rects:
     - x: 1
       y: 11
       w: 32
       h: 32
+  offset_right_x: 0
+  offset_left_x: 0
+  offset_y: 0
+  scale_width: 0
+  scale_height: 0
 
 running:
+  texture: "/DuckGame-YellowDuck.png"
   rects:
     - x: 1
       y: 11
@@ -31,15 +38,27 @@ running:
       y: 11
       w: 32
       h: 32
+  offset_right_x: 0
+  offset_left_x: 0
+  offset_y: 0
+  scale_width: 0
+  scale_height: 0
 
 crouching:
+  texture: "/DuckGame-YellowDuck.png"
   rects:
     - x: 161
       y: 43
       w: 32
       h: 32
+  offset_right_x: 0
+  offset_left_x: 0
+  offset_y: 0
+  scale_width: 0
+  scale_height: 0
 
 jumping:
+  texture: "/DuckGame-YellowDuck.png"
   rects:
     - x: 1
       y: 43
@@ -65,15 +84,27 @@ jumping:
       y: 11
       w: 32
       h: 32
+  offset_right_x: 0
+  offset_left_x: 0
+  offset_y: 0
+  scale_width: 0
+  scale_height: 0
 
 falling:
+  texture: "/DuckGame-YellowDuck.png"
   rects:
     - x: 99
       y: 43
       w: 32
       h: 32
+  offset_right_x: 0
+  offset_left_x: 0
+  offset_y: 0
+  scale_width: 0
+  scale_height: 0
 
 wings_weapon:
+  texture: "/DuckGame-YellowDuck.png"
   rects:
     - x: 1
       y: 566
@@ -99,3 +130,8 @@ wings_weapon:
       y: 566
       w: 16
       h: 16
+  offset_right_x: 0
+  offset_left_x: 0
+  offset_y: 0
+  scale_width: 0
+  scale_height: 0
