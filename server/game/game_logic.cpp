@@ -16,10 +16,14 @@ GameLogic::GameLogic(ListPlayers& _players, Map& _map, ListGuns& _guns,
         physics(map) {}
 
 void GameLogic::update_player_equip_collision(Player& player) {
+
+    // deberiamos chequear armas, armors y helmets
     for (std::shared_ptr<Gun> gun: guns.get_items()) {
-        if (this->physics.collision(player.get_rectangle(), gun->get_rectangle())) {
+        if (this->physics.exist_collision(player.get_rectangle(), gun->get_rectangle())) {
             player.equip(gun);
-            guns.remove(gun);
+            if(gun == player.get_gun()){
+                guns.remove(gun);
+            }
             return;
         }
     }
@@ -39,7 +43,6 @@ void GameLogic::update_projectiles(){
     
 }
 
-
 void GameLogic::update(){
 
     update_projectiles();
@@ -54,7 +57,6 @@ void GameLogic::update_players() {
             continue;
         }
 
-        player.update(physics);
 
         if (physics.is_player_out_of_map(player)) {
             player.die();
@@ -62,6 +64,7 @@ void GameLogic::update_players() {
         }
 
         else {
+            player.update(physics);
             if (!player.is_jumping()) {
                 physics.update_player_gravity(player);
             }
@@ -80,9 +83,7 @@ Player& GameLogic::get_player(const uint8_t& _player_id) {
     throw std::runtime_error("Player con ID no encontrado");
 }
 
-void GameLogic::handle_event(Event& event) {
-    event.execute(*this);
-}
+void GameLogic::handle_event(Event& event) { event.execute(*this);}
 
 ListProjectiles& GameLogic::get_projectiles() { return projectiles;}
 GamePhysics& GameLogic::get_physics() { return physics;}

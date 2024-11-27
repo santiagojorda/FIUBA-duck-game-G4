@@ -54,7 +54,7 @@ public:
     /*
     // a y b comparten espacio en algun punto
     */
-    bool collision(const Rectangle& a, const Rectangle& b);
+    bool exist_collision(const Rectangle& a, const Rectangle& b);
 
     void falling(Positionable& target, uint iter_frame);
 
