@@ -15,7 +15,7 @@ DrawerPlayer::DrawerPlayer(SDL2pp::Renderer& renderer, uint8_t texture_id,
         animation_armor(animation_armor) {
     std::string path =
             this->texture_provider.get_duck_texture(static_cast<TextureDucks>(texture_id));
-    this->texture = std::make_unique<SDL2pp::Texture>(renderer, DATA_PATH + path);
+    this->texture = std::make_unique<SDL2pp::Texture>(renderer, path);
 }
 
 void DrawerPlayer::draw(const player_t& player) {
@@ -34,7 +34,7 @@ void DrawerPlayer::draw(const player_t& player) {
         this->update_wings();
     }
 
-    this->update_armor(player);
+    // this->update_armor(player);
 }
 
 void DrawerPlayer::update_weapon(const player_t& player) {
