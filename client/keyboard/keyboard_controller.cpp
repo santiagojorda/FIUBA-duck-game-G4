@@ -109,7 +109,8 @@ void KeyboardController::procesar_accion_player_1(const Uint8* state) {
         this->commands.push(client_event);
     }
     if (state[SDL_SCANCODE_E]) {
-        std::cout << "Tomar/soltar objeto" << std::endl;
+        client_event = {PLAYER_1, ActionEvent::DROP_GUN};
+        this->commands.push(client_event);
     }
     if (state[SDL_SCANCODE_F]) {
         std::cout << "Apuntando hacia arriba" << std::endl;

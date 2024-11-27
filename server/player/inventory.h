@@ -28,7 +28,7 @@ public:
     void drop_gun(GamePhysics& physics);
     void drop_armor(GamePhysics& physics);
     void drop_helmet(GamePhysics& physics);
-    void drop_item(std::shared_ptr<Positionable> item, GamePhysics physics);
+    // void drop_item(std::shared_ptr<Positionable> item, GamePhysics physics);
 
     ~Inventory();
 };

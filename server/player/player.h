@@ -22,6 +22,7 @@ private:
     DuckStateController state;
     void log_action(const std::string& action);
     bool touch_floor;
+    void update_gun_position();
 
 public:
     explicit Player(uint8_t _id);

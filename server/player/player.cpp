@@ -37,7 +37,17 @@ void Player::die() {
 }
 void Player::equip(std::shared_ptr<Equippable> item) { inventory.equip(item); }
 
+void Player::update_gun_position(){
+    std::shared_ptr<Gun> gun = inventory.get_gun();
+    if (!gun) {
+        return;
+    }
+    gun->set_coordinate(this->get_coordinate());
+    gun->set_direction(this->get_direction());
+}
+
 void Player::drop_gun(GamePhysics& physics){ 
+    update_gun_position();
     inventory.drop_gun(physics); 
 }
 void Player::drop_armor(GamePhysics& physics){ 
@@ -106,8 +116,7 @@ void Player::shoot(ListProjectiles& projectiles, const ModeShoot& mode) {
     if (!gun) {
         return;
     }
-    gun->set_coordinate(this->get_coordinate());
-    gun->set_direction(this->get_direction());
+    update_gun_position();
     ShootingRecoil recoil = gun->get_recoil();
     switch (mode)  {
         case ModeShoot::TRIGGER:

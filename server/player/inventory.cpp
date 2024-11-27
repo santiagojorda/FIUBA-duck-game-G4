@@ -37,20 +37,28 @@ std::shared_ptr<Armor> Inventory::get_armor() { return armor; }
 std::shared_ptr<Helmet> Inventory::get_helmet() { return helmet; }
 
 
-void Inventory::drop_gun(GamePhysics& physics){ drop_item(gun, physics); }
+void Inventory::drop_gun(GamePhysics& physics){ 
+    if(gun){
+        physics.handle_drop(gun);
+        gun.reset();
+    }
+    else{
+        (void)physics;
+    }    
+}
 void Inventory::drop_armor(GamePhysics& physics){ drop_item(armor, physics);}
 void Inventory::drop_helmet(GamePhysics& physics){ drop_item(helmet, physics); }
 
 
-void Inventory::drop_item(std::shared_ptr<Positionable> item, GamePhysics physics){
-    if(item){
-        physics.handle_drop(item);
-        item.reset();
-    }
-    else{
-        (void)physics;
-    }
-}
+// void Inventory::drop_item(std::shared_ptr<Positionable> item, GamePhysics physics){
+//     if(item){
+//         physics.handle_drop(item);
+//         item.reset();
+//     }
+//     else{
+//         (void)physics;
+//     }
+// }
 
 Inventory::~Inventory() {
 }
