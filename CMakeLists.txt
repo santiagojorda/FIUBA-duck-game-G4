@@ -129,7 +129,8 @@ if(TALLER_CLIENT)
    # Link the taller_common lib target
    target_link_libraries(taller_client
        taller_common
-       SDL2pp::SDL2pp yaml-cpp::yaml-cpp
+       SDL2pp::SDL2pp
+       yaml-cpp::yaml-cpp
        Qt5::Core
        Qt5::Widgets
        Qt5::Multimedia
