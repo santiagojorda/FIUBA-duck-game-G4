@@ -29,6 +29,7 @@ public:
     void drop_armor();
     void drop_helmet();
     // void drop_item(std::shared_ptr<Positionable> item, GamePhysics physics);
+    bool has_equipped_this(std::shared_ptr<Equippable> item);
 
     ~Inventory();
 };

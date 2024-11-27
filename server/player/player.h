@@ -68,6 +68,7 @@ public:
     bool is_touching_floor();
     void set_touching_floor(const bool& new_touch);
 
+    bool has_equipped_this(std::shared_ptr<Equippable> item);
     DuckStateType get_state();
     uint8_t get_frame();
 

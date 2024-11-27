@@ -81,6 +81,8 @@ void Player::adjust_position_to_floor(std::shared_ptr<Positionable> floor) {
     }
 }
 
+
+
 void Player::translate_x(int pasos) {
     int boost_speed = 1;
     Positionable::translate_x(pasos*boost_speed);
@@ -108,7 +110,9 @@ bool Player::is_dead() { return state.is_dead(); }
 DuckStateType Player::get_state() { return state.get_state(); }
 
 uint8_t Player::get_frame() { return state.get_frame(); }
-
+bool Player::has_equipped_this(std::shared_ptr<Equippable> item){
+    return inventory.has_equipped_this(item);
+}
 bool Player::is_touching_floor() { return touch_floor; }
 void Player::set_touching_floor(const bool& new_touch) { touch_floor = new_touch; }
 

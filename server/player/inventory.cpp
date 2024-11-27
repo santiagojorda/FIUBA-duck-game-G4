@@ -37,11 +37,15 @@ std::shared_ptr<Gun> Inventory::get_gun() { return gun; }
 std::shared_ptr<Armor> Inventory::get_armor() { return armor; }
 std::shared_ptr<Helmet> Inventory::get_helmet() { return helmet; }
 
+bool Inventory::has_equipped_this(std::shared_ptr<Equippable> item){
+    return (item.get() == gun.get() || item.get() == helmet.get() || item.get() == armor.get()); 
+}
 
 void Inventory::drop_gun(GameLogic& game_logic){ 
     if(gun){
         game_logic.handle_drop(gun);
         gun.reset();
+        gun = nullptr;
     }
     else{
         (void)game_logic;

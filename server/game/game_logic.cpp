@@ -6,6 +6,8 @@
 #include "../events/event.h"
 #include "../../common/state_duck.h"
 
+#define DROP_DISTANCE 50
+
 
 GameLogic::GameLogic(ListPlayers& _players, Map& _map, ListItemsMap& _items,
                      ListProjectiles& _projectiles):
@@ -17,22 +19,22 @@ GameLogic::GameLogic(ListPlayers& _players, Map& _map, ListItemsMap& _items,
 
 void GameLogic::update_player_equip_collision(Player& player) {
 
-    // deberiamos chequear armas, armors y helmets
+    // deberiamos chequear equipables
     for (std::shared_ptr<Equippable> item: items.get_items()) {
         if (this->physics.exist_collision(player.get_rectangle(), item->get_rectangle())) {
             player.equip(item);
-
-            std::shared_ptr<Gun> gun = std::dynamic_pointer_cast<Gun>(item);
-            if(gun == player.get_gun()){
+            if(player.has_equipped_this(item)){
                 items.remove(item);
             }
             return;
+            // return;
         }
     }
 }
 
 void GameLogic::handle_drop(std::shared_ptr<Equippable> item){
     items.add(item);
+    item->translate_x(DROP_DISTANCE);
 }
 
 
