@@ -11,7 +11,7 @@
 #include "../../common/action_events.h"
 #include "../utils/factory.h"
 
-#include "event_player.h"
+#include "event.h"
 #include "event_move_left.h"
 #include "event_move_right.h"
 #include "event_jump.h"
@@ -24,7 +24,7 @@ class EventFactory{
 private:
 
     // cppcheck-suppress unusedStructMember
-    std::map<ActionEvent, std::shared_ptr<EventPlayer>> events;
+    std::map<ActionEvent, std::shared_ptr<Event>> events;
 
     // cppcheck-suppress unusedStructMember
     uint8_t player_id;
@@ -42,7 +42,7 @@ public:
     
     EventFactory(const EventFactory& _other): EventFactory(_other.player_id) {}
 
-    std::shared_ptr<EventPlayer> get(const ActionEvent& event_id) {
+    std::shared_ptr<Event> get(const ActionEvent& event_id) {
         return events[event_id];
     }
 

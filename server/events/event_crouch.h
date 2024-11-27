@@ -1,9 +1,9 @@
 #ifndef EVENT_CROUCH_H
 #define EVENT_CROUCH_H
 
-#include "event_player.h"
+#include "event.h"
 
-class EventCrouch: public EventPlayer {
+class EventCrouch: public Event {
 public:
     explicit EventCrouch(uint8_t& _player_id);
 

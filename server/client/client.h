@@ -3,8 +3,7 @@
 
 #include <vector>
 
-#include "../events/event_player.h"
-#include "../events/queue_event_player.h"
+#include "../events/queue_events.h"
 #include "../game/queue_game_state.h"
 #include "../player/vector_player_id.h"
 
@@ -19,7 +18,7 @@ private:
     Sender sender;
 
 public:
-    Client(Socket&& _skt, QueueGameState& _queue_gamestate, QueueEventPlayer& _queue_event,
+    Client(Socket&& _skt, QueueGameState& _queue_gamestate, QueueEvents& _queue_events,
            VectorPlayerID& _players_id);
     void shutdown();
     void send_gamestate(const GameState_t& game_state);

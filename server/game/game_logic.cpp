@@ -3,7 +3,7 @@
 #include <iostream>
 
 
-#include "../events/event_player.h"
+#include "../events/event.h"
 #include "../../common/state_duck.h"
 
 
@@ -80,7 +80,7 @@ Player& GameLogic::get_player(const uint8_t& _player_id) {
     throw std::runtime_error("Player con ID no encontrado");
 }
 
-void GameLogic::handle_event(const uint8_t& player_id, EventPlayer& event) {
+void GameLogic::handle_event(const uint8_t& player_id, Event& event) {
     try {
         Player& player = get_player(player_id);
         if (player.is_dead()) {

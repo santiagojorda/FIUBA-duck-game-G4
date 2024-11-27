@@ -3,7 +3,7 @@
 #include <iostream>
 
 #include "../../common/sleep_special.h"
-#include "../events/event_player.h"
+#include "../events/event.h"
 #include "../weapons/gun_factory.h"
 #include "../map/ground.h"
 #include "../player/player.h"
@@ -13,7 +13,7 @@
 
 #define MILISECONDS_30_FPS 33
 
-Game::Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEventPlayer& _queue_event,
+Game::Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEvents& _queue_events,
            QueueGameState& _queue_gamestate):
         players(_players),
         map(),
@@ -21,7 +21,7 @@ Game::Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEventPla
         map_projectiles(),
         game_logic(players, map, map_guns, map_projectiles),
         monitor_client(_monitor_client),
-        queue_event(_queue_event),
+        queue_events(_queue_events),
         queue_gamestate(_queue_gamestate) {
     this->load_map();
 }
@@ -61,8 +61,8 @@ void Game::load_map() {
 }
 
 void Game::execute_new_events() {
-    std::shared_ptr<EventPlayer> event = nullptr;
-    while (queue_event.try_pop(event)) {
+    std::shared_ptr<Event> event = nullptr;
+    while (queue_events.try_pop(event)) {
         if (event != nullptr) {
             event->start(game_logic);
         }
@@ -95,7 +95,7 @@ void Game::run() {
 }
 
 void Game::stop() {
-    queue_event.close();
+    queue_events.close();
     queue_gamestate.close();
     monitor_client.shutdown();
     Thread::stop();

@@ -1,9 +1,9 @@
 #ifndef EVENT_JUMP_H
 #define EVENT_JUMP_H
 
-#include "event_player.h"
+#include "event.h"
 
-class EventJump: public EventPlayer {
+class EventJump: public Event {
 public:
     explicit EventJump(uint8_t& _player_id);
 

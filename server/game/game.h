@@ -5,7 +5,7 @@
 
 #include "../../common/thread.h"
 #include "../client/monitor_clients.h"
-#include "../events/queue_event_player.h"
+#include "../events/queue_events.h"
 #include "../weapons/list_guns.h"
 #include "../map/map.h"
 #include "../player/list_players.h"
@@ -21,7 +21,7 @@ private:
     ListProjectiles map_projectiles;
     GameLogic game_logic;
     MonitorClients& monitor_client;
-    QueueEventPlayer& queue_event;  //<- para charalar
+    QueueEvents& queue_events;  //<- para charalar
     QueueGameState& queue_gamestate;
 
     void load_map();
@@ -31,7 +31,7 @@ private:
     GameState_t get_gamestate();
 
 public:
-    Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEventPlayer& _queue_event,
+    Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEvents& _queue_events,
          QueueGameState& _queue_gamestate);
     void run() override;
     void stop() override;

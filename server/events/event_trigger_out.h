@@ -1,9 +1,9 @@
 #ifndef EVENT_TRIGGER_OUT_H
 #define EVENT_TRIGGER_OUT_H
 
-#include "event_player.h"
+#include "event.h"
 
-class EventTriggerOut: public EventPlayer {
+class EventTriggerOut: public Event {
 public:
     explicit EventTriggerOut(uint8_t& _player_id);
 

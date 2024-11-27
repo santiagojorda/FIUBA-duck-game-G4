@@ -1,9 +1,9 @@
 #ifndef EVENT_IDLE_H
 #define EVENT_IDLE_H
 
-#include "event_player.h"
+#include "event.h"
 
-class EventIdle: public EventPlayer {
+class EventIdle: public Event {
 public:
     explicit EventIdle(uint8_t& _player_id);
 

@@ -10,9 +10,8 @@
 #include "../map/map.h"
 #include "../player/list_players.h"
 #include "../player/player.h"
-// #include "../events/event_player.h"
 
-class EventPlayer;
+class Event;
 #include "game_physics.h"
 
 class GameLogic {
@@ -30,7 +29,7 @@ private:
 public:
     explicit GameLogic(ListPlayers& _players, Map& _map, ListGuns& _guns,
                        ListProjectiles& _projectiles);
-    void handle_event(const uint8_t& player_id, EventPlayer& event);
+    void handle_event(const uint8_t& player_id, Event& event);
     void update();
     ListProjectiles& get_projectiles();
     GamePhysics& get_physics();

@@ -1,9 +1,9 @@
 #ifndef EVENT_MOVE_LEFT_H
 #define EVENT_MOVE_LEFT_H
 
-#include "event_player.h"
+#include "event.h"
 
-class EventMoveLeft: public EventPlayer {
+class EventMoveLeft: public Event {
 public:
     explicit EventMoveLeft(uint8_t& _player_id);
 
