@@ -35,6 +35,17 @@ void Player::die() {
     health = 0;
     state.die(*this);
 }
+void Player::equip(std::shared_ptr<Equippable> item) { inventory.equip(item); }
+
+void Player::drop_gun(GamePhysics& physics){ 
+    inventory.drop_gun(physics); 
+}
+void Player::drop_armor(GamePhysics& physics){ 
+    inventory.drop_armor(physics); 
+}
+void Player::drop_helmet(GamePhysics& physics){ 
+    inventory.drop_helmet(physics); 
+}
 
 uint8_t Player::get_id() const { return this->id; }
 std::shared_ptr<Gun> Player::get_gun() { return inventory.get_gun(); }
@@ -75,7 +86,6 @@ Player& Player::operator=(const Player& _other) {
     return *this;
 }
 
-void Player::equip(std::shared_ptr<Equippable> item) { inventory.equip(item); }
 void Player::move_back(ShootingRecoil tiles) { (void)tiles; }
 
 bool Player::is_jumping() { return state.is_jumping(); }

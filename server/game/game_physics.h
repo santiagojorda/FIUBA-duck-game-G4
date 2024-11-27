@@ -54,6 +54,8 @@ public:
     /*
     // a y b comparten espacio en algun punto
     */
+
+    void handle_drop(std::shared_ptr<Positionable> item);
     bool exist_collision(const Rectangle& a, const Rectangle& b);
 
     void falling(Positionable& target, uint iter_frame);

@@ -19,6 +19,7 @@
 #include "event_trigger.h"
 #include "event_trigger_out.h"
 #include "event_idle.h"
+#include "event_drop_gun.h"
 
 class EventFactory{
 private:
@@ -38,6 +39,7 @@ public:
         events[ActionEvent::TRIGGER] = std::make_shared<EventTrigger>(player_id);
         events[ActionEvent::TRIGGER_OUT] = std::make_shared<EventTriggerOut>(player_id);
         events[ActionEvent::IDLE] = std::make_shared<EventIdle>(player_id);
+        events[ActionEvent::DROP_GUN] = std::make_shared<EventDropGun>(player_id);
     }
     
     EventFactory(const EventFactory& _other): EventFactory(_other.player_id) {}

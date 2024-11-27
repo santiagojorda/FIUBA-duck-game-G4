@@ -29,7 +29,6 @@ void GameLogic::update_player_equip_collision(Player& player) {
     }
 }
 
-
 void GameLogic::update_projectiles(){
     for (std::shared_ptr<Projectile> projectile: projectiles.get_items()){
         if(projectile->is_dead()){
@@ -37,10 +36,7 @@ void GameLogic::update_projectiles(){
             return;
         }
         projectile->update(physics);
-
     }
-
-    
 }
 
 void GameLogic::update(){

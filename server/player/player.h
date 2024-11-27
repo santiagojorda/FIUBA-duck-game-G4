@@ -54,6 +54,9 @@ public:
     void plane(GamePhysics& physics);
     void die();
     void idle();
+    void drop_gun(GamePhysics& physics);
+    void drop_armor(GamePhysics& physics);
+    void drop_helmet(GamePhysics& physics);
 
     bool is_jumping();
     bool is_running();
