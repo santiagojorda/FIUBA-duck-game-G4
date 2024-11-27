@@ -27,6 +27,12 @@ void DrawerPlayer::draw(const player_t& player) {
     this->frame = static_cast<int>(player.frame);
     this->type_animation =
             texture_provider.get_duck_action_texture(static_cast<DuckStateType>(player.state));
+    /**
+    this->type_animation = "dead";
+    
+    if (type_animation == "dead") {
+        this->frame = this->frame % 3;
+    } */
     this->render();
 
     if (static_cast<int>(player.inventory.weapon) != 0) {
@@ -44,12 +50,14 @@ void DrawerPlayer::update_weapon(const player_t& player) {
 
 
 void DrawerPlayer::update_armor(const player_t& player) {
-    DrawerEquipment drawer_equipment(this->renderer, 1, this->animation_armor);
+    uint8_t valor = 1;
+    DrawerEquipment drawer_equipment(this->renderer, valor, this->animation_armor);
     drawer_equipment.draw(player, true);
 }
 
 void DrawerPlayer::update_helmet(const player_t& player) {
-    DrawerEquipment drawer_equipment(this->renderer, 2, this->animation_armor);
+    uint8_t valor = 2;
+    DrawerEquipment drawer_equipment(this->renderer, valor, this->animation_armor);
     drawer_equipment.draw(player);
 }
 

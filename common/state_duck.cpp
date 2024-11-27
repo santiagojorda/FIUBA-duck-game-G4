@@ -7,4 +7,4 @@ std::unordered_map<DuckStateType, DuckStateInfo_t> duck_state_frames = {
         {DuckStateType::CROUCHING, {1}}, {DuckStateType::RECOILING, {3}},
         {DuckStateType::FALLING, {1}},   {DuckStateType::SLIPPING, {2}},
         {DuckStateType::PLANNING, {6}},  {DuckStateType::IDLE, {1}},
-        {DuckStateType::DEAD, {1}}};
+        {DuckStateType::DEAD, {3}}};

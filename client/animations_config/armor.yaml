@@ -1,4 +1,4 @@
-armor:
+has_armor:
   texture: "/DuckGame-Equipment.png"
   rects:
     - x: 387
