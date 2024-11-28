@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 
+#include "QStackedWidget"
 #include "lobby_form.h"
 
 QT_BEGIN_NAMESPACE

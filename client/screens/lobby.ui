@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>Lobby</class>
- <widget class="QMainWindow" name="Lobby">
-  <property name="enabled">
-   <bool>true</bool>
-  </property>
+ <widget class="QStackedWidget" name="Lobby">
   <property name="geometry">
    <rect>
     <x>0</x>
