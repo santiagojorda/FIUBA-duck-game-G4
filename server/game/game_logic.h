@@ -8,12 +8,14 @@
 #include "list_items_map.h"
 #include "../weapons/list_projectiles.h"
 #include "../map/map.h"
-#include "../player/list_players.h"
 #include "../player/player.h"
 
 #include "../attributes/equippable.h"
 class Event;
 #include "game_physics.h"
+
+class ListPlayers;
+class Event;
 
 class GameLogic {
 private:
@@ -33,8 +35,12 @@ public:
     void update();
     ListProjectiles& get_projectiles();
     GamePhysics& get_physics();
+    void handle_drop(std::shared_ptr<Positionable> item);
     Player& get_player(const uint8_t& player_id);
-    void handle_drop(std::shared_ptr<Equippable> item);
+    void move_with_collision(std::shared_ptr<Positionable> positionable, int x, int y);
+    void move_x(std::shared_ptr<Positionable> positionable,int x);
+    void move_y(std::shared_ptr<Positionable> positionable,int y);
+    void update_player_gravity(Player& player);
     ~GameLogic();
 };
 

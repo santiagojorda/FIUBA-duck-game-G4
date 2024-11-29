@@ -14,27 +14,27 @@
 #include "../utils/state_controller.h"
 
 class Player;
-class GamePhysics;
+class GameLogic;
 
 class DuckStateController : public StateController<DuckStateType> {
 private:
     Direction direction;
     // uint8_t jump; // 0 -> control de cantidad de saltos
     void set_direction(const Direction& new_direction);
-    void execute(Player& player, GamePhysics& physics);
+    void execute(Player& player, GameLogic& game_logic);
 
 public:
     DuckStateController(const uint8_t& _player_id);
 
-    void run(Direction direction, Player& player, GamePhysics& physics);
-    void run_right(Player& player, GamePhysics& physics);
-    void run_left(Player& player, GamePhysics& physics);
-    void jump(Player& player, GamePhysics& physics);
-    void fall(Player& player, GamePhysics& physics);
-    void crouch(Player& player, GamePhysics& physics);
-    void slip(Player& player, GamePhysics& physics);
-    void recoil(Player& player, GamePhysics& physics);
-    void plane(Player& player, GamePhysics& physics);
+    void run(Direction direction, Player& player, GameLogic& game_logic);
+    void run_right(Player& player, GameLogic& game_logic);
+    void run_left(Player& player, GameLogic& game_logic);
+    void jump(Player& player, GameLogic& game_logic);
+    void fall(Player& player, GameLogic& game_logic);
+    void crouch(Player& player, GameLogic& game_logic);
+    void slip(Player& player, GameLogic& game_logic);
+    void recoil(Player& player, GameLogic& game_logic);
+    void plane(Player& player, GameLogic& game_logic);
     void die(Player& player);
     void idle(Player& player);
     bool is_jumping();

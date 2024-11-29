@@ -2,6 +2,7 @@
 #include "duck_state.h"
 
 #include <iostream>
+#include "../game/game_logic.h"
 
 
 DuckState::DuckState(const DuckStateType& _state_id, const std::string& _state_name,
@@ -23,12 +24,12 @@ void DuckState::init_state(const uint8_t& player_id) {
     reset();
 }
 
-void DuckState::update_state(Positionable& positionable, GamePhysics& physics) {
-    (void)physics;
+void DuckState::update_state(Positionable& positionable, GameLogic& game_logic) {
+    (void)game_logic;
     (void)positionable;
 }
-void DuckState::execute(Positionable& positionable, GamePhysics& physics) {
-    (void)physics;
+void DuckState::execute(Positionable& positionable, GameLogic& game_logic) {
+    (void)game_logic;
     (void)positionable;
 }
 

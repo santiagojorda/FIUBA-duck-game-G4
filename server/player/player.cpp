@@ -15,22 +15,22 @@ Player::Player(uint8_t _id): Positionable(_id, _id, Coordinate(10, 10, 32, 32)),
 
 Player::~Player() { Positionable::~Positionable(); }
 
-void Player::update(GamePhysics& physics) {     
-    state.update(*this, physics); 
+void Player::update(GameLogic& game_logic) {     
+    state.update(*this, game_logic); 
 }
 
 void Player::log_action(const std::string& action) {
     std::cout << "Player " << int(id) << " " << action << std::endl;
 }
 
-void Player::run_right(GamePhysics& physics) { state.run_right(*this, physics); }
-void Player::run_left(GamePhysics& physics) { state.run_left(*this, physics); }
-void Player::jump(GamePhysics& physics) { state.jump(*this, physics); }
-void Player::fall(GamePhysics& physics) { state.fall(*this, physics); }
-void Player::crouch(GamePhysics& physics) { state.crouch(*this, physics); }
-void Player::slip(GamePhysics& physics) { state.slip(*this, physics); }
-void Player::recoil(GamePhysics& physics) { state.recoil(*this, physics); }
-void Player::plane(GamePhysics& physics) { state.plane(*this, physics); }
+void Player::run_right(GameLogic& game_logic) { state.run_right(*this, game_logic); }
+void Player::run_left(GameLogic& game_logic) { state.run_left(*this, game_logic); }
+void Player::jump(GameLogic& game_logic) { state.jump(*this, game_logic); }
+void Player::fall(GameLogic& game_logic) { state.fall(*this, game_logic); }
+void Player::crouch(GameLogic& game_logic) { state.crouch(*this, game_logic); }
+void Player::slip(GameLogic& game_logic) { state.slip(*this, game_logic); }
+void Player::recoil(GameLogic& game_logic) { state.recoil(*this, game_logic); }
+void Player::plane(GameLogic& game_logic) { state.plane(*this, game_logic); }
 void Player::idle() { state.idle(*this); }
 void Player::die() {
     health = 0;

@@ -6,10 +6,11 @@
 #include "../../common/direction.h"
 #include "../attributes/equippable.h"
 #include "../attributes/positionable.h"
+#include "../game/game_logic.h"
+#include "inventory.h"
 #include "../weapons/gun.h"
 #include "../weapons/list_projectiles.h"
-#include "../player/inventory.h"
-// #include "duck_state_controller.h"
+// #include "duck_state_controller.h"3
 #include "duck_state_controller.h"
 #include "../weapons/mode_shoot.h"
 
@@ -45,17 +46,20 @@ public:
     Direction get_direction();
     Inventory& get_inventory();
 
-    void update(GamePhysics& physics);
-    void run_right(GamePhysics& physics);
-    void run_left(GamePhysics& physics);
-    void jump(GamePhysics& physics);
-    void fall(GamePhysics& physics) override;
-    void crouch(GamePhysics& physics);
-    void slip(GamePhysics& physics);
-    void recoil(GamePhysics& physics);
-    void plane(GamePhysics& physics);
+    void update(GameLogic& game_logic);
+    void run_right(GameLogic& game_logic);
+    void run_left(GameLogic& game_logic);
+    void jump(GameLogic& game_logic);
+    void fall(GameLogic& game_logic) override;
+    void crouch(GameLogic& game_logic);
+    void slip(GameLogic& game_logic);
+    void recoil(GameLogic& game_logic);
+    void plane(GameLogic& game_logic);
     void die();
     void idle();
+    void drop_gun(GameLogic& game_logic);
+    void drop_armor();
+    void drop_helmet();
     void drop_gun(GameLogic& game_logic);
     void drop_armor();
     void drop_helmet();

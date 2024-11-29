@@ -6,7 +6,8 @@
 #include "state.h"
 
 #include "../attributes/positionable.h"
-#include "../game/game_physics.h"
+
+class GameLogic;
 
 template <typename T>
 class StateController {
@@ -32,9 +33,9 @@ public:
         }
     }
 
-    void update(Positionable& positionable, GamePhysics& physics) {
+    void update(Positionable& positionable, GameLogic& game_logic) {
         if (current_state) {
-            current_state->update_state(positionable, physics);
+            current_state->update_state(positionable, game_logic);
         }
     }
 

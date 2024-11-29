@@ -35,19 +35,4 @@ bool GamePhysics::is_player_out_of_map(Player& player) {
 }
 
 
-void GamePhysics::update_player_gravity(Player& player) {
-    std::shared_ptr<Positionable> touched_floor = get_player_floor_collision(player);
-    if (touched_floor) {
-        player.adjust_position_to_floor(touched_floor);
-        if (player.is_falling()) {
-            player.idle();
-        }
-    } else {
-        player.fall(*this);
-        // player.set_touching_floor(!IS_TOUCHING_FLOOR);
-    }
-}
-
-
-
 GamePhysics::~GamePhysics() {}

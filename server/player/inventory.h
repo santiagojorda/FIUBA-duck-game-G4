@@ -4,6 +4,8 @@
 #include "../attributes/equippable.h"
 
 class GameLogic;
+
+class GameLogic;
 class Gun;
 class Armor;
 class Helmet;

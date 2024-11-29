@@ -51,8 +51,19 @@ void Inventory::drop_gun(GameLogic& game_logic){
         (void)game_logic;
     }    
 }
-void Inventory::drop_armor(){ armor.reset(); }
+void Inventory::drop_armor(){ armor.reset();}
 void Inventory::drop_helmet(){ helmet.reset(); }
+
+
+// void Inventory::drop_item(std::shared_ptr<Positionable> item, GamePhysics game_logic){
+//     if(item){
+//         game_logic.handle_drop(item);
+//         item.reset();
+//     }
+//     else{
+//         (void)game_logic;
+//     }
+// }
 
 Inventory::~Inventory() {
 }

@@ -5,8 +5,7 @@
 
 #include "../events/event.h"
 #include "../../common/state_duck.h"
-
-#define DROP_DISTANCE 50
+#include "../player/list_players.h"
 
 
 GameLogic::GameLogic(ListPlayers& _players, Map& _map, ListItemsMap& _items,
@@ -35,6 +34,19 @@ void GameLogic::update_player_equip_collision(Player& player) {
 void GameLogic::handle_drop(std::shared_ptr<Equippable> item){
     items.add(item);
     item->translate_x(DROP_DISTANCE);
+}
+
+void GameLogic::update_player_gravity(Player& player) {
+    std::shared_ptr<Positionable> touched_floor = physics.get_player_floor_collision(player);
+    if (touched_floor) {
+        player.adjust_position_to_floor(touched_floor);
+        if (player.is_falling()) {
+            player.idle();
+        }
+    } else {
+        player.fall(*this);
+        // player.set_touching_floor(!IS_TOUCHING_FLOOR);a
+    }
 }
 
 
@@ -69,9 +81,9 @@ void GameLogic::update_players() {
         }
 
         else {
-            player.update(physics);
+            player.update(*this);
             if (!player.is_jumping()) {
-                physics.update_player_gravity(player);
+                update_player_gravity(player);
             }
             update_player_equip_collision(player);
         }

@@ -26,7 +26,7 @@ void Positionable::translate_y(int steps) {
     this->space = new_pos;
 }
 
-void Positionable::fall(GamePhysics& physics) { (void)physics;}
+void Positionable::fall(GameLogic& game_logic) { (void)game_logic;}
 
 Rectangle Positionable::get_rectangle() const { return this->space; }
 
