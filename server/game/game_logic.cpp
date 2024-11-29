@@ -7,6 +7,7 @@
 #include "../../common/state_duck.h"
 #include "../player/list_players.h"
 
+#define DROP_DISTANCE 40
 
 GameLogic::GameLogic(ListPlayers& _players, Map& _map, ListItemsMap& _items,
                      ListProjectiles& _projectiles):

@@ -45,7 +45,6 @@ void Inventory::drop_gun(GameLogic& game_logic){
     if(gun){
         game_logic.handle_drop(gun);
         gun.reset();
-        gun = nullptr;
     }
     else{
         (void)game_logic;

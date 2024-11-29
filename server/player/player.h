@@ -60,9 +60,6 @@ public:
     void drop_gun(GameLogic& game_logic);
     void drop_armor();
     void drop_helmet();
-    void drop_gun(GameLogic& game_logic);
-    void drop_armor();
-    void drop_helmet();
 
     bool is_jumping();
     bool is_running();

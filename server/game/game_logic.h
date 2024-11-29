@@ -35,12 +35,13 @@ public:
     void update();
     ListProjectiles& get_projectiles();
     GamePhysics& get_physics();
-    void handle_drop(std::shared_ptr<Positionable> item);
+    void handle_drop(std::shared_ptr<Equippable> item);
     Player& get_player(const uint8_t& player_id);
     void move_with_collision(std::shared_ptr<Positionable> positionable, int x, int y);
     void move_x(std::shared_ptr<Positionable> positionable,int x);
     void move_y(std::shared_ptr<Positionable> positionable,int y);
     void update_player_gravity(Player& player);
+
     ~GameLogic();
 };
 
