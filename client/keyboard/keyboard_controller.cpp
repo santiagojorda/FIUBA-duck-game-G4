@@ -50,6 +50,10 @@ void KeyboardController::procesar_keyup_player_1(SDL_Event& event) {
             client_event = {PLAYER_1, ActionEvent::TRIGGER_OUT};
             this->commands.push(client_event);
             break;
+        case SDLK_DOWN:
+            client_event = {PLAYER_1, ActionEvent::IDLE};
+            this->commands.push(client_event);
+            break;
     }
 }
 

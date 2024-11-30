@@ -13,9 +13,6 @@ DuckStateDead::DuckStateDead(const uint8_t& _player_id):
 void DuckStateDead::update_state(Positionable& positionable, GameLogic& game_logic) {
     (void)positionable;
     (void)game_logic;
-    if(frame == 7){
-        frame = frame;
-    }
     increment_frame();
 }
 

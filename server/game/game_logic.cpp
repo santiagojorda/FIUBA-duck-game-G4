@@ -44,6 +44,7 @@ void GameLogic::update_player_gravity(Player& player) {
         if (player.is_falling()) {
             player.idle();
         }
+        player.touch_floor();
     } else {
         player.fall(*this);
         // player.set_touching_floor(!IS_TOUCHING_FLOOR);a

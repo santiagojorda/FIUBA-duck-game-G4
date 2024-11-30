@@ -28,9 +28,18 @@ public:
         current_state = state_factory->get(new_state_type);
         if (current_state) {
             current_state->start();
-        } else {
+        } else { // deberia enviar una excepcion
             std::cout << "No se pudo crear el estado" << std::endl;
         }
+    }
+
+    std::shared_ptr<State<T>> set_state_and_save_previus(const T& new_state_type){
+        std::shared_ptr<State<T>> previus_state = current_state;
+        current_state = state_factory->get(new_state_type);
+        if (current_state) {
+            current_state->start();
+        }
+        return previus_state;
     }
 
     void update(Positionable& positionable, GameLogic& game_logic) {

@@ -5,7 +5,8 @@
 #include "player.h"
 
 DuckStateController::DuckStateController(const uint8_t& _player_id)
-        : StateController(std::make_shared<DuckStateFactory>(_player_id))
+        : StateController(std::make_shared<DuckStateFactory>(_player_id)),
+            touch_floor(false)
         {
             set_state(DuckStateType::IDLE);
             direction = current_state->get_direction();
@@ -28,17 +29,28 @@ void DuckStateController::execute(Player& player, GameLogic& game_logic) {
     current_state->execute(player, game_logic);
 }
 
+void DuckStateController::execute_aero_running(Direction direction, Player& player, GameLogic& game_logic){
+    std::shared_ptr<State<DuckStateType>> previus_state = set_state_and_save_previus(DuckStateType::AERO_RUNNING);
+    set_direction(direction);
+    execute(player, game_logic); // ejecuto el movimiento y vuelvo al estado anterior que ej: como falling o jumping 
+    current_state = previus_state;
+}
+
 void DuckStateController::run(Direction direction, Player& player, GameLogic& game_logic) {
     if(is_alive()){
 
+        if(!is_touching_floor()){ // esta logica es para mover el pato si esque esta en el aire, es un "running aereo" y no pase a running
+            execute_aero_running(direction, player, game_logic);
+            return;
+        }
+
         if (!is_running()) {
-            set_alive_state(DuckStateType::RUNNING);
+            set_state(DuckStateType::RUNNING);
         }
         if (current_state->get_direction() != direction) {
             set_direction(direction);
         }
         execute(player, game_logic);
-
     }
 }
 
@@ -52,7 +64,8 @@ void DuckStateController::run_left(Player& player, GameLogic& game_logic) {
 void DuckStateController::jump(Player& player, GameLogic& game_logic) {
     (void)player;
     (void)game_logic;
-    if(!is_jumping() && !is_falling()){
+    if(is_touching_floor()){
+        set_touch_floor(false);
         set_alive_state(DuckStateType::JUMPING);
     }
 }
@@ -60,7 +73,10 @@ void DuckStateController::fall(Player& player, GameLogic& game_logic) {
     (void)player;
     (void)game_logic;
     // if(!player.){
-    set_alive_state(DuckStateType::FALLING);
+    if(!is_falling()){
+        set_alive_state(DuckStateType::FALLING);
+        set_touch_floor(false);
+    }
     // }
 }
 void DuckStateController::crouch(Player& player, GameLogic& game_logic) {
@@ -83,7 +99,7 @@ void DuckStateController::recoil(Player& player, GameLogic& game_logic) {
     set_alive_state(DuckStateType::RECOILING);
 }
 void DuckStateController::plane(Player& player, GameLogic& game_logic) {
-    if(is_alive()){
+    if(is_alive() && !is_touching_floor()){
         set_state(DuckStateType::PLANNING);
         execute(player, game_logic);
     }
@@ -106,7 +122,8 @@ bool DuckStateController::is_falling() { return is_in_state(DuckStateType::FALLI
 bool DuckStateController::is_dead() { return is_in_state(DuckStateType::DEAD); }
 bool DuckStateController::is_idle() { return is_in_state(DuckStateType::IDLE); }
 bool DuckStateController::is_alive() { return !is_in_state(DuckStateType::DEAD); }
-
+bool DuckStateController::is_touching_floor() { return touch_floor; }
+void DuckStateController::set_touch_floor(const bool& _touch_floor) { touch_floor = _touch_floor; }
 DuckStateType DuckStateController::get_state() { return current_state->get_id(); };
 uint8_t DuckStateController::get_frame() { return current_state->get_frame(); };
 Direction DuckStateController::get_direction() { return direction; }

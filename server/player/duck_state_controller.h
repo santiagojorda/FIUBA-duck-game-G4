@@ -20,9 +20,11 @@ class DuckStateController : public StateController<DuckStateType> {
 private:
     Direction direction;
     // uint8_t jump; // 0 -> control de cantidad de saltos
+    bool touch_floor;
     void set_direction(const Direction& new_direction);
     void execute(Player& player, GameLogic& game_logic);
     void set_alive_state(const DuckStateType new_state_type);
+    void execute_aero_running(Direction direction, Player& player, GameLogic& game_logic);
 
 public:
     DuckStateController(const uint8_t& _player_id);
@@ -46,6 +48,7 @@ public:
     bool is_alive();
 
     bool is_touching_floor();
+    void set_touch_floor(const bool& _touch_floor);
     Direction get_direction();
     DuckStateType get_state();
     uint8_t get_frame();

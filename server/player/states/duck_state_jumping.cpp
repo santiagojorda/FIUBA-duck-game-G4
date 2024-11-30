@@ -4,7 +4,7 @@
 
 #include "../player.h"
 
-#define JUMP_STEP 7
+#define JUMP_STEP 10
 
 struct JumpingStateConfig {
     DuckStateType id = DuckStateType::JUMPING;

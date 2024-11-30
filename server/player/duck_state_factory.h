@@ -16,6 +16,7 @@
 #include "states/duck_state_recoiling.h"
 #include "states/duck_state_running.h"
 #include "states/duck_state_slipping.h"
+#include "states/duck_state_aero_running.h"
 
 #include "../utils/state_factory.h"
 
@@ -26,15 +27,16 @@ private:
 
 public:
     explicit DuckStateFactory(const uint8_t& _player_id): player_id(_player_id) {
-        add(DuckStateType::RUNNING,     std::make_shared<DuckStateRunning>(player_id));
-        add(DuckStateType::JUMPING,     std::make_shared<DuckStateJumping>(player_id));
-        add(DuckStateType::FALLING,     std::make_shared<DuckStateFalling>(player_id));
-        add(DuckStateType::CROUCHING,   std::make_shared<DuckStateCrouching>(player_id));
-        add(DuckStateType::SLIPPING,    std::make_shared<DuckStateSlipping>(player_id));
-        add(DuckStateType::RECOILING,   std::make_shared<DuckStateRecoiling>(player_id));
-        add(DuckStateType::PLANNING,    std::make_shared<DuckStatePlanning>(player_id));
-        add(DuckStateType::DEAD,        std::make_shared<DuckStateDead>(player_id));
-        add(DuckStateType::IDLE,        std::make_shared<DuckStateIdle>(player_id));
+        add(DuckStateType::RUNNING,         std::make_shared<DuckStateRunning>(player_id));
+        add(DuckStateType::JUMPING,         std::make_shared<DuckStateJumping>(player_id));
+        add(DuckStateType::FALLING,         std::make_shared<DuckStateFalling>(player_id));
+        add(DuckStateType::CROUCHING,       std::make_shared<DuckStateCrouching>(player_id));
+        add(DuckStateType::SLIPPING,        std::make_shared<DuckStateSlipping>(player_id));
+        add(DuckStateType::RECOILING,       std::make_shared<DuckStateRecoiling>(player_id));
+        add(DuckStateType::PLANNING,        std::make_shared<DuckStatePlanning>(player_id));
+        add(DuckStateType::DEAD,            std::make_shared<DuckStateDead>(player_id));
+        add(DuckStateType::IDLE,            std::make_shared<DuckStateIdle>(player_id));
+        add(DuckStateType::AERO_RUNNING,    std::make_shared<DuckStateAeroRunning>(player_id));
     }
 
     

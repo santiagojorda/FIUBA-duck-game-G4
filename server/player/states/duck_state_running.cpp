@@ -2,16 +2,13 @@
 
 #include <iostream>
 
-#define RUN_STEP 5
-#define TICKS_PER_FRAME 1
-
 struct RunningStateConfig {
     DuckStateType id = DuckStateType::RUNNING;
     std::string name = "Running";
 };
 RunningStateConfig running_config;
 
-DuckStateRunning::DuckStateRunning(uint8_t _player_id):
+DuckStateRunning::DuckStateRunning(const uint8_t& _player_id):
         DuckState(running_config.id, running_config.name,
                   duck_state_frames[running_config.id].max_frames, _player_id) {}
 

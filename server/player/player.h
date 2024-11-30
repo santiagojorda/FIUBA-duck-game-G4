@@ -23,7 +23,6 @@ private:
     Inventory inventory;
     DuckStateController state;
     void log_action(const std::string& action);
-    bool touch_floor;
     void update_gun_position();
 
 public:
@@ -68,7 +67,9 @@ public:
     bool is_dead();
     bool is_alive();
     bool is_touching_floor();
-    void set_touching_floor(const bool& new_touch);
+    void set_touching_floor(const bool& touch_floor);
+    void touch_floor();
+    void leave_floor();
 
     bool has_equipped_this(std::shared_ptr<Equippable> item);
     DuckStateType get_state();

@@ -8,11 +8,8 @@
 #include "../weapons/list_projectiles.h"
 
 const int SPEED = 1;
-#define RUN_STEP 10
-#define JUMP_STEP -40
-#define FALLING_STEP 1
 
-Player::Player(uint8_t _id): Positionable(_id, _id, Coordinate(10, 10, 32, 32)), state(id), touch_floor(false) {}
+Player::Player(uint8_t _id): Positionable(_id, _id, Coordinate(10, 10, 32, 32)), state(id){}
 
 Player::~Player() { Positionable::~Positionable(); }
 
@@ -116,8 +113,10 @@ uint8_t Player::get_frame() { return state.get_frame(); }
 bool Player::has_equipped_this(std::shared_ptr<Equippable> item){
     return inventory.has_equipped_this(item);
 }
-bool Player::is_touching_floor() { return touch_floor; }
-void Player::set_touching_floor(const bool& new_touch) { touch_floor = new_touch; }
+bool Player::is_touching_floor() { return state.is_touching_floor(); }
+void Player::set_touching_floor(const bool& touch_floor) { state.set_touch_floor(touch_floor); }
+void Player::touch_floor(){ state.set_touch_floor(true); }
+void Player::leave_floor(){ state.set_touch_floor(false); }
 
 void Player::shoot(ListProjectiles& projectiles, const ModeShoot& mode) {
     std::shared_ptr<Gun> gun = inventory.get_gun();
