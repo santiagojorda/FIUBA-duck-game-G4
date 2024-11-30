@@ -133,8 +133,8 @@ wings_weapon:
   offset_right_x: 12
   offset_left_x: 16
   offset_y: 15
-  scale_width: 22
-  scale_height: 22
+  scale_width: 10
+  scale_height: 10
 
 dead:
   texture: "/DuckGame-YellowDuck.png"

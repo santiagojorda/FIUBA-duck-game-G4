@@ -1,7 +1,6 @@
 #include "drawer_bullet.h"
 
 #define SIZE_BULLET_SPRITE 16
-#define TILE_SIZE 50
 
 // BALAS
 
