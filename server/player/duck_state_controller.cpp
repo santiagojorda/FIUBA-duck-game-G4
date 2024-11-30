@@ -12,6 +12,10 @@ DuckStateController::DuckStateController(const uint8_t& _player_id)
             direction = current_state->get_direction();
         }
 
+void DuckStateController::reset(){
+    set_state(DuckStateType::IDLE);
+}
+
 void DuckStateController::set_direction(const Direction& new_direction) {
     if (new_direction != current_state->get_direction()) {
         direction = new_direction;
@@ -119,7 +123,7 @@ void DuckStateController::idle(Player& player) {
 bool DuckStateController::is_jumping() { return is_in_state(DuckStateType::JUMPING); }
 bool DuckStateController::is_running() { return is_in_state(DuckStateType::RUNNING); }
 bool DuckStateController::is_falling() { return is_in_state(DuckStateType::FALLING); }
-bool DuckStateController::is_dead() { return is_in_state(DuckStateType::DEAD); }
+bool DuckStateController::is_dead() const { return is_in_state(DuckStateType::DEAD); }
 bool DuckStateController::is_idle() { return is_in_state(DuckStateType::IDLE); }
 bool DuckStateController::is_alive() { return !is_in_state(DuckStateType::DEAD); }
 bool DuckStateController::is_touching_floor() { return touch_floor; }

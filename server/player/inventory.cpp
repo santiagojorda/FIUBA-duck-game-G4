@@ -27,11 +27,12 @@ void Inventory::equip(std::shared_ptr<Helmet> new_helmet) {
     }
 }
 
-// void Inventory::equip_item(std::shared_ptr<Equippable> new_item, std::shared_ptr<Equippable> current_item){
-//     if (!current_item) {
-//         helmet = std::move(new_helmet);
-//     }
-// }
+void Inventory::reset(){
+    this->gun.reset();
+    this->helmet.reset();
+    this->armor.reset();
+}
+
 
 std::shared_ptr<Gun> Inventory::get_gun() { return gun; }
 std::shared_ptr<Armor> Inventory::get_armor() { return armor; }

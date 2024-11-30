@@ -35,6 +35,12 @@ void Player::die(GameLogic& game_logic) {
     drop_gun(game_logic);
     state.die(*this);
 }
+
+void Player::reset(){
+    this->state.reset();
+    this->inventory.reset();
+}
+
 void Player::equip(std::shared_ptr<Equippable> item) { inventory.equip(item); }
 
 void Player::update_gun_position(){
@@ -95,6 +101,7 @@ void Player::translate_y(int pasos) {
 Player& Player::operator=(const Player& _other) {
     this->id = _other.id;
     this->space = _other.space;
+    this->idle();
     return *this;
 }
 
@@ -103,8 +110,8 @@ void Player::move_back(ShootingRecoil tiles) { (void)tiles; }
 bool Player::is_jumping() { return state.is_jumping(); }
 bool Player::is_running() { return state.is_running(); }
 bool Player::is_falling() { return state.is_falling(); }
-bool Player::is_idle() { return state.is_idle(); }
-bool Player::is_dead() { return state.is_dead(); }
+bool Player::is_idle()  { return state.is_idle(); }
+bool Player::is_dead() const { return state.is_dead(); }
 bool Player::is_alive() { return state.is_alive(); }
 
 DuckStateType Player::get_state() { return state.get_state(); }

@@ -64,6 +64,7 @@ void ProtocolServer::send_projectiles_state(GameState_t& state) {
     send_2_bytes(count_projectiles);
     for (std::shared_ptr<Projectile> projectile: state.map_projectiles.get_items()) {
         send_byte(projectile->get_texture_id());  // texture_id
+        //send_byte(static_cast<uint8_t>(projectile.get_direction()));
         send_coordinates(projectile->get_coordinate());
     }
 }

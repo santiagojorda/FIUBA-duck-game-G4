@@ -29,6 +29,8 @@ private:
 public:
     DuckStateController(const uint8_t& _player_id);
 
+    void reset();
+
     void run(Direction direction, Player& player, GameLogic& game_logic);
     void run_right(Player& player, GameLogic& game_logic);
     void run_left(Player& player, GameLogic& game_logic);
@@ -44,7 +46,7 @@ public:
     bool is_running();
     bool is_falling();
     bool is_idle();
-    bool is_dead();
+    bool is_dead() const;
     bool is_alive();
 
     bool is_touching_floor();

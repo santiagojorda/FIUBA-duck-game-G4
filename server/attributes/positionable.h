@@ -33,8 +33,8 @@ public:
     virtual void translate_y(int steps);
     // virtual void colistionWith(std::shared_ptr<Positionable> positionable);
     virtual void fall(GameLogic& game_logic);
-    uint8_t get_id();
-    uint8_t get_texture_id();
+    uint8_t get_id() const;
+    uint8_t get_texture_id() const;
 
     virtual void handle_collision(Bullet& bullet, GameLogic& game_logic);
     virtual void handle_collision(Player& player, GameLogic& game_logic);

@@ -48,7 +48,7 @@ public:
         }
     }
 
-    bool is_in_state(const T& state_type) {
+    bool is_in_state(const T& state_type)  const {
         return current_state && current_state->get_id() == state_type;
     }
 
