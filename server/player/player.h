@@ -9,12 +9,12 @@
 #include "../game/game_logic.h"
 #include "inventory.h"
 #include "../weapons/gun.h"
-#include "../weapons/list_projectiles.h"
 // #include "duck_state_controller.h"3
 #include "duck_state_controller.h"
 #include "../weapons/mode_shoot.h"
 
 class GameLogic;
+class ListProjectiles;
 
 class Player: public Positionable {
 private:
@@ -66,6 +66,7 @@ public:
     bool is_falling();
     bool is_idle();
     bool is_dead();
+    bool is_alive();
     bool is_touching_floor();
     void set_touching_floor(const bool& new_touch);
 

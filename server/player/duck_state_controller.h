@@ -22,6 +22,7 @@ private:
     // uint8_t jump; // 0 -> control de cantidad de saltos
     void set_direction(const Direction& new_direction);
     void execute(Player& player, GameLogic& game_logic);
+    void set_alive_state(const DuckStateType new_state_type);
 
 public:
     DuckStateController(const uint8_t& _player_id);
@@ -42,6 +43,7 @@ public:
     bool is_falling();
     bool is_idle();
     bool is_dead();
+    bool is_alive();
 
     bool is_touching_floor();
     Direction get_direction();

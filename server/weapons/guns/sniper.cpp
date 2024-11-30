@@ -8,12 +8,12 @@ gun_config sniper_config{WeaponTextureID::SNIPER, 6, ShootingRecoil::NONE,
 
 Sniper::Sniper(const Coordinate& _coordinate): Gun(sniper_config, _coordinate), blocked(false) {}
 
-void Sniper::trigger(ListProjectiles& projectiles) {
+void Sniper::trigger(ListProjectiles& projectiles, const uint8_t& player_id) {
     if (!this->blocked) {
         for (int i = 0; i < sniper_config.count_projectiles_x_shoot; i++) {
             if (this->ammo > 0) {
                 projectiles.add(std::make_shared<Bullet>(
-                        this->projectile_range, this->get_coordinate(), this->get_direction(), 5));
+                        this->projectile_range, this->get_coordinate(), this->get_direction(), 5, player_id));
                 this->ammo--;
             }
         }
@@ -21,8 +21,8 @@ void Sniper::trigger(ListProjectiles& projectiles) {
     }
 }
 
-void Sniper::trigger_out(ListProjectiles& projectiles) {
-    (void)projectiles;
+void Sniper::trigger_out(ListProjectiles& projectiles, const uint8_t& player_id) {
+    Gun::trigger_out(projectiles, player_id);
     this->blocked = false;
 }
 

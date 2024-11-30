@@ -5,6 +5,7 @@
 #include "../../common/state_duck.h"
 #include "../weapons/gun.h"
 #include "../game/game_logic.h"
+#include "../weapons/list_projectiles.h"
 
 const int SPEED = 1;
 #define RUN_STEP 10
@@ -106,6 +107,7 @@ bool Player::is_running() { return state.is_running(); }
 bool Player::is_falling() { return state.is_falling(); }
 bool Player::is_idle() { return state.is_idle(); }
 bool Player::is_dead() { return state.is_dead(); }
+bool Player::is_alive() { return state.is_alive(); }
 
 DuckStateType Player::get_state() { return state.get_state(); }
 
@@ -125,10 +127,10 @@ void Player::shoot(ListProjectiles& projectiles, const ModeShoot& mode) {
     ShootingRecoil recoil = gun->get_recoil();
     switch (mode)  {
         case ModeShoot::TRIGGER:
-            gun->trigger(projectiles);
+            gun->trigger(projectiles, id);
             break;
         case ModeShoot::TRIGGER_OUT:
-            gun->trigger_out(projectiles);
+            gun->trigger_out(projectiles, id);
             break;
         default:
             break;

@@ -18,18 +18,28 @@ void DuckStateController::set_direction(const Direction& new_direction) {
     }
 }
 
+void DuckStateController::set_alive_state(const DuckStateType new_state_type){
+    if(is_alive()){
+        set_state(new_state_type);
+    }
+}
+
 void DuckStateController::execute(Player& player, GameLogic& game_logic) {
     current_state->execute(player, game_logic);
 }
 
 void DuckStateController::run(Direction direction, Player& player, GameLogic& game_logic) {
-    if (!is_running()) {
-        set_state(DuckStateType::RUNNING);
+    if(is_alive()){
+
+        if (!is_running()) {
+            set_alive_state(DuckStateType::RUNNING);
+        }
+        if (current_state->get_direction() != direction) {
+            set_direction(direction);
+        }
+        execute(player, game_logic);
+
     }
-    if (current_state->get_direction() != direction) {
-        set_direction(direction);
-    }
-    execute(player, game_logic);
 }
 
 void DuckStateController::run_right(Player& player, GameLogic& game_logic) {
@@ -42,54 +52,52 @@ void DuckStateController::run_left(Player& player, GameLogic& game_logic) {
 void DuckStateController::jump(Player& player, GameLogic& game_logic) {
     (void)player;
     (void)game_logic;
-    // if (player.is_touching_floor()) {
-        set_state(DuckStateType::JUMPING);
-    // }
+    if(!is_jumping() && !is_falling()){
+        set_alive_state(DuckStateType::JUMPING);
+    }
 }
 void DuckStateController::fall(Player& player, GameLogic& game_logic) {
     (void)player;
     (void)game_logic;
     // if(!player.){
-        set_state(DuckStateType::FALLING);
+    set_alive_state(DuckStateType::FALLING);
     // }
 }
 void DuckStateController::crouch(Player& player, GameLogic& game_logic) {
     (void)player;
     (void)game_logic;
     // if(player.is_touching_floor()){
-        set_state(DuckStateType::CROUCHING);
+    set_alive_state(DuckStateType::CROUCHING);
     // }
 }
 void DuckStateController::slip(Player& player, GameLogic& game_logic) {
     (void)player;
     (void)game_logic;
     // if(player.is_touching_floor()){
-        set_state(DuckStateType::SLIPPING);
+    set_alive_state(DuckStateType::SLIPPING);
     // }
 }
 void DuckStateController::recoil(Player& player, GameLogic& game_logic) {
     (void)player;
     (void)game_logic;
-    set_state(DuckStateType::RECOILING);
+    set_alive_state(DuckStateType::RECOILING);
 }
 void DuckStateController::plane(Player& player, GameLogic& game_logic) {
-    (void)player;
-    (void)game_logic;
-    // if(!player.is_touching_floor()){
+    if(is_alive()){
         set_state(DuckStateType::PLANNING);
         execute(player, game_logic);
-    // }
+    }
 }
 void DuckStateController::die(Player& player) {
     (void)player;
     if (!is_dead()) {
-        set_state(DuckStateType::DEAD);
+        set_alive_state(DuckStateType::DEAD);
     }
 }
 void DuckStateController::idle(Player& player) {
     (void)player;
     // if (player.is_touching_floor()) {
-        set_state(DuckStateType::IDLE);
+    set_alive_state(DuckStateType::IDLE);
     // }
 }
 bool DuckStateController::is_jumping() { return is_in_state(DuckStateType::JUMPING); }
@@ -97,6 +105,7 @@ bool DuckStateController::is_running() { return is_in_state(DuckStateType::RUNNI
 bool DuckStateController::is_falling() { return is_in_state(DuckStateType::FALLING); }
 bool DuckStateController::is_dead() { return is_in_state(DuckStateType::DEAD); }
 bool DuckStateController::is_idle() { return is_in_state(DuckStateType::IDLE); }
+bool DuckStateController::is_alive() { return !is_in_state(DuckStateType::DEAD); }
 
 DuckStateType DuckStateController::get_state() { return current_state->get_id(); };
 uint8_t DuckStateController::get_frame() { return current_state->get_frame(); };

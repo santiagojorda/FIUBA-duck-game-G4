@@ -9,8 +9,9 @@ gun_config laser_config = {WeaponTextureID::LASER_RIFLE, 10, ShootingRecoil::NON
 
 LaserRifle::LaserRifle(const Coordinate& _coordinate): Gun(laser_config, _coordinate) {}
 
-void LaserRifle::trigger(ListProjectiles& projectiles) {
+void LaserRifle::trigger(ListProjectiles& projectiles, const uint8_t& player_id) {
     (void)projectiles;
+    (void)player_id;
 
     for (int i = 0; i < laser_config.count_projectiles_x_shoot; i++) {
         if (this->ammo > 0) {

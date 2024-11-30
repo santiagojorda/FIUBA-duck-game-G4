@@ -3,7 +3,7 @@
 
 #include "../../common/coordinate.h"
 #include "../attributes/positionable.h"
-#include "../map/map.h"
+class Map;
 class Player;
 // #include "../player/player.h"
 

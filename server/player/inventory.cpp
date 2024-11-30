@@ -46,9 +46,6 @@ void Inventory::drop_gun(GameLogic& game_logic){
         game_logic.handle_drop(gun);
         gun.reset();
     }
-    else{
-        (void)game_logic;
-    }    
 }
 void Inventory::drop_armor(){ armor.reset();}
 void Inventory::drop_helmet(){ helmet.reset(); }

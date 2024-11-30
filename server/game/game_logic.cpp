@@ -2,10 +2,12 @@
 
 #include <iostream>
 
-
+#include "list_items_map.h"
 #include "../events/event.h"
 #include "../../common/state_duck.h"
 #include "../player/list_players.h"
+#include "../weapons/list_projectiles.h"
+#include "../weapons/projectiles/bullet.h"
 
 #define DROP_DISTANCE 40
 
@@ -18,7 +20,6 @@ GameLogic::GameLogic(ListPlayers& _players, Map& _map, ListItemsMap& _items,
         physics(map) {}
 
 void GameLogic::update_player_equip_collision(Player& player) {
-
     // deberiamos chequear equipables
     for (std::shared_ptr<Equippable> item: items.get_items()) {
         if (this->physics.exist_collision(player.get_rectangle(), item->get_rectangle())) {
@@ -27,7 +28,6 @@ void GameLogic::update_player_equip_collision(Player& player) {
                 items.remove(item);
             }
             return;
-            // return;
         }
     }
 }
@@ -57,9 +57,30 @@ void GameLogic::update_projectiles(){
             projectiles.remove(projectile);
             return;
         }
-        projectile->update(physics);
+        projectile->update(*this);
     }
 }
+
+void GameLogic::remove_bullet(Bullet& bullet){
+    projectiles.remove(std::make_shared<Bullet>(bullet));
+}
+
+void GameLogic::move(Bullet& bullet, int x, int y){
+    for(Player& player : players){
+        if(player.is_dead() || player.get_id() == bullet.get_shooter_id()){
+            continue;
+        }
+        if (physics.exist_collision(player.get_rectangle(), bullet.get_rectangle())){
+            bullet.handle_collision(player);
+            remove_bullet(bullet);
+            return;
+        }
+    }
+    
+    bullet.translate_x(x);
+    bullet.translate_y(y);
+}
+
 
 void GameLogic::update(){
 

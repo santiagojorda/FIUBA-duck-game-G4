@@ -2,10 +2,11 @@
 #define BULLET
 
 #include "../../attributes/updatable.h"
-#include "../../game/game_physics.h"
 #include "../projectile.h"
 
 #define MAX_RANGE_TILES 1  // medio
+
+class GameLogic;
 
 class Bullet: public Projectile {
 private:
@@ -14,8 +15,10 @@ private:
 
 public:
     explicit Bullet(const ProjectileRange& _range_tiles, const Coordinate& _coordinate,
-                    const Direction& _direction, const int& _dispersion_angle);
-    void update(GamePhysics& physics) override;
+                    const Direction& _direction, const int& _dispersion_angle, const uint8_t& _shooter_id);
+    void update(GameLogic& game_logic) override;
+    using Positionable::handle_collision; 
+    void handle_collision(Player& player) override;
 };
 
 #endif

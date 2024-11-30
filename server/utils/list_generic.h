@@ -24,6 +24,9 @@ public:
             }
             return false;
         });
+        if (item_exist) {
+            item.reset();
+        }
         return item_exist;
     }
 

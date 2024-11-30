@@ -2,9 +2,11 @@
 #define SERVER_POSITIONABLE_H_
 
 #include <cstdint>
-
+#include <memory>
 #include "../../common/rectangle.h"
 class GameLogic;
+class Bullet;
+class Player;
 
 class Positionable {
 
@@ -29,9 +31,14 @@ public:
     virtual void translate();
     virtual void translate_x(int steps);
     virtual void translate_y(int steps);
+    // virtual void colistionWith(std::shared_ptr<Positionable> positionable);
     virtual void fall(GameLogic& game_logic);
     uint8_t get_id();
     uint8_t get_texture_id();
+
+    virtual void handle_collision(Bullet& bullet);
+    virtual void handle_collision(Player& player);
+
     virtual ~Positionable();
 };
 

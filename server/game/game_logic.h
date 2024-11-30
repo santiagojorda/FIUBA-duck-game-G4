@@ -5,15 +5,14 @@
 #include <memory>
 
 #include "../../common/action_events.h"
-#include "list_items_map.h"
-#include "../weapons/list_projectiles.h"
+
 #include "../map/map.h"
 #include "../player/player.h"
-
 #include "../attributes/equippable.h"
-class Event;
 #include "game_physics.h"
-
+class Event;
+class ListProjectiles;
+class ListItemsMap;
 class ListPlayers;
 class Event;
 
@@ -27,7 +26,7 @@ private:
     void update_player_equip_collision(Player& player);
     void update_players();
     void update_projectiles();
-
+    void remove_bullet(Bullet& bullet);
 public:
     explicit GameLogic(ListPlayers& _players, Map& _map, ListItemsMap& _items,
                        ListProjectiles& _projectiles);
@@ -37,9 +36,9 @@ public:
     GamePhysics& get_physics();
     void handle_drop(std::shared_ptr<Equippable> item);
     Player& get_player(const uint8_t& player_id);
-    void move_with_collision(std::shared_ptr<Positionable> positionable, int x, int y);
-    void move_x(std::shared_ptr<Positionable> positionable,int x);
-    void move_y(std::shared_ptr<Positionable> positionable,int y);
+    void move(Bullet& bullet, int x, int y);
+    // void move_x(std::shared_ptr<Positionable> positionable,int x);
+    // void move_y(std::shared_ptr<Positionable> positionable,int y);
     void update_player_gravity(Player& player);
 
     ~GameLogic();

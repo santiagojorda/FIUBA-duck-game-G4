@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include "../player/player.h"
+#include "../map/map.h"
 
 GamePhysics::GamePhysics(Map& _map): map(_map) {}
 

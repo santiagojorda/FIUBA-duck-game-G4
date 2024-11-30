@@ -33,13 +33,15 @@ uint8_t Gun::get_max_ammo() { return max_ammo; }
 
 uint8_t Gun::get_ammo() { return ammo; }
 
-void Gun::trigger_out(ListProjectiles& projectiles) { 
+void Gun::trigger_out(ListProjectiles& projectiles, const uint8_t& player_id) { 
         (void)projectiles;
+        (void)player_id;
         this->delay_counter.reset_count(); 
 }
 
-void Gun::trigger(ListProjectiles& projectiles){
+void Gun::trigger(ListProjectiles& projectiles, const uint8_t& player_id){
         (void)projectiles;
+        (void)player_id;
 }
 
 ShootingRecoil Gun::get_recoil() { return this->recoil; }
