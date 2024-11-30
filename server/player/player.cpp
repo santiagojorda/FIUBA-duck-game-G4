@@ -86,6 +86,8 @@ void Player::adjust_position_to_floor(std::shared_ptr<Positionable> floor) {
     }
 }
 
+bool Player::is_dead_animation_finished() const { return state.is_dead_animation_finished(); }
+
 
 
 void Player::translate_x(int pasos) {

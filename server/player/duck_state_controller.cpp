@@ -127,8 +127,9 @@ bool DuckStateController::is_dead() const { return is_in_state(DuckStateType::DE
 bool DuckStateController::is_idle() { return is_in_state(DuckStateType::IDLE); }
 bool DuckStateController::is_alive() { return !is_in_state(DuckStateType::DEAD); }
 bool DuckStateController::is_touching_floor() { return touch_floor; }
+bool DuckStateController::is_dead_animation_finished() const { return is_dead() && current_state->has_reached_max_frames(); }
 void DuckStateController::set_touch_floor(const bool& _touch_floor) { touch_floor = _touch_floor; }
 DuckStateType DuckStateController::get_state() { return current_state->get_id(); };
-uint8_t DuckStateController::get_frame() { return current_state->get_frame(); };
+uint8_t DuckStateController::get_frame() const { return current_state->get_frame(); };
 Direction DuckStateController::get_direction() { return direction; }
 DuckStateController::~DuckStateController() {}

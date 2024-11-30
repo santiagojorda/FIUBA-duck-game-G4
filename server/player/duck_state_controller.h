@@ -48,12 +48,12 @@ public:
     bool is_idle();
     bool is_dead() const;
     bool is_alive();
-
+    bool is_dead_animation_finished() const;
     bool is_touching_floor();
     void set_touch_floor(const bool& _touch_floor);
     Direction get_direction();
     DuckStateType get_state();
-    uint8_t get_frame();
+    uint8_t get_frame() const;
 
     ~DuckStateController();
 };

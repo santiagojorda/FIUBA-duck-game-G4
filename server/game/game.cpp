@@ -14,6 +14,8 @@
 #define PATH_MAP "../game_rsc/maps/map01.yaml"
 
 #define MILISECONDS_30_FPS 33
+#define MILISECONDS_FOR_SECONDS 1000
+#define SECONDS_FINISH_GAME 4
 
 Game::Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEvents& _queue_events,
            QueueGameState& _queue_gamestate):
@@ -97,8 +99,13 @@ void Game::run() {
             game_logic.update();
             broadcast_gamestate();
             sleep.sleep_rate();
-            if(round_manager.check_winer(this->players))  this->reset_values();
-            if(log_counter()) round_manager.log_state(std::cout, this->get_gamestate());
+            if(round_manager.check_winer(this->players)) {
+                sleep.sleep(SECONDS_FINISH_GAME * MILISECONDS_FOR_SECONDS);
+                this->reset_values();
+                sleep.reset();
+                // sleep = SleepSpecial(MILISECONDS_30_FPS);
+            }
+            // if(log_counter()) round_manager.log_state(std::cout, this->get_gamestate());
 
         }
         stop();

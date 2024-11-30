@@ -13,7 +13,7 @@ public:
 
     void increment_frame();
 
-    bool has_reached_max_frames();
+    bool has_reached_max_frames() const;
 
     void reset();
 

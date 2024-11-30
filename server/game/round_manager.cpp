@@ -12,7 +12,7 @@ bool RoundManager::check_winer(const ListPlayers& players){
     int lives = players.size();
     uint8_t id_winer = 0xFF;
     for (const auto& player: players) {
-        if(player.is_dead()){
+        if(player.is_dead_animation_finished()){
             lives--;
         }  else {
             id_winer = player.get_texture_id();

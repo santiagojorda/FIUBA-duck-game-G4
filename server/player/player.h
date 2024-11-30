@@ -73,7 +73,7 @@ public:
     void set_touching_floor(const bool& touch_floor);
     void touch_floor();
     void leave_floor();
-
+    bool is_dead_animation_finished() const;
     bool has_equipped_this(std::shared_ptr<Equippable> item);
     DuckStateType get_state();
     uint8_t get_frame();

@@ -105,6 +105,11 @@ tiles:
   coordinate:
     x: 224
     y: 96
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 224
+    y: 80
 
 weapon_size: 32
 weapons:

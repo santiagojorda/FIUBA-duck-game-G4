@@ -10,7 +10,7 @@ void Frameable::increment_frame() {
     }
 }
 
-bool Frameable::has_reached_max_frames(){ return frame == max_frames - 1; }
+bool Frameable::has_reached_max_frames() const { return frame == max_frames - 1; }
 
 uint8_t Frameable::get_frame() {return frame;}
 uint8_t Frameable::get_max_frames() {return max_frames;}
