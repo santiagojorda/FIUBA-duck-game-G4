@@ -95,7 +95,7 @@ void DuckStateController::idle(Player& player) {
 bool DuckStateController::is_jumping() { return is_in_state(DuckStateType::JUMPING); }
 bool DuckStateController::is_running() { return is_in_state(DuckStateType::RUNNING); }
 bool DuckStateController::is_falling() { return is_in_state(DuckStateType::FALLING); }
-bool DuckStateController::is_dead() { return is_in_state(DuckStateType::DEAD); }
+bool DuckStateController::is_dead() const { return is_in_state(DuckStateType::DEAD); }
 bool DuckStateController::is_idle() { return is_in_state(DuckStateType::IDLE); }
 
 DuckStateType DuckStateController::get_state() { return current_state->get_id(); };

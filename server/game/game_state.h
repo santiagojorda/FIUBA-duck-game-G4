@@ -17,4 +17,5 @@ struct GameState_t {
     ListProjectiles& map_projectiles;
 };
 
+
 #endif  // SERVER_GAME_STATE_H_

@@ -30,8 +30,8 @@ public:
     virtual void translate_x(int steps);
     virtual void translate_y(int steps);
     virtual void fall(GamePhysics& physics);
-    uint8_t get_id();
-    uint8_t get_texture_id();
+    uint8_t get_id() const;
+    uint8_t get_texture_id() const;
     virtual ~Positionable();
 };
 

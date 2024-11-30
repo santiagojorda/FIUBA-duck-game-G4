@@ -44,6 +44,8 @@ public:
     void equip(std::shared_ptr<Equippable> item);
     Direction get_direction();
     Inventory& get_inventory();
+    
+    void reset();
 
     void update(GamePhysics& physics);
     void run_right(GamePhysics& physics);
@@ -56,6 +58,7 @@ public:
     void plane(GamePhysics& physics);
     void die();
     void idle();
+
     void drop_gun(GameLogic& game_logic);
     void drop_armor();
     void drop_helmet();
@@ -64,7 +67,7 @@ public:
     bool is_running();
     bool is_falling();
     bool is_idle();
-    bool is_dead();
+    bool is_dead() const;
     bool is_touching_floor();
     void set_touching_floor(const bool& new_touch);
 

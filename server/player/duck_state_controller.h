@@ -41,7 +41,7 @@ public:
     bool is_running();
     bool is_falling();
     bool is_idle();
-    bool is_dead();
+    bool is_dead() const;
 
     bool is_touching_floor();
     Direction get_direction();
