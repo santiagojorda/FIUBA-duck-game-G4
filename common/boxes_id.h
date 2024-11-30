@@ -4,4 +4,4 @@
 #include <cstdint>
 enum class BoxesTextureID : uint8_t { DEFAULT = 0 };
 
-#endif  // WEAPONS_ID_H
+#endif

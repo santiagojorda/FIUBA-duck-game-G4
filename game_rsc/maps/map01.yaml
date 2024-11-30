@@ -100,12 +100,12 @@ tiles:
   coordinate:
     x: 96
     y: 96
-- map_id: 1
+- map_id: 2
   tile_id: 3
   coordinate:
     x: 224
     y: 96
-- map_id: 1
+- map_id: 2
   tile_id: 3
   coordinate:
     x: 224
@@ -113,12 +113,12 @@ tiles:
 
 box_size: 16
 boxes:
-- box_id: 1
+- box_id: 0
   coordinate:
       x: 200
       y: 200
 
-weapon_size: 32
+weapon_size: 16
 weapons:
   - id: 10
     coordinate:
