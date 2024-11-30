@@ -8,8 +8,8 @@ granate:
   offset_right_x: 22
   offset_left_x: 5
   offset_y: 10
-  scale_width: 24
-  scale_height: 24
+  scale_width: 14
+  scale_height: 14
 
 banana:
   texture: "/DuckGame-Grenades.png"
@@ -25,8 +25,8 @@ banana:
   offset_right_x: 15
   offset_left_x: 10
   offset_y: 5
-  scale_width: 24
-  scale_height: 24
+  scale_width: 14
+  scale_height: 14
 
 pew_pew_laser:
   texture: "/DuckGame-Laser.png"
@@ -38,8 +38,8 @@ pew_pew_laser:
   offset_right_x: 7
   offset_left_x: 5
   offset_y: 6
-  scale_width: 38
-  scale_height: 38
+  scale_width: 28
+  scale_height: 28
 
 laser_rifle:
   texture: "/DuckGame-Laser.png"
@@ -51,8 +51,8 @@ laser_rifle:
   offset_right_x: 7
   offset_left_x: 5
   offset_y: 6
-  scale_width: 38
-  scale_height: 38
+  scale_width: 28
+  scale_height: 28
 
 ak_47:
   texture: "/DuckGame-MachineGuns.png"
@@ -64,8 +64,8 @@ ak_47:
   offset_right_x: 7
   offset_left_x: 5
   offset_y: 6
-  scale_width: 38
-  scale_height: 38
+  scale_width: 28
+  scale_height: 28
 
 dueling_gun:
   texture: "/DuelingPistol.png"
@@ -77,8 +77,8 @@ dueling_gun:
   offset_right_x: 0
   offset_left_x: 0
   offset_y: 0
-  scale_width: 20
-  scale_height: 20
+  scale_width: 10
+  scale_height: 10
 
 cowboy_gun:
   texture: "/CowboyPistol.png"
@@ -90,8 +90,8 @@ cowboy_gun:
   offset_right_x: 11
   offset_left_x: 11
   offset_y: 9
-  scale_width: 29
-  scale_height: 29
+  scale_width: 19
+  scale_height: 19
 
 magnum:
   texture: "/DuckGame-Pistol.png"
@@ -103,8 +103,8 @@ magnum:
   offset_right_x: 7
   offset_left_x: 5
   offset_y: 6
-  scale_width: 39
-  scale_height: 39
+  scale_width: 29
+  scale_height: 29
 
 shotgun:
   texture: "/Shotgun.png"
@@ -116,8 +116,8 @@ shotgun:
   offset_right_x: 11
   offset_left_x: 9
   offset_y: 8
-  scale_width: 30
-  scale_height: 30
+  scale_width: 20
+  scale_height: 20
 
 sniper:
   texture: "/Sniper.png"
@@ -129,5 +129,5 @@ sniper:
   offset_right_x: 9
   offset_left_x: -7
   offset_y: -1
-  scale_width: 48
-  scale_height: 48
+  scale_width: 38
+  scale_height: 38
