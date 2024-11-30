@@ -48,10 +48,10 @@ public:
 
 
     // Comportamiento cuando se preciona el gatillo
-    virtual void trigger(ListProjectiles& projectiles);
+    virtual void trigger(ListProjectiles& projectiles, const uint8_t& player_id);
 
     // Comportamiento cuando se suelta el gatillo
-    virtual void trigger_out(ListProjectiles& projectiles);
+    virtual void trigger_out(ListProjectiles& projectiles, const uint8_t& player_id);
 
     void equip(Inventory& inventory) override;
 

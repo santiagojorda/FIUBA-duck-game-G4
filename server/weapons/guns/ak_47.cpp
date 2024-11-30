@@ -7,7 +7,7 @@ gun_config ak_config = {WeaponTextureID::AK_47,  30, ShootingRecoil::SHORT,
 
 AK47::AK47(const Coordinate& _coordinate): Gun(ak_config, _coordinate) {}
 
-void AK47::trigger(ListProjectiles& projectiles) {
+void AK47::trigger(ListProjectiles& projectiles, const uint8_t& player_id) {
     this->dispersion++;
 
     // esto hay que refactorizar
@@ -25,15 +25,15 @@ void AK47::trigger(ListProjectiles& projectiles) {
     for (int i = 0; i < ak_config.count_projectiles_x_shoot; i++) {
         if (this->ammo > 0 && this->delay_counter()) {
             projectiles.add(std::make_shared<Bullet>(this->projectile_range, bullet_postion,
-                                                     this->get_direction(), this->dispersion));
+                                                     this->get_direction(), this->dispersion, player_id));
             this->ammo--;
         }
     }
 }
 
-void AK47::trigger_out(ListProjectiles& projectiles) {
+void AK47::trigger_out(ListProjectiles& projectiles, const uint8_t& player_id) {
     this->dispersion = 0;
-    Gun::trigger_out(projectiles);
+    Gun::trigger_out(projectiles, player_id);
 }
 
 AK47::~AK47() {}

@@ -10,28 +10,22 @@
 
 #include "../../common/coordinate.h"
 #include "../../common/direction.h"
+#include "../animation/animation.h"
 #include "../animation/animation_loader.h"
-#include "../animation/animation_weapon.h"
 #include "../config/game_config.h"
 #include "../game_state/sprite.h"
-#include "../textures/textures.h"
 
 #include "drawable.h"
-#include "weapon_properties.h"
 
-class DrawerWeapon: public Drawable<AnimationWeapon> {
+class DrawerWeapon: public Drawable {
 private:
-    std::string type_weapon;
-
 public:
     DrawerWeapon(SDL2pp::Renderer& renderer, uint8_t texture_id,
-                 std::map<std::string, AnimationWeapon>& animations);
+                 std::map<std::string, Animation>& animations);
 
-    /* Armas que aparecen en el mapa */
-    void draw(const sprite_t& weapon);
+    void draw_inventory(const Coordinate& coordinate, uint8_t is_looking);
 
-    /* Armas que son parte del inventario del pato */
-    void draw_with_coordinates(const Coordinate& coordinate, uint8_t is_looking);
+    void draw(const Coordinate& coordinate);
 };
 
 #endif  // DRAWER_WEAPON_H

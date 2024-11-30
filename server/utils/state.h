@@ -4,8 +4,10 @@
 #include <cstdint>
 #include <string>
 
-class Positionable;
-class GamePhysics;
+#include "../attributes/positionable.h"
+#include "../attributes/frameable.h"
+
+class GameLogic;
 
 template <typename T>
 class State : public Directionable, public Frameable{
@@ -18,8 +20,8 @@ public:
         : Directionable(_direction), Frameable(_max_frames), state_id(_state_id), state_name(_state_name)
         {}
 
-    virtual void update_state(Positionable& positionable, GamePhysics& physics) = 0;
-    virtual void execute(Positionable& positionable, GamePhysics& physics) = 0;
+    virtual void update_state(Positionable& positionable, GameLogic& game_logic) = 0;
+    virtual void execute(Positionable& positionable, GameLogic& game_logic) = 0;
 
     virtual void start() {}
     virtual void finish() {}

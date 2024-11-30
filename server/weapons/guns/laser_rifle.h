@@ -9,7 +9,7 @@ public:
     LaserRifle(const Coordinate& _coordinate);
 
     // Dispara aumentado dispersion
-    void trigger(ListProjectiles& projectiles) override;
+    void trigger(ListProjectiles& projectiles, const uint8_t& player_id) override;
 
     ~LaserRifle();
 };

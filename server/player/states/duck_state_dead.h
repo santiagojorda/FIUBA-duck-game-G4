@@ -6,6 +6,7 @@
 class DuckStateDead: public DuckState {
 public:
     DuckStateDead(const uint8_t& _player_id);
+    void update_state(Positionable& positionable, GameLogic& game_logic) override;
 
     ~DuckStateDead();
 };

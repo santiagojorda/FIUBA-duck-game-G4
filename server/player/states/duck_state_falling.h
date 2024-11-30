@@ -6,7 +6,7 @@
 class DuckStateFalling: public DuckState {
 public:
     DuckStateFalling(const uint8_t& _player_id);
-    void update_state(Positionable& positionable, GamePhysics& physics) override;
+    void update_state(Positionable& positionable, GameLogic& game_logic) override;
     // void execute(GamePhysics& physics) override;
     ~DuckStateFalling();
 };

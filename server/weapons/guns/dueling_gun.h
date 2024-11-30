@@ -9,7 +9,7 @@ public:
     DuelingGun(const Coordinate& _coordinate);
 
     // Dispara con muhca dispersion
-    virtual void trigger(ListProjectiles& projectiles) override;
+    virtual void trigger(ListProjectiles& projectiles, const uint8_t& player_id) override;
 
     ~DuelingGun();
 };

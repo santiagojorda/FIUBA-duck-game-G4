@@ -14,9 +14,9 @@ DuckStateFalling::DuckStateFalling(const uint8_t& _player_id):
         DuckState(falling_config.id, falling_config.name,
                   duck_state_frames[falling_config.id].max_frames, _player_id) {}
 
-void DuckStateFalling::update_state(Positionable& positionable, GamePhysics& physics) {
+void DuckStateFalling::update_state(Positionable& positionable, GameLogic& game_logic) {
     positionable.translate_y(FALLING_STEP);
     increment_frame();
-    (void)physics;
+    (void)game_logic;
 }
 DuckStateFalling::~DuckStateFalling() {}

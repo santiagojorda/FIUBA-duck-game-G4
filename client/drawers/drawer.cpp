@@ -31,10 +31,10 @@ void Drawer::run() try {
     client_game_state_t actual_game_state;
 
     ZoomHandler zoom_handler;
-    animations.animation_duck =
-            AnimationLoader::load_animations<Animation>(ANIMATION_PATH "/duck.yaml");
-    animations.animation_weapon =
-            AnimationLoader::load_animations<AnimationWeapon>(ANIMATION_PATH "/weapon.yaml");
+    animations.animation_duck = AnimationLoader::load_animations(ANIMATION_PATH "/duck.yaml");
+    animations.animation_weapon = AnimationLoader::load_animations(ANIMATION_PATH "/weapon.yaml");
+    animations.animation_armor = AnimationLoader::load_animations(ANIMATION_PATH "/armor.yaml");
+
     // desde el LOBBY ya le di a startear game, por lo tanto no necesito darle a la "m", de entrada
     // recibo la data lo traigo para acá así no hay drama
 
@@ -68,7 +68,7 @@ void Drawer::run() try {
         // Draw Players (Patos)
         for (size_t i = 0; i < actual_game_state.players.size(); i++) {
             player_t player = actual_game_state.players[i];
-            drawers.players[player.sprite.id_texture]->draw(player, animations.animation_weapon);
+            drawers.players[player.sprite.id_texture]->draw(player);
         }
 
         // Draw Floor
@@ -118,7 +118,7 @@ void Drawer::run() try {
 
         for (size_t i = 0; i < actual_game_state.weapons.size(); ++i) {
             auto weapon = actual_game_state.weapons[i];
-            drawers.weapons[i]->draw(weapon);
+            drawers.weapons[i]->draw(weapon.coordinate);
         }
 
         // Draw Bullet
@@ -145,7 +145,6 @@ void Drawer::run() try {
         renderer.Present();
 
         sleep.sleep_rate(iteration);
-
         SDL_Event event;
         keyboard_controller.procesar_comando(event);
     }
@@ -164,8 +163,9 @@ void Drawer::init_scenery(Renderer& renderer, const client_game_state_t& actual_
     for (size_t i = 0; i < actual_game_state.players.size(); i++) {
         auto player = actual_game_state.players[i];
         drawers.players[player.sprite.id_texture] = std::make_unique<DrawerPlayer>(
-                renderer, player.sprite.id_texture, animations.animation_duck, player.is_looking);
-        drawers.players[player.sprite.id_texture]->draw(player, animations.animation_weapon);
+                renderer, player.sprite.id_texture, animations.animation_duck,
+                animations.animation_weapon, animations.animation_armor);
+        drawers.players[player.sprite.id_texture]->draw(player);
     }
     /*
         // Floor

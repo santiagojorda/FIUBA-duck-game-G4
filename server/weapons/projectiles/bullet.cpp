@@ -2,25 +2,28 @@
 
 #include <cmath>
 #include <iostream>
+#include "../../game/game_logic.h"
 
 #define TEXTURE_ID 0  // cambiar
 #define HORIZONTAL_STEP 4
 #define VERTICAL_STEP 2
 
 #define TICKS_PER_STEP 1
+#define PI_DEGREES 180
+#define WIDTH_BULLET 2
+#define HEIGHT_BULLET 2
 
 Bullet::Bullet(const ProjectileRange& _range_tiles, const Coordinate& _coordinate,
-               const Direction& _direction, const int& _dispersion_angle):
-        Projectile(TEXTURE_ID, _range_tiles, _coordinate, _direction),
-        dispersion_angle(_dispersion_angle * M_PI / 180.0)  // lo pasa a radianes
+               const Direction& _direction, const int& _dispersion_angle, const uint8_t& _shooter_id):
+        Projectile(TEXTURE_ID, _range_tiles, Coordinate(_coordinate.get_x(), _coordinate.get_y(), HEIGHT_BULLET, WIDTH_BULLET), _direction, _shooter_id),
+        dispersion_angle(_dispersion_angle * M_PI / PI_DEGREES)  // lo pasa a radianes
 {
     std::cout << "Nueva bala" << std::endl;
 }
 
 
-void Bullet::update(GamePhysics& physics) {
+void Bullet::update(GameLogic& game_logic) {
     update_handler.update();
-    (void)physics;
 
     if ((steps * HORIZONTAL_STEP) / (16) >= int(range_tiles)) {
         state = ProjectileState::DEAD;
@@ -35,9 +38,18 @@ void Bullet::update(GamePhysics& physics) {
         double new_y = VERTICAL_STEP * std::sin(dispersion_angle);    // Velocidad inicial en Y
         // deberia chequear que se pueda (colision)
         new_x *= this->get_direction_int();
-        translate_x(static_cast<int>(std::round(new_x)));
-        translate_y(static_cast<int>(std::round(new_y)));
 
+        int x = static_cast<int>(std::round(new_x));
+        int y = static_cast<int>(std::round(new_y));
+
+        game_logic.move(*this, x, y);
         // std::cout << "new bullet position: " << space.get_coordinates() << std::endl;
+    }
+}
+
+void Bullet::handle_collision(Player& player, GameLogic& game_logic){
+    if(shooter_id != player.get_id()){
+        player.die(game_logic);
+        die();
     }
 }

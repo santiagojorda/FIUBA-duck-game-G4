@@ -15,8 +15,8 @@ DuckStateRunning::DuckStateRunning(uint8_t _player_id):
         DuckState(running_config.id, running_config.name,
                   duck_state_frames[running_config.id].max_frames, _player_id) {}
 
-void DuckStateRunning::update_state(Positionable& positionable, GamePhysics& physics) {
-    (void)physics;
+void DuckStateRunning::update_state(Positionable& positionable, GameLogic& game_logic) {
+    (void)game_logic;
     (void)positionable;
     if (has_reached_max_frames()) {
         reset();
@@ -31,8 +31,8 @@ void DuckStateRunning::move(Positionable& positionable) {
     }
 }
 
-void DuckStateRunning::execute(Positionable& positionable, GamePhysics& physics) {
-    DuckState::execute(positionable, physics);
+void DuckStateRunning::execute(Positionable& positionable, GameLogic& game_logic) {
+    DuckState::execute(positionable, game_logic);
     move(positionable);
     increment_frame();
 }

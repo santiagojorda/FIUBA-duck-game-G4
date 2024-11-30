@@ -8,8 +8,8 @@ private:
 public:
     explicit DuckStateRunning(uint8_t _player_id);
 
-    void update_state(Positionable& positionable, GamePhysics& physics) override;
-    void execute(Positionable& positionable, GamePhysics& physics) override;
+    void update_state(Positionable& positionable, GameLogic& game_logic) override;
+    void execute(Positionable& positionable, GameLogic& game_logic) override;
     void move(Positionable& positionable);
 
     ~DuckStateRunning();

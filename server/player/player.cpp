@@ -5,6 +5,7 @@
 #include "../../common/state_duck.h"
 #include "../weapons/gun.h"
 #include "../game/game_logic.h"
+#include "../weapons/list_projectiles.h"
 
 const int SPEED = 1;
 #define RUN_STEP 10
@@ -15,30 +16,31 @@ Player::Player(uint8_t _id): Positionable(_id, _id, Coordinate(10, 10, 32, 32)),
 
 Player::~Player() { Positionable::~Positionable(); }
 
-void Player::update(GamePhysics& physics) {     
-    state.update(*this, physics); 
+void Player::update(GameLogic& game_logic) {     
+    state.update(*this, game_logic); 
 }
 
 void Player::log_action(const std::string& action) {
     std::cout << "Player " << int(id) << " " << action << std::endl;
 }
 
-void Player::run_right(GamePhysics& physics) { state.run_right(*this, physics); }
-void Player::run_left(GamePhysics& physics) { state.run_left(*this, physics); }
-void Player::jump(GamePhysics& physics) { state.jump(*this, physics); }
-void Player::fall(GamePhysics& physics) { state.fall(*this, physics); }
-void Player::crouch(GamePhysics& physics) { state.crouch(*this, physics); }
-void Player::slip(GamePhysics& physics) { state.slip(*this, physics); }
-void Player::recoil(GamePhysics& physics) { state.recoil(*this, physics); }
-void Player::plane(GamePhysics& physics) { state.plane(*this, physics); }
+void Player::run_right(GameLogic& game_logic) { state.run_right(*this, game_logic); }
+void Player::run_left(GameLogic& game_logic) { state.run_left(*this, game_logic); }
+void Player::jump(GameLogic& game_logic) { state.jump(*this, game_logic); }
+void Player::fall(GameLogic& game_logic) { state.fall(*this, game_logic); }
+void Player::crouch(GameLogic& game_logic) { state.crouch(*this, game_logic); }
+void Player::slip(GameLogic& game_logic) { state.slip(*this, game_logic); }
+void Player::recoil(GameLogic& game_logic) { state.recoil(*this, game_logic); }
+void Player::plane(GameLogic& game_logic) { state.plane(*this, game_logic); }
 void Player::idle() { state.idle(*this); }
-void Player::die() {
+void Player::die(GameLogic& game_logic) {
     health = 0;
+    drop_gun(game_logic);
     state.die(*this);
 }
 
 void Player::reset(){
-    this->idle();
+    this->state.reset();
     this->inventory.reset();
 }
 
@@ -113,6 +115,7 @@ bool Player::is_running() { return state.is_running(); }
 bool Player::is_falling() { return state.is_falling(); }
 bool Player::is_idle()  { return state.is_idle(); }
 bool Player::is_dead() const { return state.is_dead(); }
+bool Player::is_alive() { return state.is_alive(); }
 
 DuckStateType Player::get_state() { return state.get_state(); }
 
@@ -132,10 +135,10 @@ void Player::shoot(ListProjectiles& projectiles, const ModeShoot& mode) {
     ShootingRecoil recoil = gun->get_recoil();
     switch (mode)  {
         case ModeShoot::TRIGGER:
-            gun->trigger(projectiles);
+            gun->trigger(projectiles, id);
             break;
         case ModeShoot::TRIGGER_OUT:
-            gun->trigger_out(projectiles);
+            gun->trigger_out(projectiles, id);
             break;
         default:
             break;
