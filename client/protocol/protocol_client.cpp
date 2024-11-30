@@ -15,7 +15,7 @@ void ClientProtocol::receive_cordinates(Coordinate& coordinate) {
 }
 
 void ClientProtocol::receive_sprite(sprite_t& sprite) {
-    uint8_t id_texture;
+    uint8_t id_texture; // por ahora este me indica el nro de tile de 0 a 63
     this->receive_byte(id_texture);
     Coordinate coordinate;
     receive_cordinates(coordinate);

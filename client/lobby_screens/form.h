@@ -19,6 +19,7 @@ public:
     void set_type_screen(int type_screen);
     void initialize_screen();
 
+/*
 protected:
     void paintEvent(QPaintEvent *event) override {
         QPainter painter(this);
@@ -27,7 +28,7 @@ protected:
         painter.setOpacity(0.5);
         painter.drawPixmap(0, 0, width(), height(), background);
     }
-
+*/
 private slots:
     void on_buttonContinue_clicked();
 

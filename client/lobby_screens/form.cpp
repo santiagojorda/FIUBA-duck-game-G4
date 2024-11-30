@@ -63,7 +63,6 @@ bool Form::validate_form() {
 
 void Form::on_buttonContinue_clicked()
 {
-
     if (validate_form()) {
         hall.set_config_game(std::make_tuple(this->type_screen, this->hostname, this->port, this->cant_players));
         hall.initialize_screen();
@@ -80,17 +79,20 @@ void Form::initialize_screen()
 
 void Form::on_inputHostname_textChanged(const QString &arg1)
 {
+    (void)arg1;
     ui->labelErrorHostname->clear();
 }
 
 
 void Form::on_inputPort_textChanged(const QString &arg1)
 {
+    (void)arg1;
     ui->labelErrorPort->clear();
 }
 
 
 void Form::on_spinNumberPlayers_valueChanged(int arg1)
 {
+    (void)arg1;
     ui->labelErrorNumberPlayers->clear();
 }

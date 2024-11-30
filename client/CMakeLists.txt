@@ -13,7 +13,7 @@ file(GLOB_RECURSE SOURCES_UI_CLIENT "*.ui")
 
 
 # Incluye el archivo de recursos
-set(qrc_files screens/resources.qrc)
+set(qrc_files lobby_screens/resources.qrc)
 
 target_sources(taller_client
     PRIVATE
