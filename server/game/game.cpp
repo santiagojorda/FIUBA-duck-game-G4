@@ -70,12 +70,9 @@ void Game::load_map() {
 
 
 void Game::reset_values(){
-    RoundManager round_manager(this->players);
-    round_manager.log_state(std::cout, this->get_gamestate());
-    this->map.clear();
-    map_items.clear();
-    load_map();
-    round_manager.log_state(std::cout, this->get_gamestate());
+    this->map_items.clear();
+    charge_ponits(this->players, this->inicial_values.points);
+    charge_weapons(this->map_items, this->inicial_values.data_weapons);
 }
 
 void Game::execute_new_events() {
