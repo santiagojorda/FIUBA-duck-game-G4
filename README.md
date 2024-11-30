@@ -1,14 +1,20 @@
 > Hola! 👋🏼 El trabajo aun no esta finalizado, seguimos en desarrollo! 💪🏼☕ - 19/11 
 
-> autores name - name - Felipe D'alto
+# Duck Game
 
-# Cómo compilar y ejecutar 
+### Integrantes
+- Felipe D'alto (110000)
+- Santiago Jorda (102924)
+- Alexia Aroa (110014)
 
-## Introducción
+
+## Cómo compilar y ejecutar 
+
+### Introducción
 Este documento explica paso a paso cómo compilar y ejecutar el proyecto [Nombre del proyecto].
 
-## Requisitos previos
-## Uso de bibliotecas
+### Requisitos previos
+#### Uso de bibliotecas
 
 1. **Biblioteca de Sockets de la cátedra Veiga** | Autor: eldipa | Licencia: GPL v2
     - [https://github.com/eldipa/hands-on-sockets-in-cpp](https://github.com/eldipa/hands-on-sockets-in-cpp)
@@ -82,21 +88,19 @@ Para el cliente en la segunda
 /taller_client 127.0.0.1 8080
 ````
 
-## Jugar 
+## Jugar
 Al iniciar el juego se vera una pantalla negra, una vez los jugadores esten conectados se debe apretar la tecla '"m" para lanzar el juego.
 
 Para cerrar usa la tecal "q" o "esc"
 
 controles player 1:
-- saltar -> key up 
-- moverse a la derecha -> key up 
-- moverse a la izquierda -> key up 
-- disparar -> space 
+saltar -> key up
+moverse a la derecha -> key right
+moverse a la izquierda -> key left
+disparar -> space
 
 controles player 2:
-- saltar -> w
-- moverse a la derecha -> d
-- moverse a la izquierda -> a
-- disparar -> space 
-
-
+saltar -> w
+moverse a la derecha -> d
+moverse a la izquierda -> a
+disparar -> space

@@ -28,6 +28,8 @@ void Drawer::run() try {
 
     SleepSpecial sleep(MILISECONDS_30_FPS);
     int iteration = 0;
+
+    drawers_t drawers;
     client_game_state_t actual_game_state;
 
     ZoomHandler zoom_handler;
@@ -57,13 +59,6 @@ void Drawer::run() try {
 
         renderer.Copy(background, Rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
 
-        SDL_SetRenderTarget(renderer.Get(), main_texture.Get());
-
-        renderer.SetDrawColor(0, 0, 0, 0);
-
-        renderer.Clear();
-
-        init_scenery(renderer, actual_game_state, drawers);
 
         // Draw Players (Patos)
         for (size_t i = 0; i < actual_game_state.players.size(); i++) {
