@@ -88,7 +88,6 @@ void KeyboardController::procesar_keydown(SDL_Event& event) {
     }
 }
 
-
 void KeyboardController::procesar_accion_player_1(const Uint8* state) {
     ClientEvent_t client_event;
 
