@@ -1,18 +1,18 @@
-#ifndef GROUND
-#define GROUND
+#ifndef BOX
+#define BOX
 
 #include <cstdint>
 
 #include "../attributes/positionable.h"
 
-class Ground: public Positionable {
+class Box: public Positionable {
 private:
 public:
-    explicit Ground(const Coordinate& _coordinate, const uint8_t& _texture_id);
+    explicit Box(const Coordinate& _coordinate, const uint8_t& _texture_id);
     void translate() override {}
     void translate_x(int pasos) override { (void)pasos; }
     void translate_y(int pasos) override { (void)pasos; }
-    ~Ground() {}
+    ~Box() {}
 };
 
 #endif

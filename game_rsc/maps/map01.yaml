@@ -111,6 +111,13 @@ tiles:
     x: 224
     y: 80
 
+box_size: 16
+boxes:
+- box_id: 1
+  coordinate:
+      x: 200
+      y: 200
+
 weapon_size: 32
 weapons:
   - id: 10

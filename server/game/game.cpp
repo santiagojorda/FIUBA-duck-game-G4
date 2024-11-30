@@ -56,6 +56,7 @@ void Game::load_map() {
         std::list<data_weapon> data_weapons;
 
         deserialize.load_floors(this->map);
+        deserialize.load_boxes(this->map);
         deserialize.load_inicial_points(this->inicial_values.points);
         deserialize.load_weapons(this->inicial_values.data_weapons);
         charge_ponits(this->players, this->inicial_values.points);
@@ -69,9 +70,12 @@ void Game::load_map() {
 
 
 void Game::reset_values(){
+    RoundManager round_manager(this->players);
+    round_manager.log_state(std::cout, this->get_gamestate());
     this->map_items.clear();
     charge_ponits(this->players, this->inicial_values.points);
     charge_weapons(this->map_items, this->inicial_values.data_weapons);
+    round_manager.log_state(std::cout, this->get_gamestate());
 }
 
 void Game::execute_new_events() {
