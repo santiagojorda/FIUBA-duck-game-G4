@@ -47,9 +47,9 @@ void Bullet::update(GameLogic& game_logic) {
     }
 }
 
-void Bullet::handle_collision(Player& player){
+void Bullet::handle_collision(Player& player, GameLogic& game_logic){
     if(shooter_id != player.get_id()){
-        player.die();
+        player.die(game_logic);
         die();
     }
 }

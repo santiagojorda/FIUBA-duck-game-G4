@@ -18,7 +18,7 @@ public:
                     const Direction& _direction, const int& _dispersion_angle, const uint8_t& _shooter_id);
     void update(GameLogic& game_logic) override;
     using Positionable::handle_collision; 
-    void handle_collision(Player& player) override;
+    void handle_collision(Player& player, GameLogic& game_logic) override;
 };
 
 #endif

@@ -55,7 +55,7 @@ public:
     void slip(GameLogic& game_logic);
     void recoil(GameLogic& game_logic);
     void plane(GameLogic& game_logic);
-    void die();
+    void die(GameLogic& game_logic);
     void idle();
     void drop_gun(GameLogic& game_logic);
     void drop_armor();

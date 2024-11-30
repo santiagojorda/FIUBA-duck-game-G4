@@ -30,11 +30,13 @@ void Positionable::translate_y(int steps) {
 }
 
 
-void Positionable::handle_collision(Bullet& bullet){
+void Positionable::handle_collision(Bullet& bullet, GameLogic& game_logic){
     (void)bullet;
+    (void)game_logic;
 }
-void Positionable::handle_collision(Player& player){
+void Positionable::handle_collision(Player& player, GameLogic& game_logic){
     (void)player;
+    (void)game_logic;
 }
 
 

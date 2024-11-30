@@ -71,7 +71,7 @@ void GameLogic::move(Bullet& bullet, int x, int y){
             continue;
         }
         if (physics.exist_collision(player.get_rectangle(), bullet.get_rectangle())){
-            bullet.handle_collision(player);
+            bullet.handle_collision(player, *this);
             remove_bullet(bullet);
             return;
         }
@@ -93,12 +93,13 @@ void GameLogic::update_players() {
     for (Player& player: players) {
 
         if (player.is_dead()) {
+            player.update(*this);
             continue;
         }
 
 
         if (physics.is_player_out_of_map(player)) {
-            player.die();
+            player.die(*this);
             continue;
         }
 

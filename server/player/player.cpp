@@ -33,8 +33,9 @@ void Player::slip(GameLogic& game_logic) { state.slip(*this, game_logic); }
 void Player::recoil(GameLogic& game_logic) { state.recoil(*this, game_logic); }
 void Player::plane(GameLogic& game_logic) { state.plane(*this, game_logic); }
 void Player::idle() { state.idle(*this); }
-void Player::die() {
+void Player::die(GameLogic& game_logic) {
     health = 0;
+    drop_gun(game_logic);
     state.die(*this);
 }
 void Player::equip(std::shared_ptr<Equippable> item) { inventory.equip(item); }

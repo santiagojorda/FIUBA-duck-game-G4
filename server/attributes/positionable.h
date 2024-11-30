@@ -36,8 +36,8 @@ public:
     uint8_t get_id();
     uint8_t get_texture_id();
 
-    virtual void handle_collision(Bullet& bullet);
-    virtual void handle_collision(Player& player);
+    virtual void handle_collision(Bullet& bullet, GameLogic& game_logic);
+    virtual void handle_collision(Player& player, GameLogic& game_logic);
 
     virtual ~Positionable();
 };

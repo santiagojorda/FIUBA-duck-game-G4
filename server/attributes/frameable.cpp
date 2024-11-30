@@ -5,7 +5,7 @@ Frameable::Frameable(const uint8_t& _max_frames) : frame(0), max_frames(_max_fra
 void Frameable::reset() { frame = 0;}
 
 void Frameable::increment_frame() {
-    if(frame < max_frames){
+    if(frame < max_frames - 1){
         frame++;
     }
 }
