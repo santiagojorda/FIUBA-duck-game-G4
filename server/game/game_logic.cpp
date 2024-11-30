@@ -10,6 +10,7 @@
 #include "../weapons/projectiles/bullet.h"
 
 #define DROP_DISTANCE 40
+#define HORIZONTAL_STEP 5
 
 GameLogic::GameLogic(ListPlayers& _players, Map& _map, ListItemsMap& _items,
                      ListProjectiles& _projectiles):
@@ -20,7 +21,6 @@ GameLogic::GameLogic(ListPlayers& _players, Map& _map, ListItemsMap& _items,
         physics(map) {}
 
 void GameLogic::update_player_equip_collision(Player& player) {
-    // deberiamos chequear equipables
     for (std::shared_ptr<Equippable> item: items.get_items()) {
         if (this->physics.exist_collision(player.get_rectangle(), item->get_rectangle())) {
             player.equip(item);
@@ -47,7 +47,6 @@ void GameLogic::update_player_gravity(Player& player) {
         player.touch_floor();
     } else {
         player.fall(*this);
-        // player.set_touching_floor(!IS_TOUCHING_FLOOR);a
     }
 }
 
@@ -80,6 +79,34 @@ void GameLogic::move(Bullet& bullet, int x, int y){
     
     bullet.translate_x(x);
     bullet.translate_y(y);
+}
+
+
+void GameLogic::fall(Player& player){
+    physics.falling(player, 1);
+}
+
+void GameLogic::move_horizontal(Player& player, Direction& direction){
+    int sign = 0;
+
+    if (direction == Direction::RIGHT) {
+        sign = 1; 
+    } else if (direction == Direction::LEFT) {
+        sign = -1;
+    }
+    
+    move(player, sign*HORIZONTAL_STEP, 0);
+}
+
+
+void GameLogic::move(Player& player, int x, int y){
+    // std::shared_ptr<Positionable> touched_floor = physics.get_player_floor_collision(player);
+    // if (touched_floor) {
+    //     return;
+    // }
+    
+    player.translate_x(x);
+    player.translate_y(y);
 }
 
 

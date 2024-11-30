@@ -50,13 +50,13 @@ public:
     void update(GameLogic& game_logic);
     void run_right(GameLogic& game_logic);
     void run_left(GameLogic& game_logic);
-    void jump(GameLogic& game_logic);
+    void jump();
     void fall(GameLogic& game_logic) override;
-    void crouch(GameLogic& game_logic);
-    void slip(GameLogic& game_logic);
-    void recoil(GameLogic& game_logic);
+    void crouch();
+    void slip();
+    void recoil();
     void plane(GameLogic& game_logic);
-    void die(GameLogic& game_logic);
+    void die(GameLogic& game_logi);
     void idle();
 
     void drop_gun(GameLogic& game_logic);

@@ -24,30 +24,31 @@ private:
     void set_direction(const Direction& new_direction);
     void execute(Player& player, GameLogic& game_logic);
     void set_alive_state(const DuckStateType new_state_type);
-    void execute_aero_running(Direction direction, Player& player, GameLogic& game_logic);
 
 public:
     DuckStateController(const uint8_t& _player_id);
 
     void reset();
+    void update(Player& player, GameLogic& game_logic);
 
     void run(Direction direction, Player& player, GameLogic& game_logic);
     void run_right(Player& player, GameLogic& game_logic);
     void run_left(Player& player, GameLogic& game_logic);
-    void jump(Player& player, GameLogic& game_logic);
-    void fall(Player& player, GameLogic& game_logic);
-    void crouch(Player& player, GameLogic& game_logic);
-    void slip(Player& player, GameLogic& game_logic);
-    void recoil(Player& player, GameLogic& game_logic);
+    void jump();
+    void fall();
+    void crouch();
+    void slip();
+    void recoil();
     void plane(Player& player, GameLogic& game_logic);
-    void die(Player& player);
-    void idle(Player& player);
+    void die();
+    void idle();
     bool is_jumping();
     bool is_running();
     bool is_falling();
     bool is_idle();
     bool is_dead() const;
     bool is_alive();
+    bool is_crouching() const;
     bool is_dead_animation_finished() const;
     bool is_touching_floor();
     void set_touch_floor(const bool& _touch_floor);

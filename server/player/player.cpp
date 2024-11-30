@@ -23,17 +23,20 @@ void Player::log_action(const std::string& action) {
 
 void Player::run_right(GameLogic& game_logic) { state.run_right(*this, game_logic); }
 void Player::run_left(GameLogic& game_logic) { state.run_left(*this, game_logic); }
-void Player::jump(GameLogic& game_logic) { state.jump(*this, game_logic); }
-void Player::fall(GameLogic& game_logic) { state.fall(*this, game_logic); }
-void Player::crouch(GameLogic& game_logic) { state.crouch(*this, game_logic); }
-void Player::slip(GameLogic& game_logic) { state.slip(*this, game_logic); }
-void Player::recoil(GameLogic& game_logic) { state.recoil(*this, game_logic); }
+void Player::jump() { state.jump(); }
+void Player::fall(GameLogic& game_logic) { 
+    (void)game_logic;
+    state.fall(); 
+}
+void Player::crouch() { state.crouch(); }
+void Player::slip() { state.slip(); }
+void Player::recoil() { state.recoil(); }
 void Player::plane(GameLogic& game_logic) { state.plane(*this, game_logic); }
-void Player::idle() { state.idle(*this); }
+void Player::idle() { state.idle(); }
 void Player::die(GameLogic& game_logic) {
     health = 0;
     drop_gun(game_logic);
-    state.die(*this);
+    state.die();
 }
 
 void Player::reset(){

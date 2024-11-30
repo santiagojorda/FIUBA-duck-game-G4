@@ -1,6 +1,10 @@
 #include "duck_state_running.h"
 
 #include <iostream>
+#include "../player.h"
+#include "../../../common/direction.h"
+
+#define RUN_STEP 5
 
 struct RunningStateConfig {
     DuckStateType id = DuckStateType::RUNNING;
@@ -12,25 +16,28 @@ DuckStateRunning::DuckStateRunning(const uint8_t& _player_id):
         DuckState(running_config.id, running_config.name,
                   duck_state_frames[running_config.id].max_frames, _player_id) {}
 
-void DuckStateRunning::update_state(Positionable& positionable, GameLogic& game_logic) {
+void DuckStateRunning::update_state(Player& player, GameLogic& game_logic) {
     (void)game_logic;
-    (void)positionable;
+    (void)player;
     if (has_reached_max_frames()) {
         reset();
     }
 }
 
-void DuckStateRunning::move(Positionable& positionable) {
-    if (is_right()) {
-        positionable.translate_x(RUN_STEP);
-    } else if (is_left()) {
-        positionable.translate_x(-RUN_STEP);
+void DuckStateRunning::move(Player& player, GameLogic& game_logic) {
+    int sign;
+    if (player.get_direction() == Direction::RIGHT) {
+        sign = 1;
+    } else if (player.get_direction() == Direction::LEFT) {
+        sign = -1;
     }
+
+    game_logic.move(player, sign*RUN_STEP, 0);
 }
 
-void DuckStateRunning::execute(Positionable& positionable, GameLogic& game_logic) {
-    DuckState::execute(positionable, game_logic);
-    move(positionable);
+void DuckStateRunning::execute(Player& player, GameLogic& game_logic) {
+    DuckState::execute(player, game_logic);
+    move(player, game_logic);
     increment_frame();
 }
 

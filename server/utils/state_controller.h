@@ -33,18 +33,9 @@ public:
         }
     }
 
-    std::shared_ptr<State<T>> set_state_and_save_previus(const T& new_state_type){
-        std::shared_ptr<State<T>> previus_state = current_state;
-        current_state = state_factory->get(new_state_type);
+    void update(Positionable& positionable, GameLogic& game_logic, Direction& direction) {
         if (current_state) {
-            current_state->start();
-        }
-        return previus_state;
-    }
-
-    void update(Positionable& positionable, GameLogic& game_logic) {
-        if (current_state) {
-            current_state->update_state(positionable, game_logic);
+            current_state->update_state(positionable, game_logic, direction);
         }
     }
 

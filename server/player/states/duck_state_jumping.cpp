@@ -4,7 +4,8 @@
 
 #include "../player.h"
 
-#define JUMP_STEP 10
+#define JUMP_STEP 8
+#define JUMP_TICKS_PER_FRAME 3
 
 struct JumpingStateConfig {
     DuckStateType id = DuckStateType::JUMPING;
@@ -16,16 +17,18 @@ DuckStateJumping::DuckStateJumping(const uint8_t& _player_id):
         DuckState(jumping_config.id, jumping_config.name,
                   duck_state_frames[jumping_config.id].max_frames, _player_id) {}
 
-void DuckStateJumping::update_state(Positionable& positionable, GameLogic& game_logic) {
+void DuckStateJumping::update_state(Player& player, GameLogic& game_logic) {
     tick++;
 
-    positionable.translate_y(-JUMP_STEP);
-    if (tick == get_max_frames()) {
-        positionable.fall(game_logic);
-        // positionable.fall(physics); //decirle al physics que le haga fall
+    game_logic.move(player, 0, -JUMP_STEP);
+
+    if (has_reached_max_frames()) {
+        player.fall(game_logic);
         return;
     }
-    increment_frame();
+    if(tick % JUMP_TICKS_PER_FRAME == 0){
+        increment_frame();
+    }
 }
 
 DuckStateJumping::~DuckStateJumping() {}

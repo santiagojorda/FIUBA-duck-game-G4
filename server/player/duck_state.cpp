@@ -6,17 +6,13 @@
 
 
 DuckState::DuckState(const DuckStateType& _state_id, const std::string& _state_name,
-                     const uint8_t& _max_frames, const uint8_t& _player_id,
-                     const Direction& _direction):
-        State<DuckStateType>(_state_id, _state_name, _max_frames, _direction),
+                     const uint8_t& _max_frames, const uint8_t& _player_id):
+        State<DuckStateType>(_state_id, _state_name, _max_frames),
         player_id(_player_id)
         {
             init_state(_player_id);
         }
 
-DuckState::DuckState(const DuckStateType& _state_id, const std::string& _state_name,
-                     const uint8_t& _max_frames, const uint8_t& _player_id):
-        DuckState(_state_id, _state_name, _max_frames, _player_id, Direction::RIGHT) {}
 
 void DuckState::init_state(const uint8_t& player_id) {
     std::cout << "State " << state_name << " of player " << (int)player_id << " is created "
@@ -24,13 +20,13 @@ void DuckState::init_state(const uint8_t& player_id) {
     reset();
 }
 
-void DuckState::update_state(Positionable& positionable, GameLogic& game_logic) {
+void DuckState::update_state(Player& player, GameLogic& game_logic) {
     (void)game_logic;
-    (void)positionable;
+    (void)player;
 }
-void DuckState::execute(Positionable& positionable, GameLogic& game_logic) {
+void DuckState::execute(Player& player, GameLogic& game_logic) {
     (void)game_logic;
-    (void)positionable;
+    (void)player;
 }
 
 void DuckState::reset() {
