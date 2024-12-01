@@ -15,7 +15,7 @@ void DrawerFloor::draw(SDL2pp::Renderer& renderer, const sprite_t& floor) {
     int src_x = SIZE_FLOOR_SPRITE * 3;
     int src_y = 0;
 
-    renderer.Copy(
-            texture, SDL2pp::Rect(src_x, src_y, SIZE_FLOOR_SPRITE, SIZE_FLOOR_SPRITE),
-            SDL2pp::Rect(floor.coordinate.get_x(), floor.coordinate.get_y(), SIZE_FLOOR_SPRITE, SIZE_FLOOR_SPRITE));
+    renderer.Copy(texture, SDL2pp::Rect(src_x, src_y, SIZE_FLOOR_SPRITE, SIZE_FLOOR_SPRITE),
+                  SDL2pp::Rect(floor.coordinate.get_x(), floor.coordinate.get_y(),
+                               SIZE_FLOOR_SPRITE, SIZE_FLOOR_SPRITE));
 }

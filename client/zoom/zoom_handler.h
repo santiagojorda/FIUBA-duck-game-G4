@@ -5,6 +5,7 @@
 
 #include <SDL2pp/SDL2pp.hh>
 
+#include "../../common/state_duck.h"
 #include "../game_state/vector_player.h"
 
 class ZoomHandler {

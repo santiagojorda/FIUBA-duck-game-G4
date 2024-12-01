@@ -36,9 +36,13 @@ std::tuple<int, int, int, int> ZoomHandler::calculate_bounds(const VectorPlayers
     int min_y = players[0].sprite.coordinate.get_y();
     int max_y = players[0].sprite.coordinate.get_y();
 
-    for (const auto& position: players) {
-        int x = position.sprite.coordinate.get_x();
-        int y = position.sprite.coordinate.get_y();
+    for (const auto& player: players) {
+        // No tiene en cuenta a los patos muertos
+        if (static_cast<DuckStateType>(player.state) == DuckStateType::DEAD) {
+            continue;
+        }
+        int x = player.sprite.coordinate.get_x();
+        int y = player.sprite.coordinate.get_y();
         min_x = std::min(min_x, x);
         max_x = std::max(max_x, x);
         min_y = std::min(min_y, y);
@@ -48,9 +52,6 @@ std::tuple<int, int, int, int> ZoomHandler::calculate_bounds(const VectorPlayers
 }
 
 void ZoomHandler::calculate_zoom_factor(int ancho, int altura) {
-    if (ancho == 0 && altura == 0)
-        factor_zoom = 1.6f;
-
     float zoom_x = ancho != 0 ? static_cast<float>(WINDOW_WIDTH) / (ancho + OFFSET) : 0;
     float zoom_y = altura != 0 ? static_cast<float>(WINDOW_HEIGHT) / (altura + OFFSET) : 0;
 
@@ -60,7 +61,7 @@ void ZoomHandler::calculate_zoom_factor(int ancho, int altura) {
         factor_zoom = (zoom_x == 0) ? zoom_y : zoom_x;
     }
 
-    if (factor_zoom == 0 || factor_zoom >= 1.6f) {
-        factor_zoom = 1.6f;
+    if (factor_zoom == 0 || factor_zoom >= 2.3f) {
+        factor_zoom = 2.3f;
     }
 }
