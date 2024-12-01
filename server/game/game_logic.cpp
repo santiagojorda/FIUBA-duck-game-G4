@@ -12,29 +12,30 @@
 #define DROP_DISTANCE 40
 #define HORIZONTAL_STEP 5
 
-GameLogic::GameLogic(ListPlayers& _players, Map& _map, ListItemsMap& _items,
+GameLogic::GameLogic(ListPlayers& _players, Map& _map,
                      ListProjectiles& _projectiles):
         players(_players),
         map(_map),
-        items(_items),
         projectiles(_projectiles),
         physics(map) {}
 
 void GameLogic::update_player_equip_collision(Player& player) {
-    for (std::shared_ptr<Equippable> item: items.get_items()) {
-        if (this->physics.exist_collision(player.get_rectangle(), item->get_rectangle())) {
-            player.equip(item);
-            if(player.has_equipped_this(item)){
-                items.remove(item);
-            }
-            return;
-        }
-    }
+    (void)player;
+    // for (std::shared_ptr<Equippable> item: items.get_items()) {
+    //     if (this->physics.exist_collision(player.get_rectangle(), item->get_rectangle())) {
+    //         player.equip(item);
+    //         if(player.has_equipped_this(item)){
+    //             items.remove(item);
+    //         }
+    //         return;
+    //     }
+    // }
 }
 
 void GameLogic::handle_drop(std::shared_ptr<Equippable> item){
-    items.add(item);
-    item->translate_x(DROP_DISTANCE);
+    (void)item;
+    // items.add(item);
+    // item->translate_x(DROP_DISTANCE);
 }
 
 void GameLogic::update_player_gravity(Player& player) {

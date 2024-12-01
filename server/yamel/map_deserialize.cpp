@@ -44,28 +44,32 @@ std::string enum_string(keys_yamel key) { return keys_string[key]; }
 MapDeserialize::MapDeserialize(const std::string& path): map(YAML::LoadFile(path)) {}
 
 void MapDeserialize::load_floors(Map& charge_map) {
-    int tile_size = this->map[enum_string(TILE_SIZE)].as<int>();
     YAML::Node tiles = this->map[enum_string(TILES)];
     for (const auto& tile: tiles) {
         int tile_id = tile[enum_string(TILE_ID)].as<int>();
-        // int map_id = tile[enum_string(MAP_ID)].as<int>();
+        int map_id = tile[enum_string(MAP_ID)].as<int>();
         int x = tile[enum_string(COORDINATE)][enum_string(X)].as<int>();
         int y = tile[enum_string(COORDINATE)][enum_string(Y)].as<int>();
-
-        charge_map.add(std::make_shared<Ground>(Coordinate(x, y, tile_size, tile_size), tile_id));
+        try{
+            charge_map.add(x, y, Ground(tile_id, map_id));
+        }
+        catch(std::exception& e){
+            std::cout << "hubo un error al cargar mapa: " << e.what() << std::endl;
+        }
     }
 }
 
 void MapDeserialize::load_boxes(Map& charge_map) {
-    int box_size = this->map[enum_string(BOX_SIZE)].as<int>();
-    YAML::Node boxes = this->map[enum_string(BOXES)];
-    for (const auto& box: boxes) {
-        int box_id = box[enum_string(BOX_ID)].as<int>();
-        int x = box[enum_string(COORDINATE)][enum_string(X)].as<int>();
-        int y = box[enum_string(COORDINATE)][enum_string(Y)].as<int>();
+    (void)charge_map;
+    // int box_size = this->map[enum_string(BOX_SIZE)].as<int>();
+    // YAML::Node boxes = this->map[enum_string(BOXES)];
+    // for (const auto& box: boxes) {
+    //     int box_id = box[enum_string(BOX_ID)].as<int>();
+    //     int x = box[enum_string(COORDINATE)][enum_string(X)].as<int>();
+    //     int y = box[enum_string(COORDINATE)][enum_string(Y)].as<int>();
 
-        charge_map.add(std::make_shared<Box>(Coordinate(x, y, box_size, box_size), box_id));
-    }
+    //     charge_map.add(std::make_shared<Box>(Coordinate(x, y, box_size, box_size), box_id));
+    // }
 }
 
 void MapDeserialize::load_inicial_points(std::vector<Coordinate>& points) {

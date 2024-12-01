@@ -21,9 +21,8 @@ Game::Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEvents& 
            QueueGameState& _queue_gamestate):
         players(_players),
         map(),
-        map_items(),
         map_projectiles(),
-        game_logic(players, map, map_items, map_projectiles),
+        game_logic(players, map, map_projectiles),
         monitor_client(_monitor_client),
         queue_events(_queue_events),
         queue_gamestate(_queue_gamestate){
@@ -60,7 +59,7 @@ void Game::load_map() {
         deserialize.load_inicial_points(this->inicial_values.points);
         deserialize.load_weapons(this->inicial_values.data_weapons);
         charge_ponits(this->players, this->inicial_values.points);
-        charge_weapons(this->map_items, this->inicial_values.data_weapons);
+        // charge_weapons(this->map_items, this->inicial_values.data_weapons);
     } catch (const std::exception& e) {
         std::cerr << "error map.yaml: " << e.what() << '\n';
     } catch (...) {
@@ -70,9 +69,9 @@ void Game::load_map() {
 
 
 void Game::reset_values(){
-    this->map_items.clear();
+    // this->map_items.clear();
     charge_ponits(this->players, this->inicial_values.points);
-    charge_weapons(this->map_items, this->inicial_values.data_weapons);
+    // charge_weapons(this->map_items, this->inicial_values.data_weapons);
 }
 
 void Game::execute_new_events() {
@@ -86,7 +85,7 @@ void Game::execute_new_events() {
 
 void Game::broadcast_gamestate() { monitor_client.broadcast(get_gamestate()); }
 
-GameState_t Game::get_gamestate() { return GameState_t{players, map, map_items, map_projectiles}; }
+GameState_t Game::get_gamestate() { return GameState_t{players, map, map_projectiles}; }
 
 void Game::run() {
     SleepSpecial sleep(MILISECONDS_30_FPS);
@@ -106,7 +105,7 @@ void Game::run() {
                 sleep.reset();
                 // sleep = SleepSpecial(MILISECONDS_30_FPS);
             }
-            // if(log_counter()) round_manager.log_state(std::cout, this->get_gamestate());
+            if(log_counter()) round_manager.log_state(std::cout, this->get_gamestate());
 
         }
         stop();

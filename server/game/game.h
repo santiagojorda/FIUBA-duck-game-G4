@@ -6,7 +6,6 @@
 #include "../../common/thread.h"
 #include "../client/monitor_clients.h"
 #include "../events/queue_events.h"
-#include "list_items_map.h"
 #include "../map/map.h"
 #include "../player/list_players.h"
 
@@ -19,7 +18,6 @@ class Game: public Thread {
 private:
     ListPlayers& players;
     Map map;
-    ListItemsMap map_items;
     ListProjectiles map_projectiles;
     GameLogic game_logic;
     MonitorClients& monitor_client;

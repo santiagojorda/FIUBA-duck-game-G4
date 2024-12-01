@@ -2,6 +2,8 @@
 
 #include "../equipment/armor.h"
 #include "../equipment/helmet.h"
+#include "../map/list_floor.h"
+#include <iostream>
 #include <memory>
 
 #define BYTE_CLIENT 0xA
@@ -60,7 +62,7 @@ void ProtocolServer::send_players_state(GameState_t& state) {
 }
 
 void ProtocolServer::send_projectiles_state(GameState_t& state) {
-    uint16_t count_projectiles = state.map_projectiles.size();
+    uint16_t count_projectiles = 0;
     send_2_bytes(count_projectiles);
     for (std::shared_ptr<Projectile> projectile: state.map_projectiles.get_items()) {
         send_byte(projectile->get_texture_id());  // texture_id
@@ -94,22 +96,23 @@ void ProtocolServer::send_boxes_state(GameState_t& state) {
 }
 
 void ProtocolServer::send_scenario_state(GameState_t& state) {
-    uint8_t count_map_items = state.map.size();
+    uint8_t count_map_items = state.map.size();    // std::cout << "count_map_items: " << (int)count_map_items << std::endl; 
     send_byte(count_map_items);  //
-    for (std::shared_ptr<Positionable> item_map: state.map) {
-        send_byte(0);                                 // path
-        send_byte(item_map->get_texture_id());        // id_sprite
-        send_coordinates(item_map->get_coordinate());
+    for (std::shared_ptr<Ground> ground: state.map.get_floors().get_items()) {
+        send_byte(0);            // path
+        send_byte(ground->get_texture_id());        // id_sprite
+        send_coordinates(ground->get_coordinate());
     }
 }
 
 void ProtocolServer::send_map_guns_state(GameState_t& state) {
-    uint8_t count_map_items = state.map_items.size();
+    uint8_t count_map_items = 0;
     send_byte(count_map_items);
-    for (std::shared_ptr<Equippable> item: state.map_items.get_items()) {
-        send_byte(item->get_texture_id());         // texture_id
-        send_coordinates(item->get_coordinate());  // posicion del escenario
-    }
+    (void)state;
+    // for (std::shared_ptr<Equippable> item: state.map_items.get_items()) {
+    //     send_byte(item->get_texture_id());         // texture_id
+    //     send_coordinates(item->get_coordinate());  // posicion del escenario
+    // }
 }
 
 void ProtocolServer::send_game_state(GameState_t& state) {

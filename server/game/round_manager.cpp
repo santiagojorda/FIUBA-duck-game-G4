@@ -39,10 +39,10 @@ void RoundManager::log_state(std::ostream& log, const GameState_t& state){
 
     }
 
-    log << "Map Items:" << std::endl;
-    for (const auto& item : state.map_items.get_items()) {
-        log << "  - Item ID: " << (int) item->get_texture_id() << " Cordinate:"<< item->get_coordinate()  << std::endl;
-    }
+    // log << "Map Items:" << std::endl;
+    // for (const auto& item : state.map_items.get_items()) {
+    //     log << "  - Item ID: " << (int) item->get_texture_id() << " Cordinate:"<< item->get_coordinate()  << std::endl;
+    // }
 
     log << "Map Projectiles:" << std::endl;
     for (const auto& projectile : state.map_projectiles.get_items()) {

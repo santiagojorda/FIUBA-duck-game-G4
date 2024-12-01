@@ -13,7 +13,7 @@ struct GameState_t {
     // cppcheck-suppress unusedStructMember
     ListPlayers& players;
     Map& map;
-    ListItemsMap& map_items;
+    // ListItemsMap& map_items;
     ListProjectiles& map_projectiles;
 };
 
