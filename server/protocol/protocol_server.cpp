@@ -124,6 +124,11 @@ uint8_t ProtocolServer::receive_count_players() {
     return count_players;
 }
 
+
+void ProtocolServer::send_new_player(const uint8_t& sender) { this->send_byte(sender); }
+
+void ProtocolServer::send_count_players(const uint8_t& sender) { this->send_2_bytes(sender); }
+
 void ProtocolServer::receive_event(uint8_t& player_id, ActionEvent& event_id) {
     uint8_t code_client = 0;
     receive_byte(code_client);
