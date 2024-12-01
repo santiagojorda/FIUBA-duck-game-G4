@@ -39,6 +39,7 @@ public:
     virtual void handle_collision(Bullet& bullet, GameLogic& game_logic);
     virtual void handle_collision(Player& player, GameLogic& game_logic);
 
+
     virtual ~Positionable();
 };
 

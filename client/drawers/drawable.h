@@ -26,6 +26,7 @@ protected:
     int scale_height;
     int frame;
     std::string type_animation;
+    static std::map<std::string, Animation> empty_animations;
 
 public:
     Drawable(SDL2pp::Renderer& renderer, std::map<std::string, Animation>& animations);
@@ -34,6 +35,8 @@ public:
              std::map<std::string, Animation>& animations);
 
     void render();
+
+    void render_with_rect(int sprite_x, int sprite_y, int sprite_width, int sprite_height);
 
     virtual ~Drawable();
 };

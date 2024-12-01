@@ -26,7 +26,7 @@ void DuckStateJumping::update_state(Player& player, GameLogic& game_logic) {
         player.fall(game_logic);
         return;
     }
-    if(tick % JUMP_TICKS_PER_FRAME == 0){
+    if (tick % JUMP_TICKS_PER_FRAME == 0) {
         increment_frame();
     }
 }

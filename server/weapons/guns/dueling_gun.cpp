@@ -10,10 +10,11 @@ gun_config dueling_config = {WeaponTextureID::DUELING_GUN, 1, ShootingRecoil::NO
 DuelingGun::DuelingGun(const Coordinate& _coordinate): Gun(dueling_config, _coordinate) {}
 
 void DuelingGun::trigger(ListProjectiles& projectiles, const uint8_t& player_id) {
+    
     for (int i = 0; i < dueling_config.count_projectiles_x_shoot; i++) {
         if (this->ammo > 0) {
             projectiles.add(std::make_shared<Bullet>(this->projectile_range, this->get_coordinate(),
-                                                     this->get_direction(), 0, player_id));
+                                                     this->get_direction(), 45, player_id));
             this->ammo--;
         }
     }

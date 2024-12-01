@@ -1,8 +1,9 @@
 #include "duck_state_running.h"
 
 #include <iostream>
-#include "../player.h"
+
 #include "../../../common/direction.h"
+#include "../player.h"
 
 #define RUN_STEP 5
 
@@ -32,7 +33,7 @@ void DuckStateRunning::move(Player& player, GameLogic& game_logic) {
         sign = -1;
     }
 
-    game_logic.move(player, sign*RUN_STEP, 0);
+    game_logic.move(player, sign * RUN_STEP, 0);
 }
 
 void DuckStateRunning::execute(Player& player, GameLogic& game_logic) {

@@ -14,7 +14,7 @@ struct GameState_t {
     ListPlayers& players;
     Map& map;
     ListItemsMap& map_items;
-    ListProjectiles& map_projectiles;
+    ListProjectiles map_projectiles;
 };
 
 

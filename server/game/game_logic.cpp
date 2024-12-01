@@ -40,7 +40,7 @@ void GameLogic::handle_drop(std::shared_ptr<Equippable> item){
 }
 
 void GameLogic::update_player_gravity(Player& player) {
-    std::shared_ptr<Positionable> touched_floor = physics.get_player_floor_collision(player);
+    std::shared_ptr<Positionable> touched_floor = physics.get_target_floor_collision(player);
     if (touched_floor) {
         player.adjust_position_to_floor(touched_floor);
         if (player.is_falling()) {
@@ -50,11 +50,16 @@ void GameLogic::update_player_gravity(Player& player) {
     } else {
         player.fall(*this);
     }
+
 }
 
 
 void GameLogic::update_projectiles(){
     for (std::shared_ptr<Projectile> projectile: projectiles.get_items()){
+        std::shared_ptr<Positionable> touched_floor = physics.get_target_floor_collision(*projectile);
+        if(touched_floor){
+            projectile->collision_surface(*touched_floor, (*this));
+        }
         if(projectile->is_dead()){
             projectiles.remove(projectile);
             std::cout << "se elimino bullet en update" << std::endl;

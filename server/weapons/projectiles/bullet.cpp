@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <iostream>
+
 #include "../../game/game_logic.h"
 
 #define TEXTURE_ID 0  // cambiar
@@ -15,10 +16,20 @@
 
 Bullet::Bullet(const ProjectileRange& _range_tiles, const Coordinate& _coordinate,
                const Direction& _direction, const int& _dispersion_angle, const uint8_t& _shooter_id):
-        Projectile(TEXTURE_ID, _range_tiles, Coordinate(_coordinate.get_x(), _coordinate.get_y(), HEIGHT_BULLET, WIDTH_BULLET), _direction, _shooter_id),
+        Projectile(TEXTURE_ID, _range_tiles, Coordinate(_coordinate), _direction, _shooter_id),
         dispersion_angle(_dispersion_angle * M_PI / PI_DEGREES)  // lo pasa a radianes
 {
-    std::cout << "Nueva bala" << std::endl;
+    Rectangle cañonaso = this->space;
+    int x;
+    if (get_direction() == Direction::RIGHT) {
+        x = cañonaso.get_x_max();
+    } else {
+        x = cañonaso.get_x_min();
+    }
+
+    // refactorizar
+    Coordinate bullet_postion(x, ((cañonaso.get_y_min() + cañonaso.get_y_max()) / 2) - 5, 2, 2);
+    this->set_coordinate(bullet_postion);
 }
 
 
@@ -47,9 +58,10 @@ void Bullet::update(GameLogic& game_logic) {
     }
 }
 
-void Bullet::handle_collision(Player& player, GameLogic& game_logic){
-    if(shooter_id != player.get_id()){
+void Bullet::handle_collision(Player& player, GameLogic& game_logic) {
+    if (shooter_id != player.get_id()) {
         player.die(game_logic);
         die();
     }
 }
+

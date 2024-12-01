@@ -38,6 +38,8 @@ TextureProvider::TextureProvider() {
             {InventoryDuck::HAS_ARMOR, "has_armor"},
             {InventoryDuck::HAS_HELMET, "has_helmet"},
     };
+
+    textures_floor = {{FloorTexture::FLOOR_MAP_1, DATA_PATH "/NatureTileset.png"}};
 }
 
 const std::string& TextureProvider::get_weapon_texture(WeaponTextureID id) const {
@@ -54,4 +56,8 @@ const std::string& TextureProvider::get_duck_action_texture(DuckStateType action
 
 const std::string& TextureProvider::get_duck_equipment_texture(InventoryDuck equipment) const {
     return textures_equipment_ducks.at(equipment);
+}
+
+const std::string& TextureProvider::get_textures_floor(FloorTexture id) const {
+    return textures_floor.at(id);
 }

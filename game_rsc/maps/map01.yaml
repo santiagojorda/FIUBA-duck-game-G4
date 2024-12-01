@@ -1,6 +1,33 @@
 tile_size: 16
 tiles:
 - map_id: 1
+  tile_id: 32
+  coordinate:
+    x: 90
+    y: 200
+- map_id: 1
+  tile_id: 37
+  coordinate:
+    x: 106
+    y: 200
+- map_id: 1
+  tile_id: 33
+  coordinate:
+    x: 122
+    y: 200
+
+- map_id: 1
+  tile_id: 10
+  coordinate:
+    x: 300
+    y: 200
+- map_id: 1
+  tile_id: 11
+  coordinate:
+    x: 316
+    y: 200
+
+- map_id: 1
   tile_id: 3
   coordinate:
     x: 96

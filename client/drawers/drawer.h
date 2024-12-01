@@ -58,8 +58,7 @@ public:
     /*
      *
      */
-    void init_scenery(SDL2pp::Renderer& renderer, const client_game_state_t& actual_game_state,
-                      drawers_t& drawers);
+    void init_scenery(SDL2pp::Renderer& renderer, const client_game_state_t& actual_game_state);
 
     /*
      * Deshabilitar copias.
