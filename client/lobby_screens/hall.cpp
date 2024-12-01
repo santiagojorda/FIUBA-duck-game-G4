@@ -1,12 +1,8 @@
 #include "hall.h"
+
 #include "ui_hall.h"
 
-Hall::Hall(QWidget *parent)
-    : QWidget(parent)
-    , ui(new Ui::Hall)
-{
-    ui->setupUi(this);
-}
+Hall::Hall(QWidget* parent): QWidget(parent), ui(new Ui::Hall) { ui->setupUi(this); }
 
 void Hall::set_config_game(std::tuple<int, std::string, std::string, int> config) {
     this->type_screen = std::get<0>(config);
@@ -15,8 +11,7 @@ void Hall::set_config_game(std::tuple<int, std::string, std::string, int> config
     this->cant_players = std::get<3>(config);
 }
 
-void Hall::initialize_screen()
-{
+void Hall::initialize_screen() {
     if (!is_initialized) {
         is_initialized = true;
         if (this->cant_players == 1) {
@@ -25,7 +20,7 @@ void Hall::initialize_screen()
             ui->containerOnlyOnePlayer->hide();
         }
 
-        if(this->type_screen == 1) {
+        if (this->type_screen == 1) {
             ui->buttonStartGame->hide();
         } else {
             ui->labelWaiting->hide();
@@ -33,13 +28,6 @@ void Hall::initialize_screen()
     }
 }
 
-Hall::~Hall()
-{
-    delete ui;
-}
+Hall::~Hall() { delete ui; }
 
-void Hall::on_buttonStartGame_clicked()
-{
-    QApplication::quit();
-}
-
+void Hall::on_buttonStartGame_clicked() { QApplication::quit(); }

@@ -1,13 +1,9 @@
 #include "form.h"
+
 #include "ui_form.h"
 
-Form::Form(QWidget *parent)
-    : QWidget(parent)
-    , ui(new Ui::Form),
-    hostname(""),
-    port(""),
-    cant_players(0)
-{
+Form::Form(QWidget* parent):
+        QWidget(parent), ui(new Ui::Form), hostname(""), port(""), cant_players(0) {
 
     ui->setupUi(this);
     ui->stackedWidgetForm->insertWidget(1, &hall);
@@ -16,15 +12,9 @@ Form::Form(QWidget *parent)
     ui->labelErrorNumberPlayers->clear();
 }
 
-void Form::set_type_screen(int type_screen)
-{
-    this->type_screen = type_screen;
-}
+void Form::set_type_screen(int type_screen) { this->type_screen = type_screen; }
 
-Form::~Form()
-{
-    delete ui;
-}
+Form::~Form() { delete ui; }
 
 bool Form::validate_form() {
     QString _hostname = ui->inputHostname->text();
@@ -38,7 +28,7 @@ bool Form::validate_form() {
         ui->labelErrorHostname->setText("Ingrese un hostname");
         is_valid = false;
     } else {
-         ui->labelErrorHostname->clear();
+        ui->labelErrorHostname->clear();
     }
 
     if (port == "") {
@@ -48,7 +38,7 @@ bool Form::validate_form() {
         ui->labelErrorPort->clear();
     }
 
-    if(cant_players == 0) {
+    if (cant_players == 0) {
         ui->labelErrorNumberPlayers->setText("Ingrese un numero de jugadores");
         is_valid = false;
     } else if (cant_players > 2) {
@@ -61,38 +51,34 @@ bool Form::validate_form() {
     return is_valid;
 }
 
-void Form::on_buttonContinue_clicked()
-{
+void Form::on_buttonContinue_clicked() {
     if (validate_form()) {
-        hall.set_config_game(std::make_tuple(this->type_screen, this->hostname, this->port, this->cant_players));
+        hall.set_config_game(
+                std::make_tuple(this->type_screen, this->hostname, this->port, this->cant_players));
         hall.initialize_screen();
         ui->stackedWidgetForm->setCurrentIndex(1);
     }
 }
 
-void Form::initialize_screen()
-{
+void Form::initialize_screen() {
     if (!is_initialized) {
         is_initialized = true;
     }
 }
 
-void Form::on_inputHostname_textChanged(const QString &arg1)
-{
+void Form::on_inputHostname_textChanged(const QString& arg1) {
     (void)arg1;
     ui->labelErrorHostname->clear();
 }
 
 
-void Form::on_inputPort_textChanged(const QString &arg1)
-{
+void Form::on_inputPort_textChanged(const QString& arg1) {
     (void)arg1;
     ui->labelErrorPort->clear();
 }
 
 
-void Form::on_spinNumberPlayers_valueChanged(int arg1)
-{
+void Form::on_spinNumberPlayers_valueChanged(int arg1) {
     (void)arg1;
     ui->labelErrorNumberPlayers->clear();
 }

@@ -7,12 +7,11 @@ namespace Ui {
 class Hall;
 }
 
-class Hall : public QWidget
-{
+class Hall: public QWidget {
     Q_OBJECT
 
 public:
-    explicit Hall(QWidget *parent = nullptr);
+    explicit Hall(QWidget* parent = nullptr);
     ~Hall();
     void set_config_game(std::tuple<int, std::string, std::string, int> config);
     void initialize_screen();
@@ -21,7 +20,7 @@ private slots:
     void on_buttonStartGame_clicked();
 
 private:
-    Ui::Hall *ui;
+    Ui::Hall* ui;
     int type_screen;
     std::string hostname;
     std::string port;
@@ -29,4 +28,4 @@ private:
     bool is_initialized = false;
 };
 
-#endif // HALL_H
+#endif  // HALL_H

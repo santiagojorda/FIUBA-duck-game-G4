@@ -2,6 +2,7 @@
 #define LOBBY_H
 
 #include <QWidget>
+
 #include "form.h"
 
 QT_BEGIN_NAMESPACE
@@ -10,12 +11,11 @@ class Lobby;
 }
 QT_END_NAMESPACE
 
-class Lobby : public QWidget
-{
+class Lobby: public QWidget {
     Q_OBJECT
 
 public:
-    Lobby(QWidget *parent = nullptr);
+    Lobby(QWidget* parent = nullptr);
     ~Lobby();
 
 private slots:
@@ -26,7 +26,7 @@ private slots:
     void on_buttonNewGame_clicked();
 
 private:
-    Ui::Lobby *ui;
+    Ui::Lobby* ui;
     Form form;
 };
-#endif // LOBBY_H
+#endif  // LOBBY_H

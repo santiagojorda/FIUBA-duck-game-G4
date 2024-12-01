@@ -4,10 +4,10 @@
 #include "lobby/principal_screen.h"
 #include "client.h"
 #include "config/game_config.h"
-
+/*
 int main(int argc, char *argv[]) {
     try {
-        /*if (argc != ARGS_EXPECTED_CLIENT) {
+        if (argc != ARGS_EXPECTED_CLIENT) {
             std::cerr << "Cantidad de argumentos inválido" << std::endl;
             return ERROR;
         }
@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
 
         Client client(hostname, servname);
         client.run();
-        return SUCCESS;*/
+        return SUCCESS;
 
         QApplication a(argc, argv);
         PrincipalScreen principal_screen;
@@ -37,3 +37,4 @@ int main(int argc, char *argv[]) {
         return ERROR;
     }
 }
+*/

@@ -69,6 +69,7 @@
       <string notr="true">#buttonJoinGame {
 	background-color: black;
 	font-size: 30px;
+     color: white;
 }</string>
      </property>
      <property name="text">
@@ -88,6 +89,7 @@
       <string notr="true">#buttonNewGame {
 	background-color: black;
 	font-size: 30px;
+     color: white;
 }</string>
      </property>
      <property name="text">
@@ -107,6 +109,7 @@
       <string notr="true">#buttonExit {
 	background-color: black;
 	font-size: 30px;
+     color: white;
 }</string>
      </property>
      <property name="text">

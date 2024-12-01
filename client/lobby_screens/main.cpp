@@ -1,22 +1,25 @@
-#include "lobby.h"
-
 #include <QApplication>
 #include <QFontDatabase>
-/** 
-int main(int argc, char *argv[])
-{
+#include <iostream>
+
+#include "lobby.h"
+
+int main(int argc, char* argv[]) {
     QApplication a(argc, argv);
 
-    int id = QFontDatabase::addApplicationFont(":/fonts/fuentes/pixel_digivolve/Pixel_Digivolve.otf");
+    int id = QFontDatabase::addApplicationFont(
+            ":/fonts/fuentes/pixel_digivolve/Pixel_Digivolve.otf");
+    std::cout << "id: " << id << "\n";
+
     if (id == -1) {
-        qDebug() << "Error al cargar la tipografía";
+        std::cerr << "Error al cargar la tipografía" << std::endl;
         return -1;
     }
 
     QStringList fontFamilies = QFontDatabase::applicationFontFamilies(id);
 
     if (fontFamilies.isEmpty()) {
-        qDebug() << "No se encontró ninguna familia para la tipografía";
+        std::cerr << "No se encontró ninguna familia para la tipografía" << std::endl;
         return -1;
     }
 
@@ -30,4 +33,3 @@ int main(int argc, char *argv[])
     w.show();
     return a.exec();
 }
-*/

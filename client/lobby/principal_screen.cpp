@@ -1,16 +1,16 @@
 #include "principal_screen.h"
-#include <iostream>
-#include <QApplication>
 
 #include <QApplication>
 #include <QFontDatabase>
+#include <iostream>
 
 PrincipalScreen::PrincipalScreen() {}
 
-void PrincipalScreen::show_screen() { 
-    
-    int id = QFontDatabase::addApplicationFont(":/fonts/fuentes/pixel_digivolve/Pixel_Digivolve.otf");
-    
+void PrincipalScreen::show_screen() {
+
+    int id = QFontDatabase::addApplicationFont(
+            ":/fonts/fuentes/pixel_digivolve/Pixel_Digivolve.otf");
+    std::cout << "id: " << id << "\n";
     if (id == -1) {
         std::cerr << "Error al cargar la tipografía" << std::endl;
         return;
