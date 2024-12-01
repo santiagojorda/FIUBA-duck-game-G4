@@ -6,6 +6,7 @@
 struct bullet_t {
     sprite_t bullet;
     uint8_t frame;
+    uint8_t direction;
 };
 
 struct box_t {

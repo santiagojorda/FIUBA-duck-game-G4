@@ -4,6 +4,8 @@
 #include "../player/player.h"
 #include "../map/map.h"
 
+#define PHYSIC_TILE_SIZE 16
+
 GamePhysics::GamePhysics(Map& _map): map(_map) {}
 
 bool GamePhysics::exist_collision(const Rectangle& a, const Rectangle& b) {
@@ -11,14 +13,23 @@ bool GamePhysics::exist_collision(const Rectangle& a, const Rectangle& b) {
              a.get_y_max() < (b.get_y_min()) || a.get_y_min() > b.get_y_max());
 }
 
+bool GamePhysics::is_this_point_ocuppied(const Coordinate& coordinate){
+    for (auto& tile: this->map) {
+        if (this->exist_collision(Rectangle(coordinate), tile->get_rectangle())) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 void GamePhysics::falling(Positionable& target, uint iter_frame) {
     target.translate_y(iter_frame * iter_frame * (G_FORCE / 2));
 }
 
-std::shared_ptr<Positionable> GamePhysics::get_player_floor_collision(Player& player) {
+std::shared_ptr<Positionable> GamePhysics::get_target_floor_collision(Positionable& target) {
     for (auto& tile: this->map) {
-        if (this->exist_collision(player.get_rectangle(), tile->get_rectangle())) {
-            // player.set_touching_floor(IS_TOUCHING_FLOOR);
+        if (this->exist_collision(target.get_rectangle(), tile->get_rectangle())) {
             return tile;
         }
     }

@@ -10,8 +10,9 @@ class GameLogic;
 
 class Bullet: public Projectile {
 private:
-    double dispersion_angle;  // radianes
     uint8_t steps = 0;
+protected:
+    double dispersion_angle;  // radianes
 
 public:
     explicit Bullet(const ProjectileRange& _range_tiles, const Coordinate& _coordinate,
@@ -20,6 +21,7 @@ public:
     void update(GameLogic& game_logic) override;
     using Positionable::handle_collision;
     void handle_collision(Player& player, GameLogic& game_logic) override;
+
 };
 
 #endif

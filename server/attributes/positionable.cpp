@@ -34,11 +34,11 @@ void Positionable::handle_collision(Bullet& bullet, GameLogic& game_logic){
     (void)bullet;
     (void)game_logic;
 }
+
 void Positionable::handle_collision(Player& player, GameLogic& game_logic){
     (void)player;
     (void)game_logic;
 }
-
 
 void Positionable::fall(GameLogic& game_logic) { (void)game_logic;}
 

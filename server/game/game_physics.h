@@ -19,11 +19,12 @@ private:
 public:
     GamePhysics(Map& _map);
     bool is_player_out_of_map(Player& player);
-    std::shared_ptr<Positionable> get_player_floor_collision(Player& player);
+    std::shared_ptr<Positionable> get_target_floor_collision(Positionable& target);
 
     bool exist_collision(const Rectangle& a, const Rectangle& b);
 
     void falling(Positionable& target, uint iter_frame);
+    bool is_this_point_ocuppied(const Coordinate& coordinate);
 
     ~GamePhysics();
 };

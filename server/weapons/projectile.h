@@ -14,7 +14,7 @@ enum class ProjectileState: uint8_t {
     // THROWING,
 };
 
-class Projectile: public Positionable, public Directionable {  // es un statable
+class Projectile: public Positionable, public Directionable, public std::enable_shared_from_this<Projectile> {  // es un statable
 protected:
     ProjectileRange range_tiles;
     uint8_t count_tiles_moved;
@@ -29,6 +29,7 @@ public:
     virtual void update(GameLogic& game_logic);
     void die();
     bool is_dead();
+    virtual void collision_surface(Positionable& surface, GameLogic& game_logic);
     uint8_t get_shooter_id();
 };
 

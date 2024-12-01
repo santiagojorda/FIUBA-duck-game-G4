@@ -14,9 +14,10 @@ void LaserRifle::trigger(ListProjectiles& projectiles, const uint8_t& player_id)
     (void)player_id;
 
     for (int i = 0; i < laser_config.count_projectiles_x_shoot; i++) {
-        if (this->ammo > 0) {
-            //  projectiles.add(std::make_shared<BulletBounce>(this->projectile_range
-            //  this->get_coordinate(), this->get_direction(), 0));
+        if (this->ammo > 0 && this->delay_counter()) {
+            projectiles.push_back(std::make_shared<BulletBounce>(this->projectile_range, this->get_coordinate(),
+                                                     this->get_direction(), 0 ,
+                                                     player_id));
             this->ammo--;
         }
     }

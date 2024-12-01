@@ -149,7 +149,7 @@ void Drawer::run() try {
 
         for (size_t i = 0; i < actual_game_state.weapons.size(); ++i) {
             auto weapon = actual_game_state.weapons[i];
-            drawers.weapons[i]->draw(weapon.coordinate);
+            drawers.weapons[i]->draw(weapon.sprite.coordinate);
         }
 
         // Draw Bullet

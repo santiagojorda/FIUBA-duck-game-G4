@@ -7,7 +7,7 @@
 
 Inventory::Inventory(): gun(nullptr), armor(nullptr), helmet(nullptr) {}
 
-void Inventory::equip(std::shared_ptr<Equippable> new_item) { new_item->equip(*this); }
+void Inventory::equip(std::shared_ptr<Equippable> new_item) { new_item->handle_equip(*this); }
 
 void Inventory::equip(std::shared_ptr<Gun> new_gun) {
     if (!gun) {

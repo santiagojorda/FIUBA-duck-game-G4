@@ -110,6 +110,21 @@ tiles:
 - map_id: 1
   tile_id: 3
   coordinate:
+    x: 288
+    y: 288
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 288
+    y: 272
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 288
+    y: 256
+- map_id: 1
+  tile_id: 3
+  coordinate:
     x: 304
     y: 304
 - map_id: 1
@@ -155,6 +170,21 @@ tiles:
 - map_id: 
   tile_id: 3
   coordinate:
+    x: 400
+    y: 304
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 416
+    y: 304
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 432
+    y: 304
+- map_id: 
+  tile_id: 3
+  coordinate:
     x: 96
     y: 96
 - map_id: 2
@@ -177,6 +207,10 @@ boxes:
 
 weapon_size: 16
 weapons:
+  - id: 1
+    coordinate:
+      x: 80
+      y: 250
   - id: 3
     coordinate:
       x: 100
