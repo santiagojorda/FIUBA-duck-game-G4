@@ -11,17 +11,17 @@ tiles:
     x: 112
     y: 304
 - map_id: 1
-  tile_id: 3
+  tile_id: 10
   coordinate:
     x: 128
     y: 304
 - map_id: 1
-  tile_id: 3
+  tile_id: 10
   coordinate:
     x: 144
     y: 304
 - map_id: 1
-  tile_id: 3
+  tile_id: 10
   coordinate:
     x: 160
     y: 304
@@ -31,7 +31,7 @@ tiles:
     x: 176
     y: 304
 - map_id: 1
-  tile_id: 3
+  tile_id: 16
   coordinate:
     x: 192
     y: 304

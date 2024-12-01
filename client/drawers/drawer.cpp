@@ -35,6 +35,7 @@ void Drawer::run() try {
     animations.animation_duck = AnimationLoader::load_animations(ANIMATION_PATH "/duck.yaml");
     animations.animation_weapon = AnimationLoader::load_animations(ANIMATION_PATH "/weapon.yaml");
     animations.animation_armor = AnimationLoader::load_animations(ANIMATION_PATH "/armor.yaml");
+    static std::map<std::string, Animation> empty_animations;
 
     // desde el LOBBY ya le di a startear game, por lo tanto no necesito darle a la "m", de entrada
     // recibo la data lo traigo para acá así no hay drama
@@ -79,14 +80,14 @@ void Drawer::run() try {
             for (size_t i = 0; i < actual_game_state.floors.size(); ++i) {
                 if (!drawers.floors[i]) {
                     auto floor = actual_game_state.floors[i];
-                    drawers.floors[i] = std::make_unique<DrawerFloor>(renderer, floor);
+                    drawers.floors[i] = std::make_unique<DrawerFloor>(renderer, floor.path);
                 }
             }
         }
 
         for (size_t i = 0; i < actual_game_state.floors.size(); ++i) {
             auto floor = actual_game_state.floors[i];
-            drawers.floors[i]->draw(renderer, floor);
+            drawers.floors[i]->draw(floor);
         }
 
         // Draw Box

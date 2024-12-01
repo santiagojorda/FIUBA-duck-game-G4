@@ -9,17 +9,16 @@
 
 #include "../config/game_config.h"
 #include "../game_state/sprite.h"
+#include "../textures/texture_provider.h"
 
 #include "drawable.h"
 
-class DrawerFloor {
+class DrawerFloor: public Drawable {
 private:
-    SDL2pp::Texture texture;
-
 public:
-    DrawerFloor(SDL2pp::Renderer& renderer, const floor_sprite_t& floor);
+    DrawerFloor(SDL2pp::Renderer& renderer, uint8_t texture_id);
 
-    void draw(SDL2pp::Renderer& renderer, const floor_sprite_t& floor);
+    void draw(const floor_sprite_t& floor);
 };
 
 #endif  // DRAWER_FLOOR_H

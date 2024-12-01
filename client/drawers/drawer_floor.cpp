@@ -2,20 +2,20 @@
 
 #define SIZE_FLOOR_SPRITE 16
 
-enum TEXTURE_FLOOR { FLOOR_1 };
+DrawerFloor::DrawerFloor(SDL2pp::Renderer& renderer, uint8_t texture_id):
+        Drawable(renderer, Drawable::empty_animations) {
+    std::string path =
+            this->texture_provider.get_textures_floor(static_cast<FloorTexture>(texture_id));
+    this->texture = std::make_unique<SDL2pp::Texture>(renderer, path);
+}
 
-static std::map<TEXTURE_FLOOR, std::string> textures = {{FLOOR_1, DATA_PATH "/NatureTileset.png"}};
+void DrawerFloor::draw(const floor_sprite_t& floor) {
+    this->coordenada_x = floor.coordinate.get_x();
+    this->coordenada_y = floor.coordinate.get_y();
+    this->scale_height = SIZE_FLOOR_SPRITE;
+    this->scale_width = SIZE_FLOOR_SPRITE;
 
-DrawerFloor::DrawerFloor(SDL2pp::Renderer& renderer, const floor_sprite_t& floor):
-        texture(renderer, textures[static_cast<TEXTURE_FLOOR>(floor.path)]) {}
-
-void DrawerFloor::draw(SDL2pp::Renderer& renderer, const floor_sprite_t& floor) {
-    // Por ahora lo dejo hardcodeado. En el floor necesito el sprite asociado
-    // si es una piedra, si es un fin , un inicio, etc.
-    int src_x = SIZE_FLOOR_SPRITE * 3;
-    int src_y = 0;
-
-    renderer.Copy(texture, SDL2pp::Rect(src_x, src_y, SIZE_FLOOR_SPRITE, SIZE_FLOOR_SPRITE),
-                  SDL2pp::Rect(floor.coordinate.get_x(), floor.coordinate.get_y(),
-                               SIZE_FLOOR_SPRITE, SIZE_FLOOR_SPRITE));
+    uint8_t column = (floor.id_sprite % 8) * SIZE_FLOOR_SPRITE;
+    uint8_t row = (floor.id_sprite / 8) * SIZE_FLOOR_SPRITE;
+    this->render_with_rect(column, row, SIZE_FLOOR_SPRITE, SIZE_FLOOR_SPRITE);
 }

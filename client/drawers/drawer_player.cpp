@@ -24,13 +24,12 @@ void DrawerPlayer::draw(const player_t& player) {
     this->coordenada_y = player.sprite.coordinate.get_y() - OFFSET_Y_DUCK;
     this->scale_height = TILE_SIZE;
     this->scale_width = TILE_SIZE;
-    try{
+    try {
         this->frame = static_cast<int>(player.frame);
         this->type_animation =
                 texture_provider.get_duck_action_texture(static_cast<DuckStateType>(player.state));
         this->render();
-    }
-    catch (...){
+    } catch (...) {
         std::cout << "No hay textura del estado: " << (uint8_t)player.state << std::endl;
     }
 

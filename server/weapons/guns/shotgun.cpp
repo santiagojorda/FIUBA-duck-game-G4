@@ -24,8 +24,9 @@ void Shotgun::trigger(ListProjectiles& projectiles, const uint8_t& player_id) {
     } else {
         for (int i = 0; i < shotgun_config.count_projectiles_x_shoot; i++) {
             if (this->ammo > 0) {
-                projectiles.add(std::make_shared<Bullet>(
-                        this->projectile_range, this->get_coordinate(), this->get_direction(), 20, player_id));
+                projectiles.add(std::make_shared<Bullet>(this->projectile_range,
+                                                         this->get_coordinate(),
+                                                         this->get_direction(), 20, player_id));
                 this->ammo--;
             }
         }
