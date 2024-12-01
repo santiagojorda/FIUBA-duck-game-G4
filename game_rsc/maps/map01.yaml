@@ -1,6 +1,33 @@
 tile_size: 16
 tiles:
 - map_id: 1
+  tile_id: 32
+  coordinate:
+    x: 90
+    y: 200
+- map_id: 1
+  tile_id: 37
+  coordinate:
+    x: 106
+    y: 200
+- map_id: 1
+  tile_id: 33
+  coordinate:
+    x: 122
+    y: 200
+
+- map_id: 1
+  tile_id: 10
+  coordinate:
+    x: 300
+    y: 200
+- map_id: 1
+  tile_id: 11
+  coordinate:
+    x: 316
+    y: 200
+
+- map_id: 1
   tile_id: 3
   coordinate:
     x: 96
@@ -11,17 +38,17 @@ tiles:
     x: 112
     y: 304
 - map_id: 1
-  tile_id: 10
+  tile_id: 3
   coordinate:
     x: 128
     y: 304
 - map_id: 1
-  tile_id: 10
+  tile_id: 3
   coordinate:
     x: 144
     y: 304
 - map_id: 1
-  tile_id: 10
+  tile_id: 3
   coordinate:
     x: 160
     y: 304
@@ -31,7 +58,7 @@ tiles:
     x: 176
     y: 304
 - map_id: 1
-  tile_id: 16
+  tile_id: 3
   coordinate:
     x: 192
     y: 304
