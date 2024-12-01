@@ -83,6 +83,21 @@ tiles:
 - map_id: 1
   tile_id: 3
   coordinate:
+    x: 288
+    y: 288
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 288
+    y: 272
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 288
+    y: 256
+- map_id: 1
+  tile_id: 3
+  coordinate:
     x: 304
     y: 304
 - map_id: 1
@@ -111,6 +126,21 @@ tiles:
     x: 384
     y: 304
 - map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 400
+    y: 304
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 416
+    y: 304
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 432
+    y: 304
+- map_id: 
   tile_id: 3
   coordinate:
     x: 400

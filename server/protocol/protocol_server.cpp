@@ -109,6 +109,7 @@ void ProtocolServer::send_map_guns_state(GameState_t& state) {
     for (std::shared_ptr<Equippable> item: state.map_items.get_items()) {
         send_byte(item->get_texture_id());         // texture_id
         send_coordinates(item->get_coordinate());  // posicion del escenario
+        // send_byte(0);                              // frame
     }
 }
 

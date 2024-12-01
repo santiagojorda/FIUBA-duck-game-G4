@@ -39,7 +39,7 @@ public:
     std::shared_ptr<Armor> get_armor();
     std::shared_ptr<Helmet> get_helmet();
 
-    void shoot(ListProjectiles& projectiles, const   ModeShoot&  mode);
+    void shoot(GameLogic& game_logic, const   ModeShoot&  mode);
 
     void equip(std::shared_ptr<Equippable> item);
     Direction get_direction();

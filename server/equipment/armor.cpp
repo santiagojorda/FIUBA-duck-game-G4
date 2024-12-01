@@ -4,4 +4,4 @@
 
 Armor::Armor() : Equippable() {}
 
-void Armor::equip(Inventory& inventory) { inventory.equip( std::shared_ptr<Armor>(this) ); };
+void Armor::handle_equip(Inventory& inventory) { inventory.equip( std::shared_ptr<Armor>(this) ); };

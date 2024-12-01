@@ -7,7 +7,7 @@
 class Helmet: public Equippable {
 public:
     Helmet();
-    void equip(Inventory& inventory) override;
+    void handle_equip(Inventory& inventory) override;
 };
 
 #endif
