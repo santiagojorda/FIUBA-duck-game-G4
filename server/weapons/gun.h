@@ -16,6 +16,14 @@
 
 #define INITIAL_DISPERSION 0
 
+enum class GunState: uint8_t {
+    DEAD,
+    ALIVE,
+
+};
+
+class GameLogic;
+
 struct  gun_config{
     WeaponTextureID id;
     uint8_t max_ammo;
@@ -37,6 +45,7 @@ protected:
     ShootingRecoil recoil;
     ProjectileRange projectile_range;
     CircularCounter delay_counter;
+    uint8_t tick = 0;
 
 public:
 
@@ -45,21 +54,20 @@ public:
                     const Coordinate& _coordinate, uint8_t _delay_shoot);
     
     Gun(const gun_config& _config, const Coordinate& _coordinate);
-
-
-    // Comportamiento cuando se preciona el gatillo
+    
     virtual void trigger(ListProjectiles& projectiles, const uint8_t& player_id);
 
-    // Comportamiento cuando se suelta el gatillo
-    virtual void trigger_out(ListProjectiles& projectiles, const uint8_t& player_id);
+    virtual void trigger_out(ListProjectiles& projectiles, const uint8_t& player_id, bool& was_dropped);
 
-    void equip(Inventory& inventory) override;
+    void handle_equip(Inventory& inventory) override;
 
     std::shared_ptr<Gun> get_shared_ptr() { return shared_from_this(); }
 
     uint8_t get_ammo();
 
     uint8_t get_max_ammo();
+    std::shared_ptr<Equippable> clone() const override;
+    virtual void handle_explotion(GameLogic& game_logic);
 
     ShootingRecoil get_recoil();
     virtual ~Gun();

@@ -10,14 +10,29 @@
 #include "../player/list_players.h"
 #include "../player/player.h"
 
-enum GameMoment  { DISPLAY_INFO, IN_GAME, FINISHED };
+#include "../../common/game_moment.h"
+
+struct ItemsMap_t{
+    uint8_t texture_id;
+    Coordinate coordinate;
+    uint8_t frame;
+};
+
+struct Projectiles_t{
+    uint8_t texture_id;
+    Coordinate coordinate;
+    uint8_t direction;
+
+};
+
+
 
 struct GameState_t {
     GameMoment moment;
     ListPlayers& players;
     Map& map;
-    ListItemsMap& map_items;
-    ListProjectiles map_projectiles;
+    std::list<ItemsMap_t> map_items;
+    std::list<Projectiles_t> map_projectiles;
     game_statistics_t statistics;
 };
 

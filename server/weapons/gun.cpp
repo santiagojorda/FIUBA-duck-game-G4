@@ -25,17 +25,26 @@ Gun::Gun(const gun_config& _config, const Coordinate& _coordinate) :
         recoil(_config.recoil),
         projectile_range(_config.range),
         delay_counter(_config.delay_shoot)
-        {}
+        {
+                std::cout<< "se creo arma: " << (int)_config.id << std::endl; 
 
-void Gun::equip(Inventory& inventory) { inventory.equip(shared_from_this()); };
+        }
+
+
+std::shared_ptr<Equippable> Gun::clone() const {
+        return std::make_shared<Gun>(*this); 
+}
+
+void Gun::handle_equip(Inventory& inventory) { inventory.equip(shared_from_this()); };
 
 uint8_t Gun::get_max_ammo() { return max_ammo; }
 
 uint8_t Gun::get_ammo() { return ammo; }
 
-void Gun::trigger_out(ListProjectiles& projectiles, const uint8_t& player_id) { 
+void Gun::trigger_out(ListProjectiles& projectiles, const uint8_t& player_id, bool& was_dropped) { 
         (void)projectiles;
         (void)player_id;
+        (void)was_dropped;
         this->delay_counter.reset_count(); 
 }
 
@@ -43,6 +52,9 @@ void Gun::trigger(ListProjectiles& projectiles, const uint8_t& player_id){
         (void)projectiles;
         (void)player_id;
 }
+
+void Gun::handle_explotion(GameLogic& game_logic) { (void)game_logic; }
+
 
 ShootingRecoil Gun::get_recoil() { return this->recoil; }
 

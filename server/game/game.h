@@ -29,7 +29,7 @@ private:
     QueueGameState& queue_gamestate;
     RoundManager round_manager;
     inical_values_t inicial_values;
-    GameMoment moment = IN_GAME;
+    GameMoment moment = GameMoment::IN_GAME;
     void load_map(const std::string& path_map);
 
     void reset_values();

@@ -24,6 +24,7 @@ public:
     bool exist_collision(const Rectangle& a, const Rectangle& b);
 
     void falling(Positionable& target, uint iter_frame);
+    bool is_this_point_ocuppied(const Coordinate& coordinate);
 
     ~GamePhysics();
 };

@@ -130,22 +130,26 @@ void Player::set_touching_floor(const bool& touch_floor) { state.set_touch_floor
 void Player::touch_floor(){ state.set_touch_floor(true); }
 void Player::leave_floor(){ state.set_touch_floor(false); }
 
-void Player::shoot(ListProjectiles& projectiles, const ModeShoot& mode) {
+void Player::shoot(GameLogic& game_logic, const ModeShoot& mode) {
     std::shared_ptr<Gun> gun = inventory.get_gun();
     if (!gun) {
         return;
     }
     update_gun_position();
+    bool is_dropped = false;
     ShootingRecoil recoil = gun->get_recoil();
     switch (mode)  {
         case ModeShoot::TRIGGER:
-            gun->trigger(projectiles, id);
+            gun->trigger(game_logic.get_projectiles(), id);
             break;
         case ModeShoot::TRIGGER_OUT:
-            gun->trigger_out(projectiles, id);
+            gun->trigger_out(game_logic.get_projectiles(), id, is_dropped);
             break;
         default:
             break;
+    }
+    if (is_dropped){
+        drop_gun(game_logic);
     }
     if ((int)recoil > 0) {  // is there recoil? yes -> it could be a function
         move_back(recoil);
