@@ -4,4 +4,4 @@
 
 Helmet::Helmet() : Equippable() {}
 
-void Helmet::equip(Inventory& inventory) { inventory.equip(std::shared_ptr<Helmet>(this)); };
+void Helmet::handle_equip(Inventory& inventory) { inventory.equip(std::shared_ptr<Helmet>(this)); };

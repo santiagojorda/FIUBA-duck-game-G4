@@ -31,9 +31,9 @@ void AK47::trigger(ListProjectiles& projectiles, const uint8_t& player_id) {
     }
 }
 
-void AK47::trigger_out(ListProjectiles& projectiles, const uint8_t& player_id) {
+void AK47::trigger_out(ListProjectiles& projectiles, const uint8_t& player_id, bool& was_dropped) {
     this->dispersion = 0;
-    Gun::trigger_out(projectiles, player_id);
+    Gun::trigger_out(projectiles, player_id, was_dropped);
 }
 
 AK47::~AK47() {}

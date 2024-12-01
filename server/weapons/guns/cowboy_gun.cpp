@@ -23,9 +23,9 @@ void CowboyGun::trigger(ListProjectiles& projectiles, const uint8_t& player_id) 
     }
 }
 
-void CowboyGun::trigger_out(ListProjectiles& projectiles, const uint8_t& player_id) {
+void CowboyGun::trigger_out(ListProjectiles& projectiles, const uint8_t& player_id, bool& was_dropped) {
     this->blocked = false;
-    Gun::trigger_out(projectiles, player_id);
+    Gun::trigger_out(projectiles, player_id, was_dropped);
 }
 
 

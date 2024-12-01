@@ -30,8 +30,8 @@ void Magnum::trigger(ListProjectiles& projectiles, const uint8_t& player_id) {
     }
 }
 
-void Magnum::trigger_out(ListProjectiles& projectiles, const uint8_t& player_id) {
-    Gun::trigger_out(projectiles, player_id);
+void Magnum::trigger_out(ListProjectiles& projectiles, const uint8_t& player_id, bool& was_dropped) {
+    Gun::trigger_out(projectiles, player_id, was_dropped);
     this->blocked = false;
 }
 
