@@ -3,27 +3,20 @@
 #include "../projectiles/bullet_bounce.h"
 
 
-struct LaserConfig {
-    WeaponTextureID id = WeaponTextureID::LASER_RIFLE;
-    uint8_t max_ammo = 10;
-    ShootingRecoil recoil = ShootingRecoil::NONE;
-    ProjectileRange range = ProjectileRange::VERY_LARGE;
-    uint8_t count_projectiles_x_shoot = 1;
-};
-LaserConfig laser_config;
+gun_config laser_config = {WeaponTextureID::LASER_RIFLE, 10, ShootingRecoil::NONE,
+                           ProjectileRange::VERY_LARGE,  1,  10};
 
 
-LaserRifle::LaserRifle(const Coordinate& _coordinate):
-        Gun(laser_config.id, laser_config.max_ammo, laser_config.recoil, laser_config.range,
-            _coordinate) {}
+LaserRifle::LaserRifle(const Coordinate& _coordinate): Gun(laser_config, _coordinate) {}
 
-void LaserRifle::trigger(ListProjectiles& projectiles) {
+void LaserRifle::trigger(ListProjectiles& projectiles, const uint8_t& player_id) {
     (void)projectiles;
+    (void)player_id;
 
     for (int i = 0; i < laser_config.count_projectiles_x_shoot; i++) {
         if (this->ammo > 0) {
-            //  projectiles.add(new BulletBounce(this->projectile_range this->get_coordinate(),
-            //  this->get_direction(), 0));
+            //  projectiles.add(std::make_shared<BulletBounce>(this->projectile_range
+            //  this->get_coordinate(), this->get_direction(), 0));
             this->ammo--;
         }
     }

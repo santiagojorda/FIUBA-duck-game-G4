@@ -1,9 +1,10 @@
 #include "duck_state_falling.h"
 
 #include "../../attributes/positionable.h"
+#include "../../attributes/directionable.h"
 #include "../player.h"
 
-#define FALLING_STEP 5
+#define FALLING_TICK_PER_FRAME 3
 
 struct FallingStateConfig {
     DuckStateType id = DuckStateType::FALLING;
@@ -15,11 +16,11 @@ DuckStateFalling::DuckStateFalling(const uint8_t& _player_id):
         DuckState(falling_config.id, falling_config.name,
                   duck_state_frames[falling_config.id].max_frames, _player_id) {}
 
-void DuckStateFalling::update(Player& player, GamePhysics& physics) {
-    player.translate_y(FALLING_STEP);
-    if (frame < max_frames) {
-        frame++;
+void DuckStateFalling::update_state(Player& player, GameLogic& game_logic) {
+    game_logic.fall(player);
+    tick++;
+    if(tick % FALLING_TICK_PER_FRAME == 0){
+        increment_frame();
     }
-    (void)physics;
 }
 DuckStateFalling::~DuckStateFalling() {}

@@ -11,11 +11,16 @@ protected:
 public:
     Directionable(const Direction& _diretion);
 
-    virtual Direction get_direction() const;
+    virtual Direction get_direction();
 
-    virtual void set_direction(const Direction& diretion);
+    virtual void set_direction(const Direction& new_diretion);
 
     virtual int  get_direction_int();
+
+    bool is_right();
+    bool is_left();
+    bool is_up();
+    bool is_down();
 
     virtual ~Directionable();
 };

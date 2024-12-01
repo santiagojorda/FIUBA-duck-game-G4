@@ -2,11 +2,11 @@
 #define PROJECTILE_H
 
 #include "../attributes/positionable.h"
+#include "../attributes/updatable.h"
 
 #include "projectile_range.h"
 #include "../attributes/directionable.h"
-#include "../game/game_physics.h"
-
+class GameLogic;
 
 enum class ProjectileState: uint8_t {
     DEAD,
@@ -20,13 +20,16 @@ protected:
     uint8_t count_tiles_moved;
     Direction direction;
     ProjectileState state;
-    
+    Updatable update_handler;
+    uint8_t shooter_id;
 
 public:
     explicit Projectile(const uint8_t& texture_id, ProjectileRange _range_tiles,
-                        Coordinate _coordinate, const Direction& _direction);
-    virtual void update(GamePhysics& physics);
+                        Coordinate _coordinate, const Direction& _direction, const uint8_t& _shooter_id);
+    virtual void update(GameLogic& game_logic);
+    void die();
     bool is_dead();
+    uint8_t get_shooter_id();
 };
 
 #endif  // PROJECTILE_H

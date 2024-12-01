@@ -3,51 +3,52 @@
 
 #include <cstdint>
 #include <list>
+#include <memory>
 
 template <typename T>
 class ListGeneric {
 private:
-    std::list<T*> items;
+    std::list<std::shared_ptr<T>> items;
 
 public:
     ListGeneric() {}
 
-    void add(T* item) { items.push_back(item); }
+    void add(std::shared_ptr<T> item) { items.push_back(item); }
 
-    bool remove(T* item) {
+    bool remove(std::shared_ptr<T> item) {
         bool item_exist = false;
-        items.remove_if([item, &item_exist](T* item_list) {
+        items.remove_if([item, &item_exist](std::shared_ptr<T> item_list) {
             if (item == item_list) {
                 item_exist = true;
                 return true;
             }
             return false;
         });
+        if (item_exist) {
+            item.reset();
+        }
         return item_exist;
     }
 
-    void remove_and_delete(T* item) {
-        bool item_exist = remove(item);
-        if (item_exist) {
-            delete item;
-        }
-    };
+    // void remove_and_delete(std::shared_ptr<T> item) {
+    //     bool item_exist = remove(item);
+    //     if (item_exist) {
+    //         delete item;
+    //     }
+    // };
 
-    void transfer_item(T* item, ListGeneric<T>& other_list) {
+    void transfer_item(std::shared_ptr<T> item, ListGeneric<T>& other_list) {
         add(item);
         other_list.remove(item);
     }
 
     void clear() {
-        for (auto* item: items) {
-            delete item;
-        }
         items.clear();
     }
 
     int size() { return items.size(); }
 
-    const std::list<T*>& get_items() const { return items; }
+    const std::list<std::shared_ptr<T>>& get_items() const { return items; }
 
     ~ListGeneric() { clear(); }
 };

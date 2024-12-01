@@ -2,14 +2,16 @@
 #define LIST_PLAYERS
 
 #include <list>
-
+#include <iostream>
 #include "algorithm"
 #include "player.h"
 
 class ListPlayers: public std::list<Player> {
 private:
 public:
-    ListPlayers() {}
+    ListPlayers() { 
+        std::cout << "se creo list player" << std::endl;
+    }
 
     void add_player(const Player& player) { this->push_back(player); }
 
@@ -23,7 +25,9 @@ public:
         return *this;
     }
 
-    ~ListPlayers() {}
+    ~ListPlayers() {
+        std::cout << "se elimino list player" << std::endl;
+    }
 };
 
 #endif

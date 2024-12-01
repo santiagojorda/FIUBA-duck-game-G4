@@ -1,6 +1,6 @@
 #include "receiver.h"
 
-Receiver::Receiver(QueueEventPlayer& _queue, ProtocolServer& _protocol,
+Receiver::Receiver(QueueEvents& _queue, ProtocolServer& _protocol,
                    VectorPlayerID& _players_id):
         queue(_queue), protocol(_protocol), players_id(_players_id) {}
 
@@ -12,7 +12,7 @@ void Receiver::init_factories() {
 
 void Receiver::push_event(const uint8_t& _player_id, const ActionEvent& _event_id) {
     if (_player_id < factories.size()) {
-        EventPlayer* event = factories[_player_id].get(_event_id);
+        std::shared_ptr<Event> event = factories[_player_id].get(_event_id);
         if (event) {
             this->queue.push(event);
         }

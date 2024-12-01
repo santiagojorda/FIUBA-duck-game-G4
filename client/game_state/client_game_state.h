@@ -4,6 +4,7 @@
 #include "elements.h"
 #include "vector_player.h"
 #include "vector_sprite.h"
+#include "vector_floor_sprite.h"
 #include "vector_throwable.h"
 
 struct client_game_state_t {
@@ -11,7 +12,7 @@ struct client_game_state_t {
     std::vector<bullet_t> bullets;
     VectorThrowable throwable;
     std::vector<box_t> boxs;
-    VectorSprite floors;
+    VectorFloorSprite floors;
     VectorSprite weapons;
 };
 

@@ -22,6 +22,16 @@ void ClientProtocol::receive_sprite(sprite_t& sprite) {
     sprite = sprite_t{id_texture, coordinate};
 }
 
+void ClientProtocol::receive_floor_sprite(floor_sprite_t& sprite) {
+    uint8_t path;
+    this->receive_byte(path);
+    uint8_t id_sprite;
+    this->receive_byte(id_sprite);
+    Coordinate coordinate;
+    receive_cordinates(coordinate);
+    sprite = floor_sprite_t{path, id_sprite, coordinate};
+}
+
 void ClientProtocol::send_action(uint8_t& id_jugador, ActionEvent& type_action) {
     std::vector<uint8_t> vector_data;
     vector_data.push_back(HEADER_CLIENT);
@@ -129,15 +139,15 @@ void ClientProtocol::receive_boxes(std::vector<box_t>& _boxes) {
     _boxes = std::move(boxes);  // para evitar copiar y mejorar eficiencia
 }
 
-void ClientProtocol::receive_floor_sprites(VectorSprite& _floor_sprites) {
+void ClientProtocol::receive_floor_sprites(VectorFloorSprite& _floor_sprites) {
     uint8_t cantidad_floor_sprites;
     this->receive_byte(cantidad_floor_sprites);
 
-    VectorSprite sprites;
+    VectorFloorSprite sprites;
 
     for (size_t i = 0; i < cantidad_floor_sprites; i++) {
-        sprite_t sprite;
-        receive_sprite(sprite);
+        floor_sprite_t sprite;
+        receive_floor_sprite(sprite);
         sprites.push_back(sprite);
     }
 
@@ -176,7 +186,7 @@ void ClientProtocol::receive_game_state(client_game_state_t& game_state) {
     receive_throwables(throwables);
     std::vector<box_t> boxes;
     receive_boxes(boxes);
-    VectorSprite sprites;
+    VectorFloorSprite sprites;
     receive_floor_sprites(sprites);
     VectorSprite weapons;
     receive_weapons(weapons);

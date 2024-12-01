@@ -27,11 +27,12 @@ private:
 
     void receive_boxes(std::vector<box_t>& boxes);
 
-    void receive_floor_sprites(VectorSprite& floor_sprites);
+    void receive_floor_sprites(VectorFloorSprite& floor_sprites);
 
     void receive_sprite(sprite_t& sprite);
 
     void receive_inventory(inventory_t& inventory);
+    void receive_floor_sprite(floor_sprite_t& sprite);
 
 public:
     /*

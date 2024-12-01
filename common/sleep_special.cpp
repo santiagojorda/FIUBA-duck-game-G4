@@ -27,5 +27,12 @@ void SleepSpecial::sleep_rate() {
     this->sleep_rate(dumyy);
 }
 
+void SleepSpecial::reset(){
+    chrono_prev = std::chrono::high_resolution_clock::now();
+}
+
+void SleepSpecial::sleep(const int& miliseconds){
+    std::this_thread::sleep_for(std::chrono::milliseconds(miliseconds));
+}
 
 SleepSpecial::~SleepSpecial() {}

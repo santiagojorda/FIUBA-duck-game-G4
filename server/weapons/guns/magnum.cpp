@@ -11,19 +11,18 @@ struct MagnumConfig {
     ProjectileRange range = ProjectileRange::VERY_LARGE;
     uint8_t count_projectiles_x_shoot = 1;
 };
-MagnumConfig magnum_config;
 
-Magnum::Magnum(const Coordinate& _coordinate):
-        Gun(magnum_config.id, magnum_config.max_ammo, magnum_config.recoil, magnum_config.range,
-            _coordinate),
-        blocked(false) {}
+gun_config magnum_config = {WeaponTextureID::MAGNUM,     6, ShootingRecoil::SHORT,
+                            ProjectileRange::VERY_LARGE, 1, 2};
 
-void Magnum::trigger(ListProjectiles& projectiles) {
+Magnum::Magnum(const Coordinate& _coordinate): Gun(magnum_config, _coordinate), blocked(false) {}
+
+void Magnum::trigger(ListProjectiles& projectiles, const uint8_t& player_id) {
     if (!this->blocked) {
         for (int i = 0; i < magnum_config.count_projectiles_x_shoot; i++) {
             if (this->ammo > 0) {
-                projectiles.add(new Bullet(this->projectile_range, this->get_coordinate(),
-                                           this->get_direction(), 10));
+                projectiles.add(std::make_shared<Bullet>(
+                        this->projectile_range, this->get_coordinate(), this->get_direction(), 10, player_id));
                 this->ammo--;
             }
         }
@@ -31,8 +30,8 @@ void Magnum::trigger(ListProjectiles& projectiles) {
     }
 }
 
-void Magnum::trigger_out(ListProjectiles& projectiles) {
-    (void)projectiles;
+void Magnum::trigger_out(ListProjectiles& projectiles, const uint8_t& player_id) {
+    Gun::trigger_out(projectiles, player_id);
     this->blocked = false;
 }
 

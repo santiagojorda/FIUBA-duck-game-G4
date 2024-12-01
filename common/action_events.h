@@ -13,12 +13,12 @@ enum class ActionEvent : uint8_t {
     MOVE_RIGHT,       // Moverse a la derecha
     JUMP,             // Salta / aletear
     GRAB_OR_RELEASE,  // Tomar / soltar un arma/casco/armadura
-    SHOOT,            // Disparar
     AIM_UP,           // Apuntar hacia arriba
     CROUCH,           // Tirarse al piso
-    IDLE,             // nada
-    TRIGGER,
-    TRIGGER_OUT
+    IDLE,             // Nada
+    TRIGGER,          // Apretar el gatillo
+    TRIGGER_OUT,      // Soltar el gatillo
+    DROP_GUN          // SOltar Arma
 };
 
 #endif  // ACTION_COMMANDS_H

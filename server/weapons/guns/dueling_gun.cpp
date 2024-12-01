@@ -4,25 +4,16 @@
 
 #include "../projectiles/bullet.h"
 
-struct DuelingConfig {
-    WeaponTextureID id = WeaponTextureID::DUELING_GUN;
-    uint8_t max_ammo = 1;
-    ShootingRecoil recoil = ShootingRecoil::NONE;
-    ProjectileRange range = ProjectileRange::VERY_SHORT;
-    uint8_t count_projectiles_x_shoot = 1;
-};
-DuelingConfig dueling_config;
+gun_config dueling_config = {WeaponTextureID::DUELING_GUN, 1, ShootingRecoil::NONE,
+                             ProjectileRange::VERY_SHORT,  1, 1};
 
-DuelingGun::DuelingGun(const Coordinate& _coordinate):
-        Gun(dueling_config.id, dueling_config.max_ammo, dueling_config.recoil, dueling_config.range,
-            _coordinate) {}
+DuelingGun::DuelingGun(const Coordinate& _coordinate): Gun(dueling_config, _coordinate) {}
 
-void DuelingGun::trigger(ListProjectiles& projectiles) {
-    (void)projectiles;
+void DuelingGun::trigger(ListProjectiles& projectiles, const uint8_t& player_id) {
     for (int i = 0; i < dueling_config.count_projectiles_x_shoot; i++) {
         if (this->ammo > 0) {
-            projectiles.add(new Bullet(this->projectile_range, this->get_coordinate(),
-                                       this->get_direction(), 0));
+            projectiles.add(std::make_shared<Bullet>(this->projectile_range, this->get_coordinate(),
+                                                     this->get_direction(), 0, player_id));
             this->ammo--;
         }
     }

@@ -2,12 +2,17 @@
 #define EQUIPPABLE
 
 #include <cstdint>
+#include <memory>
+#include "positionable.h"
+#include "../../common/coordinate.h"
 
-class Inventory;  // forward declaration -> para que no haya circularidad de inclusiones
+class Inventory;
 
-class Equippable {
+class Equippable: public Positionable {
 public:
-    virtual void equip(Inventory* inventory) = 0;
+    Equippable(){}
+    explicit Equippable(const uint8_t& _texture_id, const Coordinate& _coordinate) : Positionable(_texture_id, _coordinate) {}
+    virtual void equip(Inventory& inventory) = 0;
     virtual ~Equippable() {}
 };
 
