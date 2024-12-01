@@ -9,10 +9,12 @@
 #include "list_items_map.h"
 #include "../map/map.h"
 #include "../player/list_players.h"
+#include "../../common/sleep_special.h"
 
 #include "game_logic.h"
 #include "queue_game_state.h"
 #include "initial_values.h"
+#include "round_manager.h"
 
 
 class Game: public Thread {
@@ -23,22 +25,25 @@ private:
     ListProjectiles map_projectiles;
     GameLogic game_logic;
     MonitorClients& monitor_client;
-    QueueEvents& queue_events;  //<- para charalar
+    QueueEvents& queue_events; 
     QueueGameState& queue_gamestate;
+    RoundManager round_manager;
     inical_values_t inicial_values;
-
-    void load_map();
+    GameMoment moment = GameMoment::IN_GAME;
+    void load_map(const std::string& path_map);
 
     void reset_values();
     
     void execute_new_events();
     void broadcast_gamestate();
 
+    void display_info(SleepSpecial& sleep);
+
     GameState_t get_gamestate();
 
 public:
     Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEvents& _queue_events,
-         QueueGameState& _queue_gamestate);
+         QueueGameState& _queue_gamestate,  const std::string& path_map);
     void run() override;
 
     void stop() override;

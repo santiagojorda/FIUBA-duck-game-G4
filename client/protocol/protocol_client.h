@@ -15,15 +15,13 @@ class ClientProtocol: public Protocol {
 private:
     zoom_t receive_zoom_details();
 
-    void receive_weapons(VectorSprite& weapons);
+    void receive_weapons(VectorGuns& weapons);
 
     void receive_cordinates(Coordinate& coordinate);
 
     void receive_players(VectorPlayers& players);
 
     void receive_bullets(std::vector<bullet_t>& bullets);
-
-    void receive_throwables(VectorThrowable& throwables);
 
     void receive_boxes(std::vector<box_t>& boxes);
 

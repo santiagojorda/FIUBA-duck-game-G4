@@ -16,7 +16,15 @@ public:
 
     bool check_winer(const ListPlayers& players);
 
-    void log_state(std::ostream& log, const GameState_t& state);
+    void log_state(std::ostream& log,  const GameState_t& state);
+
+    int get_rounds() const;
+
+    int get_rounds_winer() ;
+
+    uint8_t id_winer() const;
+
+    game_statistics_t get_statistics() const;
 
     ~RoundManager();
 };

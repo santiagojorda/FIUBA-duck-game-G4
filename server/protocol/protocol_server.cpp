@@ -50,7 +50,6 @@ void ProtocolServer::send_players_state(GameState_t& state) {
     send_byte(count_players);
     for (Player& player: state.players) {
         send_byte(player.get_texture_id());
-        // std::cout << "player state sended: " << (int)player.get_state() << std::endl;
         send_coordinates(player.get_coordinate());
         send_byte(static_cast<uint8_t>(player.get_direction()));
         send_byte(static_cast<uint8_t>(player.get_state()));
@@ -64,23 +63,12 @@ void ProtocolServer::send_projectiles_state(GameState_t& state) {
     send_2_bytes(count_projectiles);
     for (Projectiles_t projectile: state.map_projectiles) {
         send_byte(projectile.texture_id);  // texture_id
-        //send_byte(static_cast<uint8_t>(projectile.get_direction));
         send_coordinates(projectile.coordinate);
+        send_byte(static_cast<uint8_t>(projectile.direction));
     }
 }
 
 
-void ProtocolServer::send_throwables_state(GameState_t& state) {
-    (void)state;
-    uint8_t count_throwables = 0;
-    send_byte(count_throwables);
-    if (count_throwables > 0) {
-        send_byte(0);                    // texture_id
-        send_coordinates(Coordinate());  // posicion de la bomba
-        send_byte(0);                    // frame
-        send_byte(0);                    // state
-    }
-}
 
 void ProtocolServer::send_boxes_state(GameState_t& state) {
     (void)state;
@@ -109,14 +97,14 @@ void ProtocolServer::send_map_guns_state(GameState_t& state) {
     for (ItemsMap_t item: state.map_items) {
         send_byte(item.texture_id);         // texture_id
         send_coordinates(item.coordinate);  // posicion del escenario
-        // send_byte(0);                              // frame
+        send_byte(item.frame);                              // frame
     }
 }
 
 void ProtocolServer::send_game_state(GameState_t& state) {
+    send_byte (static_cast<uint8_t>( state.moment));  
     send_players_state(state);
     send_projectiles_state(state);
-    send_throwables_state(state);
     send_boxes_state(state);
     send_scenario_state(state);
     send_map_guns_state(state);

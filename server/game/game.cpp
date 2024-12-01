@@ -1,7 +1,7 @@
 #include "game.h"
 
 #include <iostream>
-#include <list>
+
 #include "../../common/sleep_special.h"
 #include "../events/event.h"
 #include "../weapons/gun_factory.h"
@@ -9,16 +9,15 @@
 #include "../player/player.h"
 #include "../yamel/map_deserialize.h"
 
-#include "round_manager.h"
 
-#define PATH_MAP "../game_rsc/maps/map01.yaml"
-
+#define MAX_ROUNDS_WINDS 10
 #define MILISECONDS_30_FPS 33
 #define MILISECONDS_FOR_SECONDS 1000
-#define SECONDS_FINISH_GAME 4
+#define SECONDS_FINISH_GAME 3
 
 Game::Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEvents& _queue_events,
-           QueueGameState& _queue_gamestate):
+           QueueGameState& _queue_gamestate,
+           const std::string& path_map):
         players(_players),
         map(),
         map_items(),
@@ -26,8 +25,9 @@ Game::Game(ListPlayers& _players, MonitorClients& _monitor_client, QueueEvents& 
         game_logic(players, map, map_items, map_projectiles),
         monitor_client(_monitor_client),
         queue_events(_queue_events),
-        queue_gamestate(_queue_gamestate){
-    this->load_map();
+        queue_gamestate(_queue_gamestate),
+        round_manager(players){
+    this->load_map(path_map);
 }
 
 
@@ -49,9 +49,9 @@ void charge_weapons(ListItemsMap& items, std::list<data_weapon>& data_weapons) {
     }
 }
 
-void Game::load_map() {
+void Game::load_map(const std::string& path_map) {
     try {
-        MapDeserialize deserialize(PATH_MAP);
+        MapDeserialize deserialize(path_map);
         std::vector<Coordinate> points;
         std::list<data_weapon> data_weapons;
 
@@ -71,6 +71,7 @@ void Game::load_map() {
 
 void Game::reset_values(){
     this->map_items.clear();
+    this->map_projectiles.clear();
     charge_ponits(this->players, this->inicial_values.points);
     charge_weapons(this->map_items, this->inicial_values.data_weapons);
 }
@@ -92,39 +93,47 @@ GameState_t Game::get_gamestate() {
     std::list<Projectiles_t> map_projectiles_copy;
 
     for(std::shared_ptr<Equippable> item : map_items){
-        map_items_copy.push_back({item->get_texture_id(), item->get_coordinate()});
+        map_items_copy.push_back({item->get_texture_id(), item->get_coordinate(), 0});
     }
 
     for(std::shared_ptr<Projectile> projectile : map_projectiles){
-        map_projectiles_copy.push_back({projectile->get_texture_id(), projectile->get_coordinate()});
+        map_projectiles_copy.push_back({projectile->get_texture_id(), projectile->get_coordinate(), static_cast<uint8_t>( projectile->get_direction())});
     }
 
 
-    return GameState_t{players, map, map_items_copy, map_projectiles_copy}; 
+    return GameState_t{this->moment, players, map, map_items_copy, map_projectiles_copy, this->round_manager.get_statistics()}; 
 }
+
+void Game::display_info(SleepSpecial& sleep){
+    this->moment = GameMoment::DISPLAY_INFO;
+    sleep.sleep(SECONDS_FINISH_GAME * MILISECONDS_FOR_SECONDS);
+    this->reset_values();
+    this->round_manager.log_state(std::cout, this->get_gamestate());
+    sleep.reset();
+}
+
 
 void Game::run() {
     SleepSpecial sleep(MILISECONDS_30_FPS);
-    RoundManager round_manager(this->players);
-    CircularCounter log_counter(33);
 
     try {
-
         while (_keep_running && monitor_client.they_are_alive()) {
+            this->moment = GameMoment::IN_GAME;
             execute_new_events();
             game_logic.update();
             broadcast_gamestate();
             sleep.sleep_rate();
-            if(round_manager.check_winer(this->players)) {
-                sleep.sleep(SECONDS_FINISH_GAME * MILISECONDS_FOR_SECONDS);
-                this->reset_values();
-                sleep.reset();
-                // sleep = SleepSpecial(MILISECONDS_30_FPS);
+            if(this->round_manager.check_winer(this->players)) {
+                this->display_info(sleep);
             }
-            // if(log_counter()) round_manager.log_state(std::cout, this->get_gamestate());
-
+            if(this->round_manager.get_rounds_winer() >= MAX_ROUNDS_WINDS) {
+                this->moment = GameMoment::FINISHED;
+                broadcast_gamestate();
+                this->stop();
+            }
         }
         stop();
+        this->round_manager.log_state(std::cout, this->get_gamestate());
     } catch (std::exception& e) {
         std::cout << "Game: " << e.what() << std::endl;
     } catch (...) {

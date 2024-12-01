@@ -113,14 +113,14 @@ void Drawer::run() try {
                 if (!drawers.weapons[i]) {
                     auto weapon = actual_game_state.weapons[i];
                     drawers.weapons[i] = std::make_unique<DrawerWeapon>(
-                            renderer, weapon.id_texture, animations.animation_weapon);
+                            renderer, weapon.sprite.id_texture, animations.animation_weapon);
                 }
             }
         }
 
         for (size_t i = 0; i < actual_game_state.weapons.size(); ++i) {
             auto weapon = actual_game_state.weapons[i];
-            drawers.weapons[i]->draw(weapon.coordinate);
+            drawers.weapons[i]->draw(weapon.sprite.coordinate);
         }
 
         // Draw Bullet
