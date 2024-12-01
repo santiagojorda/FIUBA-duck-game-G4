@@ -43,6 +43,8 @@ private:
     KeyboardController keyboard_controller;
     drawers_t drawers;
     animations_t animations;
+    SDL2pp::Window window;
+    SDL2pp::Renderer renderer;
 
 public:
     /*
@@ -58,7 +60,9 @@ public:
     /*
      *
      */
-    void init_scenery(SDL2pp::Renderer& renderer, const client_game_state_t& actual_game_state);
+    void load_resources();
+
+    void init_scenery(const client_game_state_t& actual_game_state);
 
     /*
      * Deshabilitar copias.
