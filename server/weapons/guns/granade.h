@@ -3,17 +3,16 @@
 
 #include "../gun.h"
 
-// class Granade: public Gun {
-// public:
-//     explicit Granade(const Coordinate& _coordinate);
+class Granade: public Gun {
+public:
+    explicit Granade(const Coordinate& _coordinate);
 
-//     //
-//     // virtual void trigger(ListProjectiles& projectiles) override;
+    virtual void trigger(ListProjectiles& projectiles, const uint8_t& player_id) override;
 
-//     //
-//     // virtual void trigger_out(ListProjectiles& projectiles) override;
+    //
+    // virtual void trigger_out(ListProjectiles& projectiles) override;
 
-//     ~Granade();
-// };
+    ~Granade();
+};
 
 #endif

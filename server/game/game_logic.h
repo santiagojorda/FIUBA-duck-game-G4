@@ -27,6 +27,8 @@ private:
     void update_players();
     void update_projectiles();
     void remove_bullet(Bullet& bullet);
+    bool can_move(Player& player, int x, int y);
+
 public:
     explicit GameLogic(ListPlayers& _players, Map& _map, ListItemsMap& _items,
                        ListProjectiles& _projectiles);

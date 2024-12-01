@@ -99,14 +99,24 @@ void GameLogic::move_horizontal(Player& player, Direction& direction){
 }
 
 
+bool GameLogic::can_move(Player& player, int x, int y){
+    Coordinate point = Coordinate(
+        player.get_coordinate().get_x() + x,
+        player.get_coordinate().get_y() + y,
+        0, 0);
+    if(physics.is_this_point_ocuppied(point)){
+        return false;
+    }
+    return true;
+}
+
 void GameLogic::move(Player& player, int x, int y){
-    // std::shared_ptr<Positionable> touched_floor = physics.get_player_floor_collision(player);
-    // if (touched_floor) {
-    //     return;
-    // }
+
+    if(can_move(player, x, y)){
+        player.translate_x(x);
+        player.translate_y(y);
+    }
     
-    player.translate_x(x);
-    player.translate_y(y);
 }
 
 

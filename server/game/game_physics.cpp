@@ -11,6 +11,17 @@ bool GamePhysics::exist_collision(const Rectangle& a, const Rectangle& b) {
              a.get_y_max() < (b.get_y_min()) || a.get_y_min() > b.get_y_max());
 }
 
+bool GamePhysics::is_this_point_ocuppied(const Coordinate& coordinate){
+    for (auto& tile: this->map) {
+        if (this->exist_collision(Rectangle(coordinate), tile->get_rectangle())) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+
 void GamePhysics::falling(Positionable& target, uint iter_frame) {
     target.translate_y(iter_frame * iter_frame * (G_FORCE / 2));
 }
