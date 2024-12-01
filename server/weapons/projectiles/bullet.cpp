@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <iostream>
+
 #include "../../game/game_logic.h"
 
 #define TEXTURE_ID 0  // cambiar
@@ -57,8 +58,8 @@ void Bullet::update(GameLogic& game_logic) {
     }
 }
 
-void Bullet::handle_collision(Player& player, GameLogic& game_logic){
-    if(shooter_id != player.get_id()){
+void Bullet::handle_collision(Player& player, GameLogic& game_logic) {
+    if (shooter_id != player.get_id()) {
         player.die(game_logic);
         die();
     }

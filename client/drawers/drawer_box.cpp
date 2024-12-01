@@ -17,6 +17,6 @@ void DrawerBox::draw(SDL2pp::Renderer& renderer, const box_t& box) {
     int src_y = BOX_INITIAL_Y;
 
     renderer.Copy(texture, SDL2pp::Rect(src_x, src_y, SIZE_BOX_SPRITE, SIZE_BOX_SPRITE),
-                  SDL2pp::Rect(box.box.coordinate.get_x(), box.box.coordinate.get_y(), SIZE_BOX_SPRITE,
-                               SIZE_BOX_SPRITE));
+                  SDL2pp::Rect(box.box.coordinate.get_x(), box.box.coordinate.get_y(),
+                               SIZE_BOX_SPRITE, SIZE_BOX_SPRITE));
 }

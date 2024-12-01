@@ -2,7 +2,7 @@
 #define GAME_CONFIG_H
 
 // Tamaño tile por default en pantalla
-#define TILE_SIZE 32 
+#define TILE_SIZE 32
 #define TILE_SIZE_FLOOR 16
 
 #define TILE_SIZE_WEAPON 50

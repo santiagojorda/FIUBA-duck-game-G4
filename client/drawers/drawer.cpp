@@ -31,9 +31,11 @@ void Drawer::run() try {
     client_game_state_t actual_game_state;
 
     ZoomHandler zoom_handler;
+    // Cargar resources, incluir musica
     animations.animation_duck = AnimationLoader::load_animations(ANIMATION_PATH "/duck.yaml");
     animations.animation_weapon = AnimationLoader::load_animations(ANIMATION_PATH "/weapon.yaml");
     animations.animation_armor = AnimationLoader::load_animations(ANIMATION_PATH "/armor.yaml");
+    static std::map<std::string, Animation> empty_animations;
 
     // desde el LOBBY ya le di a startear game, por lo tanto no necesito darle a la "m", de entrada
     // recibo la data lo traigo para acá así no hay drama
@@ -63,7 +65,7 @@ void Drawer::run() try {
 
         renderer.Clear();
 
-        init_scenery(renderer, actual_game_state, drawers);
+        init_scenery(renderer, actual_game_state);
 
         // Draw Players (Patos)
         for (size_t i = 0; i < actual_game_state.players.size(); i++) {
@@ -78,14 +80,14 @@ void Drawer::run() try {
             for (size_t i = 0; i < actual_game_state.floors.size(); ++i) {
                 if (!drawers.floors[i]) {
                     auto floor = actual_game_state.floors[i];
-                    drawers.floors[i] = std::make_unique<DrawerFloor>(renderer, floor);
+                    drawers.floors[i] = std::make_unique<DrawerFloor>(renderer, floor.path);
                 }
             }
         }
 
         for (size_t i = 0; i < actual_game_state.floors.size(); ++i) {
             auto floor = actual_game_state.floors[i];
-            drawers.floors[i]->draw(renderer, floor);
+            drawers.floors[i]->draw(floor);
         }
 
         // Draw Box
@@ -153,8 +155,7 @@ void Drawer::run() try {
     std::cerr << e.what() << std::endl;
 }
 
-void Drawer::init_scenery(Renderer& renderer, const client_game_state_t& actual_game_state,
-                          drawers_t& drawers) {
+void Drawer::init_scenery(Renderer& renderer, const client_game_state_t& actual_game_state) {
     // Player
     if (actual_game_state.players.size() == drawers.players.size()) {
         return;
@@ -163,8 +164,8 @@ void Drawer::init_scenery(Renderer& renderer, const client_game_state_t& actual_
     for (size_t i = 0; i < actual_game_state.players.size(); i++) {
         auto player = actual_game_state.players[i];
         drawers.players[player.sprite.id_texture] = std::make_unique<DrawerPlayer>(
-                renderer, player.sprite.id_texture, animations.animation_duck,
-                animations.animation_weapon, animations.animation_armor);
+                renderer, player.sprite.id_texture, this->animations.animation_duck,
+                this->animations.animation_weapon, this->animations.animation_armor);
         drawers.players[player.sprite.id_texture]->draw(player);
     }
     /*

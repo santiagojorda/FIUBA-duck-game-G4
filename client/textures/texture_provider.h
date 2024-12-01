@@ -19,17 +19,10 @@ enum class InventoryDuck {
     HAS_HELMET,
 };
 
+enum class FloorTexture { FLOOR_MAP_1 };
 
 // SINGLETON
 class TextureProvider {
-public:
-    static TextureProvider& get_instance();
-
-    const std::string& get_weapon_texture(WeaponTextureID id) const;
-    const std::string& get_duck_texture(TextureDucks duck) const;
-    const std::string& get_duck_action_texture(DuckStateType action) const;
-    const std::string& get_duck_equipment_texture(InventoryDuck equipment) const;
-
 private:
     TextureProvider();
     TextureProvider(const TextureProvider&) = delete;
@@ -39,6 +32,16 @@ private:
     std::map<TextureDucks, std::string> textures_ducks;
     std::map<DuckStateType, std::string> textures_action_ducks;
     std::map<InventoryDuck, std::string> textures_equipment_ducks;
+    std::map<FloorTexture, std::string> textures_floor;
+
+public:
+    static TextureProvider& get_instance();
+
+    const std::string& get_weapon_texture(WeaponTextureID id) const;
+    const std::string& get_duck_texture(TextureDucks duck) const;
+    const std::string& get_duck_action_texture(DuckStateType action) const;
+    const std::string& get_duck_equipment_texture(InventoryDuck equipment) const;
+    const std::string& get_textures_floor(FloorTexture id) const;
 };
 
 #endif  // TEXTURE_PROVIDER_H
