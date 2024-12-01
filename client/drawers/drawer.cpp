@@ -31,10 +31,10 @@ void Drawer::run() try {
     client_game_state_t actual_game_state;
 
     ZoomHandler zoom_handler;
-    // Cargar resources, incluir musica
-    animations.animation_duck = AnimationLoader::load_animations(ANIMATION_PATH "/duck.yaml");
-    animations.animation_weapon = AnimationLoader::load_animations(ANIMATION_PATH "/weapon.yaml");
-    animations.animation_armor = AnimationLoader::load_animations(ANIMATION_PATH "/armor.yaml");
+    //  Cargar resources, incluir musica
+    AnimationLoader::load_animations(ANIMATION_PATH "/duck.yaml", animations.animation_duck);
+    AnimationLoader::load_animations(ANIMATION_PATH "/weapon.yaml", animations.animation_weapon);
+    AnimationLoader::load_animations(ANIMATION_PATH "/armor.yaml", animations.animation_armor);
     static std::map<std::string, Animation> empty_animations;
 
     // desde el LOBBY ya le di a startear game, por lo tanto no necesito darle a la "m", de entrada
@@ -65,12 +65,30 @@ void Drawer::run() try {
 
         renderer.Clear();
 
-        init_scenery(renderer, actual_game_state);
+        //  init_scenery(renderer, actual_game_state);
+
 
         // Draw Players (Patos)
+        if (drawers.players.size() != actual_game_state.players.size()) {
+            drawers.players.resize(actual_game_state.players.size());
+
+            for (size_t i = 0; i < actual_game_state.players.size(); i++) {
+                auto player = actual_game_state.players[i];
+
+                DrawerPlayer* new_player = new DrawerPlayer(
+                        renderer, player.sprite.id_texture, this->animations.animation_duck,
+                        this->animations.animation_weapon, this->animations.animation_armor);
+                drawers.players[i] = new_player;
+            }
+        }
+
         for (size_t i = 0; i < actual_game_state.players.size(); i++) {
             player_t player = actual_game_state.players[i];
-            drawers.players[player.sprite.id_texture]->draw(player);
+            std::cout << "player en el for su id es: " << static_cast<int>(player.sprite.id_texture)
+                      << "\n";
+            std::cout << "player en el for su coordenada: " << player.sprite.coordinate << "\n";
+            // drawers.players[player.sprite.id_texture]->draw(player);
+            drawers.players[i]->draw(player);
         }
 
         // Draw Floor
@@ -80,7 +98,9 @@ void Drawer::run() try {
             for (size_t i = 0; i < actual_game_state.floors.size(); ++i) {
                 if (!drawers.floors[i]) {
                     auto floor = actual_game_state.floors[i];
-                    drawers.floors[i] = std::make_unique<DrawerFloor>(renderer, floor.path);
+                    DrawerFloor* drawer_floor = new DrawerFloor(renderer, floor.path);
+                    // drawers.floors[i] = std::make_unique<DrawerFloor>(renderer, floor.path);
+                    drawers.floors[i] = drawer_floor;
                 }
             }
         }
@@ -96,7 +116,9 @@ void Drawer::run() try {
             for (size_t i = 0; i < actual_game_state.boxs.size(); ++i) {
                 if (!drawers.boxes[i]) {
                     auto box = actual_game_state.boxs[i];
-                    drawers.boxes[i] = std::make_unique<DrawerBox>(renderer, box);
+                    DrawerBox* drawer_box = new DrawerBox(renderer, box);
+                    drawers.boxes[i] = drawer_box;
+                    // drawers.boxes[i] = std::make_unique<DrawerBox>(renderer, box);
                 }
             }
         }
@@ -112,8 +134,15 @@ void Drawer::run() try {
             for (size_t i = 0; i < actual_game_state.weapons.size(); ++i) {
                 if (!drawers.weapons[i]) {
                     auto weapon = actual_game_state.weapons[i];
-                    drawers.weapons[i] = std::make_unique<DrawerWeapon>(
+                    DrawerWeapon* drawer_weapon = new DrawerWeapon(renderer, weapon.id_texture,
+                                                                   animations.animation_weapon);
+                    drawers.weapons[i] = drawer_weapon;
+
+                    /**
+                     * drawers.weapons[i] = std::make_unique<DrawerWeapon>(
                             renderer, weapon.id_texture, animations.animation_weapon);
+                     *
+                     */
                 }
             }
         }
@@ -129,7 +158,8 @@ void Drawer::run() try {
             for (size_t i = 0; i < actual_game_state.bullets.size(); ++i) {
                 if (!drawers.bullets[i]) {
                     auto bullet = actual_game_state.bullets[i];
-                    drawers.bullets[i] = std::make_unique<DrawerBullet>(bullet, renderer);
+                    DrawerBullet* drawer_bullet = new DrawerBullet(bullet, renderer);
+                    drawers.bullets[i] = drawer_bullet;
                 }
             }
         }
@@ -151,23 +181,57 @@ void Drawer::run() try {
         keyboard_controller.procesar_comando(event);
     }
 
+    for (size_t i = 0; i < actual_game_state.players.size(); i++) {
+        delete drawers.players[i];
+    }
+
+    for (size_t i = 0; i < actual_game_state.floors.size(); i++) {
+        delete drawers.floors[i];
+    }
+
+    for (size_t i = 0; i < actual_game_state.weapons.size(); i++) {
+        delete drawers.weapons[i];
+    }
+
+    for (size_t i = 0; i < actual_game_state.boxs.size(); i++) {
+        delete drawers.boxes[i];
+    }
+
+    for (size_t i = 0; i < actual_game_state.bullets.size(); i++) {
+        delete drawers.bullets[i];
+    }
+
 } catch (std::exception& e) {
     std::cerr << e.what() << std::endl;
 }
 
 void Drawer::init_scenery(Renderer& renderer, const client_game_state_t& actual_game_state) {
     // Player
+    std::cout << "entra a init_scenery\n";
     if (actual_game_state.players.size() == drawers.players.size()) {
         return;
     }
 
+    std::cout << "hace un resize de : " << actual_game_state.players.size() << "\n";
+    drawers.players.resize(actual_game_state.players.size());
+
     for (size_t i = 0; i < actual_game_state.players.size(); i++) {
         auto player = actual_game_state.players[i];
-        drawers.players[player.sprite.id_texture] = std::make_unique<DrawerPlayer>(
+
+        DrawerPlayer* new_player = new DrawerPlayer(
                 renderer, player.sprite.id_texture, this->animations.animation_duck,
                 this->animations.animation_weapon, this->animations.animation_armor);
-        drawers.players[player.sprite.id_texture]->draw(player);
+
+        std::cout << "player.sprite.id_texture o sea id pato: " << player.sprite.id_texture << "\n";
+        drawers.players[i] = new_player;
+
+        /*
+                drawers.players[player.sprite.id_texture] = std::make_unique<DrawerPlayer>(
+                        this->renderer, player.sprite.id_texture, this->animations.animation_duck,
+                        this->animations.animation_weapon, this->animations.animation_armor);
+                drawers.players[player.sprite.id_texture]->draw(player);*/
     }
+
     /*
         // Floor
         for (size_t i = 0; i < actual_game_state.floors.size(); i++) {
@@ -189,4 +253,12 @@ void Drawer::init_scenery(Renderer& renderer, const client_game_state_t& actual_
             drawers.weapons.push_back(std::make_unique<DrawerWeapon>(renderer, weapon,
        animations.animation_weapon)); drawers.weapons.back()->draw(renderer, weapon);
         }*/
+}
+
+
+void Drawer::load_resources() {
+    // es el dueño para que cargue las animaciones 1 sola vez.
+    AnimationLoader::load_animations(ANIMATION_PATH "/duck.yaml", animations.animation_duck);
+    AnimationLoader::load_animations(ANIMATION_PATH "/weapon.yaml", animations.animation_weapon);
+    AnimationLoader::load_animations(ANIMATION_PATH "/armor.yaml", animations.animation_armor);
 }

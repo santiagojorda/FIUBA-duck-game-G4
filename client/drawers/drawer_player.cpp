@@ -15,13 +15,15 @@ DrawerPlayer::DrawerPlayer(SDL2pp::Renderer& renderer, uint8_t texture_id,
         animation_armor(animation_armor) {
     std::string path =
             this->texture_provider.get_duck_texture(static_cast<TextureDucks>(texture_id));
-    this->texture = std::make_unique<SDL2pp::Texture>(renderer, path);
+    auto texture_capturado = std::make_shared<SDL2pp::Texture>(renderer, path);
+    this->set_texture(texture_capturado);
 }
 
 void DrawerPlayer::draw(const player_t& player) {
     this->flip = static_cast<Direction>(player.is_looking) == Direction::LEFT;
     this->coordenada_x = player.sprite.coordinate.get_x();
     this->coordenada_y = player.sprite.coordinate.get_y() - OFFSET_Y_DUCK;
+
     this->scale_height = TILE_SIZE;
     this->scale_width = TILE_SIZE;
     try {

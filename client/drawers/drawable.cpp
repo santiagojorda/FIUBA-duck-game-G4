@@ -37,4 +37,12 @@ void Drawable::render_with_rect(int sprite_x, int sprite_y, int sprite_width, in
     }
 }
 
+// Texture no es copiable
+// void Drawable::set_texture(SDL2pp::Texture&& _texture) { this->texture = std::move(_texture); }
+
+void Drawable::set_texture(const std::shared_ptr<SDL2pp::Texture>& _texture) {
+    // this->texture = _texture;
+    this->texture = std::move(_texture);
+}
+
 Drawable::~Drawable() {}

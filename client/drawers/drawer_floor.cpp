@@ -6,7 +6,8 @@ DrawerFloor::DrawerFloor(SDL2pp::Renderer& renderer, uint8_t texture_id):
         Drawable(renderer, Drawable::empty_animations) {
     std::string path =
             this->texture_provider.get_textures_floor(static_cast<FloorTexture>(texture_id));
-    this->texture = std::make_unique<SDL2pp::Texture>(renderer, path);
+    auto texture_capturado = std::make_shared<SDL2pp::Texture>(renderer, path);
+    this->set_texture(texture_capturado);
 }
 
 void DrawerFloor::draw(const floor_sprite_t& floor) {

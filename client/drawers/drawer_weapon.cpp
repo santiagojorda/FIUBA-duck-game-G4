@@ -8,7 +8,8 @@ DrawerWeapon::DrawerWeapon(SDL2pp::Renderer& renderer, uint8_t texture_id,
     this->type_animation =
             texture_provider.get_weapon_texture(static_cast<WeaponTextureID>(texture_id));
     std::string path = this->animations[this->type_animation].get_path();
-    this->texture = std::make_unique<SDL2pp::Texture>(renderer, DATA_PATH + path);
+    auto texture_capturado = std::make_shared<SDL2pp::Texture>(renderer, DATA_PATH + path);
+    this->set_texture(texture_capturado);
 }
 
 // TODO: agregarle un is_looking al arma que se muestra por pantalla tambien
