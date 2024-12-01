@@ -18,3 +18,9 @@ uint8_t Projectile::get_shooter_id(){ return shooter_id;}
 bool Projectile::is_dead(){ return state == ProjectileState::DEAD; }
 
 void Projectile::die(){ state = ProjectileState::DEAD;}
+
+void Projectile::collision_surface(Positionable& surface, GameLogic& game_logic){
+    (void)surface;
+    (void)game_logic;
+    die();
+}

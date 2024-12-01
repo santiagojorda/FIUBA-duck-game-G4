@@ -39,7 +39,6 @@ void Positionable::handle_collision(Player& player, GameLogic& game_logic){
     (void)game_logic;
 }
 
-
 void Positionable::fall(GameLogic& game_logic) { (void)game_logic;}
 
 Rectangle Positionable::get_rectangle() const { return this->space; }

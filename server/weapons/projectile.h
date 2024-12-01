@@ -29,6 +29,7 @@ public:
     virtual void update(GameLogic& game_logic);
     void die();
     bool is_dead();
+    virtual void collision_surface(Positionable& surface, GameLogic& game_logic);
     uint8_t get_shooter_id();
 };
 

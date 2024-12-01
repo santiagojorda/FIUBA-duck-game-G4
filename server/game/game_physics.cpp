@@ -15,10 +15,9 @@ void GamePhysics::falling(Positionable& target, uint iter_frame) {
     target.translate_y(iter_frame * iter_frame * (G_FORCE / 2));
 }
 
-std::shared_ptr<Positionable> GamePhysics::get_player_floor_collision(Player& player) {
+std::shared_ptr<Positionable> GamePhysics::get_target_floor_collision(Positionable& target) {
     for (auto& tile: this->map) {
-        if (this->exist_collision(player.get_rectangle(), tile->get_rectangle())) {
-            // player.set_touching_floor(IS_TOUCHING_FLOOR);
+        if (this->exist_collision(target.get_rectangle(), tile->get_rectangle())) {
             return tile;
         }
     }
