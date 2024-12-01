@@ -40,7 +40,7 @@ public:
     void update();
     void add_projectile(std::shared_ptr<Projectile> new_projectile);
 
-    void explote(Gun& gun);
+    void explote(std::shared_ptr<Gun> gun);
     ListProjectiles& get_projectiles();
     GamePhysics& get_physics();
     void handle_drop(std::shared_ptr<Equippable> item);
@@ -48,7 +48,7 @@ public:
     void fall(Player& player);
     void move(Player& player, int x, int y);
     void move_horizontal(Player& player, Direction& direction);
-    void move(Projectile& projectile, int x, int y);
+    void move(std::shared_ptr<Projectile> projectile, int x, int y);
     void update_player_gravity(Player& player);
 
     ~GameLogic();

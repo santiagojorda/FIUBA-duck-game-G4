@@ -5,3 +5,7 @@
 Helmet::Helmet() : Equippable() {}
 
 void Helmet::handle_equip(Inventory& inventory) { inventory.equip(std::shared_ptr<Helmet>(this)); };
+
+std::shared_ptr<Equippable> Helmet::clone() const {
+        return std::make_shared<Helmet>(*this); 
+}

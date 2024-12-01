@@ -1,7 +1,7 @@
 #include "game.h"
 
 #include <iostream>
-
+#include <list>
 #include "../../common/sleep_special.h"
 #include "../events/event.h"
 #include "../weapons/gun_factory.h"
@@ -45,7 +45,7 @@ void charge_weapons(ListItemsMap& items, std::list<data_weapon>& data_weapons) {
     GunFactory factory;
     for (auto& weapon: data_weapons) {
         std::shared_ptr<Equippable> new_item = factory.create_gun(weapon.id, weapon.coordinate);
-        items.add(new_item);
+        items.push_back(new_item);
     }
 }
 
@@ -86,7 +86,22 @@ void Game::execute_new_events() {
 
 void Game::broadcast_gamestate() { monitor_client.broadcast(get_gamestate()); }
 
-GameState_t Game::get_gamestate() { return GameState_t{players, map, map_items, map_projectiles}; }
+GameState_t Game::get_gamestate() { 
+
+    std::list<ItemsMap_t> map_items_copy;
+    std::list<Projectiles_t> map_projectiles_copy;
+
+    for(std::shared_ptr<Equippable> item : map_items){
+        map_items_copy.push_back({item->get_texture_id(), item->get_coordinate()});
+    }
+
+    for(std::shared_ptr<Projectile> projectile : map_projectiles){
+        map_projectiles_copy.push_back({projectile->get_texture_id(), projectile->get_coordinate()});
+    }
+
+
+    return GameState_t{players, map, map_items_copy, map_projectiles_copy}; 
+}
 
 void Game::run() {
     SleepSpecial sleep(MILISECONDS_30_FPS);

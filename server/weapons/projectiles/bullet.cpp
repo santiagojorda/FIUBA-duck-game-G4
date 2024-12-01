@@ -5,6 +5,8 @@
 
 #include "../../game/game_logic.h"
 
+#define TILE_SIZE_BULLET 16
+
 #define TEXTURE_ID 0  // cambiar
 #define HORIZONTAL_STEP 4
 #define VERTICAL_STEP 2
@@ -36,8 +38,8 @@ Bullet::Bullet(const ProjectileRange& _range_tiles, const Coordinate& _coordinat
 void Bullet::update(GameLogic& game_logic) {
     update_handler.update();
 
-    if ((steps * HORIZONTAL_STEP) / (16) >= int(range_tiles)) {
-        state = ProjectileState::DEAD;
+    if ((steps * HORIZONTAL_STEP) / (TILE_SIZE_BULLET) >= (int)range_tiles) {
+        die();
         std::cout << "Bala muere, completo su rango" << std::endl;
         return;
     }
@@ -53,8 +55,8 @@ void Bullet::update(GameLogic& game_logic) {
         int x = static_cast<int>(std::round(new_x));
         int y = static_cast<int>(std::round(new_y));
 
-        game_logic.move(*this, x, y);
         // std::cout << "new bullet position: " << space.get_coordinates() << std::endl;
+        game_logic.move(shared_from_this(), x, y);
     }
 }
 

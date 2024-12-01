@@ -14,7 +14,7 @@ void CowboyGun::trigger(ListProjectiles& projectiles, const uint8_t& player_id) 
     if (!this->blocked) {
         for (int i = 0; i < cowboy_config.count_projectiles_x_shoot; i++) {
             if (this->ammo > 0) {
-                projectiles.add(std::make_shared<Bullet>(this->projectile_range,
+                projectiles.push_back(std::make_shared<Bullet>(this->projectile_range,
                                                          this->get_coordinate(),
                                                          this->get_direction(), 0, player_id));
                 this->ammo--;

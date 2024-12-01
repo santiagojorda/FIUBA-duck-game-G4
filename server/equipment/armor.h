@@ -8,6 +8,7 @@ class Armor: public Equippable {
 public:
     Armor();
     void handle_equip(Inventory& inventory) override;
+    std::shared_ptr<Equippable> clone() const override;
 };
 
 #endif

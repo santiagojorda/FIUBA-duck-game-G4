@@ -18,7 +18,7 @@ void AK47::trigger(ListProjectiles& projectiles, const uint8_t& player_id) {
     for (int i = 0; i < ak_config.count_projectiles_x_shoot; i++) {
 
         if (this->ammo > 0 && this->delay_counter()) {
-            projectiles.add(std::make_shared<Bullet>(this->projectile_range, this->get_coordinate(),
+            projectiles.push_back(std::make_shared<Bullet>(this->projectile_range, this->get_coordinate(),
                                                      this->get_direction(), this->dispersion * dispersion_y ,
                                                      player_id));
             this->ammo--;

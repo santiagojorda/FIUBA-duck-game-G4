@@ -9,12 +9,23 @@
 #include "../player/list_players.h"
 #include "../player/player.h"
 
+struct ItemsMap_t{
+    uint8_t texture_id;
+    Coordinate coordinate;
+    // uint8_t frame;
+};
+
+struct Projectiles_t{
+    uint8_t texture_id;
+    Coordinate coordinate;
+};
+
 struct GameState_t {
     // cppcheck-suppress unusedStructMember
     ListPlayers& players;
     Map& map;
-    ListItemsMap& map_items;
-    ListProjectiles map_projectiles;
+    std::list<ItemsMap_t> map_items;
+    std::list<Projectiles_t> map_projectiles;
 };
 
 

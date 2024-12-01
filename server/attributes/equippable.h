@@ -25,6 +25,7 @@ public:
     virtual void handle_equip(Inventory& inventory) = 0;
     void die(){ state = EquippableState::DEAD; }
     bool is_dead() { return state == EquippableState::DEAD;}
+    virtual std::shared_ptr<Equippable> clone() const = 0;
 
     virtual ~Equippable() {}
 };

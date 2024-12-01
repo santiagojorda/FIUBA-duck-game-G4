@@ -66,7 +66,7 @@ public:
     uint8_t get_ammo();
 
     uint8_t get_max_ammo();
-
+    std::shared_ptr<Equippable> clone() const override;
     virtual void handle_explotion(GameLogic& game_logic);
 
     ShootingRecoil get_recoil();
