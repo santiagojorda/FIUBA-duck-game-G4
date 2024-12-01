@@ -31,8 +31,8 @@ void Shotgun::trigger(ListProjectiles& projectiles, const uint8_t& player_id) {
     this->blocked = true;
 }
 
-void Shotgun::trigger_out(ListProjectiles& projectiles, const uint8_t& player_id) {
-    Gun::trigger_out(projectiles, player_id);
+void Shotgun::trigger_out(ListProjectiles& projectiles, const uint8_t& player_id, bool& was_dropped) {
+    Gun::trigger_out(projectiles, player_id, was_dropped);
     this->blocked = false;
 }
 Shotgun::~Shotgun() {}

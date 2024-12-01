@@ -207,6 +207,10 @@ boxes:
 
 weapon_size: 16
 weapons:
+  - id: 1
+    coordinate:
+      x: 80
+      y: 250
   - id: 3
     coordinate:
       x: 100
