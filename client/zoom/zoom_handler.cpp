@@ -61,7 +61,7 @@ void ZoomHandler::calculate_zoom_factor(int ancho, int altura) {
         factor_zoom = (zoom_x == 0) ? zoom_y : zoom_x;
     }
 
-    if (factor_zoom == 0 || factor_zoom >= 2.3f) {
-        factor_zoom = 2.3f;
+    if (factor_zoom == 0 || factor_zoom >= 2.5f) {
+        factor_zoom = 2.5f;
     }
 }
