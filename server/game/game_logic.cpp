@@ -141,13 +141,11 @@ void GameLogic::update(){
 
 }
 
-void GameLogic::explote(Gun& gun){ gun.handle_explotion(*this); }
-
-void GameLogic::do_explotion(Gun& gun){
-    (void)gun;
-    std::cout << "Exploto una bomba" << std::endl;
-
+void GameLogic::add_projectile(std::shared_ptr<Projectile> new_projectile){
+    projectiles.add(new_projectile);
 }
+
+void GameLogic::explote(Gun& gun){ gun.handle_explotion(*this); }
 
 void GameLogic::update_players() {
     for (Player& player: players) {

@@ -136,8 +136,8 @@ void Player::shoot(GameLogic& game_logic, const ModeShoot& mode) {
         return;
     }
     update_gun_position();
-    ShootingRecoil recoil = gun->get_recoil();
     bool is_dropped = false;
+    ShootingRecoil recoil = gun->get_recoil();
     switch (mode)  {
         case ModeShoot::TRIGGER:
             gun->trigger(game_logic.get_projectiles(), id);

@@ -162,7 +162,7 @@ weapons:
     coordinate:
       x: 164
       y: 250
-  - id: 6
+  # - id: 6
   #   coordinate:
   #     x: 196
   #     y: 250

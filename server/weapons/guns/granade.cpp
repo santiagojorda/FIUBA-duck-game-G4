@@ -6,7 +6,11 @@
 #include "../../game/game_logic.h"
 #define DAMAGE 3
 #include "../../player/inventory.h"
+#include "../projectiles/bullet.h"
 // #include "../projectiles/granade_projectile.h"
+
+#define PLAYER_ID_DUMMY 99
+#define NUM_PROJECTILES 10
 
 gun_config granade_config = {WeaponTextureID::GRANATE, 1, ShootingRecoil::NONE,
                              ProjectileRange::MEDIUM,  1, 1};
@@ -36,8 +40,15 @@ void Granade::trigger_out(ListProjectiles& projectiles, const uint8_t& player_id
 }
 
 void Granade::handle_explotion(GameLogic& game_logic){
-    game_logic.do_explotion(*this);
-    die();
+    dispersion = 0;
+
+    for (int i = 0; i < NUM_PROJECTILES; i++){
+        Bullet new_bullet(this->projectile_range, get_coordinate(), this->get_direction(), this->dispersion, PLAYER_ID_DUMMY);
+        game_logic.add_projectile(std::make_shared<Bullet>(new_bullet));
+        dispersion += 360 / NUM_PROJECTILES; 
+        die();
+    }
+
 }
 
 void Granade::handle_equip(Inventory& inventory) { 

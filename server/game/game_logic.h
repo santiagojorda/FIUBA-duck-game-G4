@@ -31,7 +31,6 @@ private:
     void update_players();
     void update_weapons();
     void update_projectiles();
-    void remove_projectile(std::shared_ptr<Projectile> projectile);
     bool can_move(Player& player, int x, int y);
 
 public:
@@ -39,8 +38,9 @@ public:
                        ListProjectiles& _projectiles);
     void handle_event(Event& event);
     void update();
+    void add_projectile(std::shared_ptr<Projectile> new_projectile);
+
     void explote(Gun& gun);
-    void do_explotion(Gun& gun);
     ListProjectiles& get_projectiles();
     GamePhysics& get_physics();
     void handle_drop(std::shared_ptr<Equippable> item);

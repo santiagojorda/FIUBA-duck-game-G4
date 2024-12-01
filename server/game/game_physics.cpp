@@ -4,6 +4,8 @@
 #include "../player/player.h"
 #include "../map/map.h"
 
+#define PHYSIC_TILE_SIZE 16
+
 GamePhysics::GamePhysics(Map& _map): map(_map) {}
 
 bool GamePhysics::exist_collision(const Rectangle& a, const Rectangle& b) {
@@ -20,7 +22,6 @@ bool GamePhysics::is_this_point_ocuppied(const Coordinate& coordinate){
 
     return false;
 }
-
 
 void GamePhysics::falling(Positionable& target, uint iter_frame) {
     target.translate_y(iter_frame * iter_frame * (G_FORCE / 2));
