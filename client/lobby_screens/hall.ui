@@ -81,7 +81,7 @@
     <widget class="QFrame" name="containerOnlyOnePlayer">
      <property name="geometry">
       <rect>
-       <x>290</x>
+       <x>275</x>
        <y>120</y>
        <width>250</width>
        <height>290</height>
