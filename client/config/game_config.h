@@ -16,7 +16,7 @@
 
 #define GAME_TITLE "Duck Game"
 
-#define WINDOW_HEIGHT 500
+#define WINDOW_HEIGHT 600
 #define WINDOW_WIDTH 800
 
 #define MILISECONDS_30_FPS 33

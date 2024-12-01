@@ -9,15 +9,14 @@ Drawer::Drawer(Queue<ClientEvent_t>& commands, Queue<client_game_state_t>& game_
         game_state(game_state),
         keyboard_controller(commands, 2),
         drawers(),
-        animations() {}
+        animations(),
+        actual_game_state(),
+        window(GAME_TITLE, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH,
+               WINDOW_HEIGHT, SDL_WINDOW_RESIZABLE),
+        renderer(window, -1, SDL_RENDERER_ACCELERATED) {}
 
 void Drawer::run() try {
     SDL sdl(SDL_INIT_VIDEO);
-
-    Window window(GAME_TITLE, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH,
-                  WINDOW_HEIGHT, SDL_WINDOW_RESIZABLE);
-
-    Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
 
     Texture main_texture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WINDOW_WIDTH,
                          WINDOW_HEIGHT);
@@ -28,13 +27,10 @@ void Drawer::run() try {
 
     SleepSpecial sleep(MILISECONDS_30_FPS);
     int iteration = 0;
-    client_game_state_t actual_game_state;
 
     ZoomHandler zoom_handler;
     //  Cargar resources, incluir musica
-    AnimationLoader::load_animations(ANIMATION_PATH "/duck.yaml", animations.animation_duck);
-    AnimationLoader::load_animations(ANIMATION_PATH "/weapon.yaml", animations.animation_weapon);
-    AnimationLoader::load_animations(ANIMATION_PATH "/armor.yaml", animations.animation_armor);
+    load_resources();
     static std::map<std::string, Animation> empty_animations;
 
     // desde el LOBBY ya le di a startear game, por lo tanto no necesito darle a la "m", de entrada
@@ -53,134 +49,149 @@ void Drawer::run() try {
 
     // -----------------------------------------------------------------------------------------
     while (true) {
-
         while (game_state.try_pop(actual_game_state)) {}
-        renderer.Clear();
+        this->renderer.Clear();
 
-        renderer.Copy(background, Rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
+        this->renderer.Copy(background, Rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
 
         SDL_SetRenderTarget(renderer.Get(), main_texture.Get());
 
-        renderer.SetDrawColor(0, 0, 0, 0);
+        this->renderer.SetDrawColor(0, 0, 0, 0);
 
-        renderer.Clear();
+        this->renderer.Clear();
 
-        //  init_scenery(renderer, actual_game_state);
+        load_floor();
+        load_ducks();
+        load_boxes();
+        load_bullets();
+        load_weapons();
 
+        SDL_SetRenderTarget(this->renderer.Get(), nullptr);
 
-        // Draw Players (Patos)
-        if (drawers.players.size() != actual_game_state.players.size()) {
-            drawers.players.resize(actual_game_state.players.size());
-
-            for (size_t i = 0; i < actual_game_state.players.size(); i++) {
-                auto player = actual_game_state.players[i];
-
-                DrawerPlayer* new_player = new DrawerPlayer(
-                        renderer, player.sprite.id_texture, this->animations.animation_duck,
-                        this->animations.animation_weapon, this->animations.animation_armor);
-                drawers.players[i] = new_player;
-            }
+        if (actual_game_state.players.size() > 0) {
+            zoom_handler.calculate_zoom(actual_game_state.players);
+            zoom_handler.apply_zoom(this->renderer, main_texture);
         }
 
-        for (size_t i = 0; i < actual_game_state.players.size(); i++) {
-            player_t player = actual_game_state.players[i];
-            std::cout << "player en el for su id es: " << static_cast<int>(player.sprite.id_texture)
-                      << "\n";
-            std::cout << "player en el for su coordenada: " << player.sprite.coordinate << "\n";
-            // drawers.players[player.sprite.id_texture]->draw(player);
-            drawers.players[i]->draw(player);
-        }
-
-        // Draw Floor
-        if (drawers.floors.size() != actual_game_state.floors.size()) {
-            drawers.floors.resize(actual_game_state.floors.size());
-
-            for (size_t i = 0; i < actual_game_state.floors.size(); ++i) {
-                if (!drawers.floors[i]) {
-                    auto floor = actual_game_state.floors[i];
-                    DrawerFloor* drawer_floor = new DrawerFloor(renderer, floor.path);
-                    // drawers.floors[i] = std::make_unique<DrawerFloor>(renderer, floor.path);
-                    drawers.floors[i] = drawer_floor;
-                }
-            }
-        }
-
-        for (size_t i = 0; i < actual_game_state.floors.size(); ++i) {
-            auto floor = actual_game_state.floors[i];
-            drawers.floors[i]->draw(floor);
-        }
-
-        // Draw Box
-        if (drawers.boxes.size() != actual_game_state.boxs.size()) {
-            drawers.boxes.resize(actual_game_state.boxs.size());
-            for (size_t i = 0; i < actual_game_state.boxs.size(); ++i) {
-                if (!drawers.boxes[i]) {
-                    auto box = actual_game_state.boxs[i];
-                    DrawerBox* drawer_box = new DrawerBox(renderer, box);
-                    drawers.boxes[i] = drawer_box;
-                    // drawers.boxes[i] = std::make_unique<DrawerBox>(renderer, box);
-                }
-            }
-        }
-
-        for (size_t i = 0; i < actual_game_state.boxs.size(); ++i) {
-            auto box = actual_game_state.boxs[i];
-            drawers.boxes[i]->draw(renderer, box);
-        }
-
-        // Draw Weapon
-        if (drawers.weapons.size() != actual_game_state.weapons.size()) {
-            drawers.weapons.resize(actual_game_state.weapons.size());
-            for (size_t i = 0; i < actual_game_state.weapons.size(); ++i) {
-                if (!drawers.weapons[i]) {
-                    auto weapon = actual_game_state.weapons[i];
-                    DrawerWeapon* drawer_weapon = new DrawerWeapon(renderer, weapon.id_texture,
-                                                                   animations.animation_weapon);
-                    drawers.weapons[i] = drawer_weapon;
-
-                    /**
-                     * drawers.weapons[i] = std::make_unique<DrawerWeapon>(
-                            renderer, weapon.id_texture, animations.animation_weapon);
-                     *
-                     */
-                }
-            }
-        }
-
-        for (size_t i = 0; i < actual_game_state.weapons.size(); ++i) {
-            auto weapon = actual_game_state.weapons[i];
-            drawers.weapons[i]->draw(weapon.sprite.coordinate);
-        }
-
-        // Draw Bullet
-        if (drawers.bullets.size() != actual_game_state.bullets.size()) {
-            drawers.bullets.resize(actual_game_state.bullets.size());
-            for (size_t i = 0; i < actual_game_state.bullets.size(); ++i) {
-                if (!drawers.bullets[i]) {
-                    auto bullet = actual_game_state.bullets[i];
-                    DrawerBullet* drawer_bullet = new DrawerBullet(bullet, renderer);
-                    drawers.bullets[i] = drawer_bullet;
-                }
-            }
-        }
-
-        for (size_t i = 0; i < actual_game_state.bullets.size(); ++i) {
-            auto bullet = actual_game_state.bullets[i];
-            drawers.bullets[i]->update_bullet(bullet);
-            drawers.bullets[i]->draw(renderer);
-        }
-
-        SDL_SetRenderTarget(renderer.Get(), nullptr);
-
-        zoom_handler.calculate_zoom(actual_game_state.players);
-        zoom_handler.apply_zoom(renderer, main_texture);
-        renderer.Present();
+        this->renderer.Present();
 
         sleep.sleep_rate(iteration);
         SDL_Event event;
         keyboard_controller.procesar_comando(event);
     }
 
+    clean_elements();
+} catch (std::exception& e) {
+    std::cerr << e.what() << std::endl;
+}
+
+void Drawer::load_ducks() {
+    if (drawers.players.size() != actual_game_state.players.size()) {
+        drawers.players.resize(actual_game_state.players.size());
+
+        for (size_t i = 0; i < actual_game_state.players.size(); i++) {
+            auto player = actual_game_state.players[i];
+
+            DrawerPlayer* new_player = new DrawerPlayer(
+                    this->renderer, player.sprite.id_texture, this->animations.animation_duck,
+                    this->animations.animation_weapon, this->animations.animation_armor);
+            drawers.players[i] = new_player;
+        }
+    }
+
+    for (size_t i = 0; i < actual_game_state.players.size(); i++) {
+        player_t player = actual_game_state.players[i];
+        drawers.players[i]->draw(player);
+    }
+}
+
+void Drawer::load_floor() {
+    // Draw Floor
+    if (drawers.floors.size() != actual_game_state.floors.size()) {
+        drawers.floors.resize(actual_game_state.floors.size());
+
+        for (size_t i = 0; i < actual_game_state.floors.size(); ++i) {
+            if (!drawers.floors[i]) {
+                auto floor = actual_game_state.floors[i];
+                DrawerFloor* drawer_floor = new DrawerFloor(this->renderer, floor.path);
+                // drawers.floors[i] = std::make_unique<DrawerFloor>(renderer, floor.path);
+                drawers.floors[i] = drawer_floor;
+            }
+        }
+    }
+
+    for (size_t i = 0; i < actual_game_state.floors.size(); ++i) {
+        auto floor = actual_game_state.floors[i];
+        drawers.floors[i]->draw(floor);
+    }
+}
+
+void Drawer::load_weapons() {
+    // Draw Weapon
+    if (drawers.weapons.size() != actual_game_state.weapons.size()) {
+        drawers.weapons.resize(actual_game_state.weapons.size());
+        for (size_t i = 0; i < actual_game_state.weapons.size(); ++i) {
+            if (!drawers.weapons[i]) {
+                auto weapon = actual_game_state.weapons[i];
+                DrawerWeapon* drawer_weapon = new DrawerWeapon(
+                        this->renderer, weapon.sprite.id_texture, animations.animation_weapon);
+                drawers.weapons[i] = drawer_weapon;
+
+                /**
+                 * drawers.weapons[i] = std::make_unique<DrawerWeapon>(
+                        renderer, weapon.id_texture, animations.animation_weapon);
+                 */
+            }
+        }
+    }
+
+    for (size_t i = 0; i < actual_game_state.weapons.size(); ++i) {
+        auto weapon = actual_game_state.weapons[i];
+        drawers.weapons[i]->draw(weapon.sprite.coordinate);
+    }
+}
+
+void Drawer::load_boxes() {
+    // Draw Box
+    if (drawers.boxes.size() != actual_game_state.boxs.size()) {
+        drawers.boxes.resize(actual_game_state.boxs.size());
+        for (size_t i = 0; i < actual_game_state.boxs.size(); ++i) {
+            if (!drawers.boxes[i]) {
+                auto box = actual_game_state.boxs[i];
+                DrawerBox* drawer_box = new DrawerBox(this->renderer, box);
+                drawers.boxes[i] = drawer_box;
+                // drawers.boxes[i] = std::make_unique<DrawerBox>(renderer, box);
+            }
+        }
+    }
+
+    for (size_t i = 0; i < actual_game_state.boxs.size(); ++i) {
+        auto box = actual_game_state.boxs[i];
+        drawers.boxes[i]->draw(this->renderer, box);
+    }
+}
+
+void Drawer::load_bullets() {
+    // Draw Bullet
+    if (drawers.bullets.size() != actual_game_state.bullets.size()) {
+        drawers.bullets.resize(actual_game_state.bullets.size());
+        for (size_t i = 0; i < actual_game_state.bullets.size(); ++i) {
+            if (!drawers.bullets[i]) {
+                auto bullet = actual_game_state.bullets[i];
+                DrawerBullet* drawer_bullet = new DrawerBullet(bullet, this->renderer);
+                drawers.bullets[i] = drawer_bullet;
+            }
+        }
+    }
+
+    for (size_t i = 0; i < actual_game_state.bullets.size(); ++i) {
+        auto bullet = actual_game_state.bullets[i];
+        drawers.bullets[i]->update_bullet(bullet);
+        drawers.bullets[i]->draw(this->renderer);
+    }
+}
+
+void Drawer::clean_elements() {
     for (size_t i = 0; i < actual_game_state.players.size(); i++) {
         delete drawers.players[i];
     }
@@ -200,26 +211,20 @@ void Drawer::run() try {
     for (size_t i = 0; i < actual_game_state.bullets.size(); i++) {
         delete drawers.bullets[i];
     }
-
-} catch (std::exception& e) {
-    std::cerr << e.what() << std::endl;
 }
 
-void Drawer::init_scenery(Renderer& renderer, const client_game_state_t& actual_game_state) {
-    // Player
-    std::cout << "entra a init_scenery\n";
+void Drawer::init_scenery(const client_game_state_t& actual_game_state) {
     if (actual_game_state.players.size() == drawers.players.size()) {
         return;
     }
 
-    std::cout << "hace un resize de : " << actual_game_state.players.size() << "\n";
     drawers.players.resize(actual_game_state.players.size());
 
     for (size_t i = 0; i < actual_game_state.players.size(); i++) {
         auto player = actual_game_state.players[i];
 
         DrawerPlayer* new_player = new DrawerPlayer(
-                renderer, player.sprite.id_texture, this->animations.animation_duck,
+                this->renderer, player.sprite.id_texture, this->animations.animation_duck,
                 this->animations.animation_weapon, this->animations.animation_armor);
 
         std::cout << "player.sprite.id_texture o sea id pato: " << player.sprite.id_texture << "\n";
@@ -231,28 +236,6 @@ void Drawer::init_scenery(Renderer& renderer, const client_game_state_t& actual_
                         this->animations.animation_weapon, this->animations.animation_armor);
                 drawers.players[player.sprite.id_texture]->draw(player);*/
     }
-
-    /*
-        // Floor
-        for (size_t i = 0; i < actual_game_state.floors.size(); i++) {
-            auto floor = actual_game_state.floors[i];
-            drawers.floors.push_back(std::make_unique<DrawerFloor>(renderer, floor));
-            drawers.floors.back()->draw(renderer, floor);
-        }
-
-        // Box
-        for (size_t i = 0; i < actual_game_state.boxs.size(); i++) {
-            auto box = actual_game_state.boxs[i];
-            drawers.boxes.push_back(std::make_unique<DrawerBox>(renderer, box));
-            drawers.boxes.back()->draw(renderer, box);
-        }
-
-        // Weapon
-        for (size_t i = 0; i < actual_game_state.weapons.size(); i++) {
-            auto weapon = actual_game_state.weapons[i];
-            drawers.weapons.push_back(std::make_unique<DrawerWeapon>(renderer, weapon,
-       animations.animation_weapon)); drawers.weapons.back()->draw(renderer, weapon);
-        }*/
 }
 
 
