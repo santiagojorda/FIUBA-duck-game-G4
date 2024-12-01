@@ -82,7 +82,7 @@ void GameLogic::move(std::shared_ptr<Projectile> projectile, int x, int y){
 
         if (physics.exist_collision(player.get_rectangle(), projectile->get_rectangle())){
             projectile->handle_collision(player, *this);
-            projectiles.remove_item(projectile);
+            projectile->die();
             return;
         }
     }
