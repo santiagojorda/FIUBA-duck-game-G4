@@ -29,7 +29,6 @@ public:
     bool is_dead() { return state == EquippableState::DEAD;}
     virtual uint8_t send_frame() { return frame; } 
     virtual std::shared_ptr<Equippable> clone() const = 0;
-
     virtual ~Equippable() {}
 };
 

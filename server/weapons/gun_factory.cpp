@@ -15,7 +15,7 @@
 
 GunFactory::GunFactory() {
     map_guns[WeaponTextureID::GRANATE]       = [](Coordinate c) { return std::make_shared<Granade>(c); };
-    // map_guns[WeaponTextureID::BANANA]        = [](Coordinate c) { return std::make_shared<Banana>(c); };
+    map_guns[WeaponTextureID::BANANA]        = [](Coordinate c) { return std::make_shared<Banana>(c); };
     map_guns[WeaponTextureID::PEW_PEW_LASER] = [](Coordinate c) { return std::make_shared<PewPewLaser>(c); };
     map_guns[WeaponTextureID::LASER_RIFLE]   = [](Coordinate c) { return std::make_shared<LaserRifle>(c); };
     map_guns[WeaponTextureID::AK_47]         = [](Coordinate c) { return std::make_shared<AK47>(c); };

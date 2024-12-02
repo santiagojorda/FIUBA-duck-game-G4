@@ -38,11 +38,11 @@ void DuckStateController::execute(Player& player, GameLogic& game_logic) {
 
 
 void DuckStateController::run(Direction direction, Player& player, GameLogic& game_logic) {
-    if(!is_alive() || is_crouching()){
+    if(!is_alive() || is_crouching() || is_slipping() || is_recoiling()){
         return;
     }
 
-    if(is_falling() || is_jumping()){ 
+    if(is_falling() || is_jumping() || is_planning()){ 
         set_direction(direction);
         game_logic.move_horizontal(player, direction);
         return;
@@ -65,19 +65,24 @@ void DuckStateController::run_left(Player& player, GameLogic& game_logic) {
 }
 
 void DuckStateController::jump() {
-    if(is_touching_floor()){
+    if(is_touching_floor() && !is_slipping()){
         set_touch_floor(false);
         set_alive_state(DuckStateType::JUMPING);
     }
 }
 void DuckStateController::fall() {
-    set_touch_floor(false);
-    set_alive_state(DuckStateType::FALLING);
+    if(!is_planning()){
+        set_touch_floor(false);
+        set_alive_state(DuckStateType::FALLING);
+    }
 }
 
 void DuckStateController::crouch() {
-    if(is_touching_floor()){
+    if(is_touching_floor() && !is_slipping()){
         set_alive_state(DuckStateType::CROUCHING);
+    }
+    else{
+        set_alive_state(DuckStateType::PLANNING);
     }
 }
 void DuckStateController::slip() {
@@ -99,11 +104,15 @@ void DuckStateController::die() {
 }
 void DuckStateController::idle() {
     set_alive_state(DuckStateType::IDLE);
+    
 }
 
 bool DuckStateController::is_jumping() { return is_in_state(DuckStateType::JUMPING); }
 bool DuckStateController::is_running() { return is_in_state(DuckStateType::RUNNING); }
 bool DuckStateController::is_falling() { return is_in_state(DuckStateType::FALLING); }
+bool DuckStateController::is_slipping() { return is_in_state(DuckStateType::SLIPPING); }
+bool DuckStateController::is_planning() { return is_in_state(DuckStateType::PLANNING); }
+bool DuckStateController::is_recoiling() { return is_in_state(DuckStateType::RECOILING); }
 bool DuckStateController::is_crouching() const { return is_in_state(DuckStateType::CROUCHING); }
 bool DuckStateController::is_dead() const { return is_in_state(DuckStateType::DEAD); }
 bool DuckStateController::is_idle() { return is_in_state(DuckStateType::IDLE); }

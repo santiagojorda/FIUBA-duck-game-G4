@@ -32,8 +32,7 @@ public:
     void adjust_position_to_floor(std::shared_ptr<Positionable> floor);
     void translate_x(int pasos) override;
     void translate_y(int pasos) override;
-    void move_back(ShootingRecoil tiles);
-
+    void move_back(ShootingRecoil recoil, GameLogic& game_logic);
 
     std::shared_ptr<Gun> get_gun();
     std::shared_ptr<Armor> get_armor();
@@ -55,7 +54,7 @@ public:
     void crouch();
     void slip();
     void recoil();
-    void plane(GameLogic& game_logic);
+    // void plane(GameLogic& game_logic);
     void die(GameLogic& game_logi);
     void idle();
 
@@ -77,6 +76,8 @@ public:
     bool has_equipped_this(std::shared_ptr<Equippable> item);
     DuckStateType get_state();
     uint8_t get_frame();
+
+    void take_damage(GameLogic& game_logic);
 
     virtual ~Player();
 };

@@ -31,7 +31,7 @@ void Player::fall(GameLogic& game_logic) {
 void Player::crouch() { state.crouch(); }
 void Player::slip() { state.slip(); }
 void Player::recoil() { state.recoil(); }
-void Player::plane(GameLogic& game_logic) { state.plane(*this, game_logic); }
+// void Player::plane(GameLogic& game_logic) { state.plane(*this, game_logic); }
 void Player::idle() { state.idle(); }
 void Player::die(GameLogic& game_logic) {
     health = 0;
@@ -64,6 +64,18 @@ void Player::drop_armor(){
 }
 void Player::drop_helmet(){ 
     inventory.drop_helmet(); 
+}
+
+void Player::take_damage(GameLogic& game_logic){
+    if(inventory.get_armor()){
+        drop_armor();
+    }
+    else if(inventory.get_helmet()){
+        drop_helmet();
+    }
+    else {
+        die(game_logic);
+    }
 }
 
 uint8_t Player::get_id() const { return this->id; }
@@ -110,7 +122,17 @@ Player& Player::operator=(const Player& _other) {
     return *this;
 }
 
-void Player::move_back(ShootingRecoil tiles) { (void)tiles; }
+void Player::move_back(ShootingRecoil recoil, GameLogic& game_logic) { 
+    // state.recoil();
+    int coef;
+    if(get_direction() == Direction::LEFT){
+        coef = 1;
+    }
+    else{
+        coef = -1;
+    }
+    game_logic.move(*this, coef*(int)recoil,0);
+}
 
 bool Player::is_jumping() { return state.is_jumping(); }
 bool Player::is_running() { return state.is_running(); }
@@ -131,6 +153,9 @@ void Player::touch_floor(){ state.set_touch_floor(true); }
 void Player::leave_floor(){ state.set_touch_floor(false); }
 
 void Player::shoot(GameLogic& game_logic, const ModeShoot& mode) {
+    if(state.is_slipping()){
+        return;
+    }
     std::shared_ptr<Gun> gun = inventory.get_gun();
     if (!gun) {
         return;
@@ -152,6 +177,6 @@ void Player::shoot(GameLogic& game_logic, const ModeShoot& mode) {
         drop_gun(game_logic);
     }
     if ((int)recoil > 0) {  // is there recoil? yes -> it could be a function
-        move_back(recoil);
+        move_back(recoil, game_logic);
     }
 }

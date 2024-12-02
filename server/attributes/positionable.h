@@ -8,6 +8,7 @@ class GameLogic;
 class Bullet;
 class Player;
 class Box;
+class Equippable;
 class Projectile;
 
 class Positionable {

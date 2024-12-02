@@ -45,6 +45,9 @@ public:
     bool is_jumping();
     bool is_running();
     bool is_falling();
+    bool is_slipping();
+    bool is_planning();
+    bool is_recoiling();
     bool is_idle();
     bool is_dead() const;
     bool is_alive();

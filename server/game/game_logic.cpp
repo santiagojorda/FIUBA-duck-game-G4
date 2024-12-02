@@ -28,7 +28,7 @@ void GameLogic::update_player_equip_collision(Player& player) {
     for (std::shared_ptr<Equippable> item: items) {
         if (this->physics.exist_collision(player.get_rectangle(), item->get_rectangle())) {
             player.equip(item);
-
+            // aca resuelvo el handle de banana
             items.erase(
                 std::remove_if(items.begin(), items.end(),
                     [&player](const std::shared_ptr<Equippable>& item) {
