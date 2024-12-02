@@ -7,6 +7,9 @@
 class GameLogic;
 class Bullet;
 class Player;
+class Box;
+class Equippable;
+class Projectile;
 
 class Positionable {
 
@@ -19,6 +22,7 @@ protected:
 
 public:
     Positionable();
+    Positionable(const uint8_t& _id);
     Positionable(const uint8_t& _id, const uint8_t& _texture_id, const Coordinate& _coordinate);
     Positionable(const uint8_t& _texture_id, const Coordinate& _coordinate);
 
@@ -36,8 +40,10 @@ public:
     uint8_t get_id() const;
     uint8_t get_texture_id() const;
 
-    virtual void handle_collision(Bullet& bullet, GameLogic& game_logic);
+    virtual void handle_collision(Projectile& projectile, GameLogic& game_logic);
     virtual void handle_collision(Player& player, GameLogic& game_logic);
+    virtual void handle_collision(Box& box, GameLogic& game_logic);
+
 
 
     virtual ~Positionable();

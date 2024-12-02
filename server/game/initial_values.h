@@ -9,7 +9,10 @@
 
 struct inical_values_t{
     std::vector<Coordinate> points;
-    std::list<data_weapon> data_weapons;
+    std::list<data_item> data_weapons;
+    std::list<data_item> data_boxes;
+    std::list<data_item> data_armor;
+    std::list<data_item> data_helmet;
 };
 
 

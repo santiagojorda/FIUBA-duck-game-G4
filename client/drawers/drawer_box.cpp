@@ -1,22 +1,22 @@
 #include "drawer_box.h"
 
-#define BOX_INITIAL_X 1
-#define BOX_INITIAL_Y 144
+DrawerBox::DrawerBox(SDL2pp::Renderer& renderer, uint8_t texture_id,
+                     std::map<std::string, Animation>& animations):
+        Drawable(renderer, animations) {
+    // El texture id es siempre el mismo
+    // Lo que cambia es el frame
+    this->type_animation = texture_provider.get_textures_box(static_cast<BoxTexture>(texture_id));
+    std::string path = this->animations[this->type_animation].get_path();
+    this->texture.emplace(renderer, DATA_PATH + path);
+}
 
-#define SIZE_BOX_SPRITE 16
-
-enum TEXTURE_BOX { BOX };
-
-static std::map<uint8_t, std::string> textures = {{BOX, DATA_PATH "/DuckGame-Props.png"}};
-
-DrawerBox::DrawerBox(SDL2pp::Renderer& renderer, const box_t& box):
-        texture(renderer, textures[box.box.id_texture]) {}
-
-void DrawerBox::draw(SDL2pp::Renderer& renderer, const box_t& box) {
-    int src_x = BOX_INITIAL_X;
-    int src_y = BOX_INITIAL_Y;
-
-    renderer.Copy(texture, SDL2pp::Rect(src_x, src_y, SIZE_BOX_SPRITE, SIZE_BOX_SPRITE),
-                  SDL2pp::Rect(box.box.coordinate.get_x(), box.box.coordinate.get_y(),
-                               SIZE_BOX_SPRITE, SIZE_BOX_SPRITE));
+void DrawerBox::draw(const box_t& box) {
+    auto config = this->animations.at(this->type_animation).get_config_screen();
+    this->coordenada_x = box.box.coordinate.get_x();
+    this->coordenada_y = box.box.coordinate.get_y();
+    this->scale_width = config.scale_width;
+    this->scale_height = config.scale_height;
+    // 0 -> Close, 1 -> Open
+    this->frame = static_cast<int>(box.frame);
+    this->render();
 }

@@ -15,7 +15,6 @@ tiles:
   coordinate:
     x: 122
     y: 200
-
 - map_id: 1
   tile_id: 10
   coordinate:
@@ -26,7 +25,6 @@ tiles:
   coordinate:
     x: 316
     y: 200
-
 - map_id: 1
   tile_id: 3
   coordinate:
@@ -198,11 +196,25 @@ tiles:
     x: 224
     y: 80
 
-box_size: 16
+box_size: 32
 boxes:
-- box_id: 0
+- id: 0
   coordinate:
       x: 200
+      y: 200
+
+armor_size: 16
+armor:
+- id: 0
+  coordinate:
+      x: 232
+      y: 200
+
+helmet_size: 16
+helmet:
+- id: 0
+  coordinate:
+      x: 158
       y: 200
 
 weapon_size: 16
@@ -211,7 +223,7 @@ weapons:
     coordinate:
       x: 80
       y: 250
-  - id: 3
+  - id: 2
     coordinate:
       x: 100
       y: 250

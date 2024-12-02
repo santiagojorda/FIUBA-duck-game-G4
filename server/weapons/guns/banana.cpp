@@ -1,17 +1,22 @@
 #include "banana.h"
+#include "../../player/player.h"
 
-// struct BananaConfig {
-//     WeaponTextureID id = WeaponTextureID::BANANA;
-//     uint8_t max_ammo = 1;
-//     ShootingRecoil recoil = ShootingRecoil::NONE;
-//     ProjectileRange range = ProjectileRange::MEDIUM;
-//     uint8_t count_projectiles_x_shoot = 1;
-// };
-// BananaConfig banana_config;
+gun_config banana_config = { WeaponTextureID::BANANA, 1, ShootingRecoil::NONE, ProjectileRange::MEDIUM, 1, 1};
 
-// Banana::Banana(const Coordinate& _coordinate):
-//         Gun(banana_config.id, banana_config.max_ammo, banana_config.recoil, banana_config.range,
-//             _coordinate) {}
+Banana::Banana(const Coordinate& _coordinate):
+        Gun(banana_config, _coordinate), is_ready_to_slide(false) {}
 
+void Banana::trigger_out(ListProjectiles& projectiles, const uint8_t& player_id,bool& was_dropped) {
+    Gun::trigger_out(projectiles, player_id, was_dropped);
+    was_dropped = true;
+}
 
-// Banana::~Banana() {}
+void Banana::handle_collision(Player& player, GameLogic& game_logic) {
+    (void)game_logic;
+    if(is_ready_to_slide){
+        player.slip();
+        die();
+    }
+}
+
+Banana::~Banana() {}

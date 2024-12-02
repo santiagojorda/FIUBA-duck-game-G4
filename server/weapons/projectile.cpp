@@ -24,3 +24,11 @@ void Projectile::collision_surface(Positionable& surface, GameLogic& game_logic)
     (void)game_logic;
     die();
 }
+
+void Projectile::handle_collision_box(Box& box, GameLogic& game_logic){
+    (void)game_logic;
+    if(!box.is_open()){
+        std::cout << "Bala choco con una caja" << std::endl;
+        die();
+    }
+}

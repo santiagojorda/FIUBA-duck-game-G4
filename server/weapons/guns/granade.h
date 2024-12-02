@@ -8,6 +8,7 @@ class Inventory;
 class Granade: public Gun {
 private:
     bool is_countdown_enabled = false;
+
 public:
     explicit Granade(const Coordinate& _coordinate);
 
@@ -15,7 +16,8 @@ public:
 
     void trigger(ListProjectiles& projectiles, const uint8_t& player_id) override;
 
-    void trigger_out(ListProjectiles& projectiles, const uint8_t& player_id, bool& was_dropped) override;
+    void trigger_out(ListProjectiles& projectiles, const uint8_t& player_id,
+                     bool& was_dropped) override;
     void handle_explotion(GameLogic& game_logic) override;
     void handle_equip(Inventory& inventory) override;
 

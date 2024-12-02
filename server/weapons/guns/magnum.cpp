@@ -21,9 +21,10 @@ void Magnum::trigger(ListProjectiles& projectiles, const uint8_t& player_id) {
     if (!this->blocked) {
         for (int i = 0; i < magnum_config.count_projectiles_x_shoot; i++) {
             if (this->ammo > 0) {
-                int dispersion_y = this->ammo% 2 ?  -1 : 1;
+                int dispersion_y = this->ammo % 2 ? -1 : 1;
                 projectiles.push_back(std::make_shared<Bullet>(
-                        this->projectile_range, this->get_coordinate(), this->get_direction(), 10* dispersion_y, player_id));
+                        this->projectile_range, this->get_coordinate(), this->get_direction(),
+                        10 * dispersion_y, player_id));
                 this->ammo--;
             }
         }
@@ -31,7 +32,8 @@ void Magnum::trigger(ListProjectiles& projectiles, const uint8_t& player_id) {
     }
 }
 
-void Magnum::trigger_out(ListProjectiles& projectiles, const uint8_t& player_id, bool& was_dropped) {
+void Magnum::trigger_out(ListProjectiles& projectiles, const uint8_t& player_id,
+                         bool& was_dropped) {
     Gun::trigger_out(projectiles, player_id, was_dropped);
     this->blocked = false;
 }

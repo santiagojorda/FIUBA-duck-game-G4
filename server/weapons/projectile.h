@@ -4,6 +4,7 @@
 #include "../attributes/positionable.h"
 #include "../attributes/updatable.h"
 
+#include "../map/box.h"
 #include "projectile_range.h"
 #include "../attributes/directionable.h"
 class GameLogic;
@@ -29,7 +30,9 @@ public:
     virtual void update(GameLogic& game_logic);
     void die();
     bool is_dead();
+
     virtual void collision_surface(Positionable& surface, GameLogic& game_logic);
+    virtual void handle_collision_box(Box& box, GameLogic& game_logic);
     uint8_t get_shooter_id();
 };
 

@@ -27,6 +27,6 @@ has_armor:
       h: 32
   offset_right_x: 0
   offset_left_x: 0
-  offset_y: 0
+  offset_y: 5
   scale_width: 32
   scale_height: 32

@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "../../game/game_logic.h"
+#include "../../map/box.h"
 
 #define TILE_SIZE_BULLET 16
 
@@ -17,7 +18,8 @@
 #define HEIGHT_BULLET 2
 
 Bullet::Bullet(const ProjectileRange& _range_tiles, const Coordinate& _coordinate,
-               const Direction& _direction, const int& _dispersion_angle, const uint8_t& _shooter_id):
+               const Direction& _direction, const int& _dispersion_angle,
+               const uint8_t& _shooter_id):
         Projectile(TEXTURE_ID, _range_tiles, Coordinate(_coordinate), _direction, _shooter_id),
         dispersion_angle(_dispersion_angle * M_PI / PI_DEGREES)  // lo pasa a radianes
 {
@@ -66,4 +68,6 @@ void Bullet::handle_collision(Player& player, GameLogic& game_logic) {
         die();
     }
 }
+
+
 

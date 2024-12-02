@@ -161,7 +161,6 @@ void ClientProtocol::receive_weapons(VectorGuns& _weapons) {
         receive_byte(frame);
         _weapons.push_back(gun_t{sprite, frame});
     }
-
 }
 
 void ClientProtocol::receive_game_state(client_game_state_t& game_state) {
@@ -178,5 +177,6 @@ void ClientProtocol::receive_game_state(client_game_state_t& game_state) {
     VectorGuns weapons;
     receive_weapons(weapons);
 
-    game_state = client_game_state_t {static_cast<GameMoment>(moment), players, bullets, boxes, sprites, weapons};
+    game_state = client_game_state_t{
+            static_cast<GameMoment>(moment), players, bullets, boxes, sprites, weapons};
 }

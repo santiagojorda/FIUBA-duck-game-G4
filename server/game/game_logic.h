@@ -18,6 +18,7 @@ class Event;
 class ListProjectiles;
 class ListItemsMap;
 class ListPlayers;
+class ListBoxes;
 class Event;
 
 class GameLogic {
@@ -26,6 +27,7 @@ private:
     Map& map;
     ListItemsMap& items;
     ListProjectiles& projectiles;
+    ListBoxes& boxes;
     GamePhysics physics;
     void update_player_equip_collision(Player& player);
     void update_players();
@@ -35,7 +37,7 @@ private:
 
 public:
     explicit GameLogic(ListPlayers& _players, Map& _map, ListItemsMap& _items,
-                       ListProjectiles& _projectiles);
+                       ListProjectiles& _projectiles, ListBoxes& _boxes);
     void handle_event(Event& event);
     void update();
     void add_projectile(std::shared_ptr<Projectile> new_projectile);

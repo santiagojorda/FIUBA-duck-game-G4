@@ -23,17 +23,19 @@
 #include "drawer_weapon.h"
 
 struct drawers_t {
-    std::map<uint8_t, std::unique_ptr<DrawerPlayer>> players;
-    std::vector<std::unique_ptr<DrawerFloor>> floors;
-    std::vector<std::unique_ptr<DrawerBox>> boxes;
-    std::vector<std::unique_ptr<DrawerWeapon>> weapons;
-    std::vector<std::unique_ptr<DrawerBullet>> bullets;
+    std::vector<DrawerPlayer*> players;
+    std::vector<DrawerFloor*> floors;
+    std::vector<DrawerWeapon*> weapons;
+    std::vector<DrawerBox*> boxes;
+    std::vector<DrawerBullet*> bullets;
 };
 
 struct animations_t {
     std::map<std::string, Animation> animation_duck;
     std::map<std::string, Animation> animation_weapon;
     std::map<std::string, Animation> animation_armor;
+    std::map<std::string, Animation> animation_boxes;
+    std::map<std::string, Animation> animation_bullets;
 };
 
 class Drawer {
@@ -43,6 +45,21 @@ private:
     KeyboardController keyboard_controller;
     drawers_t drawers;
     animations_t animations;
+    client_game_state_t actual_game_state;
+    SDL2pp::Window window;
+    SDL2pp::Renderer renderer;
+
+    void load_ducks();
+
+    void load_floor();
+
+    void load_weapons();
+
+    void load_boxes();
+
+    void load_bullets();
+
+    void clean_elements();
 
 public:
     /*
@@ -58,7 +75,9 @@ public:
     /*
      *
      */
-    void init_scenery(SDL2pp::Renderer& renderer, const client_game_state_t& actual_game_state);
+    void load_resources();
+
+    void init_scenery(const client_game_state_t& actual_game_state);
 
     /*
      * Deshabilitar copias.

@@ -11,6 +11,7 @@ class GameLogic;
 class Bullet: public Projectile {
 private:
     uint8_t steps = 0;
+
 protected:
     double dispersion_angle;  // radianes
 

@@ -15,7 +15,7 @@ DrawerPlayer::DrawerPlayer(SDL2pp::Renderer& renderer, uint8_t texture_id,
         animation_armor(animation_armor) {
     std::string path =
             this->texture_provider.get_duck_texture(static_cast<TextureDucks>(texture_id));
-    this->texture = std::make_unique<SDL2pp::Texture>(renderer, path);
+    this->texture.emplace(renderer, path);
 }
 
 void DrawerPlayer::draw(const player_t& player) {
@@ -33,12 +33,15 @@ void DrawerPlayer::draw(const player_t& player) {
         std::cout << "No hay textura del estado: " << (uint8_t)player.state << std::endl;
     }
 
+    if (static_cast<int>(player.inventory.armor) != 0) { 
+        this->update_armor(player);
+    }
+    
     if (static_cast<int>(player.inventory.weapon) != 0) {
         this->update_weapon(player);
         this->update_wings();
     }
 
-    // this->update_armor(player);
 }
 
 void DrawerPlayer::update_weapon(const player_t& player) {
@@ -66,5 +69,6 @@ void DrawerPlayer::update_wings() {
     this->scale_width = config.scale_width;
     this->coordenada_x += flip ? config.offset_left_x : config.offset_right_x;
     this->coordenada_y += config.offset_y;
-    render();
+
+    this->render();
 }
