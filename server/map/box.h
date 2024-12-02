@@ -9,12 +9,12 @@ class Projectile;
 class GameLogic;
 
 enum GroundState : uint8_t{
-    CLOSE,
-    OPEN
+    CLOSE = 0,
+    OPEN = 1
 };
 class Box: public Positionable {
 private:
-    uint8_t state;
+    GroundState state;
 
 public:
     explicit Box(const Coordinate& _coordinate);
@@ -23,6 +23,7 @@ public:
     void handle_collision(Projectile& projectile,GameLogic& game_logic) override;
     bool is_open();
     void open();
+    void reset();
     uint8_t get_state();
 };
 #endif

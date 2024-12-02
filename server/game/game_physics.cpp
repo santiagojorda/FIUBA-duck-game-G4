@@ -40,8 +40,8 @@ std::shared_ptr<Positionable> GamePhysics::get_target_floor_collision(Positionab
 
 std::shared_ptr<Box> GamePhysics::get_target_box_collision(Positionable& target) {
     for (auto& box: this->boxes) {
-        if (this->exist_collision(target.get_rectangle(), box.get_rectangle())) {
-            return std::make_shared<Box>(box);
+        if (this->exist_collision(target.get_rectangle(), box->get_rectangle())) {
+            return box;
         }
     }
     return nullptr;

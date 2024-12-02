@@ -53,7 +53,8 @@ void charge_weapons(ListItemsMap& items, std::list<data_item>& data_items) {
 }
 void charge_boxes(ListBoxes& items, std::list<data_item>& data_item) {
     for (auto& box: data_item) {
-        items.push_back(Box(box.coordinate));
+        std::shared_ptr<Box> new_item = std::make_shared<Box>(box.coordinate);
+        items.push_back(new_item);
     }
 }
 
@@ -125,8 +126,8 @@ GameState_t Game::get_gamestate() {
         map_projectiles_copy.push_back({projectile->get_texture_id(), projectile->get_coordinate(), static_cast<uint8_t>( projectile->get_direction())});
     }
 
-    for(Box& box : map_boxes){
-        map_boxes_copy.push_back({box.get_texture_id(), box.get_coordinate(), box.get_state()});
+    for(std::shared_ptr<Box> box : map_boxes){
+        map_boxes_copy.push_back({box->get_texture_id(), box->get_coordinate(), box->get_state()});
     }
 
     return GameState_t{this->moment, players, map, map_items_copy, map_projectiles_copy, map_boxes_copy, this->round_manager.get_statistics()}; 

@@ -69,12 +69,5 @@ void Bullet::handle_collision(Player& player, GameLogic& game_logic) {
     }
 }
 
-void Bullet::handle_collision_box(Box& box, GameLogic& game_logic){
-    (void)game_logic;
-    if(!box.is_open()){
-        std::cout << "Bala choco con una caja" << std::endl;
-        die();
-    }
-}
 
 

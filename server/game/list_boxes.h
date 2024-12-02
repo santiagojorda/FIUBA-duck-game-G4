@@ -7,7 +7,7 @@
 
 #include "../map/box.h"
 
-class ListBoxes: public std::list<Box>{
+class ListBoxes: public std::list<std::shared_ptr<Box>>{
 
 public:
     ListBoxes() = default;

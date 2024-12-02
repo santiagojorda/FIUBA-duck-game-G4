@@ -20,6 +20,7 @@ void Box::handle_collision(Projectile& projectile,GameLogic& game_logic) {
     // game_logic.handle_drop();
 }
 
+void Box::reset() { state = GroundState::CLOSE; }
 bool Box::is_open() { return state == GroundState::OPEN; }
 void Box::open() { state = GroundState::OPEN; }
-uint8_t Box::get_state() { return state; }
+uint8_t Box::get_state() { return (uint8_t)state; }
