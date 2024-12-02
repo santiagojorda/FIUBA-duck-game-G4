@@ -29,7 +29,7 @@ private:
 
     void update_helmet(const player_t& player);
 
-    void update_wings();
+    void update_wings(DuckStateType type_wing);
 
 
 public:

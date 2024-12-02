@@ -32,7 +32,6 @@ void DrawerPlayer::draw(const player_t& player) {
     } catch (...) {
         std::cout << "No hay textura del estado: " << (uint8_t)player.state << std::endl;
     }
-    
     if (static_cast<int>(player.inventory.helmet) != 0) {
         this->update_helmet(player);
     }
@@ -44,8 +43,12 @@ void DrawerPlayer::draw(const player_t& player) {
     if (static_cast<int>(player.inventory.weapon) != 0) {
         this->frame = static_cast<int>(player.frame);
         this->update_weapon(player);
-        this->update_wings();
-    }
+        // this->update_wings(ANIMATION_WINGS);
+    }  // else {
+       // this->update_wings("wings_walking_simple");
+    //}
+
+    update_wings(static_cast<DuckStateType>(player.state));
 }
 
 void DrawerPlayer::update_weapon(const player_t& player) {
@@ -66,8 +69,12 @@ void DrawerPlayer::update_helmet(const player_t& player) {
     drawer_equipment.draw(player);
 }
 
-void DrawerPlayer::update_wings() {
-    this->type_animation = ANIMATION_WINGS;
+void DrawerPlayer::update_wings(DuckStateType duck_status) {
+    if (duck_status == DuckStateType::DEAD) {
+        return;
+    }
+
+    this->type_animation = texture_provider.get_textures_wings(duck_status);
     auto config = this->animations.at(this->type_animation).get_config_screen();
     this->scale_height = config.scale_height;
     this->scale_width = config.scale_width;

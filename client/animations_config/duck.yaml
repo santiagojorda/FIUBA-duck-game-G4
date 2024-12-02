@@ -136,6 +136,52 @@ wings_weapon:
   scale_width: 16
   scale_height: 16
 
+wings_simple:
+  texture: "/DuckGame-YellowDuck.png"
+  rects:
+    - x: 1
+      y: 518
+      w: 16
+      h: 16
+  offset_right_x: 5
+  offset_left_x: 11
+  offset_y: 13
+  scale_width: 16
+  scale_height: 16
+
+wings_walking_simple:
+  texture: "/DuckGame-YellowDuck.png"
+  rects:
+    - x: 1
+      y: 518
+      w: 16
+      h: 16
+    - x: 17
+      y: 518
+      w: 16
+      h: 16
+    - x: 33
+      y: 518
+      w: 16
+      h: 16
+    - x: 49
+      y: 518
+      w: 16
+      h: 16
+    - x: 65
+      y: 518
+      w: 16
+      h: 16
+    - x: 81
+      y: 518
+      w: 16
+      h: 16
+  offset_right_x: 5
+  offset_left_x: 11
+  offset_y: 13
+  scale_width: 16
+  scale_height: 16
+
 dead:
   texture: "/DuckGame-YellowDuck.png"
   rects:
