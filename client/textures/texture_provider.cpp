@@ -37,7 +37,7 @@ TextureProvider::TextureProvider() {
     textures_wings_duck = {
             {DuckStateType::JUMPING, "wings_walking_simple"},
             {DuckStateType::RUNNING, "wings_walking_simple"},
-            {DuckStateType::CROUCHING, "wings_walking_simple"},
+            {DuckStateType::CROUCHING, "wings_crouching"},
             {DuckStateType::RECOILING, "wings_walking_simple"},
             {DuckStateType::FALLING, "wings_walking_simple"},
             {DuckStateType::SLIPPING, "wings_walking_simple"},

@@ -136,11 +136,11 @@ wings_weapon:
   scale_width: 16
   scale_height: 16
 
-wings_simple:
+wings_crouching:
   texture: "/DuckGame-YellowDuck.png"
   rects:
-    - x: 1
-      y: 518
+    - x: 81
+      y: 534
       w: 16
       h: 16
   offset_right_x: 5
