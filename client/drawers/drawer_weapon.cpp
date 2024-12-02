@@ -19,11 +19,8 @@ void DrawerWeapon::draw(const Coordinate& coordinate) {
     this->coordenada_y = coordinate.get_y();
     this->scale_width = config.scale_width;
     this->scale_height = config.scale_height;
-    if (this->texture.has_value()) {
-        this->render(*this->texture);
-    } else {
-        throw std::runtime_error("Texture is not initialized");
-    }
+
+    this->render();
 }
 
 void DrawerWeapon::draw_inventory(const Coordinate& coordinate, uint8_t is_looking) {
@@ -34,9 +31,6 @@ void DrawerWeapon::draw_inventory(const Coordinate& coordinate, uint8_t is_looki
     this->coordenada_x = this->flip ? coordinate.get_x() + config.offset_left_x :
                                       coordinate.get_x() + config.offset_right_x;
     this->coordenada_y = coordinate.get_y() + config.offset_y - OFFSET_Y_DUCK;
-    if (this->texture.has_value()) {
-        this->render(*this->texture);
-    } else {
-        throw std::runtime_error("Texture is not initialized");
-    }
+
+    this->render();
 }

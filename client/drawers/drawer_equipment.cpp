@@ -21,9 +21,5 @@ void DrawerEquipment::draw(const player_t& player, bool frame_change) {
         this->frame = static_cast<int>(player.frame);
     }
 
-    if (this->texture.has_value()) {
-        this->render(*this->texture);
-    } else {
-        throw std::runtime_error("Texture is not initialized");
-    }
+    this->render();
 }

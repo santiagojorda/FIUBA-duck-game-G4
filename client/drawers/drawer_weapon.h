@@ -19,8 +19,6 @@
 
 class DrawerWeapon: public Drawable {
 private:
-    std::optional<SDL2pp::Texture> texture;
-
 public:
     DrawerWeapon(SDL2pp::Renderer& renderer, uint8_t texture_id,
                  std::map<std::string, Animation>& animations);

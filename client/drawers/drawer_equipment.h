@@ -18,7 +18,6 @@
 
 class DrawerEquipment: public Drawable {
 private:
-    std::optional<SDL2pp::Texture> texture;
     void update_animation(const std::string& type_animation);
 
 public:

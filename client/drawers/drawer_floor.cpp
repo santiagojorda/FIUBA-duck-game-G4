@@ -18,9 +18,6 @@ void DrawerFloor::draw(const floor_sprite_t& floor) {
     uint8_t column = (floor.id_sprite % 8) * SIZE_FLOOR_SPRITE;
     uint8_t row = (floor.id_sprite / 8) * SIZE_FLOOR_SPRITE;
 
-    if (this->texture.has_value()) {
-        this->render_with_rect(*this->texture, column, row, SIZE_FLOOR_SPRITE, SIZE_FLOOR_SPRITE);
-    } else {
-        throw std::runtime_error("Texture is not initialized");
-    }
+
+    this->render_with_rect(column, row, SIZE_FLOOR_SPRITE, SIZE_FLOOR_SPRITE);
 }

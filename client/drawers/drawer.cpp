@@ -88,12 +88,6 @@ void Drawer::run() try {
 
 void Drawer::load_ducks() {
     if (actual_game_state.players.size() != drawers.players.size()) {
-        for (auto& player: drawers.players) {
-            delete player;
-        }
-
-        drawers.players.clear();
-
         drawers.players.resize(actual_game_state.players.size());
 
         for (size_t i = 0; i < actual_game_state.players.size(); i++) {
@@ -121,7 +115,6 @@ void Drawer::load_floor() {
             if (!drawers.floors[i]) {
                 auto floor = actual_game_state.floors[i];
                 DrawerFloor* drawer_floor = new DrawerFloor(this->renderer, floor.path);
-                // drawers.floors[i] = std::make_unique<DrawerFloor>(renderer, floor.path);
                 drawers.floors[i] = drawer_floor;
             }
         }
