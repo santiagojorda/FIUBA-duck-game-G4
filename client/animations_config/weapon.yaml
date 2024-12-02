@@ -15,7 +15,7 @@ granate:
       h: 15
   offset_right_x: 13
   offset_left_x: 5
-  offset_y: 6
+  offset_y: 9
   scale_width: 15
   scale_height: 15
 
@@ -36,7 +36,7 @@ banana:
       h: 16
   offset_right_x: 15
   offset_left_x: 10
-  offset_y: 5
+  offset_y: 8
   scale_width: 14
   scale_height: 14
 
@@ -49,7 +49,7 @@ pew_pew_laser:
       h: 32
   offset_right_x: 6
   offset_left_x: 0
-  offset_y: 3
+  offset_y: 6
   scale_width: 26
   scale_height: 26
 
@@ -62,7 +62,7 @@ laser_rifle:
       h: 32
   offset_right_x: 6
   offset_left_x: 0
-  offset_y: 3
+  offset_y: 6
   scale_width: 26
   scale_height: 26
 
@@ -75,7 +75,7 @@ ak_47:
       h: 32
   offset_right_x: 6
   offset_left_x: 0
-  offset_y: 3
+  offset_y: 6
   scale_width: 26
   scale_height: 26
 
@@ -88,7 +88,7 @@ dueling_gun:
       h: 32
   offset_right_x: 6
   offset_left_x: 0
-  offset_y: 3
+  offset_y: 6
   scale_width: 26
   scale_height: 26
 
@@ -101,7 +101,7 @@ cowboy_gun:
       h: 11
   offset_right_x: 10
   offset_left_x: -1
-  offset_y: 11
+  offset_y: 14
   scale_width: 20
   scale_height: 9
 
@@ -114,7 +114,7 @@ magnum:
       h: 32
   offset_right_x: 6
   offset_left_x: 0
-  offset_y: 3
+  offset_y: 6
   scale_width: 28
   scale_height: 28
 
@@ -127,7 +127,7 @@ shotgun:
       h: 32
   offset_right_x: 6
   offset_left_x: -2
-  offset_y: 2
+  offset_y: 5
   scale_width: 28
   scale_height: 28
 
@@ -140,6 +140,6 @@ sniper:
       h: 9
   offset_right_x: 8
   offset_left_x: -8
-  offset_y: 12
+  offset_y: 15
   scale_width: 31
   scale_height: 7

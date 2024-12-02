@@ -33,12 +33,15 @@ void DrawerPlayer::draw(const player_t& player) {
         std::cout << "No hay textura del estado: " << (uint8_t)player.state << std::endl;
     }
 
+    if (static_cast<int>(player.inventory.armor) != 0) { 
+        this->update_armor(player);
+    }
+    
     if (static_cast<int>(player.inventory.weapon) != 0) {
         this->update_weapon(player);
         this->update_wings();
     }
 
-    // this->update_armor(player);
 }
 
 void DrawerPlayer::update_weapon(const player_t& player) {
