@@ -62,7 +62,7 @@ void Drawer::run() try {
 
         load_floor();
         load_ducks();
-        // load_boxes();
+        load_boxes();
         // load_bullets();
         load_weapons();
 
@@ -151,20 +151,26 @@ void Drawer::load_weapons() {
 }
 
 void Drawer::load_boxes() {
-    if (drawers.boxes.size() != actual_game_state.boxs.size()) {
-        drawers.boxes.resize(actual_game_state.boxs.size());
-        for (size_t i = 0; i < actual_game_state.boxs.size(); ++i) {
-            if (!drawers.boxes[i]) {
-                auto box = actual_game_state.boxs[i];
-                DrawerBox* drawer_box = new DrawerBox(this->renderer, box);
-                drawers.boxes[i] = drawer_box;
-            }
-        }
+    if (drawers.boxes.empty() && actual_game_state.boxs.empty()) {
+        return;
+    }
+
+    for (auto& box: drawers.boxes) {
+        delete box;
+    }
+
+    drawers.boxes.clear();
+    drawers.boxes.resize(actual_game_state.boxs.size());
+    for (size_t i = 0; i < actual_game_state.boxs.size(); ++i) {
+        auto box = actual_game_state.boxs[i];
+        DrawerBox* drawer_box =
+                new DrawerBox(this->renderer, box.box.id_texture, animations.animation_boxes);
+        drawers.boxes[i] = drawer_box;
     }
 
     for (size_t i = 0; i < actual_game_state.boxs.size(); ++i) {
         auto box = actual_game_state.boxs[i];
-        drawers.boxes[i]->draw(this->renderer, box);
+        drawers.boxes[i]->draw(box);
     }
 }
 
@@ -199,12 +205,12 @@ void Drawer::clean_elements() {
     for (size_t i = 0; i < actual_game_state.weapons.size(); i++) {
         delete drawers.weapons[i];
     }
-    /*
-        for (size_t i = 0; i < actual_game_state.boxs.size(); i++) {
-            delete drawers.boxes[i];
-        }
 
-        for (size_t i = 0; i < actual_game_state.bullets.size(); i++) {
+    for (size_t i = 0; i < actual_game_state.boxs.size(); i++) {
+        delete drawers.boxes[i];
+    }
+
+    /*    for (size_t i = 0; i < actual_game_state.bullets.size(); i++) {
             delete drawers.bullets[i];
         }*/
 }
@@ -240,4 +246,5 @@ void Drawer::load_resources() {
     AnimationLoader::load_animations(ANIMATION_PATH "/duck.yaml", animations.animation_duck);
     AnimationLoader::load_animations(ANIMATION_PATH "/weapon.yaml", animations.animation_weapon);
     AnimationLoader::load_animations(ANIMATION_PATH "/armor.yaml", animations.animation_armor);
+    AnimationLoader::load_animations(ANIMATION_PATH "/box.yaml", animations.animation_boxes);
 }
