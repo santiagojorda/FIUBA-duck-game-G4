@@ -15,6 +15,8 @@
 
 class DrawerFloor: public Drawable {
 private:
+    std::optional<SDL2pp::Texture> texture;
+
 public:
     DrawerFloor(SDL2pp::Renderer& renderer, uint8_t texture_id);
 

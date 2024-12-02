@@ -17,7 +17,6 @@ class Drawable {
 protected:
     TextureProvider& texture_provider;
     SDL2pp::Renderer& renderer;
-    std::shared_ptr<SDL2pp::Texture> texture;
     std::map<std::string, Animation>& animations;
     bool flip;
     int coordenada_x;
@@ -31,13 +30,15 @@ protected:
 public:
     Drawable(SDL2pp::Renderer& renderer, std::map<std::string, Animation>& animations);
 
-    void render();
+    /*Drawable(SDL2pp::Renderer& renderer, SDL2pp::Texture texture,
+             std::map<std::string, Animation>& animations);*/
 
-    void render_with_rect(int sprite_x, int sprite_y, int sprite_width, int sprite_height);
+    void render(SDL2pp::Texture& texture);
 
-    // void set_texture(SDL2pp::Texture&& _texture);
+    void render_with_rect(SDL2pp::Texture& texture, int sprite_x, int sprite_y, int sprite_width,
+                          int sprite_height);
 
-    void set_texture(const std::shared_ptr<SDL2pp::Texture>& _texture);
+    // void set_texture(const std::shared_ptr<SDL2pp::Texture>& _texture);
 
     virtual ~Drawable();
 };

@@ -10,13 +10,14 @@ DrawerPlayer::DrawerPlayer(SDL2pp::Renderer& renderer, uint8_t texture_id,
                            std::map<std::string, Animation>& animations,
                            std::map<std::string, Animation>& animation_weapon,
                            std::map<std::string, Animation>& animation_armor):
-        Drawable(renderer, animations),
+        texture_provider(TextureProvider::get_instance()),
+        renderer(renderer),
+        animations(animations),
         animation_weapon(animation_weapon),
         animation_armor(animation_armor) {
     std::string path =
             this->texture_provider.get_duck_texture(static_cast<TextureDucks>(texture_id));
-    auto texture_capturado = std::make_shared<SDL2pp::Texture>(renderer, path);
-    this->set_texture(texture_capturado);
+    this->texture.emplace(renderer, path);
 }
 
 void DrawerPlayer::draw(const player_t& player) {
@@ -30,7 +31,13 @@ void DrawerPlayer::draw(const player_t& player) {
         this->frame = static_cast<int>(player.frame);
         this->type_animation =
                 texture_provider.get_duck_action_texture(static_cast<DuckStateType>(player.state));
-        this->render();
+
+        if (this->texture.has_value()) {
+            this->render(*this->texture);
+        } else {
+            throw std::runtime_error("Texture is not initialized");
+        }
+
     } catch (...) {
         std::cout << "No hay textura del estado: " << (uint8_t)player.state << std::endl;
     }
@@ -68,5 +75,17 @@ void DrawerPlayer::update_wings() {
     this->scale_width = config.scale_width;
     this->coordenada_x += flip ? config.offset_left_x : config.offset_right_x;
     this->coordenada_y += config.offset_y;
-    render();
+    if (this->texture.has_value()) {
+        this->render(*this->texture);
+    } else {
+        throw std::runtime_error("Texture is not initialized");
+    }
+}
+
+void DrawerPlayer::render(SDL2pp::Texture& texture) {
+    auto anim_rect = this->animations[this->type_animation].get_current_frame(this->frame);
+
+    this->renderer.Copy(texture, anim_rect,
+                        SDL2pp::Rect(coordenada_x, coordenada_y, scale_width, scale_height), 0.0,
+                        SDL2pp::NullOpt, this->flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
 }

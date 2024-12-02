@@ -18,10 +18,21 @@
 #include "drawer_equipment.h"
 #include "drawer_weapon.h"
 
-class DrawerPlayer: public Drawable {
+class DrawerPlayer {
 private:
+    TextureProvider& texture_provider;
+    SDL2pp::Renderer& renderer;
+    std::map<std::string, Animation>& animations;
     std::map<std::string, Animation>& animation_weapon;
     std::map<std::string, Animation>& animation_armor;
+    std::optional<SDL2pp::Texture> texture;
+    bool flip;
+    int coordenada_x;
+    int coordenada_y;
+    int scale_width;
+    int scale_height;
+    int frame;
+    std::string type_animation;
 
     void update_weapon(const player_t& _player);
 
@@ -30,6 +41,8 @@ private:
     void update_helmet(const player_t& player);
 
     void update_wings();
+
+    void render(SDL2pp::Texture& texture);
 
 
 public:

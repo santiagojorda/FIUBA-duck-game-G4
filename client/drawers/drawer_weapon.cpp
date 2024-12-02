@@ -8,8 +8,7 @@ DrawerWeapon::DrawerWeapon(SDL2pp::Renderer& renderer, uint8_t texture_id,
     this->type_animation =
             texture_provider.get_weapon_texture(static_cast<WeaponTextureID>(texture_id));
     std::string path = this->animations[this->type_animation].get_path();
-    auto texture_capturado = std::make_shared<SDL2pp::Texture>(renderer, DATA_PATH + path);
-    this->set_texture(texture_capturado);
+    this->texture.emplace(renderer, DATA_PATH + path);
 }
 
 // TODO: agregarle un is_looking al arma que se muestra por pantalla tambien
@@ -20,7 +19,11 @@ void DrawerWeapon::draw(const Coordinate& coordinate) {
     this->coordenada_y = coordinate.get_y();
     this->scale_width = config.scale_width;
     this->scale_height = config.scale_height;
-    this->render();
+    if (this->texture.has_value()) {
+        this->render(*this->texture);
+    } else {
+        throw std::runtime_error("Texture is not initialized");
+    }
 }
 
 void DrawerWeapon::draw_inventory(const Coordinate& coordinate, uint8_t is_looking) {
@@ -31,5 +34,9 @@ void DrawerWeapon::draw_inventory(const Coordinate& coordinate, uint8_t is_looki
     this->coordenada_x = this->flip ? coordinate.get_x() + config.offset_left_x :
                                       coordinate.get_x() + config.offset_right_x;
     this->coordenada_y = coordinate.get_y() + config.offset_y - OFFSET_Y_DUCK;
-    this->render();
+    if (this->texture.has_value()) {
+        this->render(*this->texture);
+    } else {
+        throw std::runtime_error("Texture is not initialized");
+    }
 }
