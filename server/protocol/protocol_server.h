@@ -22,7 +22,7 @@ private:
     void send_projectiles_state(GameState_t& state);
     void send_boxes_state(GameState_t& state);
     void send_scenario_state(GameState_t& state);
-    void send_map_guns_state(GameState_t& state);
+    void send_map_items_state(GameState_t& state);
 
 public:
     explicit ProtocolServer(Socket& skt);

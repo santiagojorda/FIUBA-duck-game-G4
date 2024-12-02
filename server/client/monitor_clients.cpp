@@ -38,8 +38,6 @@ void MonitorClients::shutdown() {}
 
 void MonitorClients::delete_item(Client& client) {
     std::lock_guard<std::mutex> lock(mtx);
-
-    // porfavor borrar
     if (client.is_alive()) {
         client.shutdown();
     }

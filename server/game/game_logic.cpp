@@ -7,6 +7,7 @@
 #include "../../common/state_duck.h"
 #include "../player/list_players.h"
 #include "../weapons/list_projectiles.h"
+#include "list_boxes.h"
 #include "../weapons/projectile.h"
 #include "../weapons/projectiles/bullet.h"
 #include "../weapons/gun.h"
@@ -15,20 +16,25 @@
 #define HORIZONTAL_STEP 5
 
 GameLogic::GameLogic(ListPlayers& _players, Map& _map, ListItemsMap& _items,
-                     ListProjectiles& _projectiles):
+                     ListProjectiles& _projectiles, ListBoxes& _boxes):
         players(_players),
         map(_map),
         items(_items),
         projectiles(_projectiles),
-        physics(map) {}
+        boxes(_boxes),
+        physics(map, boxes) {}
 
 void GameLogic::update_player_equip_collision(Player& player) {
     for (std::shared_ptr<Equippable> item: items) {
         if (this->physics.exist_collision(player.get_rectangle(), item->get_rectangle())) {
             player.equip(item);
-            if(player.has_equipped_this(item)){
-                items.remove_item(item);
-            }
+            // aca resuelvo el handle de banana
+            items.erase(
+                std::remove_if(items.begin(), items.end(),
+                    [&player](const std::shared_ptr<Equippable>& item) {
+                        return player.has_equipped_this(item);
+                    }), 
+                items.end());
             return;
         }
     }
@@ -68,8 +74,19 @@ void GameLogic::update_projectiles(){
         if(touched_floor){
             projectile->collision_surface(*touched_floor, (*this));
         }
+
+        std::shared_ptr<Box> touched_box = physics.get_target_box_collision(*projectile);
+        if(touched_box){
+            touched_box->handle_collision(*projectile, (*this));
+            if(!touched_box->is_open()){
+                projectile->die();
+            }
+        }
+
+
         projectile->update(*this);
     }
+
 }
 
 
@@ -82,7 +99,7 @@ void GameLogic::move(std::shared_ptr<Projectile> projectile, int x, int y){
 
         if (physics.exist_collision(player.get_rectangle(), projectile->get_rectangle())){
             projectile->handle_collision(player, *this);
-            projectiles.remove_item(projectile);
+            projectile->die();
             return;
         }
     }
@@ -134,6 +151,13 @@ void GameLogic::move(Player& player, int x, int y){
 // }
 
 void GameLogic::update_weapons(){
+    items.erase(
+        std::remove_if(items.begin(), items.end(),
+                       [](const std::shared_ptr<Equippable>& item) {
+                           return item->is_dead(); 
+                       }),
+        items.end());
+
     for (std::shared_ptr<Equippable> item: items) {
         // apply_weapons_gravity();
         item->update(*this);

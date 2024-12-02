@@ -11,8 +11,8 @@
 #define BYTE_START_GAME 0xFF
 
 AcceptorClients::AcceptorClients(MonitorClients& _monitor, QueueGameState& _queue_gamestate,
-                                 QueueEvents& _queue_events, ListPlayersID& _players_id):
-        skt(SERVNAME),
+                                 QueueEvents& _queue_events, ListPlayersID& _players_id, const char* server_name):
+        skt(server_name),
         monitor(_monitor),
         queue_gamestate(_queue_gamestate),
         queue_events(_queue_events),

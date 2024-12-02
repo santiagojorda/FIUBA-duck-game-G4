@@ -43,6 +43,18 @@ public:
      */
     void send_init(const uint8_t& init);
 
+
+
+    /*
+     * recive el mensaje de inicio, siendo este la cantidad de jugadores en el juego.
+     */
+    void recv_init(uint8_t& init);
+
+    /*
+     * recive el mensaje de inicio, siendo este la cantidad de jugadores en el juego.
+     */
+    void send_server_name(std::string& name);
+
     /*
      *
      */

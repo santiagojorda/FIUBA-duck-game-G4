@@ -1,15 +1,16 @@
 #include "player.h"
 
 #include <iostream>
-
 #include "../../common/state_duck.h"
 #include "../weapons/gun.h"
 #include "../game/game_logic.h"
 #include "../weapons/list_projectiles.h"
+#include "../equipment/armor.h"
+#define SIZE_PLAYER 32
 
 const int SPEED = 1;
 
-Player::Player(uint8_t _id): Positionable(_id, _id, Coordinate(10, 10, 32, 32)), state(id){}
+Player::Player(uint8_t _id): Positionable(_id, _id, Coordinate(10, 10, SIZE_PLAYER, SIZE_PLAYER)), state(id){}
 
 Player::~Player() { Positionable::~Positionable(); }
 
@@ -30,8 +31,7 @@ void Player::fall(GameLogic& game_logic) {
 }
 void Player::crouch() { state.crouch(); }
 void Player::slip() { state.slip(); }
-void Player::recoil() { state.recoil(); }
-void Player::plane(GameLogic& game_logic) { state.plane(*this, game_logic); }
+// void Player::plane(GameLogic& game_logic) { state.plane(*this, game_logic); }
 void Player::idle() { state.idle(); }
 void Player::die(GameLogic& game_logic) {
     health = 0;
@@ -64,6 +64,18 @@ void Player::drop_armor(){
 }
 void Player::drop_helmet(){ 
     inventory.drop_helmet(); 
+}
+
+void Player::take_damage(GameLogic& game_logic){
+    if(inventory.get_armor()){
+        drop_armor();
+    }
+    else if(inventory.get_helmet()){
+        drop_helmet();
+    }
+    else {
+        die(game_logic);
+    }
 }
 
 uint8_t Player::get_id() const { return this->id; }
@@ -110,8 +122,9 @@ Player& Player::operator=(const Player& _other) {
     return *this;
 }
 
-void Player::move_back(ShootingRecoil tiles) { (void)tiles; }
-
+void Player::recoil(GameLogic& game_logic) { 
+    state.recoil(*this, game_logic);
+}
 bool Player::is_jumping() { return state.is_jumping(); }
 bool Player::is_running() { return state.is_running(); }
 bool Player::is_falling() { return state.is_falling(); }
@@ -131,13 +144,16 @@ void Player::touch_floor(){ state.set_touch_floor(true); }
 void Player::leave_floor(){ state.set_touch_floor(false); }
 
 void Player::shoot(GameLogic& game_logic, const ModeShoot& mode) {
+    if(state.is_slipping()){
+        return;
+    }
     std::shared_ptr<Gun> gun = inventory.get_gun();
     if (!gun) {
         return;
     }
     update_gun_position();
     bool is_dropped = false;
-    ShootingRecoil recoil = gun->get_recoil();
+    ShootingRecoil recoil_rate = gun->get_recoil();
     switch (mode)  {
         case ModeShoot::TRIGGER:
             gun->trigger(game_logic.get_projectiles(), id);
@@ -151,7 +167,7 @@ void Player::shoot(GameLogic& game_logic, const ModeShoot& mode) {
     if (is_dropped){
         drop_gun(game_logic);
     }
-    if ((int)recoil > 0) {  // is there recoil? yes -> it could be a function
-        move_back(recoil);
+    if ((int)recoil_rate > 0) {  // is there recoil? yes -> it could be a function
+        recoil(game_logic);
     }
 }

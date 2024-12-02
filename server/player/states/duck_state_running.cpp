@@ -37,7 +37,6 @@ void DuckStateRunning::move(Player& player, GameLogic& game_logic) {
 }
 
 void DuckStateRunning::execute(Player& player, GameLogic& game_logic) {
-    DuckState::execute(player, game_logic);
     move(player, game_logic);
     increment_frame();
 }

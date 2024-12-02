@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "../../game/game_logic.h"
+#include "../../map/box.h"
 
 #define TILE_SIZE_BULLET 16
 
@@ -67,3 +68,6 @@ void Bullet::handle_collision(Player& player, GameLogic& game_logic) {
         die();
     }
 }
+
+
+
