@@ -42,6 +42,8 @@ TextureProvider::TextureProvider() {
     textures_floor = {{FloorTexture::FLOOR_MAP_1, DATA_PATH "/NatureTileset.png"}};
 
     textures_boxes = {{BoxTexture::TYPE_BOX, "box_types"}};
+
+    textures_bullets = {{BulletTexture::BULLET_1, "bullet_1"}};
 }
 
 const std::string& TextureProvider::get_weapon_texture(WeaponTextureID id) const {
@@ -66,4 +68,8 @@ const std::string& TextureProvider::get_textures_floor(FloorTexture id) const {
 
 const std::string& TextureProvider::get_textures_box(BoxTexture id) const {
     return textures_boxes.at(id);
+}
+
+const std::string& TextureProvider::get_textures_bullet(BulletTexture id) const {
+    return textures_bullets.at(id);
 }

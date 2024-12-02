@@ -9,6 +9,7 @@
 
 #include "../config/game_config.h"
 #include "../game_state/elements.h"
+#include "../textures/texture_provider.h"
 
 #include "drawable.h"
 

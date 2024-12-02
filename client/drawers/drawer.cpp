@@ -63,8 +63,8 @@ void Drawer::run() try {
         load_floor();
         load_ducks();
         load_boxes();
-        // load_bullets();
         load_weapons();
+        load_bullets();
 
         SDL_SetRenderTarget(this->renderer.Get(), nullptr);
 
@@ -98,7 +98,6 @@ void Drawer::load_ducks() {
             drawers.players[i] = new_player;
         }
     }
-
 
     for (size_t i = 0; i < actual_game_state.players.size(); i++) {
         player_t player = actual_game_state.players[i];
@@ -175,21 +174,25 @@ void Drawer::load_boxes() {
 }
 
 void Drawer::load_bullets() {
-    if (drawers.bullets.size() != actual_game_state.bullets.size()) {
-        drawers.bullets.resize(actual_game_state.bullets.size());
-        for (size_t i = 0; i < actual_game_state.bullets.size(); ++i) {
-            if (!drawers.bullets[i]) {
-                auto bullet = actual_game_state.bullets[i];
-                DrawerBullet* drawer_bullet = new DrawerBullet(bullet, this->renderer);
-                drawers.bullets[i] = drawer_bullet;
-            }
-        }
+    if (drawers.bullets.empty() && actual_game_state.bullets.empty()) {
+        return;
+    }
+
+    for (auto& bullet: drawers.bullets) {
+        delete bullet;
+    }
+
+    drawers.bullets.resize(actual_game_state.bullets.size());
+    for (size_t i = 0; i < actual_game_state.bullets.size(); ++i) {
+        auto bullet = actual_game_state.bullets[i];
+        DrawerBullet* drawer_bullet = new DrawerBullet(this->renderer, bullet.bullet.id_texture,
+                                                       animations.animation_bullets);
+        drawers.bullets[i] = drawer_bullet;
     }
 
     for (size_t i = 0; i < actual_game_state.bullets.size(); ++i) {
         auto bullet = actual_game_state.bullets[i];
-        drawers.bullets[i]->update_bullet(bullet);
-        drawers.bullets[i]->draw(this->renderer);
+        drawers.bullets[i]->draw(bullet);
     }
 }
 
@@ -210,9 +213,9 @@ void Drawer::clean_elements() {
         delete drawers.boxes[i];
     }
 
-    /*    for (size_t i = 0; i < actual_game_state.bullets.size(); i++) {
-            delete drawers.bullets[i];
-        }*/
+    for (size_t i = 0; i < actual_game_state.bullets.size(); i++) {
+        delete drawers.bullets[i];
+    }
 }
 
 void Drawer::init_scenery(const client_game_state_t& actual_game_state) {
@@ -247,4 +250,5 @@ void Drawer::load_resources() {
     AnimationLoader::load_animations(ANIMATION_PATH "/weapon.yaml", animations.animation_weapon);
     AnimationLoader::load_animations(ANIMATION_PATH "/armor.yaml", animations.animation_armor);
     AnimationLoader::load_animations(ANIMATION_PATH "/box.yaml", animations.animation_boxes);
+    AnimationLoader::load_animations(ANIMATION_PATH "/bullet.yaml", animations.animation_bullets);
 }

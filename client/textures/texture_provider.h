@@ -23,6 +23,8 @@ enum class FloorTexture { FLOOR_MAP_1 };
 
 enum class BoxTexture { TYPE_BOX };
 
+enum class BulletTexture { BULLET_1 };
+
 // SINGLETON
 class TextureProvider {
 private:
@@ -36,7 +38,7 @@ private:
     std::map<InventoryDuck, std::string> textures_equipment_ducks;
     std::map<FloorTexture, std::string> textures_floor;
     std::map<BoxTexture, std::string> textures_boxes;
-
+    std::map<BulletTexture, std::string> textures_bullets;
 
 public:
     static TextureProvider& get_instance();
@@ -47,6 +49,7 @@ public:
     const std::string& get_duck_equipment_texture(InventoryDuck equipment) const;
     const std::string& get_textures_floor(FloorTexture id) const;
     const std::string& get_textures_box(BoxTexture id) const;
+    const std::string& get_textures_bullet(BulletTexture id) const;
 };
 
 #endif  // TEXTURE_PROVIDER_H
