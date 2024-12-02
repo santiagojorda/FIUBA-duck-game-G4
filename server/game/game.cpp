@@ -9,7 +9,8 @@
 #include "../map/box.h"
 #include "../player/player.h"
 #include "../yamel/map_deserialize.h"
-
+#include "../equipment/armor.h"
+#include "../equipment/helmet.h"
 
 #define MAX_ROUNDS_WINDS 10
 #define MILISECONDS_30_FPS 33
@@ -43,26 +44,47 @@ void charge_ponits(ListPlayers& players, std::vector<Coordinate>& points) {
     }
 }
 
-void charge_weapons(ListItemsMap& items, std::list<data_weapon>& data_weapons) {
+void charge_weapons(ListItemsMap& items, std::list<data_item>& data_items) {
     GunFactory factory;
-    for (auto& weapon: data_weapons) {
+    for (auto& weapon: data_items) {
         std::shared_ptr<Equippable> new_item = factory.create_gun(weapon.id, weapon.coordinate);
         items.push_back(new_item);
+    }
+}
+void charge_boxes(ListBoxes& items, std::list<data_item>& data_item) {
+    for (auto& box: data_item) {
+        items.push_back(Box(box.coordinate));
+    }
+}
+
+void charge_helmets(ListItemsMap& items, std::list<data_item>& data_item) {
+    for (auto& helmet: data_item) {
+        std::shared_ptr<Helmet> new_item = std::make_shared<Helmet>(helmet.coordinate);
+        items.push_back(new_item->clone());
+    }
+}
+void charge_armors(ListItemsMap& items, std::list<data_item>& data_item) {
+    for (auto& armor: data_item) {
+        std::shared_ptr<Armor> new_item = std::make_shared<Armor>(armor.coordinate);
+        items.push_back(new_item->clone());
     }
 }
 
 void Game::load_map(const std::string& path_map) {
     try {
         MapDeserialize deserialize(path_map);
-        std::vector<Coordinate> points;
-        std::list<data_weapon> data_weapons;
 
         deserialize.load_floors(this->map);
-        deserialize.load_boxes(map_boxes);
+        deserialize.load_boxes(inicial_values.data_boxes);
+        deserialize.load_armors(inicial_values.data_armor);
+        deserialize.load_helmets(inicial_values.data_helmet);
         deserialize.load_inicial_points(this->inicial_values.points);
         deserialize.load_weapons(this->inicial_values.data_weapons);
         charge_ponits(this->players, this->inicial_values.points);
         charge_weapons(this->map_items, this->inicial_values.data_weapons);
+        charge_helmets(this->map_items, this->inicial_values.data_helmet);
+        charge_armors(this->map_items, this->inicial_values.data_armor);
+        charge_boxes(map_boxes, this->inicial_values.data_boxes);
     } catch (const std::exception& e) {
         std::cerr << "error map.yaml: " << e.what() << '\n';
     } catch (...) {

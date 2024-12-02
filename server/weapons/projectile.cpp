@@ -24,3 +24,9 @@ void Projectile::collision_surface(Positionable& surface, GameLogic& game_logic)
     (void)game_logic;
     die();
 }
+
+// void handle_collision(Box& box, GameLogic& game_logic){
+//     (void)box;
+//     (void)game_logic;
+// }
+

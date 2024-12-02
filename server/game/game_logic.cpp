@@ -22,7 +22,7 @@ GameLogic::GameLogic(ListPlayers& _players, Map& _map, ListItemsMap& _items,
         items(_items),
         projectiles(_projectiles),
         boxes(_boxes),
-        physics(map) {}
+        physics(map, boxes) {}
 
 void GameLogic::update_player_equip_collision(Player& player) {
     for (std::shared_ptr<Equippable> item: items) {
@@ -74,8 +74,19 @@ void GameLogic::update_projectiles(){
         if(touched_floor){
             projectile->collision_surface(*touched_floor, (*this));
         }
+
+        std::shared_ptr<Box> touched_box = physics.get_target_box_collision(*projectile);
+        if(touched_box){
+            touched_box->handle_collision(*projectile, (*this));
+            if(!touched_box->is_open()){
+                projectile->die();
+            }
+        }
+
+
         projectile->update(*this);
     }
+
 }
 
 

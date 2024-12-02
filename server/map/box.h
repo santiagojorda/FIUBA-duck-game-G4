@@ -1,31 +1,28 @@
-#ifndef BOX
-#define BOX
+#ifndef BOX_H
+#define BOX_H
 
 #include <cstdint>
 #include "../../common/boxes_id.h"
-
 #include "../attributes/positionable.h"
-    enum GroundState : uint8_t{
-        CLOSE,
-        OPEN
-    };
+
+class Projectile;
+class GameLogic;
+
+enum GroundState : uint8_t{
+    CLOSE,
+    OPEN
+};
 class Box: public Positionable {
 private:
     uint8_t state;
 
 public:
-    explicit Box(const Coordinate& _coordinate)
-    : Positionable((uint8_t)BoxesTextureID::DEFAULT, _coordinate),
-            state(GroundState::CLOSE)
-        {}
+    explicit Box(const Coordinate& _coordinate);
     
-    void translate() override {}
-    void translate_x(int pasos) override { (void)pasos; }
-    void translate_y(int pasos) override { (void)pasos; }    
-    bool is_open() { return state == GroundState::OPEN; }
-    void open() { state = GroundState::OPEN; }
-    uint8_t get_state() { return state; }
-    ~Box() {}
+    using Positionable::handle_collision;
+    void handle_collision(Projectile& projectile,GameLogic& game_logic) override;
+    bool is_open();
+    void open();
+    uint8_t get_state();
 };
-
 #endif

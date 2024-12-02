@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "../../game/game_logic.h"
+#include "../../map/box.h"
 
 #define TILE_SIZE_BULLET 16
 
@@ -66,4 +67,13 @@ void Bullet::handle_collision(Player& player, GameLogic& game_logic) {
         die();
     }
 }
+
+void Bullet::handle_collision_box(Box& box, GameLogic& game_logic){
+    (void)game_logic;
+    if(!box.is_open()){
+        std::cout << "Bala choco con una caja" << std::endl;
+        die();
+    }
+}
+
 

@@ -90,13 +90,13 @@ void ProtocolServer::send_scenario_state(GameState_t& state) {
     }
 }
 
-void ProtocolServer::send_map_guns_state(GameState_t& state) {
+void ProtocolServer::send_map_items_state(GameState_t& state) {
     uint8_t count_map_items = state.map_items.size();
     send_byte(count_map_items);
     for (ItemsMap_t item: state.map_items) {
         send_byte(item.texture_id);         // texture_id
         send_coordinates(item.coordinate);  // posicion del escenario
-        send_byte(item.frame);                              // frame
+        send_byte(item.frame);              // frame
     }
 }
 
@@ -106,7 +106,7 @@ void ProtocolServer::send_game_state(GameState_t& state) {
     send_projectiles_state(state);
     send_boxes_state(state);
     send_scenario_state(state);
-    send_map_guns_state(state);
+    send_map_items_state(state);
 }
 
 uint8_t ProtocolServer::receive_count_players() {

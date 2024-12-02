@@ -21,6 +21,7 @@ public:
     void update(GameLogic& game_logic) override;
     using Positionable::handle_collision;
     void handle_collision(Player& player, GameLogic& game_logic) override;
+    virtual void handle_collision_box(Box& box, GameLogic& game_logic) override;
 
 };
 

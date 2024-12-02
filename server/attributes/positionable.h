@@ -7,6 +7,8 @@
 class GameLogic;
 class Bullet;
 class Player;
+class Box;
+class Projectile;
 
 class Positionable {
 
@@ -36,8 +38,10 @@ public:
     uint8_t get_id() const;
     uint8_t get_texture_id() const;
 
-    virtual void handle_collision(Bullet& bullet, GameLogic& game_logic);
+    virtual void handle_collision(Projectile& projectile, GameLogic& game_logic);
     virtual void handle_collision(Player& player, GameLogic& game_logic);
+    virtual void handle_collision(Box& box, GameLogic& game_logic);
+
 
 
     virtual ~Positionable();
