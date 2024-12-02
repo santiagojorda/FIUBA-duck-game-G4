@@ -11,7 +11,6 @@ DrawerWeapon::DrawerWeapon(SDL2pp::Renderer& renderer, uint8_t texture_id,
     this->texture.emplace(renderer, DATA_PATH + path);
 }
 
-// TODO: agregarle un is_looking al arma que se muestra por pantalla tambien
 void DrawerWeapon::draw(const gun_t& weapon) {
     // this->flip = static_cast<Direction>(is_looking) == Direction::LEFT;
     auto config = this->animations.at(this->type_animation).get_config_screen();
@@ -36,7 +35,6 @@ void DrawerWeapon::draw_inventory(const Coordinate& coordinate, uint8_t is_looki
     this->scale_height = config.scale_height;
     this->coordenada_x = this->flip ? coordinate.get_x() + config.offset_left_x :
                                       coordinate.get_x() + config.offset_right_x;
-    this->coordenada_y = coordinate.get_y() + config.offset_y - OFFSET_Y_DUCK;
-
+    this->coordenada_y = coordinate.get_y() + config.offset_y;
     this->render();
 }

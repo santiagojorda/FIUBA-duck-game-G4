@@ -11,9 +11,6 @@
 
 #define UNIQUE_FRAME 0
 
-/* Se le agrega este offset para que el pato se vea bien, tocando el piso */
-#define OFFSET_Y_DUCK 0
-
 #define GAME_TITLE "Duck Game"
 
 #define WINDOW_HEIGHT 600
