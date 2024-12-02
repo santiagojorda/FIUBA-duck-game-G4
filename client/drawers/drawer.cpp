@@ -127,8 +127,13 @@ void Drawer::load_floor() {
 }
 
 void Drawer::load_weapons() {
-    // Draw Weapon
     if (drawers.weapons.size() != actual_game_state.weapons.size()) {
+
+        for (auto& weapon : drawers.weapons) {
+            delete weapon;
+        }
+        drawers.weapons.clear();
+
         drawers.weapons.resize(actual_game_state.weapons.size());
         for (size_t i = 0; i < actual_game_state.weapons.size(); ++i) {
             if (!drawers.weapons[i]) {
