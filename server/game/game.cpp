@@ -131,6 +131,7 @@ void Game::run() {
             if(this->round_manager.get_rounds_winer() >= MAX_ROUNDS_WINDS) {
                 this->moment = GameMoment::FINISHED;
                 broadcast_gamestate();
+                sleep.sleep(SECONDS_FINISH_GAME * MILISECONDS_FOR_SECONDS);
                 this->stop();
             }
         }
