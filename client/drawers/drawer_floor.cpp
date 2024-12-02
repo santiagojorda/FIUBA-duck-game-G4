@@ -6,7 +6,7 @@ DrawerFloor::DrawerFloor(SDL2pp::Renderer& renderer, uint8_t texture_id):
         Drawable(renderer, Drawable::empty_animations) {
     std::string path =
             this->texture_provider.get_textures_floor(static_cast<FloorTexture>(texture_id));
-    this->texture = std::make_unique<SDL2pp::Texture>(renderer, path);
+    this->texture.emplace(renderer, path);
 }
 
 void DrawerFloor::draw(const floor_sprite_t& floor) {
@@ -17,5 +17,7 @@ void DrawerFloor::draw(const floor_sprite_t& floor) {
 
     uint8_t column = (floor.id_sprite % 8) * SIZE_FLOOR_SPRITE;
     uint8_t row = (floor.id_sprite / 8) * SIZE_FLOOR_SPRITE;
+
+
     this->render_with_rect(column, row, SIZE_FLOOR_SPRITE, SIZE_FLOOR_SPRITE);
 }

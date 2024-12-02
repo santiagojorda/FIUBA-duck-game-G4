@@ -1,12 +1,13 @@
 #ifndef CLIENT_GAME_STATE_H
 #define CLIENT_GAME_STATE_H
 
+#include "../../common/game_moment.h"
+
 #include "elements.h"
 #include "vector_floor_sprite.h"
+#include "vector_guns.h"
 #include "vector_player.h"
 #include "vector_sprite.h"
-#include "vector_guns.h"
-#include "../../common/game_moment.h"
 
 struct client_game_state_t {
     GameMoment moment;

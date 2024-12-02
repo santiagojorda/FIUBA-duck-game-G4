@@ -1,12 +1,6 @@
 #include "vector_guns.h"
 
 
+VectorGuns::VectorGuns(/* args */) {}
 
-VectorGuns::VectorGuns(/* args */)
-{
-}
-
-VectorGuns::~VectorGuns()
-{
-}
-
+VectorGuns::~VectorGuns() {}

@@ -1,6 +1,6 @@
 #include "granade.h"
 
-#define TICK_FOR_EXPLOTION 120 // 30 frames * 4 secodds 
+#define TICK_FOR_EXPLOTION 120  // 30 frames * 4 secodds
 
 #define MAX_RANGE_TILES 1
 #include "../../game/game_logic.h"
@@ -17,16 +17,15 @@ gun_config granade_config = {WeaponTextureID::GRANATE, 1, ShootingRecoil::NONE,
 
 Granade::Granade(const Coordinate& _coordinate): Gun(granade_config, _coordinate) {}
 
-void Granade::update(GameLogic& game_logic){
-    if(!is_countdown_enabled){
+void Granade::update(GameLogic& game_logic) {
+    if (!is_countdown_enabled) {
         return;
     }
     tick++;
-    if(tick % TICK_FOR_EXPLOTION == 0){
+    if (tick % TICK_FOR_EXPLOTION == 0) {
         game_logic.explote(shared_from_this());
         tick = 0;
     }
-    
 }
 
 void Granade::trigger(ListProjectiles& projectiles, const uint8_t& player_id) {
@@ -34,21 +33,22 @@ void Granade::trigger(ListProjectiles& projectiles, const uint8_t& player_id) {
     is_countdown_enabled = true;
 }
 
-void Granade::trigger_out(ListProjectiles& projectiles, const uint8_t& player_id, bool& was_dropped) {
-    Gun::trigger_out(projectiles,player_id, was_dropped);
+void Granade::trigger_out(ListProjectiles& projectiles, const uint8_t& player_id,
+                          bool& was_dropped) {
+    Gun::trigger_out(projectiles, player_id, was_dropped);
     was_dropped = true;
 }
 
-void Granade::handle_explotion(GameLogic& game_logic){
+void Granade::handle_explotion(GameLogic& game_logic) {
     dispersion = 0;
 
-    for (int i = 0; i < NUM_PROJECTILES; i++){
-        Bullet new_bullet(this->projectile_range, get_coordinate(), this->get_direction(), this->dispersion, PLAYER_ID_DUMMY);
+    for (int i = 0; i < NUM_PROJECTILES; i++) {
+        Bullet new_bullet(this->projectile_range, get_coordinate(), this->get_direction(),
+                          this->dispersion, PLAYER_ID_DUMMY);
         game_logic.add_projectile(std::make_shared<Bullet>(new_bullet));
-        dispersion += 360 / NUM_PROJECTILES; 
+        dispersion += 360 / NUM_PROJECTILES;
         die();
     }
-
 }
 
 void Granade::handle_equip(Inventory& inventory) { 
@@ -59,7 +59,6 @@ void Granade::handle_equip(Inventory& inventory) {
     }
     Gun::handle_equip(inventory);
 };
-
 
 
 Granade::~Granade() {}

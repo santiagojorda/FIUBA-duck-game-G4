@@ -4,8 +4,7 @@
 #include <cstdint>
 
 
-enum class GameMoment :   uint8_t { DISPLAY_INFO, IN_GAME, FINISHED };
+enum class GameMoment : uint8_t { DISPLAY_INFO, IN_GAME, FINISHED };
 
 
-
-#endif // GAME_MOMENT_H
+#endif  // GAME_MOMENT_H
