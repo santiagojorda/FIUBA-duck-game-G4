@@ -146,7 +146,7 @@ void Drawer::load_weapons() {
 
     for (size_t i = 0; i < actual_game_state.weapons.size(); ++i) {
         auto weapon = actual_game_state.weapons[i];
-        drawers.weapons[i]->draw(weapon.sprite.coordinate);
+        drawers.weapons[i]->draw(weapon);
     }
 }
 

@@ -12,13 +12,19 @@ DrawerWeapon::DrawerWeapon(SDL2pp::Renderer& renderer, uint8_t texture_id,
 }
 
 // TODO: agregarle un is_looking al arma que se muestra por pantalla tambien
-void DrawerWeapon::draw(const Coordinate& coordinate) {
+void DrawerWeapon::draw(const gun_t& weapon) {
     // this->flip = static_cast<Direction>(is_looking) == Direction::LEFT;
     auto config = this->animations.at(this->type_animation).get_config_screen();
-    this->coordenada_x = coordinate.get_x();
-    this->coordenada_y = coordinate.get_y();
+    this->coordenada_x = weapon.sprite.coordinate.get_x();
+    this->coordenada_y = weapon.sprite.coordinate.get_y();
     this->scale_width = config.scale_width;
     this->scale_height = config.scale_height;
+
+    // Agrego frame para las bananas y para la granada
+    if (static_cast<WeaponTextureID>(weapon.sprite.id_texture) == WeaponTextureID::BANANA ||
+        static_cast<WeaponTextureID>(weapon.sprite.id_texture) == WeaponTextureID::GRANATE) {
+        this->frame = weapon.frame;
+    }
 
     this->render();
 }

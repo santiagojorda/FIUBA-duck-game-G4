@@ -28,10 +28,7 @@ void DrawerPlayer::draw(const player_t& player) {
         this->frame = static_cast<int>(player.frame);
         this->type_animation =
                 texture_provider.get_duck_action_texture(static_cast<DuckStateType>(player.state));
-
         this->render();
-
-
     } catch (...) {
         std::cout << "No hay textura del estado: " << (uint8_t)player.state << std::endl;
     }

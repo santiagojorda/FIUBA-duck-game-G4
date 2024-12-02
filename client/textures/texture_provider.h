@@ -21,7 +21,7 @@ enum class InventoryDuck {
 
 enum class FloorTexture { FLOOR_MAP_1 };
 
-enum class BoxTexture { CLOSE, OPEN };
+enum class BoxTexture { TYPE_BOX };
 
 // SINGLETON
 class TextureProvider {

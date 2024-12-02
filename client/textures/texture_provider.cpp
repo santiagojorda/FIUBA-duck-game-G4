@@ -41,7 +41,7 @@ TextureProvider::TextureProvider() {
 
     textures_floor = {{FloorTexture::FLOOR_MAP_1, DATA_PATH "/NatureTileset.png"}};
 
-    textures_boxes = {{BoxTexture::CLOSE, "box_close"}, {BoxTexture::OPEN, "box_open"}};
+    textures_boxes = {{BoxTexture::TYPE_BOX, "box_types"}};
 }
 
 const std::string& TextureProvider::get_weapon_texture(WeaponTextureID id) const {
