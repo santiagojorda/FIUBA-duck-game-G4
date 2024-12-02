@@ -69,6 +69,7 @@ target_include_directories(taller_common PUBLIC .)
 add_definitions(-DDATA_PATH="${PROJECT_SOURCE_DIR}/game_rsc/sprites")
 
 add_definitions(-DANIMATION_PATH="${PROJECT_SOURCE_DIR}/client/animations_config")
+add_definitions(-DITEMS_CONFIG_PATH="${PROJECT_SOURCE_DIR}/client/items_config")
 
 # Install libSDL2pp (for client or editor)
 # HEY!! TODO XXX: add more dependendies (either for client, server or editor)

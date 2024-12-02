@@ -14,15 +14,14 @@ private:
     void send_coordinates(const Coordinate& send);
 
     void send_inventory(Inventory& inventory);
-    void send_gun(Gun* gun);
-    void send_armor(Armor* armor);
-    void send_helmet(Helmet* helmet);
+    void send_gun(std::shared_ptr<Gun> gun);
+    void send_armor(std::shared_ptr<Armor> armor);
+    void send_helmet(std::shared_ptr<Helmet> helmet);
 
     void send_players_state(GameState_t& state);
     void send_projectiles_state(GameState_t& state);
     void send_boxes_state(GameState_t& state);
     void send_scenario_state(GameState_t& state);
-    void send_throwables_state(GameState_t& state);
     void send_map_guns_state(GameState_t& state);
 
 public:

@@ -2,44 +2,33 @@
 
 #include "../projectiles/bullet.h"
 
-struct AKConfig {
-    WeaponTextureID id = WeaponTextureID::AK_47;
-    uint8_t max_ammo = 30;
-    ShootingRecoil recoil = ShootingRecoil::SHORT;
-    ProjectileRange range = ProjectileRange::MEDIUM;
-    uint8_t count_projectiles_x_shoot = 1;
-};
-AKConfig ak_config;
 
-AK47::AK47(const Coordinate& _coordinate):
-        Gun(ak_config.id, ak_config.max_ammo, ak_config.recoil, ak_config.range, _coordinate) {}
+gun_config ak_config = {WeaponTextureID::AK_47,  30, ShootingRecoil::SHORT,
+                        ProjectileRange::MEDIUM, 1,  5};
 
-void AK47::trigger(ListProjectiles& projectiles) {
+AK47::AK47(const Coordinate& _coordinate): Gun(ak_config, _coordinate) {}
+
+void AK47::trigger(ListProjectiles& projectiles, const uint8_t& player_id) {
+
     this->dispersion++;
+    this->dispersion = this->dispersion > 60 ? 49 : this->dispersion;
 
-    Rectangle cañonaso = this->space;
-    int x;
-    if (get_direction() == Direction::RIGHT) {
-        x = cañonaso.get_x_max();
-    } else {
-        x = cañonaso.get_x_min();
-    }
-
-    Coordinate bullet_postion(x, ((cañonaso.get_y_min() + cañonaso.get_y_max()) / 2) - 5, 0,
-                              0);  // refactorizar
+    int dispersion_y = this->dispersion % 2 ? -1 : 1;
 
     for (int i = 0; i < ak_config.count_projectiles_x_shoot; i++) {
-        if (this->ammo > 0) {
-            projectiles.add(new Bullet(this->projectile_range, bullet_postion,
-                                       this->get_direction(), this->dispersion));
+
+        if (this->ammo > 0 && this->delay_counter()) {
+            projectiles.push_back(std::make_shared<Bullet>(
+                    this->projectile_range, this->get_coordinate(), this->get_direction(),
+                    this->dispersion * dispersion_y, player_id));
             this->ammo--;
         }
     }
 }
 
-void AK47::trigger_out(ListProjectiles& projectiles) {
-    (void)projectiles;
+void AK47::trigger_out(ListProjectiles& projectiles, const uint8_t& player_id, bool& was_dropped) {
     this->dispersion = 0;
+    Gun::trigger_out(projectiles, player_id, was_dropped);
 }
 
 AK47::~AK47() {}

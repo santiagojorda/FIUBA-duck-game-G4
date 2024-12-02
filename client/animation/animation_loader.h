@@ -10,7 +10,8 @@
 
 class AnimationLoader {
 public:
-    static std::map<std::string, Animation> load_animations(const std::string& file_path);
+    static void load_animations(const std::string& file_path,
+                                std::map<std::string, Animation>& _animations);
 };
 
 #endif  // ANIMATION_LOADER_H

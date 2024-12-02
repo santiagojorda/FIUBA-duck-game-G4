@@ -4,8 +4,6 @@
 #include <mutex>
 #include <iostream>
 
-#include "../events/event_player.h"
-#include "../events/queue_event_player.h"
 #include "../game/queue_game_state.h"
 #include "../player/list_players_id.h"
 

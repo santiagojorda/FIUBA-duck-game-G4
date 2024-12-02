@@ -1,6 +1,7 @@
 #include "animation_loader.h"
 
-std::map<std::string, Animation> AnimationLoader::load_animations(const std::string& file_path) {
+void AnimationLoader::load_animations(const std::string& file_path,
+                                      std::map<std::string, Animation>& _animations) {
     YAML::Node root = YAML::LoadFile(file_path);
     std::map<std::string, Animation> animations;
 
@@ -27,5 +28,5 @@ std::map<std::string, Animation> AnimationLoader::load_animations(const std::str
                                                            scale_width, scale_height});
     }
 
-    return animations;
+    _animations = std::move(animations);
 }

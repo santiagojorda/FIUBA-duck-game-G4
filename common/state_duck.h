@@ -13,7 +13,8 @@ enum class DuckStateType : uint8_t {
     SLIPPING,
     PLANNING,
     IDLE,
-    DEAD
+    DEAD,
+    AERO_RUNNING
 };
 
 struct DuckStateInfo_t {

@@ -38,6 +38,12 @@ TextureProvider::TextureProvider() {
             {InventoryDuck::HAS_ARMOR, "has_armor"},
             {InventoryDuck::HAS_HELMET, "has_helmet"},
     };
+
+    textures_floor = {{FloorTexture::FLOOR_MAP_1, DATA_PATH "/NatureTileset.png"}};
+
+    textures_boxes = {{BoxTexture::TYPE_BOX, "box_types"}};
+
+    textures_bullets = {{BulletTexture::BULLET_1, "bullet_1"}};
 }
 
 const std::string& TextureProvider::get_weapon_texture(WeaponTextureID id) const {
@@ -54,4 +60,16 @@ const std::string& TextureProvider::get_duck_action_texture(DuckStateType action
 
 const std::string& TextureProvider::get_duck_equipment_texture(InventoryDuck equipment) const {
     return textures_equipment_ducks.at(equipment);
+}
+
+const std::string& TextureProvider::get_textures_floor(FloorTexture id) const {
+    return textures_floor.at(id);
+}
+
+const std::string& TextureProvider::get_textures_box(BoxTexture id) const {
+    return textures_boxes.at(id);
+}
+
+const std::string& TextureProvider::get_textures_bullet(BulletTexture id) const {
+    return textures_bullets.at(id);
 }

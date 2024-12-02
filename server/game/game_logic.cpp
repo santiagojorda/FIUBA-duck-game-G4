@@ -2,86 +2,177 @@
 
 #include <iostream>
 
+#include "list_items_map.h"
+#include "../events/event.h"
 #include "../../common/state_duck.h"
+#include "../player/list_players.h"
+#include "../weapons/list_projectiles.h"
+#include "../weapons/projectile.h"
+#include "../weapons/projectiles/bullet.h"
+#include "../weapons/gun.h"
 
-#define GAME_WIDTH 800
-#define GAME_HEIGHT 500
+#define DROP_DISTANCE 40
+#define HORIZONTAL_STEP 5
 
-GameLogic::GameLogic(ListPlayers& _players, Map& _map, ListGuns& _map_guns,
-                     ListProjectiles& _map_projectiles):
+GameLogic::GameLogic(ListPlayers& _players, Map& _map, ListItemsMap& _items,
+                     ListProjectiles& _projectiles):
         players(_players),
         map(_map),
-        map_guns(_map_guns),
-        map_projectiles(_map_projectiles),
+        items(_items),
+        projectiles(_projectiles),
         physics(map) {}
 
-Positionable* GameLogic::get_player_floor_collision(const Player& player) {
-    for (auto& tile: this->map) {
-        if (this->physics.collision(player.get_rectangle(), tile->get_rectangle())) {
-            return tile;
-        }
-    }
-    return nullptr;
-}
-
 void GameLogic::update_player_equip_collision(Player& player) {
-    for (auto& gun: map_guns.get_items()) {
-        if (this->physics.collision(player.get_rectangle(), gun->get_rectangle())) {
-            player.equip(gun);
-            map_guns.remove(gun);
+    for (std::shared_ptr<Equippable> item: items) {
+        if (this->physics.exist_collision(player.get_rectangle(), item->get_rectangle())) {
+            player.equip(item);
+            if(player.has_equipped_this(item)){
+                items.remove_item(item);
+            }
             return;
         }
     }
 }
 
-bool GameLogic::is_player_out_of_map(Player& player) {
-    Rectangle player_space = player.get_rectangle();
-    if (player_space.get_x_max() < 0 || player_space.get_y_max() < 0 ||
-        player_space.get_x_min() > GAME_WIDTH || player_space.get_y_min() > GAME_HEIGHT) {
-        return true;
-    }
-    return false;
+void GameLogic::handle_drop(std::shared_ptr<Equippable> item){
+    items.push_back(item);
+    item->translate_x(DROP_DISTANCE);
 }
 
+void GameLogic::update_player_gravity(Player& player) {
+    std::shared_ptr<Positionable> touched_floor = physics.get_target_floor_collision(player);
+    if (touched_floor) {
+        player.adjust_position_to_floor(touched_floor);
+        if (player.is_falling()) {
+            player.idle();
+        }
+        player.touch_floor();
+    } else {
+        player.fall(*this);
+    }
 
+}
 
 
 void GameLogic::update_projectiles(){
-    for (Projectile* projectile: map_projectiles.get_items()){
-        if(projectile->is_dead()){
-            map_projectiles.remove_and_delete(projectile);
+
+    projectiles.erase(
+        std::remove_if(projectiles.begin(), projectiles.end(),
+                       [](const std::shared_ptr<Projectile>& projectile) {
+                           return projectile->is_dead(); 
+                       }),
+        projectiles.end());
+    
+    for (std::shared_ptr<Projectile> projectile: projectiles){
+        std::shared_ptr<Positionable> touched_floor = physics.get_target_floor_collision(*projectile);
+        if(touched_floor){
+            projectile->collision_surface(*touched_floor, (*this));
+        }
+        projectile->update(*this);
+    }
+}
+
+
+void GameLogic::move(std::shared_ptr<Projectile> projectile, int x, int y){
+
+    for(Player& player : players){
+        if(player.is_dead() || player.get_id() == projectile->get_shooter_id()){
+            continue;
+        }
+
+        if (physics.exist_collision(player.get_rectangle(), projectile->get_rectangle())){
+            projectile->handle_collision(player, *this);
+            projectiles.remove_item(projectile);
             return;
         }
-        projectile->update(physics);
-
     }
+    
+    projectile->translate_x(x);
+    projectile->translate_y(y);
+}
 
+
+void GameLogic::fall(Player& player){
+    physics.falling(player, 1);
+}
+
+void GameLogic::move_horizontal(Player& player, Direction& direction){
+    int sign = 0;
+
+    if (direction == Direction::RIGHT) {
+        sign = 1; 
+    } else if (direction == Direction::LEFT) {
+        sign = -1;
+    }
+    
+    move(player, sign*HORIZONTAL_STEP, 0);
+}
+
+
+bool GameLogic::can_move(Player& player, int x, int y){
+    Coordinate point = Coordinate(
+        player.get_coordinate().get_x() + x,
+        player.get_coordinate().get_y() + y,
+        0, 0);
+    if(physics.is_this_point_ocuppied(point)){
+        return false;
+    }
+    return true;
+}
+
+void GameLogic::move(Player& player, int x, int y){
+
+    if(can_move(player, x, y)){
+        player.translate_x(x);
+        player.translate_y(y);
+    }
     
 }
 
+// void GameLogic::apply_weapons_gravity(){
+
+// }
+
+void GameLogic::update_weapons(){
+    for (std::shared_ptr<Equippable> item: items) {
+        // apply_weapons_gravity();
+        item->update(*this);
+    }
+}
 
 void GameLogic::update(){
 
     update_projectiles();
     update_players();
+    update_weapons();
 
+}
+
+void GameLogic::add_projectile(std::shared_ptr<Projectile> new_projectile){
+    projectiles.push_back(new_projectile);
+}
+
+void GameLogic::explote(std::shared_ptr<Gun> gun){ 
+    gun->handle_explotion(*this); 
+    
 }
 
 void GameLogic::update_players() {
     for (Player& player: players) {
 
         if (player.is_dead()) {
+            player.update(*this);
             continue;
         }
 
-        player.update(physics);
 
-        if (is_player_out_of_map(player)) {
-            player.die();
+        if (physics.is_player_out_of_map(player)) {
+            player.die(*this);
             continue;
         }
 
         else {
+            player.update(*this);
             if (!player.is_jumping()) {
                 update_player_gravity(player);
             }
@@ -90,17 +181,6 @@ void GameLogic::update_players() {
     }
 }
 
-void GameLogic::update_player_gravity(Player& player) {
-    Positionable* touched_floor = get_player_floor_collision(player);
-    if (touched_floor) {
-        player.adjust_position_to_floor(touched_floor);
-        if (player.is_falling()) {
-            player.idle();
-        }
-    } else {
-        player.fall(physics);
-    }
-}
 
 Player& GameLogic::get_player(const uint8_t& _player_id) {
     for (Player& player: players) {
@@ -111,43 +191,10 @@ Player& GameLogic::get_player(const uint8_t& _player_id) {
     throw std::runtime_error("Player con ID no encontrado");
 }
 
-void GameLogic::handle_event(const uint8_t& player_id,const ActionEvent& event) {
-    try {
-        Player& player = get_player(player_id);
-        if (player.is_dead()) {
-            return;
-        }
-        switch (event) {
-            case ActionEvent::MOVE_RIGHT:
-                // chequear que se pueda
-                player.run_right(physics);
-                break;
-            case ActionEvent::MOVE_LEFT:
-                // chequear que se pueda
-                player.run_left(physics);
-                break;
-            case ActionEvent::JUMP:
-                // chequear se pueda
-                player.jump(physics);
-                break;
-            case ActionEvent::CROUCH:
-                // chequear se pueda
-                player.crouch(physics);
-                break;
-            case ActionEvent::SHOOT:
-                player.shoot(map_projectiles, ModeShoot::TRIGGER);
-                break;
-            case ActionEvent::IDLE:
-                player.idle();
-                break;
-            default:
-                break;  
-        }
-    } catch (const std::exception& e) {
-        std::cerr << "Error handle event player " << int(player_id) << ": " << e.what()
-                  << std::endl;
-    }
-}
+void GameLogic::handle_event(Event& event) { event.execute(*this);}
+
+ListProjectiles& GameLogic::get_projectiles() { return projectiles;}
+GamePhysics& GameLogic::get_physics() { return physics;}
 
 
 GameLogic::~GameLogic() {}

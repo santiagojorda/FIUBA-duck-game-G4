@@ -2,7 +2,8 @@
 #define DUCK_STATE_FACTORY_h
 
 #include <cstdint>
-#include <map>
+#include <memory>
+
 #include "../../common/state_duck.h"
 
 #include "duck_state.h"
@@ -16,39 +17,27 @@
 #include "states/duck_state_running.h"
 #include "states/duck_state_slipping.h"
 
-class DuckStateFactory {
-private:
-    // cppcheck-suppress unusedStructMember
-    std::map<DuckStateType, DuckState*> states;
+#include "../utils/state_factory.h"
 
+class DuckStateFactory : public StateFactory<DuckStateType> {
+private:
     // cppcheck-suppress unusedStructMember
     uint8_t player_id;
 
 public:
     explicit DuckStateFactory(const uint8_t& _player_id): player_id(_player_id) {
-        add(DuckStateType::RUNNING, new DuckStateRunning(_player_id));
-        add(DuckStateType::JUMPING, new DuckStateJumping(_player_id));
-        add(DuckStateType::FALLING, new DuckStateFalling(_player_id));
-        add(DuckStateType::CROUCHING, new DuckStateCrouching(_player_id));
-        add(DuckStateType::SLIPPING, new DuckStateSlipping(_player_id));
-        add(DuckStateType::RECOILING, new DuckStateRecoiling(_player_id));
-        add(DuckStateType::PLANNING, new DuckStatePlanning(_player_id));
-        add(DuckStateType::DEAD, new DuckStateDead(_player_id));
-        add(DuckStateType::IDLE, new DuckStateIdle(_player_id));
+        add(DuckStateType::RUNNING,         std::make_shared<DuckStateRunning>(player_id));
+        add(DuckStateType::JUMPING,         std::make_shared<DuckStateJumping>(player_id));
+        add(DuckStateType::FALLING,         std::make_shared<DuckStateFalling>(player_id));
+        add(DuckStateType::CROUCHING,       std::make_shared<DuckStateCrouching>(player_id));
+        add(DuckStateType::SLIPPING,        std::make_shared<DuckStateSlipping>(player_id));
+        add(DuckStateType::RECOILING,       std::make_shared<DuckStateRecoiling>(player_id));
+        add(DuckStateType::PLANNING,        std::make_shared<DuckStatePlanning>(player_id));
+        add(DuckStateType::DEAD,            std::make_shared<DuckStateDead>(player_id));
+        add(DuckStateType::IDLE,            std::make_shared<DuckStateIdle>(player_id));
     }
 
-    // DuckStateFactory(DuckStateFactory&& other) noexcept : map(std::move(other.map)) {}
-
-    void add(const DuckStateType& state_id, DuckState* state) { states[state_id] = state; }
-
-    DuckState* get(const DuckStateType& state_id) { return states[state_id]; }
-
-    ~DuckStateFactory() {
-        for (auto& state: states) {
-            delete state.second;
-        }
-        states.clear();
-    };
+    
 };
 
 #endif  // EVENT_FACTORY_h

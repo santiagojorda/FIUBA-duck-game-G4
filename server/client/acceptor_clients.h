@@ -5,8 +5,8 @@
 
 #include "../../common/socket.h"
 #include "../../common/thread.h"
-#include "../events/event_player.h"
-#include "../events/queue_event_player.h"
+#include "../events/event.h"
+#include "../events/queue_events.h"
 #include "../game/queue_game_state.h"
 #include "../player/list_players_id.h"
 
@@ -19,7 +19,7 @@ private:
     Socket skt;
     MonitorClients& monitor;
     QueueGameState& queue_gamestate;
-    QueueEventPlayer& queue_event;
+    QueueEvents& queue_events;
     ListPlayersID& players_id;
 
     void create_client();
@@ -27,7 +27,7 @@ private:
 
 public:
     AcceptorClients(MonitorClients& monitor, QueueGameState& _queue_gamestate,
-                    QueueEventPlayer& _queue_event, ListPlayersID& _players_id);
+                    QueueEvents& _queue_events, ListPlayersID& _players_id);
     void run() override;
     void stop() override;
     ~AcceptorClients();

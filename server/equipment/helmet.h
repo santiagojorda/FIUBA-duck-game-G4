@@ -4,10 +4,12 @@
 #include "../attributes/equippable.h"
 #include "../attributes/positionable.h"
 
-class Helmet: public Positionable, public Equippable {
+class Helmet: public Equippable {
 public:
     Helmet();
-    void equip(Inventory* inventory) override;
+    void handle_equip(Inventory& inventory) override;
+    std::shared_ptr<Equippable> clone() const override;
+
 };
 
 #endif

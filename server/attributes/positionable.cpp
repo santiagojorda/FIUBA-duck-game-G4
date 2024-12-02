@@ -1,6 +1,9 @@
 #include "positionable.h"
 
-Positionable::Positionable(): space(1, 11, 32, 32) {}  // DUMMY
+#include "../player/player.h"
+#include "../weapons/projectiles/bullet.h"
+
+Positionable::Positionable(): space(0, 0, 0, 0) {}  // DUMMY
 
 Positionable::Positionable(const uint8_t& _texture_id, const Coordinate& _coordinate):
         texture_id(_texture_id), space(_coordinate) {}
@@ -26,9 +29,22 @@ void Positionable::translate_y(int steps) {
     this->space = new_pos;
 }
 
+
+void Positionable::handle_collision(Bullet& bullet, GameLogic& game_logic){
+    (void)bullet;
+    (void)game_logic;
+}
+
+void Positionable::handle_collision(Player& player, GameLogic& game_logic){
+    (void)player;
+    (void)game_logic;
+}
+
+void Positionable::fall(GameLogic& game_logic) { (void)game_logic;}
+
 Rectangle Positionable::get_rectangle() const { return this->space; }
 
-uint8_t Positionable::get_id() { return id; }
-uint8_t Positionable::get_texture_id() { return texture_id; }
+uint8_t Positionable::get_id() const { return id; }
+uint8_t Positionable::get_texture_id()  const { return texture_id; }
 
 Positionable::~Positionable() {}

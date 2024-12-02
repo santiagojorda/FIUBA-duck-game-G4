@@ -5,16 +5,15 @@
 
 class AK47: public Gun {
 private:
-    int dispersion;
-
 public:
     explicit AK47(const Coordinate& _coordinate);
 
     // Dispara aumentado dispersion
-    virtual void trigger(ListProjectiles& projectiles) override;
+    void trigger(ListProjectiles& projectiles, const uint8_t& player_id) override;
 
     // reinicia dispersion
-    virtual void trigger_out(ListProjectiles& projectiles) override;
+    virtual void trigger_out(ListProjectiles& projectiles, const uint8_t& player_id,
+                             bool& was_dropped) override;
 
     ~AK47();
 };

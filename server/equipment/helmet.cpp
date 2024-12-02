@@ -2,6 +2,10 @@
 
 #include "../player/inventory.h"
 
-Helmet::Helmet() {}
+Helmet::Helmet() : Equippable() {}
 
-void Helmet::equip(Inventory* inventory) { inventory->equip(this); };
+void Helmet::handle_equip(Inventory& inventory) { inventory.equip(std::shared_ptr<Helmet>(this)); };
+
+std::shared_ptr<Equippable> Helmet::clone() const {
+        return std::make_shared<Helmet>(*this); 
+}

@@ -14,6 +14,8 @@ public:
     void sleep_rate(int& iterations);
 
     void sleep_rate();
+    void reset();
+    void sleep(const int& miliseconds);
 
     ~SleepSpecial();
 };

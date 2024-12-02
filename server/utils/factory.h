@@ -1,34 +1,49 @@
 #ifndef FACTORY_H
 #define FACTORY_H
 
-#include <map>
+#include <unordered_map>
 #include <iostream>
 
-template <typename T1, typename T2>
+template <typename TYPE, typename PRODUCT>
 class Factory {
 protected:
     // cppcheck-suppress unusedStructMember
-    std::map<T1, T2*> map;
+    std::unordered_map<TYPE, std::shared_ptr<PRODUCT>> items;
 
 public:
-    explicit Factory() {}
+    Factory() {}
 
-    Factory(Factory&& other) noexcept : map(std::move(other.map)) {}
-    
-    T2* get(const T1& item_id){
-        return map[item_id];
-    }
+    // Prohibir copia
+    Factory(const Factory&) = delete;
+    Factory& operator=(const Factory&) = delete;
 
-    void add(const T1& item_id, T2* item) {
-        map[item_id] = item;
-    }
+    // Constructor por movimiento
+    Factory(Factory&& other) noexcept
+        : items(std::move(other.items)) {}
 
-    ~Factory() {
-        for (auto& item: map) {
-            delete item.second;
+    // Operador de asignación por movimiento
+    Factory& operator=(Factory&& other) noexcept {
+        if (this != &other) {
+            items = std::move(other.items);
         }
-        map.clear();
+        return *this;
+    }
+
+    void add(const TYPE& type_id, std::shared_ptr<PRODUCT> new_item) {
+        items[type_id] = std::move(new_item);
+    }
+
+    std::shared_ptr<PRODUCT> get(const TYPE& type_id) {
+        auto it = items.find(type_id);
+        if (it != items.end()) {
+            return it->second;
+        }
+        throw std::runtime_error("Item no encontrado para el tipo proporcionado.");
+    }
+
+    virtual ~Factory() {
+        // items.clear();
     }
 };
 
-#endif  // EVENT_FACTORY_h
+#endif 

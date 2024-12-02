@@ -4,7 +4,7 @@
 #include <list>
 
 #include "../client/monitor_clients.h"
-#include "../events/queue_event_player.h"
+#include "../events/queue_events.h"
 #include "../game/game.h"
 #include "../game/queue_game_state.h"
 #include "../player/list_players_id.h"
@@ -14,7 +14,7 @@ private:
     MonitorClients monitor_clients;
     ListPlayersID players_id;
     ListPlayers players;
-    QueueEventPlayer queue_event;
+    QueueEvents queue_events;
     QueueGameState queue_gamestate;
 
     void init_players();

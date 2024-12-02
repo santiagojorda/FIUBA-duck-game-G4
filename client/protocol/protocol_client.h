@@ -15,7 +15,7 @@ class ClientProtocol: public Protocol {
 private:
     zoom_t receive_zoom_details();
 
-    void receive_weapons(VectorSprite& weapons);
+    void receive_weapons(VectorGuns& weapons);
 
     void receive_cordinates(Coordinate& coordinate);
 
@@ -23,15 +23,14 @@ private:
 
     void receive_bullets(std::vector<bullet_t>& bullets);
 
-    void receive_throwables(VectorThrowable& throwables);
-
     void receive_boxes(std::vector<box_t>& boxes);
 
-    void receive_floor_sprites(VectorSprite& floor_sprites);
+    void receive_floor_sprites(VectorFloorSprite& floor_sprites);
 
     void receive_sprite(sprite_t& sprite);
 
     void receive_inventory(inventory_t& inventory);
+    void receive_floor_sprite(floor_sprite_t& sprite);
 
 public:
     /*

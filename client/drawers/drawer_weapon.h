@@ -13,7 +13,7 @@
 #include "../animation/animation.h"
 #include "../animation/animation_loader.h"
 #include "../config/game_config.h"
-#include "../game_state/sprite.h"
+#include "../game_state/gun.h"
 
 #include "drawable.h"
 
@@ -25,7 +25,7 @@ public:
 
     void draw_inventory(const Coordinate& coordinate, uint8_t is_looking);
 
-    void draw(const Coordinate& coordinate);
+    void draw(const gun_t& weapon);
 };
 
 #endif  // DRAWER_WEAPON_H

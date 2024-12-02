@@ -24,6 +24,7 @@ public:
     explicit MapDeserialize(const std::string& path);
 
     void load_floors(Map& charge_map);
+    void load_boxes(Map& charge_map);
 
     void load_inicial_points(std::vector<Coordinate>& points);
 

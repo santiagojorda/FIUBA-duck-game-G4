@@ -6,7 +6,7 @@ DrawerEquipment::DrawerEquipment(SDL2pp::Renderer& renderer, uint8_t texture_id,
     this->type_animation =
             texture_provider.get_duck_equipment_texture(static_cast<InventoryDuck>(texture_id));
     std::string path = this->animations[this->type_animation].get_path();
-    this->texture = std::make_unique<SDL2pp::Texture>(renderer, DATA_PATH + path);
+    this->texture.emplace(renderer, DATA_PATH + path);
 }
 
 void DrawerEquipment::draw(const player_t& player, bool frame_change) {
