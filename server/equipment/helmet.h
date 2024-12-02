@@ -6,6 +6,7 @@
 
 class Helmet: public Equippable {
 public:
+    Helmet() : Equippable((uint8_t)WeaponTextureID::HELMET){}
     Helmet(const Coordinate& _coordinate) : Equippable((uint8_t)WeaponTextureID::HELMET, _coordinate) {}
 
     void handle_equip(Inventory& inventory) override { inventory.equip(std::shared_ptr<Helmet>(this)); }

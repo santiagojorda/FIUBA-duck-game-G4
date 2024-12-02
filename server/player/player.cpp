@@ -1,15 +1,16 @@
 #include "player.h"
 
 #include <iostream>
-
 #include "../../common/state_duck.h"
 #include "../weapons/gun.h"
 #include "../game/game_logic.h"
 #include "../weapons/list_projectiles.h"
+#include "../equipment/armor.h"
+#define SIZE_PLAYER 32
 
 const int SPEED = 1;
 
-Player::Player(uint8_t _id): Positionable(_id, _id, Coordinate(10, 10, 32, 32)), state(id){}
+Player::Player(uint8_t _id): Positionable(_id, _id, Coordinate(10, 10, SIZE_PLAYER, SIZE_PLAYER)), state(id){}
 
 Player::~Player() { Positionable::~Positionable(); }
 

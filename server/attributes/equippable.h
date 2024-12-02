@@ -21,6 +21,7 @@ private:
 public:
     Equippable(){}
 
+    Equippable(const uint8_t _texture_id) : Positionable(_texture_id) {}
     explicit Equippable(const uint8_t& _texture_id, const Coordinate& _coordinate) 
         : Positionable(_texture_id, _coordinate), state(EquippableState::ALIVE), frame(0) {}
     virtual void update(GameLogic& game_logic) { (void)game_logic; }
