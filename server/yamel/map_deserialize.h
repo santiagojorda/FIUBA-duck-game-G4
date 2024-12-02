@@ -4,6 +4,7 @@
 #include <list>
 #include <utility>
 #include <vector>
+#include "../game/list_boxes.h"
 
 #include <yaml-cpp/yaml.h>
 
@@ -24,7 +25,7 @@ public:
     explicit MapDeserialize(const std::string& path);
 
     void load_floors(Map& charge_map);
-    void load_boxes(Map& charge_map);
+    void load_boxes(ListBoxes& boxes);
 
     void load_inicial_points(std::vector<Coordinate>& points);
 

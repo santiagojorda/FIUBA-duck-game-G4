@@ -71,13 +71,12 @@ void ProtocolServer::send_projectiles_state(GameState_t& state) {
 
 
 void ProtocolServer::send_boxes_state(GameState_t& state) {
-    (void)state;
-    uint8_t count_boxes = 0;
+    uint8_t count_boxes = state.map_boxes.size();
     send_byte(count_boxes);  //
-    if (count_boxes > 0) {
-        send_byte(0);                    // texture_id
-        send_coordinates(Coordinate());  // posicion del escenario
-        send_byte(0);                    // frame
+    for (Box_t box: state.map_boxes) {
+        send_byte(box.texture_id);               // texture_id
+        send_coordinates(box.coordinate);        // posicion del escenario
+        send_byte(box.frame);                    // frame
     }
 }
 

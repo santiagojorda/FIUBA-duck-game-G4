@@ -10,7 +10,7 @@
 #include "../map/map.h"
 #include "../player/list_players.h"
 #include "../../common/sleep_special.h"
-
+#include "list_boxes.h"
 #include "game_logic.h"
 #include "queue_game_state.h"
 #include "initial_values.h"
@@ -23,6 +23,7 @@ private:
     Map map;
     ListItemsMap map_items;
     ListProjectiles map_projectiles;
+    ListBoxes map_boxes;
     GameLogic game_logic;
     MonitorClients& monitor_client;
     QueueEvents& queue_events; 

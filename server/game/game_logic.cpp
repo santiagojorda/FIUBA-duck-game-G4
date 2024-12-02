@@ -7,6 +7,7 @@
 #include "../../common/state_duck.h"
 #include "../player/list_players.h"
 #include "../weapons/list_projectiles.h"
+#include "list_boxes.h"
 #include "../weapons/projectile.h"
 #include "../weapons/projectiles/bullet.h"
 #include "../weapons/gun.h"
@@ -15,11 +16,12 @@
 #define HORIZONTAL_STEP 5
 
 GameLogic::GameLogic(ListPlayers& _players, Map& _map, ListItemsMap& _items,
-                     ListProjectiles& _projectiles):
+                     ListProjectiles& _projectiles, ListBoxes& _boxes):
         players(_players),
         map(_map),
         items(_items),
         projectiles(_projectiles),
+        boxes(_boxes),
         physics(map) {}
 
 void GameLogic::update_player_equip_collision(Player& player) {

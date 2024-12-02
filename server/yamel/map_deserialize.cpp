@@ -56,15 +56,15 @@ void MapDeserialize::load_floors(Map& charge_map) {
     }
 }
 
-void MapDeserialize::load_boxes(Map& charge_map) {
+void MapDeserialize::load_boxes(ListBoxes& map_boxes) {
     int box_size = this->map[enum_string(BOX_SIZE)].as<int>();
     YAML::Node boxes = this->map[enum_string(BOXES)];
     for (const auto& box: boxes) {
-        int box_id = box[enum_string(BOX_ID)].as<int>();
+        // int box_id = box[enum_string(BOX_ID)].as<int>();
         int x = box[enum_string(COORDINATE)][enum_string(X)].as<int>();
         int y = box[enum_string(COORDINATE)][enum_string(Y)].as<int>();
 
-        charge_map.add(std::make_shared<Box>(Coordinate(x, y, box_size, box_size), box_id));
+        map_boxes.emplace_back(Coordinate(x, y, box_size, box_size));
     }
 }
 
