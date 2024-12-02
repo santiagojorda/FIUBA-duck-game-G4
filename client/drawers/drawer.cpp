@@ -64,7 +64,7 @@ void Drawer::run() try {
         load_ducks();
         // load_boxes();
         // load_bullets();
-        // load_weapons();
+        load_weapons();
 
         SDL_SetRenderTarget(this->renderer.Get(), nullptr);
 
@@ -107,7 +107,6 @@ void Drawer::load_ducks() {
 }
 
 void Drawer::load_floor() {
-    // Draw Floor
     if (drawers.floors.size() != actual_game_state.floors.size()) {
         drawers.floors.resize(actual_game_state.floors.size());
 
@@ -127,21 +126,22 @@ void Drawer::load_floor() {
 }
 
 void Drawer::load_weapons() {
-    if (drawers.weapons.size() != actual_game_state.weapons.size()) {
-        for (auto& weapon: drawers.weapons) {
-            delete weapon;
-        }
-        drawers.weapons.clear();
-        drawers.weapons.resize(actual_game_state.weapons.size());
+    if (drawers.weapons.empty() && actual_game_state.weapons.empty()) {
+        return;
+    }
 
-        for (size_t i = 0; i < actual_game_state.weapons.size(); ++i) {
-            if (!drawers.weapons[i]) {
-                auto weapon = actual_game_state.weapons[i];
-                DrawerWeapon* drawer_weapon = new DrawerWeapon(
-                        this->renderer, weapon.sprite.id_texture, animations.animation_weapon);
-                drawers.weapons[i] = drawer_weapon;
-            }
-        }
+    for (auto& weapon: drawers.weapons) {
+        delete weapon;
+    }
+
+    drawers.weapons.clear();
+    drawers.weapons.resize(actual_game_state.weapons.size());
+
+    for (size_t i = 0; i < actual_game_state.weapons.size(); ++i) {
+        auto weapon = actual_game_state.weapons[i];
+        DrawerWeapon* drawer_weapon = new DrawerWeapon(this->renderer, weapon.sprite.id_texture,
+                                                       animations.animation_weapon);
+        drawers.weapons[i] = drawer_weapon;
     }
 
     for (size_t i = 0; i < actual_game_state.weapons.size(); ++i) {
@@ -151,7 +151,6 @@ void Drawer::load_weapons() {
 }
 
 void Drawer::load_boxes() {
-    // Draw Box
     if (drawers.boxes.size() != actual_game_state.boxs.size()) {
         drawers.boxes.resize(actual_game_state.boxs.size());
         for (size_t i = 0; i < actual_game_state.boxs.size(); ++i) {
@@ -159,7 +158,6 @@ void Drawer::load_boxes() {
                 auto box = actual_game_state.boxs[i];
                 DrawerBox* drawer_box = new DrawerBox(this->renderer, box);
                 drawers.boxes[i] = drawer_box;
-                // drawers.boxes[i] = std::make_unique<DrawerBox>(renderer, box);
             }
         }
     }
@@ -171,7 +169,6 @@ void Drawer::load_boxes() {
 }
 
 void Drawer::load_bullets() {
-    // Draw Bullet
     if (drawers.bullets.size() != actual_game_state.bullets.size()) {
         drawers.bullets.resize(actual_game_state.bullets.size());
         for (size_t i = 0; i < actual_game_state.bullets.size(); ++i) {
@@ -198,18 +195,18 @@ void Drawer::clean_elements() {
     for (size_t i = 0; i < actual_game_state.floors.size(); i++) {
         delete drawers.floors[i];
     }
-    /*
+
     for (size_t i = 0; i < actual_game_state.weapons.size(); i++) {
         delete drawers.weapons[i];
     }
+    /*
+        for (size_t i = 0; i < actual_game_state.boxs.size(); i++) {
+            delete drawers.boxes[i];
+        }
 
-    for (size_t i = 0; i < actual_game_state.boxs.size(); i++) {
-        delete drawers.boxes[i];
-    }
-
-    for (size_t i = 0; i < actual_game_state.bullets.size(); i++) {
-        delete drawers.bullets[i];
-    }*/
+        for (size_t i = 0; i < actual_game_state.bullets.size(); i++) {
+            delete drawers.bullets[i];
+        }*/
 }
 
 void Drawer::init_scenery(const client_game_state_t& actual_game_state) {
