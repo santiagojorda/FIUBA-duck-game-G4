@@ -9,6 +9,10 @@ granate:
       y: 21
       w: 15
       h: 15
+    - x: 16
+      y: 21
+      w: 15
+      h: 15
   offset_right_x: 13
   offset_left_x: 5
   offset_y: 6
@@ -20,6 +24,10 @@ banana:
   rects:
     - x: 1
       y: 51
+      w: 16
+      h: 16
+    - x: 1
+      y: 67
       w: 16
       h: 16
     - x: 1
