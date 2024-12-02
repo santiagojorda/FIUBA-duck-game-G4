@@ -5,7 +5,6 @@
 #include "../../common/sleep_special.h"
 #include "../events/event.h"
 #include "../weapons/gun_factory.h"
-#include "../map/box_factory.h"
 #include "../map/ground.h"
 #include "../map/box.h"
 #include "../player/player.h"
@@ -63,6 +62,7 @@ void Game::load_map(const std::string& path_map) {
         deserialize.load_inicial_points(this->inicial_values.points);
         deserialize.load_weapons(this->inicial_values.data_weapons);
         charge_ponits(this->players, this->inicial_values.points);
+        charge_weapons(this->map_items, this->inicial_values.data_weapons);
     } catch (const std::exception& e) {
         std::cerr << "error map.yaml: " << e.what() << '\n';
     } catch (...) {
@@ -104,7 +104,7 @@ GameState_t Game::get_gamestate() {
     }
 
     for(Box& box : map_boxes){
-        map_boxes_copy.push_back({box.get_texture_id(), box.get_coordinate(), 0});
+        map_boxes_copy.push_back({box.get_texture_id(), box.get_coordinate(), box.get_state()});
     }
 
     return GameState_t{this->moment, players, map, map_items_copy, map_projectiles_copy, map_boxes_copy, this->round_manager.get_statistics()}; 

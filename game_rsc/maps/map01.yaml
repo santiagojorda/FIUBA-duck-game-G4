@@ -196,7 +196,7 @@ tiles:
     x: 224
     y: 80
 
-box_size: 32
+box_size: 16
 boxes:
 - box_id: 0
   coordinate:

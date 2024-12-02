@@ -140,6 +140,13 @@ void GameLogic::move(Player& player, int x, int y){
 // }
 
 void GameLogic::update_weapons(){
+    items.erase(
+        std::remove_if(items.begin(), items.end(),
+                       [](const std::shared_ptr<Equippable>& item) {
+                           return item->is_dead(); 
+                       }),
+        items.end());
+
     for (std::shared_ptr<Equippable> item: items) {
         // apply_weapons_gravity();
         item->update(*this);
