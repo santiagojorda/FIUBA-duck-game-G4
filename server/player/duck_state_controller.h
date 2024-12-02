@@ -31,14 +31,14 @@ public:
     void reset();
     void update(Player& player, GameLogic& game_logic);
 
-    void run(Direction direction, Player& player, GameLogic& game_logic);
+    void run(Direction new_direction, Player& player, GameLogic& game_logic);
     void run_right(Player& player, GameLogic& game_logic);
     void run_left(Player& player, GameLogic& game_logic);
     void jump();
     void fall();
     void crouch();
     void slip();
-    void recoil();
+    void recoil(Player& player, GameLogic& game_logic);
     void plane(Player& player, GameLogic& game_logic);
     void die();
     void idle();

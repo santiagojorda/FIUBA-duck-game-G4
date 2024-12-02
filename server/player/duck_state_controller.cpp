@@ -37,14 +37,14 @@ void DuckStateController::execute(Player& player, GameLogic& game_logic) {
 }
 
 
-void DuckStateController::run(Direction direction, Player& player, GameLogic& game_logic) {
+void DuckStateController::run(Direction new_direction, Player& player, GameLogic& game_logic) {
     if(!is_alive() || is_crouching() || is_slipping() || is_recoiling()){
         return;
     }
 
     if(is_falling() || is_jumping() || is_planning()){ 
-        set_direction(direction);
-        game_logic.move_horizontal(player, direction);
+        set_direction(new_direction);
+        game_logic.move_horizontal(player, new_direction);
         return;
     }
 
@@ -52,7 +52,7 @@ void DuckStateController::run(Direction direction, Player& player, GameLogic& ga
         set_state(DuckStateType::RUNNING);
     }
 
-    set_direction(direction);
+    set_direction(new_direction);
     execute(player, game_logic);
     
 }
@@ -88,8 +88,17 @@ void DuckStateController::crouch() {
 void DuckStateController::slip() {
     set_alive_state(DuckStateType::SLIPPING);
 }
-void DuckStateController::recoil() {
+void DuckStateController::recoil(Player& player, GameLogic& game_logic) {
+    if(!is_alive() || is_crouching() || is_slipping() || is_recoiling()){
+        return;
+    }
+
+    std::shared_ptr<State<DuckStateType>> prev_state = current_state; 
     set_alive_state(DuckStateType::RECOILING);
+    execute(player, game_logic);
+    if(is_falling() || is_jumping() || is_planning()){ 
+        current_state = prev_state;
+    }
 }
 void DuckStateController::plane(Player& player, GameLogic& game_logic) {
     if(is_alive() && !is_touching_floor()){

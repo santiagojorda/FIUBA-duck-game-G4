@@ -32,7 +32,7 @@ public:
     void adjust_position_to_floor(std::shared_ptr<Positionable> floor);
     void translate_x(int pasos) override;
     void translate_y(int pasos) override;
-    void move_back(ShootingRecoil recoil, GameLogic& game_logic);
+    void recoil(GameLogic& game_logic);
 
     std::shared_ptr<Gun> get_gun();
     std::shared_ptr<Armor> get_armor();
@@ -53,7 +53,6 @@ public:
     void fall(GameLogic& game_logic) override;
     void crouch();
     void slip();
-    void recoil();
     // void plane(GameLogic& game_logic);
     void die(GameLogic& game_logi);
     void idle();

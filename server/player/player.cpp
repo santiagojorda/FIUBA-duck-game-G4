@@ -30,7 +30,6 @@ void Player::fall(GameLogic& game_logic) {
 }
 void Player::crouch() { state.crouch(); }
 void Player::slip() { state.slip(); }
-void Player::recoil() { state.recoil(); }
 // void Player::plane(GameLogic& game_logic) { state.plane(*this, game_logic); }
 void Player::idle() { state.idle(); }
 void Player::die(GameLogic& game_logic) {
@@ -122,18 +121,9 @@ Player& Player::operator=(const Player& _other) {
     return *this;
 }
 
-void Player::move_back(ShootingRecoil recoil, GameLogic& game_logic) { 
-    // state.recoil();
-    int coef;
-    if(get_direction() == Direction::LEFT){
-        coef = 1;
-    }
-    else{
-        coef = -1;
-    }
-    game_logic.move(*this, coef*(int)recoil,0);
+void Player::recoil(GameLogic& game_logic) { 
+    state.recoil(*this, game_logic);
 }
-
 bool Player::is_jumping() { return state.is_jumping(); }
 bool Player::is_running() { return state.is_running(); }
 bool Player::is_falling() { return state.is_falling(); }
@@ -162,7 +152,7 @@ void Player::shoot(GameLogic& game_logic, const ModeShoot& mode) {
     }
     update_gun_position();
     bool is_dropped = false;
-    ShootingRecoil recoil = gun->get_recoil();
+    ShootingRecoil recoil_rate = gun->get_recoil();
     switch (mode)  {
         case ModeShoot::TRIGGER:
             gun->trigger(game_logic.get_projectiles(), id);
@@ -176,7 +166,7 @@ void Player::shoot(GameLogic& game_logic, const ModeShoot& mode) {
     if (is_dropped){
         drop_gun(game_logic);
     }
-    if ((int)recoil > 0) {  // is there recoil? yes -> it could be a function
-        move_back(recoil, game_logic);
+    if ((int)recoil_rate > 0) {  // is there recoil? yes -> it could be a function
+        recoil(game_logic);
     }
 }
