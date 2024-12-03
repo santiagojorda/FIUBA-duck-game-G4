@@ -11,9 +11,10 @@ public:
 
     void trigger_out(ListProjectiles& projectiles, const uint8_t& player_id,
                      bool& was_dropped) override;
-    using Positionable::handle_collision;
-    void handle_collision(Player& player, GameLogic& game_logic) override;
 
+    // void on_collision_with(Collidable& other, GameLogic& game_logic) override;
+
+    // void on_collision_with(Player& player, GameLogic& game_logic);
     ~Banana();
 };
 

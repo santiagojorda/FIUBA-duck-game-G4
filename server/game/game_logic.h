@@ -42,7 +42,7 @@ public:
     void update();
     void add_projectile(std::shared_ptr<Projectile> new_projectile);
 
-    void explote(std::shared_ptr<Gun> gun);
+    void explote(Gun& gun);
     ListProjectiles& get_projectiles();
     GamePhysics& get_physics();
     void handle_drop(std::shared_ptr<Equippable> item);

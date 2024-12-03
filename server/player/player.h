@@ -6,6 +6,7 @@
 #include "../../common/direction.h"
 #include "../attributes/equippable.h"
 #include "../attributes/positionable.h"
+#include "../attributes/collidable.h"
 #include "../game/game_logic.h"
 #include "inventory.h"
 #include "../weapons/gun.h"
@@ -15,8 +16,10 @@
 
 class GameLogic;
 class ListProjectiles;
+class Ground;
+class Projectile;
 
-class Player: public Positionable {
+class Player: public Positionable, public Collidable, public std::enable_shared_from_this<Player>{
 private:
     // cppcheck-suppress unusedStructMember
     uint8_t health;  // te lo dejo para ir pensado en la vida
@@ -75,6 +78,14 @@ public:
     bool has_equipped_this(std::shared_ptr<Equippable> item);
     DuckStateType get_state();
     uint8_t get_frame();
+    using Collidable::on_collision_with;
+    void on_collision_with(std::shared_ptr<Equippable> item, GameLogic& game_logic) override;
+    // void on_collision_with(Gun& gun, GameLogic& game_logic);
+
+    // void on_collision_with(Ground& ground, GameLogic& game_logic);
+    // void on_collision_with(Projectile& projectile, GameLogic& game_logic);
+    void handle_collision(std::shared_ptr<Collidable> other, GameLogic& game_logic) override;
+
 
     void take_damage(GameLogic& game_logic);
 

@@ -34,7 +34,7 @@ struct  gun_config{
 };
 
 
-class Gun: public Equippable, public Directionable, public std::enable_shared_from_this<Gun> {
+class Gun: public Equippable, public Directionable{
 protected:
     // cppcheck-suppress unusedStructMember
     uint8_t max_ammo;
@@ -60,8 +60,6 @@ public:
     virtual void trigger_out(ListProjectiles& projectiles, const uint8_t& player_id, bool& was_dropped);
 
     void handle_equip(Inventory& inventory) override;
-
-    std::shared_ptr<Gun> get_shared_ptr() { return shared_from_this(); }
 
     uint8_t get_ammo();
 

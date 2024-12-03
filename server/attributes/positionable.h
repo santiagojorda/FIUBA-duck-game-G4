@@ -6,7 +6,6 @@
 #include "../../common/rectangle.h"
 class GameLogic;
 class Bullet;
-class Player;
 class Box;
 class Equippable;
 class Projectile;
@@ -40,9 +39,9 @@ public:
     uint8_t get_id() const;
     uint8_t get_texture_id() const;
 
-    virtual void handle_collision(Projectile& projectile, GameLogic& game_logic);
-    virtual void handle_collision(Player& player, GameLogic& game_logic);
-    virtual void handle_collision(Box& box, GameLogic& game_logic);
+    // virtual void handle_collision(Projectile& projectile, GameLogic& game_logic);
+    // virtual void handle_collision(Player& player, GameLogic& game_logic);
+    // virtual void handle_collision(Box& box, GameLogic& game_logic);
 
 
 

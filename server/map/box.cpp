@@ -10,16 +10,21 @@ Box::Box(const Coordinate& _coordinate)
         state(GroundState::CLOSE)
     {}
 
+// void Box::handle_collision(Collidable& other, GameLogic& game_logic) {  
+//     other.on_collision_with(*this, game_logic); 
+// }
 
-void Box::handle_collision(Projectile& projectile,GameLogic& game_logic) {
-    (void)projectile;
-    (void)game_logic;
-    open();
+// void Box::on_collision_with(Collidable& other, GameLogic& game_logic) { 
+//     std::cout << "Collision box con projectile" << std::endl;
+//     other.on_collision_with(*this, game_logic); 
 
-    // decidir por un equipable
-    // game_logic.handle_drop();
-}
+// }
 
+// void Box::on_collision_with(Projectile& projectile, GameLogic& game_logic) { 
+//     std::cout << "Collision box con projectile" << std::endl;
+//     (void)projectile; 
+//     (void)game_logic;
+// }
 void Box::reset() { state = GroundState::CLOSE; }
 bool Box::is_open() { return state == GroundState::OPEN; }
 void Box::open() { state = GroundState::OPEN; }

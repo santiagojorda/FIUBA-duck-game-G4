@@ -23,7 +23,7 @@ void Granade::update(GameLogic& game_logic) {
     }
     tick++;
     if (tick % TICK_FOR_EXPLOTION == 0) {
-        game_logic.explote(shared_from_this());
+        game_logic.explote(*this);
         tick = 0;
     }
 }

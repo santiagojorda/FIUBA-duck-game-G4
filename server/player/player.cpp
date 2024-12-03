@@ -6,6 +6,7 @@
 #include "../game/game_logic.h"
 #include "../weapons/list_projectiles.h"
 #include "../equipment/armor.h"
+#include "../attributes/equippable.h"
 #define SIZE_PLAYER 32
 
 const int SPEED = 1;
@@ -102,6 +103,42 @@ void Player::adjust_position_to_floor(std::shared_ptr<Positionable> floor) {
 }
 
 bool Player::is_dead_animation_finished() const { return state.is_dead_animation_finished(); }
+
+
+void Player::handle_collision(std::shared_ptr<Collidable> other, GameLogic& game_logic){
+    std::cout << "handle_sollision player" << std::endl;
+    other->on_collision_with(*this, game_logic);    
+};
+
+
+void Player::on_collision_with(std::shared_ptr<Equippable> item, GameLogic& game_logic) { 
+    std::cout << "Collision Player con item" << std::endl;
+    
+    equip(item);
+    
+    (void)item;
+    (void)game_logic;
+}
+
+// void Player::on_collision_with(Gun& gun, GameLogic& game_logic) { 
+//     std::cout << "Collision Player con item" << std::endl;
+    
+//     // equip(std::make_shared<Equippable>(item));
+//     (void)gun;
+//     (void)game_logic;
+// }
+
+// void Player::on_collision_with(Projectile& projectile, GameLogic& game_logic) { 
+//     std::cout << "Collision Player con projectile" << std::endl;
+//     (void)projectile; 
+//     (void)game_logic;
+// }
+// void Player::on_collision_with(Ground& ground, GameLogic& game_logic) { 
+//     std::cout << "Collision Player con ground" << std::endl;
+//     (void)ground; 
+//     (void)game_logic;
+// }
+
 
 
 

@@ -27,15 +27,11 @@ GameLogic::GameLogic(ListPlayers& _players, Map& _map, ListItemsMap& _items,
 void GameLogic::update_player_equip_collision(Player& player) {
     for (std::shared_ptr<Equippable> item: items) {
         if (this->physics.exist_collision(player.get_rectangle(), item->get_rectangle())) {
-            player.equip(item);
-            // aca resuelvo el handle de banana
-            items.erase(
-                std::remove_if(items.begin(), items.end(),
-                    [&player](const std::shared_ptr<Equippable>& item) {
-                        return player.has_equipped_this(item);
-                    }), 
-                items.end());
+
+            player.handle_collision(item, *this);
+
             return;
+
         }
     }
 }
@@ -70,18 +66,18 @@ void GameLogic::update_projectiles(){
         projectiles.end());
     
     for (std::shared_ptr<Projectile> projectile: projectiles){
-        std::shared_ptr<Positionable> touched_floor = physics.get_target_floor_collision(*projectile);
-        if(touched_floor){
-            projectile->collision_surface(*touched_floor, (*this));
-        }
+        // std::shared_ptr<Positionable> touched_floor = physics.get_target_floor_collision(*projectile);
+        // if(touched_floor){
+        //     projectile->collision_surface(*touched_floor, (*this));
+        // }
 
-        std::shared_ptr<Box> touched_box = physics.get_target_box_collision(*projectile);
-        if(touched_box){
-            touched_box->handle_collision(*projectile, (*this));
-            if(!touched_box->is_open()){
-                projectile->die();
-            }
-        }
+        // std::shared_ptr<Box> touched_box = physics.get_target_box_collision(*projectile);
+        // if(touched_box){
+        //     touched_box->handle_collision(*projectile, (*this));
+        //     if(!touched_box->is_open()){
+        //         projectile->die();
+        //     }
+        // }
 
 
         projectile->update(*this);
@@ -98,7 +94,7 @@ void GameLogic::move(std::shared_ptr<Projectile> projectile, int x, int y){
         }
 
         if (physics.exist_collision(player.get_rectangle(), projectile->get_rectangle())){
-            projectile->handle_collision(player, *this);
+            // projectile->handle_collision(player, *this);
             projectile->die();
             return;
         }
@@ -127,10 +123,7 @@ void GameLogic::move_horizontal(Player& player, Direction& direction){
 
 
 bool GameLogic::can_move(Player& player, int x, int y){
-    Coordinate point = Coordinate(
-        player.get_coordinate().get_x() + x,
-        player.get_coordinate().get_y() + y,
-        0, 0);
+    Coordinate point = player.get_coordinate() + Coordinate(x,y,0, 0);
     if(physics.is_this_point_ocuppied(point)){
         return false;
     }
@@ -176,8 +169,8 @@ void GameLogic::add_projectile(std::shared_ptr<Projectile> new_projectile){
     projectiles.push_back(new_projectile);
 }
 
-void GameLogic::explote(std::shared_ptr<Gun> gun){ 
-    gun->handle_explotion(*this); 
+void GameLogic::explote(Gun& gun){ 
+    gun.handle_explotion(*this); 
     
 }
 

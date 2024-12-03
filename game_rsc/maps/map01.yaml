@@ -219,41 +219,9 @@ helmet:
 
 weapon_size: 16
 weapons:
-  - id: 1
-    coordinate:
-      x: 80
-      y: 250
-  - id: 2
-    coordinate:
-      x: 100
-      y: 250
-  - id: 4
-    coordinate:
-      x: 132
-      y: 250
   - id: 5
     coordinate:
       x: 164
-      y: 250
-  - id: 6
-    coordinate:
-      x: 196
-      y: 250
-  - id: 7
-    coordinate:
-      x: 228
-      y: 250
-  - id: 8
-    coordinate:
-      x: 260
-      y: 250
-  - id: 9
-    coordinate:
-      x: 292
-      y: 250
-  - id: 10
-    coordinate:
-      x: 324
       y: 250
 
 player_size: 32

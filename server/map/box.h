@@ -4,6 +4,7 @@
 #include <cstdint>
 #include "../../common/boxes_id.h"
 #include "../attributes/positionable.h"
+#include "../attributes/collidable.h"
 
 class Projectile;
 class GameLogic;
@@ -19,8 +20,10 @@ private:
 public:
     explicit Box(const Coordinate& _coordinate);
     
-    using Positionable::handle_collision;
-    void handle_collision(Projectile& projectile,GameLogic& game_logic) override;
+    // void handle_collision(Collidable& other, GameLogic& game_logic) override;
+    // void on_collision_with(Collidable& other, GameLogic& game_logic) override;
+    // void on_collision_with(Projectile& projectile, GameLogic& game_logic);
+
     bool is_open();
     void open();
     void reset();
