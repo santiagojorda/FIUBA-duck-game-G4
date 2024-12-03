@@ -44,9 +44,9 @@ void Server::close(){
 
 Server::~Server() {
     this->close();
-    this->skt.shutdown(2);
     this->skt.close();
     this->queue.close();
     this->acceptor_lobby.stop();
     this->acceptor_lobby.join();
+    this->controler.join();
 }

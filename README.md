@@ -1,6 +1,6 @@
-> Hola! 👋🏼 El trabajo aun no esta finalizado, seguimos en desarrollo! 💪🏼☕ - 19/11 
+> Hola! 👋🏼 El trabajo aun no esta finalizado, seguimos en desarrollo! 💪🏼☕ - 03/12
 
-> autores name - name - Felipe D'alto
+> autores: Santiago  - Alexia - Felipe D'alto
 
 # Cómo compilar y ejecutar 
 
@@ -62,7 +62,7 @@ Se requieren dos terminales
 
 Para el server en la primera:
 ```bash
- ./taller_server
+ ./taller_server <servername>
 ````
 
 Para el cliente en la segunda 
@@ -91,12 +91,15 @@ controles player 1:
 - saltar -> key up 
 - moverse a la derecha -> key up 
 - moverse a la izquierda -> key up 
+- agacharse  -> key dow 
+- soltar arma -> e
 - disparar -> space 
 
 controles player 2:
 - saltar -> w
 - moverse a la derecha -> d
 - moverse a la izquierda -> a
-- disparar -> space 
+- soltar arma -> e
+- disparar -> x 
 
 
