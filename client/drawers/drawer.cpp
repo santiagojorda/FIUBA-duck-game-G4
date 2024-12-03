@@ -1,6 +1,8 @@
 #include "drawer.h"
 
+
 #include "../../common/sleep_special.h"
+#include "drawer_text.h"
 
 using namespace SDL2pp;
 
@@ -17,10 +19,9 @@ Drawer::Drawer(Queue<ClientEvent_t>& commands, Queue<client_game_state_t>& game_
 
 void Drawer::run() try {
     SDL sdl(SDL_INIT_VIDEO);
-
     Texture main_texture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WINDOW_WIDTH,
                          WINDOW_HEIGHT);
-
+    DrawerText drewer_text;
     main_texture.SetBlendMode(SDL_BLENDMODE_BLEND);
 
     Texture background(renderer, DATA_PATH "/background.png");
@@ -32,13 +33,6 @@ void Drawer::run() try {
     //  Cargar resources, incluir musica
     load_resources();
     static std::map<std::string, Animation> empty_animations;
-
-    // desde el LOBBY ya le di a startear game, por lo tanto no necesito darle a la "m", de entrada
-    // recibo la data lo traigo para acá así no hay drama
-
-    // Socket skt("localhost", "8080");
-    // ClientProtocol protocol(skt);
-    // protocol.send_init(0xFF);
 
     // ---------------------------- Iniciar partida primer escenario ----------------------------
     // Mientras no reciba un primer escenario, queda en el ciclo
@@ -73,6 +67,14 @@ void Drawer::run() try {
             zoom_handler.apply_zoom(this->renderer, main_texture);
         }
 
+
+
+        if( actual_game_state.moment == GameMoment::DISPLAY_INFO){
+            drewer_text.draw(renderer, "WINER");
+        }
+        if( actual_game_state.moment == GameMoment::FINISHED){
+            drewer_text.draw(renderer, "GAME END");
+        }
         this->renderer.Present();
 
         sleep.sleep_rate(iteration);

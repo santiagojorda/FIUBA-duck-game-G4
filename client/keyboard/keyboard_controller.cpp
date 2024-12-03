@@ -38,19 +38,19 @@ void KeyboardController::procesar_comando(SDL_Event& event) {
 void KeyboardController::procesar_keyup_player_1(SDL_Event& event) {
     ClientEvent_t client_event;
     switch (event.key.keysym.sym) {
-        case SDLK_RIGHT:
+        case SDLK_d:
             client_event = {PLAYER_1, ActionEvent::IDLE};
             this->commands.push(client_event);
             break;
-        case SDLK_LEFT:
+        case SDLK_a:
             client_event = {PLAYER_1, ActionEvent::IDLE};
             this->commands.push(client_event);
             break;
-        case SDLK_SPACE:
+        case SDLK_e:
             client_event = {PLAYER_1, ActionEvent::TRIGGER_OUT};
             this->commands.push(client_event);
             break;
-        case SDLK_DOWN:
+        case SDLK_s:
             client_event = {PLAYER_1, ActionEvent::IDLE};
             this->commands.push(client_event);
             break;
@@ -60,15 +60,15 @@ void KeyboardController::procesar_keyup_player_1(SDL_Event& event) {
 void KeyboardController::procesar_keyup_player_2(SDL_Event& event) {
     ClientEvent_t client_event;
     switch (event.key.keysym.sym) {
-        case SDLK_a:
+        case SDLK_j:
             client_event = {PLAYER_2, ActionEvent::IDLE};
             this->commands.push(client_event);
             break;
-        case SDLK_d:
+        case SDLK_l:
             client_event = {PLAYER_2, ActionEvent::IDLE};
             this->commands.push(client_event);
             break;
-        case SDLK_x:
+        case SDLK_o:
             client_event = {PLAYER_2, ActionEvent::TRIGGER_OUT};
             this->commands.push(client_event);
         break;
@@ -99,30 +99,30 @@ void KeyboardController::procesar_keydown(SDL_Event& event) {
 void KeyboardController::procesar_accion_player_1(const Uint8* state) {
     ClientEvent_t client_event;
 
-    if (state[SDL_SCANCODE_RIGHT]) {
+    if (state[SDL_SCANCODE_D]) {
         client_event = {PLAYER_1, ActionEvent::MOVE_RIGHT};
         this->commands.push(client_event);
     }
-    if (state[SDL_SCANCODE_LEFT]) {
+    if (state[SDL_SCANCODE_A]) {
         client_event = {PLAYER_1, ActionEvent::MOVE_LEFT};
         this->commands.push(client_event);
     }
-    if (state[SDL_SCANCODE_UP]) {
+    if (state[SDL_SCANCODE_W]) {
         client_event = {PLAYER_1, ActionEvent::JUMP};
         this->commands.push(client_event);
     }
-    if (state[SDL_SCANCODE_SPACE]) {
+    if (state[SDL_SCANCODE_E]) {
         client_event = {PLAYER_1, ActionEvent::TRIGGER};
         this->commands.push(client_event);
     }
-    if (state[SDL_SCANCODE_E]) {
+    if (state[SDL_SCANCODE_R]) {
         client_event = {PLAYER_1, ActionEvent::DROP_GUN};
         this->commands.push(client_event);
     }
     if (state[SDL_SCANCODE_F]) {
         std::cout << "Apuntando hacia arriba" << std::endl;
     }
-    if (state[SDL_SCANCODE_DOWN]) {
+    if (state[SDL_SCANCODE_S]) {
         client_event = {PLAYER_1, ActionEvent::CROUCH};
         this->commands.push(client_event);
     }
@@ -131,24 +131,28 @@ void KeyboardController::procesar_accion_player_1(const Uint8* state) {
 void KeyboardController::procesar_accion_player_2(const Uint8* state) {
     ClientEvent_t client_event;
 
-    if (state[SDL_SCANCODE_D]) {
+    if (state[SDL_SCANCODE_L]) {
         client_event = {PLAYER_2, ActionEvent::MOVE_RIGHT};
         this->commands.push(client_event);
     }
-    if (state[SDL_SCANCODE_A]) {
+    if (state[SDL_SCANCODE_J]) {
         client_event = {PLAYER_2, ActionEvent::MOVE_LEFT};
         this->commands.push(client_event);
     }
-    if (state[SDL_SCANCODE_W]) {
+    if (state[SDL_SCANCODE_I]) {
         client_event = {PLAYER_2, ActionEvent::JUMP};
         this->commands.push(client_event);
     }
-    if (state[SDL_SCANCODE_S]) {
+    if (state[SDL_SCANCODE_K]) {
         client_event = {PLAYER_2, ActionEvent::CROUCH};
         this->commands.push(client_event);
     }
-    if (state[SDL_SCANCODE_X]) {
+    if (state[SDL_SCANCODE_O]) {
         client_event = {PLAYER_2, ActionEvent::TRIGGER};
+        this->commands.push(client_event);
+    }
+    if (state[SDL_SCANCODE_U]) {
+        client_event = {PLAYER_2, ActionEvent::DROP_GUN};
         this->commands.push(client_event);
     }
 }

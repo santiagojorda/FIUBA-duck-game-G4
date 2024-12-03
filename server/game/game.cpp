@@ -134,9 +134,9 @@ GameState_t Game::get_gamestate() {
 }
 
 void Game::display_info(SleepSpecial& sleep){
-    this->round_manager.log_state(std::cout, this->get_gamestate());
-
     this->moment = GameMoment::DISPLAY_INFO;
+    this->round_manager.log_state(std::cout, this->get_gamestate());
+    broadcast_gamestate();
     sleep.sleep(SECONDS_FINISH_GAME * MILISECONDS_FOR_SECONDS);
     this->reset_values();
     this->round_manager.log_state(std::cout, this->get_gamestate());
