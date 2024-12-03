@@ -9,14 +9,18 @@
 #include "../game/game_logic.h"
 #include "inventory.h"
 #include "../weapons/gun.h"
+#include "../attributes/collidable.h"
+
 // #include "duck_state_controller.h"3
 #include "duck_state_controller.h"
 #include "../weapons/mode_shoot.h"
 
 class GameLogic;
 class ListProjectiles;
+class Ground;
+class Projectile;
 
-class Player: public Positionable {
+class Player: public Positionable, public Collidable {
 private:
     // cppcheck-suppress unusedStructMember
     uint8_t health;  // te lo dejo para ir pensado en la vida
@@ -33,7 +37,7 @@ public:
     void translate_x(int pasos) override;
     void translate_y(int pasos) override;
     void recoil(GameLogic& game_logic);
-
+    Coordinate get_coordinates_collisionables();
     std::shared_ptr<Gun> get_gun();
     std::shared_ptr<Armor> get_armor();
     std::shared_ptr<Helmet> get_helmet();
@@ -50,12 +54,18 @@ public:
     void run_right(GameLogic& game_logic);
     void run_left(GameLogic& game_logic);
     void jump();
+    bool is_slipping();
     void fall(GameLogic& game_logic) override;
     void crouch();
     void slip();
     // void plane(GameLogic& game_logic);
     void die(GameLogic& game_logi);
     void idle();
+
+    using Collidable::on_collision_with;
+    void on_collision_with(std::shared_ptr<Equippable> item, GameLogic& game_logic) override;
+    void handle_collision(std::shared_ptr<Collidable> other, GameLogic& game_logic) override;
+
 
     void drop_gun(GameLogic& game_logic);
     void drop_armor();

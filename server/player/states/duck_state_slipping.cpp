@@ -1,8 +1,10 @@
 #include "duck_state_slipping.h"
 #include "../player.h"
 
-#define SLIP_STEP 8
-#define SLIP_TICKS_PER_FRAME 2
+#include <iostream>
+
+#define SLIP_STEP 3
+#define SLIP_TICKS_PER_FRAME 10
 
 struct SlippingStateConfig {
     DuckStateType id = DuckStateType::SLIPPING;
@@ -17,7 +19,7 @@ DuckStateSlipping::DuckStateSlipping(const uint8_t& _player_id):
 void DuckStateSlipping::update_state(Player& player, GameLogic& game_logic) {
     tick++;
     if(tick % SLIP_TICKS_PER_FRAME == 0){
-        frame++;
+        increment_frame();
     }
     int coef;
     if(player.get_direction() == Direction::LEFT){
@@ -27,9 +29,6 @@ void DuckStateSlipping::update_state(Player& player, GameLogic& game_logic) {
         coef = 1;
     }
 
-    if(has_reached_max_frames()){
-        player.idle();
-    }
     game_logic.move(player, coef*SLIP_STEP ,0);
 
 

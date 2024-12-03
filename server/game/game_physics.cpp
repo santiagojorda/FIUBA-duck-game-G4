@@ -4,7 +4,7 @@
 #include "../player/player.h"
 #include "../map/map.h"
 #include "list_boxes.h"
-
+#include "../map/ground.h"
 #define PHYSIC_TILE_SIZE 16
 
 GamePhysics::GamePhysics(Map& _map, ListBoxes& _boxes): map(_map), boxes(_boxes) {}
@@ -31,7 +31,7 @@ void GamePhysics::falling(Positionable& target, uint iter_frame) {
 std::shared_ptr<Positionable> GamePhysics::get_target_floor_collision(Positionable& target) {
     for (auto& tile: this->map) {
         if (this->exist_collision(target.get_rectangle(), tile->get_rectangle())) {
-            return tile;
+            return std::shared_ptr<Positionable>(tile);
         }
     }
     return nullptr;

@@ -58,16 +58,8 @@ void Bullet::update(GameLogic& game_logic) {
         int y = static_cast<int>(std::round(new_y));
 
         // std::cout << "new bullet position: " << space.get_coordinates() << std::endl;
-        game_logic.move(shared_from_this(), x, y);
+        game_logic.move(std::dynamic_pointer_cast<Projectile>(shared_from_this()), x, y);
     }
 }
-
-void Bullet::handle_collision(Player& player, GameLogic& game_logic) {
-    if (shooter_id != player.get_id()) {
-        player.die(game_logic);
-        die();
-    }
-}
-
 
 

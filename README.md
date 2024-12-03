@@ -1,7 +1,10 @@
 > Hola! 👋🏼 El trabajo aun no esta finalizado, seguimos en desarrollo! 💪🏼☕ - 03/12
 
-> autores: Santiago  - Alexia - Felipe D'alto
-
+> autores: 
+>  - Santiago Jorda (102924)
+>  - Alexia Aroa (110014) 
+>  - Felipe D'alto (110000)
+ 
 # Cómo compilar y ejecutar 
 
 ## Introducción

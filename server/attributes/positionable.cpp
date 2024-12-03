@@ -30,21 +30,6 @@ void Positionable::translate_y(int steps) {
     this->space = new_pos;
 }
 
-
-void Positionable::handle_collision(Projectile& projectile, GameLogic& game_logic){
-    (void)projectile;
-    (void)game_logic;
-}
-
-void Positionable::handle_collision(Player& player, GameLogic& game_logic){
-    (void)player;
-    (void)game_logic;
-}
-void Positionable::handle_collision(Box& box, GameLogic& game_logic){
-    (void)box;
-    (void)game_logic;
-}
-
 void Positionable::fall(GameLogic& game_logic) { (void)game_logic;}
 
 Rectangle Positionable::get_rectangle() const { return this->space; }

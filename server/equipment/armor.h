@@ -10,7 +10,7 @@ public:
     Armor(const Coordinate& _coordinate) : Equippable((uint8_t)WeaponTextureID::ARMOR, _coordinate) {}
 
     void handle_equip(Inventory& inventory) override { inventory.equip(std::shared_ptr<Armor>(this)); }
-    std::shared_ptr<Equippable> clone() const override {
+    std::shared_ptr<Equippable> clone() const {
             return std::make_shared<Armor>(*this); 
     }
 };
