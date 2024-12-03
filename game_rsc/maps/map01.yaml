@@ -4,27 +4,27 @@ tiles:
   tile_id: 32
   coordinate:
     x: 90
-    y: 200
+    y: 300
 - map_id: 1
   tile_id: 37
   coordinate:
     x: 106
-    y: 200
+    y: 300
 - map_id: 1
   tile_id: 33
   coordinate:
     x: 122
-    y: 200
+    y: 300
 - map_id: 1
   tile_id: 10
   coordinate:
     x: 300
-    y: 200
+    y: 300
 - map_id: 1
   tile_id: 11
   coordinate:
     x: 316
-    y: 200
+    y: 300
 - map_id: 1
   tile_id: 3
   coordinate:
@@ -289,12 +289,12 @@ tiles:
   tile_id: 3
   coordinate:
     x: 600
-    y: 200
+    y: 300
 - map_id: 1
   tile_id: 3
   coordinate:
     x: 400
-    y: 200
+    y: 300
 - map_id: 1
   tile_id: 3
   coordinate:
@@ -323,14 +323,14 @@ armor:
 - id: 0
   coordinate:
       x: 232
-      y: 200
+      y: 300
 
 helmet_size: 16
 helmet:
 - id: 0
   coordinate:
       x: 158
-      y: 200
+      y: 300
 
 weapon_size: 16
 weapons:
@@ -386,5 +386,5 @@ players:
     x: 550
     y: 50
 - coordinate:
-    x: 650
+    x: 450
     y: 50
