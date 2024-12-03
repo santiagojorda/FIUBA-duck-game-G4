@@ -34,6 +34,18 @@ TextureProvider::TextureProvider() {
             {DuckStateType::DEAD, "dead"},
     };
 
+    textures_wings_duck = {
+            {DuckStateType::JUMPING, "wings_walking_simple"},
+            {DuckStateType::RUNNING, "wings_walking_simple"},
+            {DuckStateType::CROUCHING, "wings_crouching"},
+            {DuckStateType::RECOILING, "wings_walking_simple"},
+            {DuckStateType::FALLING, "wings_walking_simple"},
+            {DuckStateType::SLIPPING, "wings_walking_simple"},
+            {DuckStateType::PLANNING, "wings_walking_simple"},
+            {DuckStateType::IDLE, "wings_walking_simple"},
+            {DuckStateType::DEAD, "wings_walking_simple"},
+    };
+
     textures_equipment_ducks = {
             {InventoryDuck::HAS_ARMOR, "has_armor"},
             {InventoryDuck::HAS_HELMET, "has_helmet"},
@@ -72,4 +84,8 @@ const std::string& TextureProvider::get_textures_box(BoxTexture id) const {
 
 const std::string& TextureProvider::get_textures_bullet(BulletTexture id) const {
     return textures_bullets.at(id);
+}
+
+const std::string& TextureProvider::get_textures_wings(DuckStateType action) const {
+    return textures_wings_duck.at(action);
 }
