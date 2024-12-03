@@ -55,12 +55,7 @@ void Drawer::run() try {
         load_weapons();
         load_bullets();
         SDL_SetRenderTarget(this->renderer.Get(), nullptr);
-
-        if (actual_game_state.players.size() > 0) {
-            zoom_handler.calculate_zoom(actual_game_state.players);
-            zoom_handler.apply_zoom(this->renderer, main_texture);
-        }
-
+        update_zoom(zoom_handler, main_texture);
 
         if (actual_game_state.moment == GameMoment::DISPLAY_INFO) {
             drewer_text.draw(renderer, "WINER");
@@ -230,11 +225,17 @@ void Drawer::init_scenery(const client_game_state_t& actual_game_state) {
     }
 }
 
-
 void Drawer::load_resources() {
-    AnimationLoader::load_animations(ANIMATION_PATH "/duck.yaml", animations.animation_duck);
-    AnimationLoader::load_animations(ANIMATION_PATH "/weapon.yaml", animations.animation_weapon);
-    AnimationLoader::load_animations(ANIMATION_PATH "/armor.yaml", animations.animation_armor);
-    AnimationLoader::load_animations(ANIMATION_PATH "/box.yaml", animations.animation_boxes);
-    AnimationLoader::load_animations(ANIMATION_PATH "/bullet.yaml", animations.animation_bullets);
+    AnimationLoader::load_animations(ANIMATION_PATH DUCK_FILE, animations.animation_duck);
+    AnimationLoader::load_animations(ANIMATION_PATH WEAPON_FILE, animations.animation_weapon);
+    AnimationLoader::load_animations(ANIMATION_PATH ARMOR_FILE, animations.animation_armor);
+    AnimationLoader::load_animations(ANIMATION_PATH BOX_FILE, animations.animation_boxes);
+    AnimationLoader::load_animations(ANIMATION_PATH BULLET_FILE, animations.animation_bullets);
+}
+
+void Drawer::update_zoom(ZoomHandler& zoom_handler, SDL2pp::Texture& main_texture) {
+    if (actual_game_state.players.size() > 0) {
+        zoom_handler.calculate_zoom(actual_game_state.players);
+        zoom_handler.apply_zoom(this->renderer, main_texture);
+    }
 }

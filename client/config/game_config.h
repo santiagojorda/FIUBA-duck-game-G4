@@ -22,4 +22,12 @@
 #define SUCCESS 0
 #define ERROR -1
 
+// Paths
+
+#define DUCK_FILE "/duck.yaml"
+#define WEAPON_FILE "/weapon.yaml"
+#define ARMOR_FILE "/armor.yaml"
+#define BOX_FILE "/box.yaml"
+#define BULLET_FILE "/bullet.yaml"
+
 #endif  // GAME_CONFIG_H

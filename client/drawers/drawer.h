@@ -61,6 +61,8 @@ private:
 
     void clean_elements();
 
+    void update_zoom(ZoomHandler& zoom_handler, SDL2pp::Texture& main_texture);
+
 public:
     /*
      * Constructor.
