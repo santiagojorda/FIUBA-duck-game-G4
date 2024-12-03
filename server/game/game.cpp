@@ -154,14 +154,15 @@ void Game::run() {
             game_logic.update();
             broadcast_gamestate();
             sleep.sleep_rate();
-            // if(this->round_manager.check_winer(this->players)) {
-            //     this->display_info(sleep);
-            // }
-            // if(this->round_manager.get_rounds_winer() >= MAX_ROUNDS_WINDS) {
-            //     this->moment = GameMoment::FINISHED;
-            //     broadcast_gamestate();
-            //     this->stop();
-            // }
+            if(this->round_manager.check_winer(this->players)) {
+                this->display_info(sleep);
+            }
+            if(this->round_manager.get_rounds_winer() >= MAX_ROUNDS_WINDS) {
+                this->moment = GameMoment::FINISHED;
+                broadcast_gamestate();
+                sleep.sleep(SECONDS_FINISH_GAME * MILISECONDS_FOR_SECONDS);
+                this->stop();
+            }
         }
         stop();
         this->round_manager.log_state(std::cout, this->get_gamestate());

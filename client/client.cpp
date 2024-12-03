@@ -32,11 +32,7 @@ Client::Client(const std::string& hostname, const std::string& servname, int N_p
 }
 
 void Client::run() {
-    // recibo posiciones iniciales
-    // std::vector<Coordinate> coordenadas;
-    // receiver.receiver_players(coordenadas);
 
-    // Starteo los receiver y sender
     receiver.start();
     sender.start();
     drawer.run();

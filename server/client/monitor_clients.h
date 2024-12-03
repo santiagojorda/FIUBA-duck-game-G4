@@ -11,9 +11,7 @@
 
 class MonitorClients {
 private:
-    // cppcheck-suppress unusedStructMember
     std::list<Client> list;
-    // cppcheck-suppress unusedStructMember
     std::mutex mtx;
 
 public:

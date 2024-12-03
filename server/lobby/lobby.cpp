@@ -3,12 +3,16 @@
 #include <iostream>
 
 #include "../client/acceptor_clients.h"
+
+
 #define PATH_MAP "../game_rsc/maps/map01.yaml"
 
-Lobby::Lobby(): monitor_clients(), players_id(), queue_events(), queue_gamestate() {}
+
+
+Lobby::Lobby(const char* _server_name): Thread(),  monitor_clients(), players_id(), queue_events(), queue_gamestate() , server_name(_server_name) {}
 
 void Lobby::accept_clients() {
-    AcceptorClients acceptor_clients(monitor_clients, queue_gamestate, queue_events, players_id);
+    AcceptorClients acceptor_clients(monitor_clients, queue_gamestate, queue_events, players_id, this->server_name);
     acceptor_clients.start();
     acceptor_clients.join();
 }
@@ -29,6 +33,7 @@ void Lobby::init_game() {
 void Lobby::run() {
     accept_clients();
     init_game();
+    this->stop();
 }
 
 Lobby::~Lobby() {}

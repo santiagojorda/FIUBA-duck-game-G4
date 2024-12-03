@@ -68,6 +68,10 @@ void KeyboardController::procesar_keyup_player_2(SDL_Event& event) {
             client_event = {PLAYER_2, ActionEvent::IDLE};
             this->commands.push(client_event);
             break;
+        case SDLK_x:
+            client_event = {PLAYER_2, ActionEvent::TRIGGER_OUT};
+            this->commands.push(client_event);
+        break;
     }
 }
 
@@ -141,6 +145,10 @@ void KeyboardController::procesar_accion_player_2(const Uint8* state) {
     }
     if (state[SDL_SCANCODE_S]) {
         client_event = {PLAYER_2, ActionEvent::CROUCH};
+        this->commands.push(client_event);
+    }
+    if (state[SDL_SCANCODE_X]) {
+        client_event = {PLAYER_2, ActionEvent::TRIGGER};
         this->commands.push(client_event);
     }
 }
