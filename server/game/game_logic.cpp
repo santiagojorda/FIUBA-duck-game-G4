@@ -29,8 +29,10 @@ void GameLogic::update_player_equip_collision(Player& player) {
         if (this->physics.exist_collision(player.get_rectangle(), item->get_rectangle())) {
 
             player.handle_collision(item, *this);
-
-            return;
+            if(player.has_equipped_this(item)){
+                items.remove_item(item);
+                return;
+            }
 
         }
     }
@@ -42,15 +44,17 @@ void GameLogic::handle_drop(std::shared_ptr<Equippable> item){
 }
 
 void GameLogic::update_player_gravity(Player& player) {
-    std::shared_ptr<Positionable> touched_floor = physics.get_target_floor_collision(player);
-    if (touched_floor) {
-        player.adjust_position_to_floor(touched_floor);
-        if (player.is_falling()) {
+
+    std::shared_ptr<Ground> floor_below = physics.is_floor_below(player.get_coordinate());
+    if(!floor_below){
+        player.fall(*this);
+    }
+    else{
+        player.adjust_position_to_floor(floor_below);
+        if(player.is_falling()){
             player.idle();
         }
         player.touch_floor();
-    } else {
-        player.fall(*this);
     }
 
 }
@@ -66,20 +70,14 @@ void GameLogic::update_projectiles(){
         projectiles.end());
     
     for (std::shared_ptr<Projectile> projectile: projectiles){
-        // std::shared_ptr<Positionable> touched_floor = physics.get_target_floor_collision(*projectile);
-        // if(touched_floor){
-        //     projectile->collision_surface(*touched_floor, (*this));
-        // }
-
-        // std::shared_ptr<Box> touched_box = physics.get_target_box_collision(*projectile);
-        // if(touched_box){
-        //     touched_box->handle_collision(*projectile, (*this));
-        //     if(!touched_box->is_open()){
-        //         projectile->die();
-        //     }
-        // }
-
-
+        std::shared_ptr<Ground> touched_floor = physics.get_target_floor_collision(*projectile);
+        std::shared_ptr<Box> touched_box = physics.get_target_box_collision(*projectile);
+        if(touched_floor){
+            projectile->handle_collision(touched_floor, *this);
+        }
+        else if (touched_box){
+            projectile->handle_collision(touched_box, (*this));
+        }
         projectile->update(*this);
     }
 
@@ -94,8 +92,7 @@ void GameLogic::move(std::shared_ptr<Projectile> projectile, int x, int y){
         }
 
         if (physics.exist_collision(player.get_rectangle(), projectile->get_rectangle())){
-            // projectile->handle_collision(player, *this);
-            projectile->die();
+            player.handle_collision(projectile, *this);
             return;
         }
     }
@@ -106,7 +103,13 @@ void GameLogic::move(std::shared_ptr<Projectile> projectile, int x, int y){
 
 
 void GameLogic::fall(Player& player){
+    // (void)player;
+    // update_player_gravity(player);
     physics.falling(player, 1);
+    // std::shared_ptr<Positionable> touched_floor = physics.get_target_floor_collision(player);
+    // if (touched_floor) {
+    //     player.adjust_position_to_floor(touched_floor);
+    // }
 }
 
 void GameLogic::move_horizontal(Player& player, Direction& direction){
@@ -124,18 +127,15 @@ void GameLogic::move_horizontal(Player& player, Direction& direction){
 
 bool GameLogic::can_move(Player& player, int x, int y){
     Coordinate point = player.get_coordinate() + Coordinate(x,y,0, 0);
-    if(physics.is_this_point_ocuppied(point)){
-        return false;
-    }
-    return true;
+    return !physics.is_this_point_ocuppied(point);
 }
 
 void GameLogic::move(Player& player, int x, int y){
 
-    if(can_move(player, x, y)){
+    // if(can_move(player, x, y)){
         player.translate_x(x);
         player.translate_y(y);
-    }
+    // }
     
 }
 

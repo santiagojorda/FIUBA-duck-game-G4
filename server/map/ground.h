@@ -1,37 +1,31 @@
-#ifndef GROUND
-#define GROUND
+#ifndef GROUND_H
+#define GROUND_H
 
 #include <cstdint>
+#include <memory>
+#include <iostream>
 
 #include "../attributes/positionable.h"
 #include "../attributes/collidable.h"
 
 class Projectile;
+class GameLogic;
 
-class Ground: public Positionable{
+class Ground : public Positionable, public Collidable {
 private:
     uint8_t state;
+
 public:
-    explicit Ground(const Coordinate& _coordinate, const uint8_t& _texture_id) : Positionable(_texture_id, _coordinate){}
-
-
-    // void on_collision_with(Collidable& other, GameLogic& game_logic) override {
-    //     other.on_collision_with(*this, game_logic); 
-    // }
-
-    // void on_collision_with(Projectile& projectile, GameLogic& game_logic){
-    //     std::cout << "Collision ground con projectile" << std::endl;
-    //     (void)projectile; 
-    //     (void)game_logic;
-    // }
+    explicit Ground(const Coordinate& _coordinate, const uint8_t& _texture_id) 
+        : Positionable(_texture_id, _coordinate), state(0) {}
     
-    // void on_collision_with(Player& player, GameLogic& game_logic){
-    //     std::cout << "Collision ground con player" << std::endl;
-    //     (void)player; 
-    //     (void)game_logic;
-    // }
-    
-    ~Ground() {}
+
+    void handle_collision(std::shared_ptr<Collidable> other, GameLogic& game_logic) override;
+
+    using Collidable::on_collision_with;
+    void on_collision_with(std::shared_ptr<Projectile> projectile, GameLogic& game_logic) override;
+
+    virtual ~Ground() = default; 
 };
 
-#endif
+#endif // GROUND_H

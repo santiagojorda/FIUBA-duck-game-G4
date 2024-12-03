@@ -7,6 +7,7 @@
 class Map;
 class Player;
 class ListBoxes;
+class Ground;
 // #include "../player/player.h"
 
 #define GAME_WIDTH 800
@@ -22,9 +23,10 @@ private:
 public:
     GamePhysics(Map& _map, ListBoxes& _boxes);
     bool is_player_out_of_map(Player& player);
-    std::shared_ptr<Positionable> get_target_floor_collision(Positionable& target);
+    std::shared_ptr<Ground> get_target_floor_collision(Positionable& target);
 
     bool exist_collision(const Rectangle& a, const Rectangle& b);
+    std::shared_ptr<Ground> is_floor_below(const Coordinate& target);
 
     void falling(Positionable& target, uint iter_frame);
     bool is_this_point_ocuppied(const Coordinate& coordinate);

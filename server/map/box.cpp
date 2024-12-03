@@ -10,21 +10,17 @@ Box::Box(const Coordinate& _coordinate)
         state(GroundState::CLOSE)
     {}
 
-// void Box::handle_collision(Collidable& other, GameLogic& game_logic) {  
-//     other.on_collision_with(*this, game_logic); 
-// }
+void Box::handle_collision(std::shared_ptr<Collidable> other, GameLogic& game_logic) {
+    std::cout << "Handling collision with box" << std::endl;
+    other->on_collision_with(std::dynamic_pointer_cast<Box>(shared_from_this()), game_logic);
+}
 
-// void Box::on_collision_with(Collidable& other, GameLogic& game_logic) { 
-//     std::cout << "Collision box con projectile" << std::endl;
-//     other.on_collision_with(*this, game_logic); 
+void Box::on_collision_with(std::shared_ptr<Projectile> projectile, GameLogic& game_logic) {
+    std::cout << "Box collided with projectile" << std::endl;
+    projectile->on_collision_with(std::dynamic_pointer_cast<Box>(shared_from_this()), game_logic);
+    open();
+}
 
-// }
-
-// void Box::on_collision_with(Projectile& projectile, GameLogic& game_logic) { 
-//     std::cout << "Collision box con projectile" << std::endl;
-//     (void)projectile; 
-//     (void)game_logic;
-// }
 void Box::reset() { state = GroundState::CLOSE; }
 bool Box::is_open() { return state == GroundState::OPEN; }
 void Box::open() { state = GroundState::OPEN; }

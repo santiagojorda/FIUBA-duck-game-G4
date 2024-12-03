@@ -46,6 +46,7 @@ protected:
     ProjectileRange projectile_range;
     CircularCounter delay_counter;
     uint8_t tick = 0;
+    bool is_waiting_to_explotion = false;
 
 public:
 
@@ -66,6 +67,7 @@ public:
     uint8_t get_max_ammo();
     std::shared_ptr<Equippable> clone() const override;
     virtual void handle_explotion(GameLogic& game_logic);
+    using Collidable::on_collision_with;
 
     ShootingRecoil get_recoil();
     virtual ~Gun();

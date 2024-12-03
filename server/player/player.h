@@ -19,7 +19,7 @@ class ListProjectiles;
 class Ground;
 class Projectile;
 
-class Player: public Positionable, public Collidable, public std::enable_shared_from_this<Player>{
+class Player: public Positionable, public Collidable{
 private:
     // cppcheck-suppress unusedStructMember
     uint8_t health;  // te lo dejo para ir pensado en la vida
@@ -32,7 +32,8 @@ public:
     explicit Player(uint8_t _id);
     Player& operator=(const Player& _other);
     uint8_t get_id() const;
-    void adjust_position_to_floor(std::shared_ptr<Positionable> floor);
+    Coordinate get_coordinates_collisionables();
+    void adjust_position_to_floor(std::shared_ptr<Ground> floor);
     void translate_x(int pasos) override;
     void translate_y(int pasos) override;
     void recoil(GameLogic& game_logic);
@@ -66,6 +67,7 @@ public:
 
     bool is_jumping();
     bool is_running();
+    bool is_slipping();
     bool is_falling();
     bool is_idle();
     bool is_dead() const;
@@ -83,7 +85,7 @@ public:
     // void on_collision_with(Gun& gun, GameLogic& game_logic);
 
     // void on_collision_with(Ground& ground, GameLogic& game_logic);
-    // void on_collision_with(Projectile& projectile, GameLogic& game_logic);
+    // void on_collision_with(std::shared_ptr<Projectile> projectile, GameLogic& game_logic) override;
     void handle_collision(std::shared_ptr<Collidable> other, GameLogic& game_logic) override;
 
 

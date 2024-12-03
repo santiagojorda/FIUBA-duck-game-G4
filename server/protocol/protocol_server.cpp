@@ -2,6 +2,7 @@
 
 #include "../equipment/armor.h"
 #include "../equipment/helmet.h"
+#include "../map/ground.h"
 #include <memory>
 
 #define BYTE_CLIENT 0xA
@@ -83,7 +84,7 @@ void ProtocolServer::send_boxes_state(GameState_t& state) {
 void ProtocolServer::send_scenario_state(GameState_t& state) {
     uint8_t count_map_items = state.map.size();
     send_byte(count_map_items);  //
-    for (std::shared_ptr<Positionable> item_map: state.map) {
+    for (std::shared_ptr<Ground> item_map: state.map) {
         send_byte(0);                                 // path
         send_byte(item_map->get_texture_id());        // id_sprite
         send_coordinates(item_map->get_coordinate());

@@ -20,34 +20,32 @@ bool Projectile::is_dead(){ return state == ProjectileState::DEAD; }
 
 void Projectile::die(){ state = ProjectileState::DEAD;}
 
-void Projectile::collision_surface(Positionable& surface, GameLogic& game_logic){
+void Projectile::on_collision_with(std::shared_ptr<Ground> surface, GameLogic& game_logic){
     (void)surface;
     (void)game_logic;
     die();
 }
-
-// void Projectile::handle_collision(Collidable& other, GameLogic& game_logic) override{
-//     std::cout << "handle_sollision equippable" << std::endl;
-//     other.on_collision_with(*this, game_logic);    
-// };
+void Projectile::on_collision_with(std::shared_ptr<Box> box, GameLogic& game_logic){
+    (void)box;
+    (void)game_logic;
+    die();
+}
+void Projectile::handle_collision(std::shared_ptr<Collidable> other, GameLogic& game_logic) {
+    std::cout << "handle_sollision projectile" << std::endl;
+    other->on_collision_with(std::dynamic_pointer_cast<Projectile>(shared_from_this()), game_logic);   
+};
 
 // void Projectile::on_collision_with(Collidable& other, GameLogic& game_logic) {  
 //     other.on_collision_with(*this, game_logic); 
 // }
 
-// void Projectile::on_collision_with(Player& player, GameLogic& game_logic) { 
-//     std::cout << "Collision Projectile con player" << std::endl;
-//     if (shooter_id != player.get_id()) {
-//         player.die(game_logic);
-//         die();
-//     }
-// }
+void Projectile::on_collision_with(Player& player, GameLogic& game_logic) { 
+    if (shooter_id != player.get_texture_id()) {
+        player.take_damage(game_logic);
+        die();
+    }
+}
 
-// void Projectile::on_collision_with(Ground& ground, GameLogic& game_logic) { 
-//     std::cout << "Collision Projectile con ground" << std::endl;
-//     (void)ground; 
-//     (void)game_logic;
-// }
 
 // void Projectile::on_collision_with(Box& box, GameLogic& game_logic) { 
 //     std::cout << "Collision Projectile con box" << std::endl;
@@ -56,10 +54,10 @@ void Projectile::collision_surface(Positionable& surface, GameLogic& game_logic)
 // }
 
 
-void Projectile::handle_collision_box(Box& box, GameLogic& game_logic){
-    (void)game_logic;
-    if(!box.is_open()){
-        std::cout << "Bala choco con una caja" << std::endl;
-        die();
-    }
-}
+// void Projectile::handle_collision_box(Box& box, GameLogic& game_logic){
+//     (void)game_logic;
+//     if(!box.is_open()){
+//         std::cout << "Bala choco con una caja" << std::endl;
+//         die();
+//     }
+// }

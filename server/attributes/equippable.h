@@ -10,12 +10,13 @@
 class Inventory;
 class GameLogic;
 class Player;
+class Projectile;
 enum class EquippableState: uint8_t {
     DEAD,
     ALIVE,
 };
 
-class Equippable: public Positionable, public Collidable,  public std::enable_shared_from_this<Equippable> {
+class Equippable: public Positionable, public Collidable{
 private:
     EquippableState state;
     uint8_t frame;
@@ -31,12 +32,12 @@ public:
 
     void handle_collision(std::shared_ptr<Collidable> other, GameLogic& game_logic) override{
         std::cout << "handle_sollision equippable" << std::endl;
-        other->on_collision_with(shared_from_this(), game_logic);    
+        other->on_collision_with(std::dynamic_pointer_cast<Equippable>(shared_from_this()), game_logic);    
     };
     // virtual void on_collision_with(Player& other, GameLogic& game_logic) override = 0;
     using Collidable::on_collision_with;
     virtual void on_collision_with(Player& player, GameLogic& game_logic) override;
-
+    virtual void on_collision_with(std::shared_ptr<Projectile> projectile, GameLogic& game_logic) override;
     void die(){ state = EquippableState::DEAD; }
     bool is_dead() { return state == EquippableState::DEAD;}
     virtual uint8_t send_frame() { return frame; } 

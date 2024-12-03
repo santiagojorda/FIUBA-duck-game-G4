@@ -6,8 +6,6 @@
 class Inventory;
 
 class Granade: public Gun {
-private:
-    bool is_countdown_enabled = false;
 
 public:
     explicit Granade(const Coordinate& _coordinate);

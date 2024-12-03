@@ -4,8 +4,6 @@
 #include "../gun.h"
 
 class Banana: public Gun {
-private:
-    bool is_ready_to_slide;
 public:
     explicit Banana(const Coordinate& _coordinate);
 
@@ -13,8 +11,10 @@ public:
                      bool& was_dropped) override;
 
     // void on_collision_with(Collidable& other, GameLogic& game_logic) override;
+    using Equippable::on_collision_with;
+    void on_collision_with(Player& player, GameLogic& game_logic) override;
 
-    // void on_collision_with(Player& player, GameLogic& game_logic);
+    void handle_equip(Inventory& inventory) override;
     ~Banana();
 };
 

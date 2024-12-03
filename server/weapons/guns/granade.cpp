@@ -18,7 +18,7 @@ gun_config granade_config = {WeaponTextureID::GRANATE, 1, ShootingRecoil::NONE,
 Granade::Granade(const Coordinate& _coordinate): Gun(granade_config, _coordinate) {}
 
 void Granade::update(GameLogic& game_logic) {
-    if (!is_countdown_enabled) {
+    if (!is_waiting_to_explotion) {
         return;
     }
     tick++;
@@ -30,7 +30,7 @@ void Granade::update(GameLogic& game_logic) {
 
 void Granade::trigger(ListProjectiles& projectiles, const uint8_t& player_id) {
     Gun::trigger(projectiles, player_id);
-    is_countdown_enabled = true;
+    is_waiting_to_explotion = true;
 }
 
 void Granade::trigger_out(ListProjectiles& projectiles, const uint8_t& player_id,
@@ -52,8 +52,7 @@ void Granade::handle_explotion(GameLogic& game_logic) {
 }
 
 void Granade::handle_equip(Inventory& inventory) { 
-    if(is_countdown_enabled){
-        (void)inventory; 
+    if(is_waiting_to_explotion){
         die();
         return;
     }

@@ -5,7 +5,7 @@
 
 DuckStateController::DuckStateController(const uint8_t& _player_id)
         : StateController(std::make_shared<DuckStateFactory>(_player_id)),
-            touch_floor(true)
+            touch_floor(false)
         {
             set_state(DuckStateType::IDLE);
             direction = Direction::RIGHT;
@@ -71,7 +71,7 @@ void DuckStateController::jump() {
     }
 }
 void DuckStateController::fall() {
-    if(!is_planning()){
+    if(!is_planning() && !is_slipping()){
         set_touch_floor(false);
         set_alive_state(DuckStateType::FALLING);
     }

@@ -5,9 +5,12 @@
 #include "../weapons/gun.h"
 #include "../game/game_logic.h"
 #include "../weapons/list_projectiles.h"
+#include "../weapons/projectile.h"
+#include "../map/ground.h"
 #include "../equipment/armor.h"
 #include "../attributes/equippable.h"
 #define SIZE_PLAYER 32
+#define COLLIDER_OFFSET_X 8
 
 const int SPEED = 1;
 
@@ -69,12 +72,16 @@ void Player::drop_helmet(){
 
 void Player::take_damage(GameLogic& game_logic){
     if(inventory.get_armor()){
+        log_action("has armor");
         drop_armor();
     }
     else if(inventory.get_helmet()){
+        log_action("has helmet");
+
         drop_helmet();
+
     }
-    else {
+    else {;
         die(game_logic);
     }
 }
@@ -86,7 +93,7 @@ std::shared_ptr<Helmet> Player::get_helmet() { return inventory.get_helmet(); }
 Inventory& Player::get_inventory() { return inventory; }
 Direction Player::get_direction() { return state.get_direction(); }
 
-void Player::adjust_position_to_floor(std::shared_ptr<Positionable> floor) {
+void Player::adjust_position_to_floor(std::shared_ptr<Ground> floor) {
     if (floor) {
 
         int player_bottom = space.get_y_max();
@@ -94,12 +101,20 @@ void Player::adjust_position_to_floor(std::shared_ptr<Positionable> floor) {
         int floor_top = floor_points.get_y_min();
         int difference = player_bottom - floor_top;
 
-        if (difference < 1) {
+        if (2 <= difference) {
             translate_y(-(difference + 1));
-        } else {
-            translate_y(-(difference - 1));
         }
     }
+}
+
+Coordinate Player::get_coordinates_collisionables(){ 
+    Coordinate player_coordinate = get_coordinate();
+    int new_x = player_coordinate.get_x() + COLLIDER_OFFSET_X;
+    int y = player_coordinate.get_y();
+    int h = player_coordinate.get_h();
+    int new_w = COLLIDER_OFFSET_X * 2;
+
+    return Coordinate(new_x, y, h, new_w);
 }
 
 bool Player::is_dead_animation_finished() const { return state.is_dead_animation_finished(); }
@@ -113,10 +128,10 @@ void Player::handle_collision(std::shared_ptr<Collidable> other, GameLogic& game
 
 void Player::on_collision_with(std::shared_ptr<Equippable> item, GameLogic& game_logic) { 
     std::cout << "Collision Player con item" << std::endl;
-    
-    equip(item);
-    
-    (void)item;
+    // item->on_collision_with(*this, game_logic);    
+    if(!is_slipping()){
+        equip(item);
+    }
     (void)game_logic;
 }
 
@@ -128,11 +143,6 @@ void Player::on_collision_with(std::shared_ptr<Equippable> item, GameLogic& game
 //     (void)game_logic;
 // }
 
-// void Player::on_collision_with(Projectile& projectile, GameLogic& game_logic) { 
-//     std::cout << "Collision Player con projectile" << std::endl;
-//     (void)projectile; 
-//     (void)game_logic;
-// }
 // void Player::on_collision_with(Ground& ground, GameLogic& game_logic) { 
 //     std::cout << "Collision Player con ground" << std::endl;
 //     (void)ground; 
@@ -164,6 +174,7 @@ void Player::recoil(GameLogic& game_logic) {
 }
 bool Player::is_jumping() { return state.is_jumping(); }
 bool Player::is_running() { return state.is_running(); }
+bool Player::is_slipping() { return state.is_slipping(); }
 bool Player::is_falling() { return state.is_falling(); }
 bool Player::is_idle()  { return state.is_idle(); }
 bool Player::is_dead() const { return state.is_dead(); }
@@ -181,7 +192,7 @@ void Player::touch_floor(){ state.set_touch_floor(true); }
 void Player::leave_floor(){ state.set_touch_floor(false); }
 
 void Player::shoot(GameLogic& game_logic, const ModeShoot& mode) {
-    if(state.is_slipping()){
+    if(is_slipping()){
         return;
     }
     std::shared_ptr<Gun> gun = inventory.get_gun();

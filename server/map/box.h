@@ -13,16 +13,17 @@ enum GroundState : uint8_t{
     CLOSE = 0,
     OPEN = 1
 };
-class Box: public Positionable {
+class Box: public Positionable, public Collidable{
 private:
     GroundState state;
 
 public:
     explicit Box(const Coordinate& _coordinate);
     
-    // void handle_collision(Collidable& other, GameLogic& game_logic) override;
-    // void on_collision_with(Collidable& other, GameLogic& game_logic) override;
-    // void on_collision_with(Projectile& projectile, GameLogic& game_logic);
+    void handle_collision(std::shared_ptr<Collidable> other, GameLogic& game_logic) override;
+
+    using Collidable::on_collision_with;
+    void on_collision_with(std::shared_ptr<Projectile> projectile, GameLogic& game_logic) override;
 
     bool is_open();
     void open();

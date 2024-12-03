@@ -53,6 +53,7 @@ void Gun::trigger(ListProjectiles& projectiles, const uint8_t& player_id){
         (void)player_id;
 }
 
+
 void Gun::handle_explotion(GameLogic& game_logic) { (void)game_logic; }
 
 ShootingRecoil Gun::get_recoil() { return this->recoil; }
