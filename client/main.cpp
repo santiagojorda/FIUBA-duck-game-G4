@@ -51,9 +51,6 @@ int main(int argc, char* argv[]) {
         std::string hostname = argv[1];
         std::string servname = argv[2];
         std::cout << "Conection wiht server: " ;
-        //Socket skt(hostname.c_str(), servname.c_str());
-        // ClientProtocol protocol(skt);
-
         QApplication a(argc, argv);
 
         int id = QFontDatabase::addApplicationFont(
@@ -77,28 +74,9 @@ int main(int argc, char* argv[]) {
         customFont.setPointSize(16);
         QApplication::setFont(customFont);
 
-
         Lobby w(hostname, servname);
         w.show();
         return a.exec();
-
-        /*bool hosts = false;
-        std::string new_server = menu_terminal(protocol, hosts);
-        if(hosts){
-            std::string dumy;
-            std::cout << "crete game..: ";
-            std::cin >> dumy;
-            ClientHost host(hostname, new_server);
-            std::cout << "star party: ";
-            std::cin >> dumy;
-            host.init_game();
-            host.join();
-            std::cout << "iniciar juego" << std::endl;
-        } else {
-            Client client(hostname, new_server);
-            client.run();
-        }
-        return SUCCESS;*/
     } catch (const std::exception& e) {
         std::cerr << "Ocurrió un problema: " << e.what() << '\n';
         return ERROR;

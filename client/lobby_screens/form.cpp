@@ -1,5 +1,8 @@
 #include "form.h"
 
+#include "../lobby/client_receiver_lobby.h"
+#include "../lobby/game_data.h"
+
 #include "ui_form.h"
 
 Form::Form(QWidget* parent):
@@ -56,6 +59,8 @@ bool Form::validate_form() {
 }
 
 void Form::on_buttonContinue_clicked() {
+    Queue<game_data_t> game_data;
+
     if (validate_form()) {
         hall.set_config_game(
                 std::make_tuple(this->type_screen, this->hostname, this->port, this->cant_players));
@@ -68,17 +73,12 @@ void Form::on_buttonContinue_clicked() {
         if (this->type_screen == 2) {
             protocol.send_init(0);
             protocol.send_server_name(this->port);
+
         } else {  // es cliente normal
             uint8_t byte_commad = 1;
             protocol.send_init(byte_commad);  // se une
             protocol.recv_init(
                     byte_commad);  // cantidad de partidas abiertas (falta envio de puertos)
-
-            // este esta bien, activa los threads
-            Client client(hostname, this->port, this->cant_players);
-            client.run();
-            client.active_drawer();
-            QApplication::quit();
         }
         ui->stackedWidgetForm->setCurrentIndex(1);
     }

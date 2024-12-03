@@ -9,6 +9,7 @@
 #include "../../common/protocol.h"
 #include "../../common/socket.h"
 #include "../game_state/client_game_state.h"
+#include "../lobby/game_data.h"
 #include "../zoom/zoom.h"
 
 class ClientProtocol: public Protocol {
@@ -30,7 +31,9 @@ private:
     void receive_sprite(sprite_t& sprite);
 
     void receive_inventory(inventory_t& inventory);
+
     void receive_floor_sprite(floor_sprite_t& sprite);
+
 
 public:
     /*
@@ -68,6 +71,8 @@ public:
      *
      */
     void receive_game_state(client_game_state_t& game_state);
+
+    void receive_game_data(game_data_t& data);
 
     /*
      * Deshabilitar copias.

@@ -28,6 +28,17 @@ Client::Client(const std::string& hostname, const std::string& servname, int N_p
     this->protocol.send_init(N_players > MAX_PLAYER ? MAX_PLAYER : N_players);
 }
 
+Client::Client(Socket&& socket, int cant_players):
+        skt(std::move(socket)),
+        protocol(skt),
+        commands(),
+        game_state(),
+        receiver(protocol, game_state),
+        sender(protocol, commands),
+        drawer(commands, game_state) {
+    this->protocol.send_init(static_cast<uint8_t>(cant_players));
+}
+
 void Client::run() {
     receiver.start();
     sender.start();

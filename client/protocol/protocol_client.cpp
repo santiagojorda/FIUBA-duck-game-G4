@@ -180,3 +180,15 @@ void ClientProtocol::receive_game_state(client_game_state_t& game_state) {
     game_state = client_game_state_t{
             static_cast<GameMoment>(moment), players, bullets, boxes, sprites, weapons};
 }
+
+void ClientProtocol::receive_game_data(game_data_t& data) {
+    uint8_t cantidad_players;
+    this->receive_byte(cantidad_players);
+    data.count_players = cantidad_players;
+
+    for (size_t i = 0; i < cantidad_players; i++) {
+        uint8_t id_player;
+        receive_byte(id_player);
+        data.id_players.push_back(id_player);
+    }
+}

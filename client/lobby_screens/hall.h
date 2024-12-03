@@ -3,8 +3,12 @@
 
 #include <QWidget>
 
+#include "../../common/queue.h"
 #include "../../common/socket.h"
+#include "../client.h"
+#include "../lobby/game_data.h"
 #include "../protocol/protocol_client.h"
+
 
 namespace Ui {
 class Hall;
@@ -18,8 +22,8 @@ public:
     ~Hall();
     void set_config_game(std::tuple<int, std::string, std::string, int> config);
     void initialize_screen();
-    void set_client_host();
-    void set_client();
+    void data_for_host();
+    void data_for_client();
 
 private slots:
     void on_buttonStartGame_clicked();
@@ -31,6 +35,8 @@ private:
     std::string port;
     int cant_players;
     bool is_initialized = false;
+    // Client client;
+    // Queue<game_data_t> game_data;
 };
 
 #endif  // HALL_H

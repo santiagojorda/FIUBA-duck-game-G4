@@ -12,18 +12,17 @@
 
 #include "client_receiver.h"
 #include "client_sender.h"
+#include "lobby/client_receiver_lobby.h"
 
 class Client {
 private:
     Socket skt;
     ClientProtocol protocol;
     Queue<ClientEvent_t> commands;
-    Queue<client_game_state_t> game_state;  // estado del juego que se recibe del servidor
+    Queue<client_game_state_t> game_state;
     ClientReceiver receiver;
     ClientSender sender;
     Drawer drawer;
-
-    // void generate_conection();
 
 public:
     /*
@@ -31,6 +30,7 @@ public:
      */
     Client(const std::string& hostname, const std::string& servname);
 
+    Client(Socket&& socket, int cant_players);
     /*
      * Constructor para mas jugadores.
      */
