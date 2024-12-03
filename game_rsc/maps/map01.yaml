@@ -29,82 +29,67 @@ tiles:
   tile_id: 3
   coordinate:
     x: 96
-    y: 304
+    y: 500
 - map_id: 1
   tile_id: 3
   coordinate:
     x: 112
-    y: 304
+    y: 500
 - map_id: 1
   tile_id: 3
   coordinate:
     x: 128
-    y: 304
+    y: 500
 - map_id: 1
   tile_id: 3
   coordinate:
     x: 144
-    y: 304
+    y: 500
 - map_id: 1
   tile_id: 3
   coordinate:
     x: 160
-    y: 304
+    y: 500
 - map_id: 1
   tile_id: 3
   coordinate:
     x: 176
-    y: 304
+    y: 500
 - map_id: 1
   tile_id: 3
   coordinate:
     x: 192
-    y: 304
+    y: 500
 - map_id: 1
   tile_id: 3
   coordinate:
     x: 208
-    y: 304
+    y: 500
 - map_id: 1
   tile_id: 3
   coordinate:
     x: 224
-    y: 304
+    y: 500
 - map_id: 1
   tile_id: 3
   coordinate:
     x: 240
-    y: 304
+    y: 500
 - map_id: 1
   tile_id: 3
   coordinate:
     x: 256
-    y: 304
+    y: 500
 - map_id: 1
   tile_id: 3
   coordinate:
     x: 272
-    y: 304
+    y: 500
 - map_id: 1
   tile_id: 3
   coordinate:
     x: 288
-    y: 304
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 288
-    y: 288
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 288
-    y: 272
-- map_id: 1
-  tile_id: 3
-  coordinate:
-    x: 288
-    y: 256
+    y: 500
 - map_id: 1
   tile_id: 3
   coordinate:
@@ -123,63 +108,78 @@ tiles:
 - map_id: 1
   tile_id: 3
   coordinate:
-    x: 304
-    y: 304
+    x: 288
+    y: 288
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 288
+    y: 272
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 288
+    y: 256
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 500
+    y: 500
 - map_id: 1
   tile_id: 3
   coordinate:
     x: 320
-    y: 304
+    y: 500
 - map_id: 1
   tile_id: 3
   coordinate:
     x: 336
-    y: 304
+    y: 500
 - map_id: 1
   tile_id: 3
   coordinate:
     x: 352
-    y: 304
+    y: 500
 - map_id: 1
   tile_id: 3
   coordinate:
     x: 368
-    y: 304
+    y: 500
 - map_id: 1
   tile_id: 3
   coordinate:
     x: 384
-    y: 304
+    y: 500
 - map_id: 1
   tile_id: 3
   coordinate:
     x: 400
-    y: 304
+    y: 500
 - map_id: 1
   tile_id: 3
   coordinate:
     x: 416
-    y: 304
+    y: 500
 - map_id: 1
   tile_id: 3
   coordinate:
     x: 432
-    y: 304
+    y: 500
 - map_id: 
   tile_id: 3
   coordinate:
     x: 400
-    y: 304
+    y: 500
 - map_id: 1
   tile_id: 3
   coordinate:
     x: 416
-    y: 304
+    y: 500
 - map_id: 1
   tile_id: 3
   coordinate:
     x: 432
-    y: 304
+    y: 500
 - map_id: 
   tile_id: 3
   coordinate:
@@ -199,27 +199,27 @@ tiles:
   tile_id: 3
   coordinate:
     x: 336
-    y: 304
+    y: 500
 - map_id: 1
   tile_id: 3
   coordinate:
     x: 352
-    y: 304
+    y: 500
 - map_id: 1
   tile_id: 3
   coordinate:
     x: 368
-    y: 304
+    y: 500
 - map_id: 1
   tile_id: 3
   coordinate:
     x: 384
-    y: 304
+    y: 500
 - map_id: 1
   tile_id: 3
   coordinate:
     x: 400
-    y: 304
+    y: 500
 - map_id: 1
   tile_id: 3
   coordinate:
@@ -285,13 +285,38 @@ tiles:
   coordinate:
     x: 600
     y: 304
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 600
+    y: 200
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 400
+    y: 200
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 500
+    y: 150
+- map_id: 1
+  tile_id: 3
+  coordinate:
+    x: 540
+    y: 150
+
 
 box_size: 32
 boxes:
 - id: 0
   coordinate:
-      x: 200
-      y: 200
+    x: 200
+    y: 452
+- id: 0
+  coordinate:
+    x: 540
+    y: 128
 
 armor_size: 16
 armor:
@@ -315,23 +340,23 @@ weapons:
       y: 250
   - id: 2
     coordinate:
-      x: 100
+      x: 120
       y: 250
   - id: 4
     coordinate:
-      x: 132
+      x: 160
       y: 250
   - id: 5
     coordinate:
-      x: 164
+      x: 180
       y: 250
   - id: 6
     coordinate:
-      x: 196
+      x: 210
       y: 250
   - id: 7
     coordinate:
-      x: 228
+      x: 250
       y: 250
   - id: 8
     coordinate:
@@ -339,11 +364,11 @@ weapons:
       y: 250
   - id: 9
     coordinate:
-      x: 292
+      x: 280
       y: 250
   - id: 10
     coordinate:
-      x: 324
+      x: 300
       y: 250
 
 player_size: 32

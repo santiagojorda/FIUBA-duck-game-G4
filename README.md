@@ -103,7 +103,7 @@ controles player 2:
 - moverse a la derecha -> l
 - moverse a la izquierda -> j
 - agacharse  -> k
-- soltar arma -> u
+- soltar arma -> p
 - disparar -> o 
 
 extras:

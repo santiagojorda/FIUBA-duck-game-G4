@@ -38,11 +38,11 @@ void DuckStateController::execute(Player& player, GameLogic& game_logic) {
 
 
 void DuckStateController::run(Direction new_direction, Player& player, GameLogic& game_logic) {
-    if(!is_alive() || is_crouching() || is_slipping() || is_recoiling()){
+    if(!is_alive() || is_crouching() || is_slipping() || is_recoiling() || is_planning()){
         return;
     }
 
-    if(is_falling() || is_jumping() || is_planning()){ 
+    if(is_falling() || is_jumping()){ 
         set_direction(new_direction);
         game_logic.move_horizontal(player, new_direction);
         return;
@@ -65,7 +65,7 @@ void DuckStateController::run_left(Player& player, GameLogic& game_logic) {
 }
 
 void DuckStateController::jump() {
-    if(is_touching_floor() && !is_slipping()){
+    if(is_touching_floor() && !is_slipping() && !is_slipping()){
         set_touch_floor(false);
         set_alive_state(DuckStateType::JUMPING);
     }

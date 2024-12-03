@@ -151,7 +151,7 @@ void KeyboardController::procesar_accion_player_2(const Uint8* state) {
         client_event = {PLAYER_2, ActionEvent::TRIGGER};
         this->commands.push(client_event);
     }
-    if (state[SDL_SCANCODE_U]) {
+    if (state[SDL_SCANCODE_P]) {
         client_event = {PLAYER_2, ActionEvent::DROP_GUN};
         this->commands.push(client_event);
     }
