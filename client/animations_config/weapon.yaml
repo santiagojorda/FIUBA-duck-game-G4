@@ -143,3 +143,29 @@ sniper:
   offset_y: 15
   scale_width: 31
   scale_height: 7
+
+armor:
+texture: "/DuckGame-Equipment.png"
+  rects:
+    - x: 387
+      y: 11
+      w: 32
+      h: 32
+  offset_right_x: 0
+  offset_left_x: 0
+  offset_y: 5
+  scale_width: 32
+  scale_height: 32
+
+helmet:
+  texture: "/DuckGame-Equipment.png"
+  rects:
+    - x: 452
+      y: 213
+      w: 32
+      h: 32
+  offset_right_x: -2
+  offset_left_x: 2
+  offset_y: -7
+  scale_width: 32
+  scale_height: 32
