@@ -35,7 +35,7 @@ std::shared_ptr<Equippable> Gun::clone() const {
         return std::make_shared<Gun>(*this); 
 }
 
-void Gun::handle_equip(Inventory& inventory) { inventory.equip(shared_from_this()); };
+void Gun::handle_equip(Inventory& inventory) { inventory.equip(std::dynamic_pointer_cast<Gun>(shared_from_this())); };
 
 uint8_t Gun::get_max_ammo() { return max_ammo; }
 

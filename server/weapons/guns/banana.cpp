@@ -1,17 +1,34 @@
 #include "banana.h"
+#include "../../player/player.h"
 
-// struct BananaConfig {
-//     WeaponTextureID id = WeaponTextureID::BANANA;
-//     uint8_t max_ammo = 1;
-//     ShootingRecoil recoil = ShootingRecoil::NONE;
-//     ProjectileRange range = ProjectileRange::MEDIUM;
-//     uint8_t count_projectiles_x_shoot = 1;
-// };
-// BananaConfig banana_config;
+gun_config banana_config = { WeaponTextureID::BANANA, 1, ShootingRecoil::NONE, ProjectileRange::MEDIUM, 1, 1};
 
-// Banana::Banana(const Coordinate& _coordinate):
-//         Gun(banana_config.id, banana_config.max_ammo, banana_config.recoil, banana_config.range,
-//             _coordinate) {}
+Banana::Banana(const Coordinate& _coordinate):
+        Gun(banana_config, _coordinate){}
 
+void Banana::trigger_out(ListProjectiles& projectiles, const uint8_t& player_id,bool& was_dropped) {
+    Gun::trigger_out(projectiles, player_id, was_dropped);
+    was_dropped = true;
+    is_waiting_to_explotion = true;
+}
 
-// Banana::~Banana() {}
+void Banana::on_collision_with(Player& player, GameLogic& game_logic) {
+    std::cout << "Collision banana con player" << std::endl;
+    (void)game_logic;
+    player.on_collision_with(std::dynamic_pointer_cast<Equippable>(shared_from_this()), game_logic);    
+
+    if(is_waiting_to_explotion){
+        player.slip();
+        die();
+    }
+}
+
+void Banana::handle_equip(Inventory& inventory) { 
+    if(is_waiting_to_explotion){
+        die();
+        return;
+    }
+    Gun::handle_equip(inventory);
+};
+
+Banana::~Banana() {}

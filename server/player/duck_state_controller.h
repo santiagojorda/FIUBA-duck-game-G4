@@ -31,20 +31,23 @@ public:
     void reset();
     void update(Player& player, GameLogic& game_logic);
 
-    void run(Direction direction, Player& player, GameLogic& game_logic);
+    void run(Direction new_direction, Player& player, GameLogic& game_logic);
     void run_right(Player& player, GameLogic& game_logic);
     void run_left(Player& player, GameLogic& game_logic);
     void jump();
     void fall();
     void crouch();
     void slip();
-    void recoil();
+    void recoil(Player& player, GameLogic& game_logic);
     void plane(Player& player, GameLogic& game_logic);
     void die();
     void idle();
     bool is_jumping();
     bool is_running();
     bool is_falling();
+    bool is_slipping();
+    bool is_planning();
+    bool is_recoiling();
     bool is_idle();
     bool is_dead() const;
     bool is_alive();

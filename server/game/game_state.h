@@ -25,6 +25,11 @@ struct Projectiles_t{
 
 };
 
+struct Box_t{
+    uint8_t texture_id;
+    Coordinate coordinate;
+    uint8_t frame;
+};
 
 
 struct GameState_t {
@@ -33,6 +38,7 @@ struct GameState_t {
     Map& map;
     std::list<ItemsMap_t> map_items;
     std::list<Projectiles_t> map_projectiles;
+    std::list<Box_t> map_boxes;
     game_statistics_t statistics;
 };
 

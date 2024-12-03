@@ -1,7 +1,10 @@
-> Hola! 👋🏼 El trabajo aun no esta finalizado, seguimos en desarrollo! 💪🏼☕ - 19/11 
+> Hola! 👋🏼 El trabajo aun no esta finalizado, seguimos en desarrollo! 💪🏼☕ - 03/12
 
-> autores name - name - Felipe D'alto
-
+> autores: 
+>  - Santiago Jorda (102924)
+>  - Alexia Aroa (110014) 
+>  - Felipe D'alto (110000)
+ 
 # Cómo compilar y ejecutar 
 
 ## Introducción
@@ -62,20 +65,20 @@ Se requieren dos terminales
 
 Para el server en la primera:
 ```bash
- ./taller_server
+ ./taller_server <servername>
 ````
 
 Para el cliente en la segunda 
 (por defecto se conecta en el peurto 8080)
 
 ```bash
- ./taller_client  <hostname> 8080
+ ./taller_client  <hostname> <servername>
 ````
 
 ### Ejemplo
 - Servidor: 
 ````bash  
-./taller_server
+./taller_server 8080
 ````
 - Cliente:
 ````bash  
@@ -88,15 +91,30 @@ Al iniciar el juego se vera una pantalla negra, una vez los jugadores esten cone
 Para cerrar usa la tecal "q" o "esc"
 
 controles player 1:
-- saltar -> key up 
-- moverse a la derecha -> key up 
-- moverse a la izquierda -> key up 
-- disparar -> space 
-
-controles player 2:
 - saltar -> w
 - moverse a la derecha -> d
 - moverse a la izquierda -> a
-- disparar -> space 
+- agacharse  -> s
+- soltar arma -> r
+- disparar -> e 
 
+controles player 2:
+- saltar -> i
+- moverse a la derecha -> l
+- moverse a la izquierda -> j
+- agacharse  -> k
+- soltar arma -> u
+- disparar -> o 
 
+extras:
+- q p ESC para cerrar el jeugo
+
+Las partidas se reinician cuando queda un jugador con vida, el ganador sera el primeor en optener 10 vitorias.
+
+## Terminar 
+Una vez vean la pantalla End Game, la tecla q cierra el juego, para cerrar el server deben mandar una 'q' por consola de comandos 
+
+- server:
+````bash  
+q
+````

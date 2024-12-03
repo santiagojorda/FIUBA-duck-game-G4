@@ -12,7 +12,6 @@
 
 #include "monitor_clients.h"
 
-#define SERVNAME "8080"
 
 class AcceptorClients: public Thread {
 private:
@@ -27,7 +26,7 @@ private:
 
 public:
     AcceptorClients(MonitorClients& monitor, QueueGameState& _queue_gamestate,
-                    QueueEvents& _queue_events, ListPlayersID& _players_id);
+                    QueueEvents& _queue_events, ListPlayersID& _players_id, const char* server_name);
     void run() override;
     void stop() override;
     ~AcceptorClients();

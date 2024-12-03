@@ -3,10 +3,11 @@
 #include <iostream>
 #include "../player/player.h"
 #include "../map/map.h"
-
+#include "list_boxes.h"
+#include "../map/ground.h"
 #define PHYSIC_TILE_SIZE 16
 
-GamePhysics::GamePhysics(Map& _map): map(_map) {}
+GamePhysics::GamePhysics(Map& _map, ListBoxes& _boxes): map(_map), boxes(_boxes) {}
 
 bool GamePhysics::exist_collision(const Rectangle& a, const Rectangle& b) {
     return !(a.get_x_max() < (b.get_x_min()) || a.get_x_min() > b.get_x_max() ||
@@ -30,12 +31,21 @@ void GamePhysics::falling(Positionable& target, uint iter_frame) {
 std::shared_ptr<Positionable> GamePhysics::get_target_floor_collision(Positionable& target) {
     for (auto& tile: this->map) {
         if (this->exist_collision(target.get_rectangle(), tile->get_rectangle())) {
-            return tile;
+            return std::shared_ptr<Positionable>(tile);
         }
     }
     return nullptr;
 }
 
+
+std::shared_ptr<Box> GamePhysics::get_target_box_collision(Positionable& target) {
+    for (auto& box: this->boxes) {
+        if (this->exist_collision(target.get_rectangle(), box->get_rectangle())) {
+            return box;
+        }
+    }
+    return nullptr;
+}
 
 bool GamePhysics::is_player_out_of_map(Player& player) {
     Rectangle player_space = player.get_rectangle();

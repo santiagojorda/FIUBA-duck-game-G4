@@ -42,6 +42,11 @@ void ClientProtocol::send_action(uint8_t& id_jugador, ActionEvent& type_action) 
 
 void ClientProtocol::send_init(const uint8_t& init) { this->send_byte(init); }
 
+void ClientProtocol::recv_init(uint8_t& init) { this->receive_byte(init); }
+
+void ClientProtocol::send_server_name(std::string& name) { this->send_string(name); }
+
+
 void ClientProtocol::receive_inventory(inventory_t& inventory) {
     uint8_t weapon = 0;  // es el "id_arma"
     uint8_t ammo = 0;

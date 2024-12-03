@@ -12,8 +12,8 @@ public:
 
     void bounce(const Positionable& superfice);
 
-    virtual void collision_surface(Positionable& surface, GameLogic& game_logic) override;
-
+    using Collidable::on_collision_with;
+    virtual void on_collision_with(std::shared_ptr<Ground> surface, GameLogic& game_logic) override;
     ~BulletBounce();
 };
 
