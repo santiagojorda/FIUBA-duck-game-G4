@@ -8,7 +8,7 @@
 #include "../weapons/gun_factory.h"
 
 #define TICKS_PER_SECOND 30
-#define SECONDS_TO_RESPAWN 15
+#define SECONDS_TO_RESPAWN 20
 
 Box::Box(const Coordinate& _coordinate)
 : Positionable((uint8_t)BoxesTextureID::DEFAULT, _coordinate),
@@ -25,14 +25,14 @@ void Box::update(){
 }
 
 void Box::drop_weapon(GameLogic& game_logic){
+    (void)game_logic;
+    // std::random_device rd;  
+    // std::mt19937 gen(rd()); 
+    // std::uniform_int_distribution<> distrib(1, 14);
 
-    std::random_device rd;  
-    std::mt19937 gen(rd()); 
-    std::uniform_int_distribution<> distrib(0, static_cast<int>(WeaponTextureID::DUMMY) - 1);
-
-    int random_number = distrib(gen);
-    GunFactory factory;
-    game_logic.handle_drop(factory.create_gun(random_number, get_coordinate()));
+    // int random_number = distrib(gen);
+    // GunFactory factory;
+    // game_logic.handle_drop(factory.create_gun(random_number, get_coordinate()));
 
 }
 
@@ -59,6 +59,6 @@ bool Box::is_open() { return state == GroundState::OPEN; }
 void Box::open(GameLogic& game_logic) { 
     (void)game_logic;
     state = GroundState::OPEN; 
-    // drop_weapon(game_logic);
+    drop_weapon(game_logic);
 }
 uint8_t Box::get_state() { return (uint8_t)state; }
