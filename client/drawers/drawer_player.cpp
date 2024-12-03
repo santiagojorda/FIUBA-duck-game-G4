@@ -73,9 +73,10 @@ void DrawerPlayer::update_wings(DuckStateType duck_status) {
         return;
     }
 
+    /**
     if (duck_status == DuckStateType::PLANNING) {
         this->frame = UNIQUE_FRAME;
-    }
+    }*/
 
     this->type_animation = texture_provider.get_textures_wings(duck_status);
     auto config = this->animations.at(this->type_animation).get_config_screen();

@@ -260,6 +260,39 @@ slipping:
   scale_width: 0
   scale_height: 0
 
+planning:
+  texture: "/DuckGame-YellowDuck.png"
+  rects:
+    - x: 1
+      y: 40
+      w: 32
+      h: 32
+    - x: 33
+      y: 40
+      w: 32
+      h: 32
+    - x: 66
+      y: 40
+      w: 32
+      h: 32
+    - x: 99
+      y: 40
+      w: 32
+      h: 32
+    - x: 99
+      y: 40
+      w: 32
+      h: 32
+    - x: 1
+      y: 8
+      w: 32
+      h: 32
+  offset_right_x: 0
+  offset_left_x: 0
+  offset_y: 0
+  scale_width: 0
+  scale_height: 0
+
 wings_planning:
   texture: "/DuckGame-YellowDuck.png"
   rects:

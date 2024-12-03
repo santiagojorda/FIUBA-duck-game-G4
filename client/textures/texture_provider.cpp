@@ -17,6 +17,8 @@ TextureProvider::TextureProvider() {
             {WeaponTextureID::MAGNUM, "magnum"},
             {WeaponTextureID::SHOTGUN, "shotgun"},
             {WeaponTextureID::SNIPER, "sniper"},
+            {WeaponTextureID::ARMOR, "armor"},
+            {WeaponTextureID::HELMET, "helmet"},
     };
 
     textures_ducks = {
@@ -41,7 +43,7 @@ TextureProvider::TextureProvider() {
             {DuckStateType::RECOILING, "wings_walking_simple"},
             {DuckStateType::FALLING, "wings_walking_simple"},
             {DuckStateType::SLIPPING, "wings_walking_simple"},
-            {DuckStateType::PLANNING, "wings_walking_simple"},
+            {DuckStateType::PLANNING, "wings_planning"},
             {DuckStateType::IDLE, "wings_walking_simple"},
             {DuckStateType::DEAD, "wings_walking_simple"},
     };
