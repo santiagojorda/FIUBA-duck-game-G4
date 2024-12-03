@@ -4,10 +4,14 @@
 #include "../attributes/positionable.h"
 #include "../attributes/updatable.h"
 
-#include "../map/box.h"
+// #include "../map/box.h"
 #include "projectile_range.h"
+#include "../attributes/collidable.h"
 #include "../attributes/directionable.h"
 class GameLogic;
+class Player;
+class Ground;
+class Box;
 
 enum class ProjectileState: uint8_t {
     DEAD,
@@ -15,7 +19,7 @@ enum class ProjectileState: uint8_t {
     // THROWING,
 };
 
-class Projectile: public Positionable, public Directionable, public std::enable_shared_from_this<Projectile> {  // es un statable
+class Projectile: public Positionable, public Directionable, public Collidable {  // es un statable
 protected:
     ProjectileRange range_tiles;
     uint8_t count_tiles_moved;
@@ -31,8 +35,16 @@ public:
     void die();
     bool is_dead();
 
-    virtual void collision_surface(Positionable& surface, GameLogic& game_logic);
-    virtual void handle_collision_box(Box& box, GameLogic& game_logic);
+    // void on_collision_with(Collidable& other, GameLogic& game_logic) override;
+
+    virtual void handle_collision(std::shared_ptr<Collidable> other, GameLogic& game_logic) override;
+    using Collidable::on_collision_with;
+    virtual void on_collision_with(std::shared_ptr<Ground> surface, GameLogic& game_logic) override;
+    virtual void on_collision_with(std::shared_ptr<Box> box, GameLogic& game_logic) override;
+    virtual void on_collision_with(Player& player, GameLogic& game_logic) override;
+
+    // virtual void collision_surface(Positionable& surface, GameLogic& game_logic);
+    // virtual void handle_collision_box(Box& box, GameLogic& game_logic);
     uint8_t get_shooter_id();
 };
 

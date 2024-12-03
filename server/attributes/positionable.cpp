@@ -1,6 +1,5 @@
 #include "positionable.h"
 
-#include "../player/player.h"
 #include "../weapons/projectiles/bullet.h"
 
 Positionable::Positionable(): space(0, 0, 0, 0) {}  // DUMMY
@@ -28,21 +27,6 @@ void Positionable::translate_x(int steps) {
 void Positionable::translate_y(int steps) {
     Rectangle new_pos(this->space.get_coordinates() + Coordinate(0, steps, 0, 0));
     this->space = new_pos;
-}
-
-
-void Positionable::handle_collision(Projectile& projectile, GameLogic& game_logic){
-    (void)projectile;
-    (void)game_logic;
-}
-
-void Positionable::handle_collision(Player& player, GameLogic& game_logic){
-    (void)player;
-    (void)game_logic;
-}
-void Positionable::handle_collision(Box& box, GameLogic& game_logic){
-    (void)box;
-    (void)game_logic;
 }
 
 void Positionable::fall(GameLogic& game_logic) { (void)game_logic;}

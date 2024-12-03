@@ -34,7 +34,7 @@ struct  gun_config{
 };
 
 
-class Gun: public Equippable, public Directionable, public std::enable_shared_from_this<Gun> {
+class Gun: public Equippable, public Directionable{
 protected:
     // cppcheck-suppress unusedStructMember
     uint8_t max_ammo;
@@ -46,6 +46,7 @@ protected:
     ProjectileRange projectile_range;
     CircularCounter delay_counter;
     uint8_t tick = 0;
+    bool is_waiting_to_explotion = false;
 
 public:
 
@@ -56,18 +57,17 @@ public:
     Gun(const gun_config& _config, const Coordinate& _coordinate);
     
     virtual void trigger(ListProjectiles& projectiles, const uint8_t& player_id);
-
+    virtual void update(GameLogic& game_logic) override;
     virtual void trigger_out(ListProjectiles& projectiles, const uint8_t& player_id, bool& was_dropped);
 
     void handle_equip(Inventory& inventory) override;
-
-    std::shared_ptr<Gun> get_shared_ptr() { return shared_from_this(); }
-
+    void check_no_ammo();
     uint8_t get_ammo();
-
     uint8_t get_max_ammo();
+
     std::shared_ptr<Equippable> clone() const override;
     virtual void handle_explotion(GameLogic& game_logic);
+    using Collidable::on_collision_with;
 
     ShootingRecoil get_recoil();
     virtual ~Gun();

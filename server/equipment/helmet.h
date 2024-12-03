@@ -14,7 +14,7 @@ public:
             return std::make_shared<Helmet>(*this); 
     }
 
-    
+
 };
 
 #endif

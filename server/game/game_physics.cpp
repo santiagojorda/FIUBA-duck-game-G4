@@ -4,6 +4,7 @@
 #include "../player/player.h"
 #include "../map/map.h"
 #include "list_boxes.h"
+#include "../map/ground.h"
 
 #define PHYSIC_TILE_SIZE 16
 
@@ -28,9 +29,20 @@ void GamePhysics::falling(Positionable& target, uint iter_frame) {
     target.translate_y(iter_frame * iter_frame * (G_FORCE / 2));
 }
 
-std::shared_ptr<Positionable> GamePhysics::get_target_floor_collision(Positionable& target) {
+std::shared_ptr<Ground> GamePhysics::get_target_floor_collision(Positionable& target) {
     for (auto& tile: this->map) {
         if (this->exist_collision(target.get_rectangle(), tile->get_rectangle())) {
+            return tile;
+        }
+    }
+    return nullptr;
+}
+
+std::shared_ptr<Ground> GamePhysics::is_floor_below(const Coordinate& target){
+    for (auto& tile: this->map) {
+        Coordinate aux_target = Coordinate(target.get_x(), target.get_y()+target.get_h()+1,1,target.get_w()); // extiendo el ancho 1 pixel
+
+        if(exist_collision(Rectangle(aux_target), tile->get_rectangle())){
             return tile;
         }
     }

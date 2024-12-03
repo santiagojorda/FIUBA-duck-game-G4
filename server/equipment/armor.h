@@ -13,6 +13,7 @@ public:
     std::shared_ptr<Equippable> clone() const override {
             return std::make_shared<Armor>(*this); 
     }
+
 };
 
 #endif

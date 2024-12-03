@@ -39,6 +39,7 @@ private:
     std::map<FloorTexture, std::string> textures_floor;
     std::map<BoxTexture, std::string> textures_boxes;
     std::map<BulletTexture, std::string> textures_bullets;
+    std::map<DuckStateType, std::string> textures_wings_duck;
 
 public:
     static TextureProvider& get_instance();
@@ -50,6 +51,7 @@ public:
     const std::string& get_textures_floor(FloorTexture id) const;
     const std::string& get_textures_box(BoxTexture id) const;
     const std::string& get_textures_bullet(BulletTexture id) const;
+    const std::string& get_textures_wings(DuckStateType id) const;
 };
 
 #endif  // TEXTURE_PROVIDER_H
