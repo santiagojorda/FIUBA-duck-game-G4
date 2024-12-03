@@ -25,10 +25,10 @@ void Box::update(){
 }
 
 void Box::drop_weapon(GameLogic& game_logic){
-    (void)game_logic;
+
     // std::random_device rd;  
     // std::mt19937 gen(rd()); 
-    // std::uniform_int_distribution<> distrib(1, 14);
+    // std::uniform_int_distribution<> distrib(1, static_cast<int>(WeaponTextureID::MAX) - 1);
 
     // int random_number = distrib(gen);
     // GunFactory factory;
