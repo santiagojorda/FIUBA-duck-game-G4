@@ -30,10 +30,7 @@ public:
 
     virtual void handle_equip(Inventory& inventory) = 0;
 
-    void handle_collision(std::shared_ptr<Collidable> other, GameLogic& game_logic) override{
-        std::cout << "handle_sollision equippable" << std::endl;
-        other->on_collision_with(std::dynamic_pointer_cast<Equippable>(shared_from_this()), game_logic);    
-    };
+    void handle_collision(std::shared_ptr<Collidable> other, GameLogic& game_logic) override;
     // virtual void on_collision_with(Player& other, GameLogic& game_logic) override = 0;
     using Collidable::on_collision_with;
     virtual void on_collision_with(Player& player, GameLogic& game_logic) override;

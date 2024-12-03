@@ -10,3 +10,8 @@ void Equippable::on_collision_with(std::shared_ptr<Projectile> projectile, GameL
     std::cout << "on collision equippable with projectile" << std::endl;
     projectile->on_collision_with(std::dynamic_pointer_cast<Equippable>(shared_from_this()), game_logic);    
 };
+
+void Equippable::handle_collision(std::shared_ptr<Collidable> other, GameLogic& game_logic) {
+    std::cout << "handle_sollision equippable" << std::endl;
+    other->on_collision_with(std::dynamic_pointer_cast<Equippable>(shared_from_this()), game_logic);    
+};

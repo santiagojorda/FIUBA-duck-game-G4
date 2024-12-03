@@ -45,16 +45,15 @@ void GameLogic::handle_drop(std::shared_ptr<Equippable> item){
 
 void GameLogic::update_player_gravity(Player& player) {
 
-    std::shared_ptr<Ground> floor_below = physics.is_floor_below(player.get_coordinate());
-    if(!floor_below){
-        player.fall(*this);
-    }
-    else{
-        player.adjust_position_to_floor(floor_below);
-        if(player.is_falling()){
+    std::shared_ptr<Positionable> touched_floor = physics.get_target_floor_collision(player);
+    if (touched_floor) {
+        player.adjust_position_to_floor(touched_floor);
+        if (player.is_falling()) {
             player.idle();
         }
         player.touch_floor();
+    } else {
+        player.fall(*this);
     }
 
 }
@@ -162,7 +161,14 @@ void GameLogic::update(){
     update_projectiles();
     update_players();
     update_weapons();
+    update_boxes();
+}
 
+void GameLogic::update_boxes(){
+    
+    for (std::shared_ptr<Box> box: boxes) {
+        box->update();
+    }
 }
 
 void GameLogic::add_projectile(std::shared_ptr<Projectile> new_projectile){

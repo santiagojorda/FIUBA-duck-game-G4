@@ -93,9 +93,9 @@ std::shared_ptr<Helmet> Player::get_helmet() { return inventory.get_helmet(); }
 Inventory& Player::get_inventory() { return inventory; }
 Direction Player::get_direction() { return state.get_direction(); }
 
-void Player::adjust_position_to_floor(std::shared_ptr<Ground> floor) {
+void Player::adjust_position_to_floor(std::shared_ptr<Positionable> floor) {
     if (floor) {
-
+        
         int player_bottom = space.get_y_max();
         Rectangle floor_points = floor->get_rectangle();
         int floor_top = floor_points.get_y_min();

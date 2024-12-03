@@ -33,7 +33,7 @@ public:
     Player& operator=(const Player& _other);
     uint8_t get_id() const;
     Coordinate get_coordinates_collisionables();
-    void adjust_position_to_floor(std::shared_ptr<Ground> floor);
+    void adjust_position_to_floor(std::shared_ptr<Positionable> floor);
     void translate_x(int pasos) override;
     void translate_y(int pasos) override;
     void recoil(GameLogic& game_logic);

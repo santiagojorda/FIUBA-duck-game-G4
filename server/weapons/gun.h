@@ -57,14 +57,14 @@ public:
     Gun(const gun_config& _config, const Coordinate& _coordinate);
     
     virtual void trigger(ListProjectiles& projectiles, const uint8_t& player_id);
-
+    virtual void update(GameLogic& game_logic) override;
     virtual void trigger_out(ListProjectiles& projectiles, const uint8_t& player_id, bool& was_dropped);
 
     void handle_equip(Inventory& inventory) override;
-
+    void check_no_ammo();
     uint8_t get_ammo();
-
     uint8_t get_max_ammo();
+
     std::shared_ptr<Equippable> clone() const override;
     virtual void handle_explotion(GameLogic& game_logic);
     using Collidable::on_collision_with;

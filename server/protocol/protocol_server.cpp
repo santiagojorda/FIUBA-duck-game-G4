@@ -6,6 +6,7 @@
 #include <memory>
 
 #define BYTE_CLIENT 0xA
+#define PATH_MAP
 
 ProtocolServer::ProtocolServer(Socket& skt): Protocol(skt) {}
 

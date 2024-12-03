@@ -32,6 +32,7 @@ private:
     void update_player_equip_collision(Player& player);
     void update_players();
     void update_weapons();
+    void update_boxes();
     void update_projectiles();
     bool can_move(Player& player, int x, int y);
 

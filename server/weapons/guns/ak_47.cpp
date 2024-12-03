@@ -9,7 +9,6 @@ gun_config ak_config = {WeaponTextureID::AK_47,  30, ShootingRecoil::SHORT,
 AK47::AK47(const Coordinate& _coordinate): Gun(ak_config, _coordinate) {}
 
 void AK47::trigger(ListProjectiles& projectiles, const uint8_t& player_id) {
-
     this->dispersion++;
     this->dispersion = this->dispersion > 60 ? 49 : this->dispersion;
 

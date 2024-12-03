@@ -1,7 +1,7 @@
 #include "gun.h"
 
 #include <iostream>
-
+#include "../game/game_logic.h"
 
 Gun::Gun(const WeaponTextureID& _texture_id, const uint8_t& _max_ammo,
          const ShootingRecoil& _recoil, const ProjectileRange& _projectile_range,
@@ -30,6 +30,11 @@ Gun::Gun(const gun_config& _config, const Coordinate& _coordinate) :
 
         }
 
+void Gun::check_no_ammo(){
+        if(ammo == 0){
+                die();
+        }
+}
 
 std::shared_ptr<Equippable> Gun::clone() const {
         return std::make_shared<Gun>(*this); 
@@ -38,6 +43,7 @@ std::shared_ptr<Equippable> Gun::clone() const {
 void Gun::handle_equip(Inventory& inventory) { inventory.equip( std::dynamic_pointer_cast<Gun>(shared_from_this())); };
 
 uint8_t Gun::get_max_ammo() { return max_ammo; }
+
 
 uint8_t Gun::get_ammo() { return ammo; }
 
@@ -52,7 +58,10 @@ void Gun::trigger(ListProjectiles& projectiles, const uint8_t& player_id){
         (void)projectiles;
         (void)player_id;
 }
-
+void Gun::update(GameLogic& game_logic){
+        (void)game_logic;
+        check_no_ammo();
+}
 
 void Gun::handle_explotion(GameLogic& game_logic) { (void)game_logic; }
 
