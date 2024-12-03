@@ -1,16 +1,14 @@
 #ifndef EVENT_MOVE_LEFT_H
 #define EVENT_MOVE_LEFT_H
 
-#include "event_player.h"
+#include "event.h"
 
-class EventMoveLeft: public EventPlayer {
-private:
+class EventMoveLeft: public Event {
 public:
     explicit EventMoveLeft(uint8_t& _player_id);
 
-    virtual void execute(GameLogic& _game_logic) override;
-
+    virtual void execute(GameLogic& game_logic) override; 
     ~EventMoveLeft();
 };
 
-#endif  // EVENT_MOVE_LEFT_H
+#endif

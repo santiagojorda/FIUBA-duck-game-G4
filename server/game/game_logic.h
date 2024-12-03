@@ -2,34 +2,57 @@
 #define GAME_LOGIC_H
 
 #include <list>
+#include <memory>
 
-#include "../../common/action_commands.h"
-#include "../guns/list_guns.h"
-#include "../guns/list_projectiles.h"
+#include "../../common/action_events.h"
+
 #include "../map/map.h"
-#include "../player/list_players.h"
 #include "../player/player.h"
-
+#include "../attributes/equippable.h"
 #include "game_physics.h"
+#include "../weapons/projectile_range.h"
+
+class Projectile;
+class Gun;
+class Event;
+class ListProjectiles;
+class ListItemsMap;
+class ListPlayers;
+class ListBoxes;
+class Event;
 
 class GameLogic {
 private:
     ListPlayers& players;
     Map& map;
-    ListGuns& map_guns;
-    ListProjectiles& map_projectiles;
+    ListItemsMap& items;
+    ListProjectiles& projectiles;
+    ListBoxes& boxes;
     GamePhysics physics;
-    Player& get_player(const uint8_t& player_id);
-    void update_player_gravity(Player& player);
     void update_player_equip_collision(Player& player);
-    bool is_player_out_of_map(Player& player);
-    Positionable* get_player_floor_collision(const Player& player);
+    void update_players();
+    void update_weapons();
+    void update_projectiles();
+    void update_boxes();
+    bool can_move(Player& player, int x, int y);
 
 public:
-    explicit GameLogic(ListPlayers& _players, Map& _map, ListGuns& _map_guns,
-                       ListProjectiles& _map_projectiles);
-    void handle_event(uint8_t player_id, ActionCommand event);
-    void update_players();
+    explicit GameLogic(ListPlayers& _players, Map& _map, ListItemsMap& _items,
+                       ListProjectiles& _projectiles, ListBoxes& _boxes);
+    void handle_event(Event& event);
+    void update();
+    void add_projectile(std::shared_ptr<Projectile> new_projectile);
+    void explote(Gun& gun);
+    ListProjectiles& get_projectiles();
+    GamePhysics& get_physics();
+    void handle_drop(std::shared_ptr<Equippable> item);
+    Player& get_player(const uint8_t& player_id);
+    void fall(Player& player);
+    void move(Player& player, int x, int y);
+    void move_horizontal(Player& player, Direction& direction);
+    void move(std::shared_ptr<Projectile> projectile, int x, int y);
+    void update_player_gravity(Player& player);
+
     ~GameLogic();
 };
 

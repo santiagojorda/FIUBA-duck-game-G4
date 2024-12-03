@@ -2,11 +2,11 @@
 
 #include <list>
 
-Client::Client(Socket&& _skt, QueueGameState& _queue_gamestate, QueueEventPlayer& _queue_event,
+Client::Client(Socket&& _skt, QueueGameState& _queue_gamestate, QueueEvents& _queue_events,
                VectorPlayerID& _players_id):
         skt(std::move(_skt)),
         protocol(skt),
-        receiver(_queue_event, protocol, _players_id),
+        receiver(_queue_events, protocol, _players_id),
         sender(_queue_gamestate, protocol) {
 
     receiver.start();
@@ -22,7 +22,7 @@ void Client::shutdown() {
     skt.close();
 }
 
-Client::~Client(){
+Client::~Client() {
     this->receiver.join();
     this->sender.join();
 }

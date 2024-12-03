@@ -11,11 +11,11 @@
 #define BYTE_START_GAME 0xFF
 
 AcceptorClients::AcceptorClients(MonitorClients& _monitor, QueueGameState& _queue_gamestate,
-                                 QueueEventPlayer& _queue_event, ListPlayersID& _players_id):
-        skt(SERVNAME),
+                                 QueueEvents& _queue_events, ListPlayersID& _players_id, const char* server_name):
+        skt(server_name),
         monitor(_monitor),
         queue_gamestate(_queue_gamestate),
-        queue_event(_queue_event),
+        queue_events(_queue_events),
         players_id(_players_id) {}
 
 void AcceptorClients::listen_new_client() {
@@ -39,7 +39,7 @@ void AcceptorClients::listen_new_client() {
         client_players_id.emplace_back(id);
     }
 
-    monitor.add_item(std::move(new_skt), queue_gamestate, queue_event, client_players_id);
+    monitor.add_item(std::move(new_skt), queue_gamestate, queue_events, client_players_id);
 }
 
 void AcceptorClients::run() {

@@ -13,6 +13,9 @@ enum class WeaponTextureID : uint8_t {
     MAGNUM,
     SHOTGUN,
     SNIPER,
+    ARMOR,
+    HELMET,
+    MAX,
     DUMMY = 99
 };
 

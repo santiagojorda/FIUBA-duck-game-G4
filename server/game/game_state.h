@@ -3,18 +3,44 @@
 
 #include <list>
 
-#include "../guns/list_guns.h"
-#include "../guns/list_projectiles.h"
+#include "list_items_map.h"
+#include "game_statistics.h"
+#include "../weapons/list_projectiles.h"
 #include "../map/map.h"
 #include "../player/list_players.h"
 #include "../player/player.h"
 
+#include "../../common/game_moment.h"
+
+struct ItemsMap_t{
+    uint8_t texture_id;
+    Coordinate coordinate;
+    uint8_t frame;
+};
+
+struct Projectiles_t{
+    uint8_t texture_id;
+    Coordinate coordinate;
+    uint8_t direction;
+
+};
+
+struct Box_t{
+    uint8_t texture_id;
+    Coordinate coordinate;
+    uint8_t frame;
+};
+
+
 struct GameState_t {
-    // cppcheck-suppress unusedStructMember
+    GameMoment moment;
     ListPlayers& players;
     Map& map;
-    ListGuns& map_guns;
-    ListProjectiles& map_projectiles;
+    std::list<ItemsMap_t> map_items;
+    std::list<Projectiles_t> map_projectiles;
+    std::list<Box_t> map_boxes;
+    game_statistics_t statistics;
 };
+
 
 #endif  // SERVER_GAME_STATE_H_

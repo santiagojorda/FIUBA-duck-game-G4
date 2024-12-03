@@ -2,8 +2,14 @@
 #define SERVER_POSITIONABLE_H_
 
 #include <cstdint>
-
+#include <memory>
 #include "../../common/rectangle.h"
+class GameLogic;
+class Bullet;
+class Player;
+class Box;
+class Equippable;
+class Projectile;
 
 class Positionable {
 
@@ -16,6 +22,7 @@ protected:
 
 public:
     Positionable();
+    Positionable(const uint8_t& _id);
     Positionable(const uint8_t& _id, const uint8_t& _texture_id, const Coordinate& _coordinate);
     Positionable(const uint8_t& _texture_id, const Coordinate& _coordinate);
 
@@ -25,12 +32,15 @@ public:
 
     Rectangle get_rectangle() const;
 
-    virtual void translate() = 0;
-    virtual void translate_x(int pasos) = 0;
-    virtual void translate_y(int pasos) = 0;
-    uint8_t get_id();
-    uint8_t get_texture_id();
+    virtual void translate();
+    virtual void translate_x(int steps);
+    virtual void translate_y(int steps);
+    virtual void fall(GameLogic& game_logic);
+    uint8_t get_id() const;
+    uint8_t get_texture_id() const;
+
+
     virtual ~Positionable();
 };
 
-#endif  // SERVER_POSITIONABLE_H_
+#endif  

@@ -8,33 +8,37 @@
 #include <SDL2pp/Texture.hh>
 
 #include "../../common/state_duck.h"
+#include "../animation/animation.h"
+#include "../animation/animation_loader.h"
 #include "../config/game_config.h"
 #include "../game_state/player.h"
+#include "../textures/texture_provider.h"
 
-#include "renderer_helper.h"
-#include "weapon_properties.h"
+#include "drawable.h"
+#include "drawer_equipment.h"
+#include "drawer_weapon.h"
 
-enum TEXTURE_DUCKS {
-    DUCK_YELLOW,
-    DUCK_GREY,
-    DUCK_ORANGE,
-    DUCK_WHITE,
-};
-
-static std::map<uint8_t, std::string> textures = {
-        {DUCK_YELLOW, DATA_PATH "/DuckGame-YellowDuck.png"},
-        {DUCK_GREY, DATA_PATH "/DuckGame-GreyDuck.png"},
-        {DUCK_ORANGE, DATA_PATH "/DuckGame-OrangeDuck.png"},
-        {DUCK_WHITE, DATA_PATH "/DuckGame-WhiteDuck.png"}};
-
-class DrawerPlayer {
+class DrawerPlayer: public Drawable {
 private:
-    SDL2pp::Texture texture;
+    std::map<std::string, Animation>& animation_weapon;
+    std::map<std::string, Animation>& animation_armor;
+
+    void update_weapon(const player_t& _player);
+
+    void update_armor(const player_t& player);
+
+    void update_helmet(const player_t& player);
+
+    void update_wings(DuckStateType type_wing);
+
 
 public:
-    DrawerPlayer(SDL2pp::Renderer& renderer, const player_t& _player);
+    DrawerPlayer(SDL2pp::Renderer& renderer, uint8_t texture_id,
+                 std::map<std::string, Animation>& animations,
+                 std::map<std::string, Animation>& animation_weapon,
+                 std::map<std::string, Animation>& animation_armor);
 
-    void draw(SDL2pp::Renderer& renderer, const player_t& _player);
+    void draw(const player_t& player);
 };
 
 #endif  // DRAWER_PLAYER_H

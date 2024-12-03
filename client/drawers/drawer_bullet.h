@@ -7,20 +7,19 @@
 #include <SDL2pp/SDL2pp.hh>
 #include <SDL2pp/Texture.hh>
 
+#include "../../common/direction.h"
 #include "../game_state/elements.h"
+#include "../textures/texture_provider.h"
 
 #include "drawable.h"
 
-class DrawerBullet {
+class DrawerBullet: public Drawable {
 private:
-    bullet_t bullet;
-    SDL2pp::Texture texture;
-
 public:
-    DrawerBullet(bullet_t bullet, SDL2pp::Renderer& renderer);
-    void draw(SDL2pp::Renderer& renderer);
+    DrawerBullet(SDL2pp::Renderer& renderer, uint8_t texture_id,
+                 std::map<std::string, Animation>& animations);
 
-    void update_bullet(const bullet_t& update_bullet);
+    void draw(const bullet_t& bullet);
 };
 
 #endif  // DRAWER_BULLET_H

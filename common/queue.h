@@ -268,7 +268,6 @@ class Queue<T*>: private Queue<void*> {
 public:
     explicit Queue(const unsigned int max_size): Queue<void*>(max_size) {}
 
-
     bool try_push(T* const& val) { return Queue<void*>::try_push(val); }
 
     // cppcheck-suppress cstyleCast
