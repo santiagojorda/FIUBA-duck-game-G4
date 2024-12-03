@@ -222,3 +222,53 @@ dead:
   offset_y: 0
   scale_width: 0
   scale_height: 0
+
+slipping:
+  texture: "/DuckGame-YellowDuck.png"
+  rects:
+    - x: 1
+      y: 139
+      w: 32
+      h: 32
+    - x: 33
+      y: 139
+      w: 32
+      h: 32
+    - x: 65
+      y: 139
+      w: 32
+      h: 32
+    - x: 97
+      y: 139
+      w: 32
+      h: 32
+    - x: 129
+      y: 139
+      w: 32
+      h: 32
+    - x: 161
+      y: 139
+      w: 32
+      h: 32
+    - x: 1
+      y: 171
+      w: 32
+      h: 32
+  offset_right_x: 0
+  offset_left_x: 0
+  offset_y: 0
+  scale_width: 0
+  scale_height: 0
+
+wings_planning:
+  texture: "/DuckGame-YellowDuck.png"
+  rects:
+    - x: 33
+      y: 550
+      w: 16
+      h: 16
+  offset_right_x: 5
+  offset_left_x: 11
+  offset_y: 13
+  scale_width: 16
+  scale_height: 16

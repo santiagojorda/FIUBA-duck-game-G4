@@ -43,10 +43,9 @@ void DrawerPlayer::draw(const player_t& player) {
     if (static_cast<int>(player.inventory.weapon) != 0) {
         this->frame = static_cast<int>(player.frame);
         this->update_weapon(player);
-        // this->update_wings(ANIMATION_WINGS);
-    }  // else {
-       // this->update_wings("wings_walking_simple");
-    //}
+    }
+    
+    
 
     update_wings(static_cast<DuckStateType>(player.state));
 }
@@ -72,6 +71,10 @@ void DrawerPlayer::update_helmet(const player_t& player) {
 void DrawerPlayer::update_wings(DuckStateType duck_status) {
     if (duck_status == DuckStateType::DEAD) {
         return;
+    }
+
+    if (duck_status == DuckStateType::PLANNING) {
+        this->frame = UNIQUE_FRAME;
     }
 
     this->type_animation = texture_provider.get_textures_wings(duck_status);
