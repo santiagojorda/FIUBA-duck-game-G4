@@ -44,8 +44,7 @@ void DrawerPlayer::draw(const player_t& player) {
         this->frame = static_cast<int>(player.frame);
         this->update_weapon(player);
     }
-    
-    
+
 
     update_wings(static_cast<DuckStateType>(player.state));
 }

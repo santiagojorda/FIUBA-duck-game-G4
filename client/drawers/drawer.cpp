@@ -1,7 +1,7 @@
 #include "drawer.h"
 
-
 #include "../../common/sleep_special.h"
+
 #include "drawer_text.h"
 
 using namespace SDL2pp;
@@ -30,7 +30,7 @@ void Drawer::run() try {
     int iteration = 0;
 
     ZoomHandler zoom_handler;
-    //  Cargar resources, incluir musica
+
     load_resources();
     static std::map<std::string, Animation> empty_animations;
 
@@ -45,21 +45,15 @@ void Drawer::run() try {
     while (true) {
         while (game_state.try_pop(actual_game_state)) {}
         this->renderer.Clear();
-
         this->renderer.Copy(background, Rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
-
         SDL_SetRenderTarget(renderer.Get(), main_texture.Get());
-
         this->renderer.SetDrawColor(0, 0, 0, 0);
-
         this->renderer.Clear();
-
         load_floor();
         load_ducks();
         load_boxes();
         load_weapons();
         load_bullets();
-
         SDL_SetRenderTarget(this->renderer.Get(), nullptr);
 
         if (actual_game_state.players.size() > 0) {
@@ -68,11 +62,10 @@ void Drawer::run() try {
         }
 
 
-
-        if( actual_game_state.moment == GameMoment::DISPLAY_INFO){
+        if (actual_game_state.moment == GameMoment::DISPLAY_INFO) {
             drewer_text.draw(renderer, "WINER");
         }
-        if( actual_game_state.moment == GameMoment::FINISHED){
+        if (actual_game_state.moment == GameMoment::FINISHED) {
             drewer_text.draw(renderer, "GAME END");
         }
         this->renderer.Present();
@@ -233,21 +226,12 @@ void Drawer::init_scenery(const client_game_state_t& actual_game_state) {
         DrawerPlayer* new_player = new DrawerPlayer(
                 this->renderer, player.sprite.id_texture, this->animations.animation_duck,
                 this->animations.animation_weapon, this->animations.animation_armor);
-
-        std::cout << "player.sprite.id_texture o sea id pato: " << player.sprite.id_texture << "\n";
         drawers.players[i] = new_player;
-
-        /*
-                drawers.players[player.sprite.id_texture] = std::make_unique<DrawerPlayer>(
-                        this->renderer, player.sprite.id_texture, this->animations.animation_duck,
-                        this->animations.animation_weapon, this->animations.animation_armor);
-                drawers.players[player.sprite.id_texture]->draw(player);*/
     }
 }
 
 
 void Drawer::load_resources() {
-    // es el dueño para que cargue las animaciones 1 sola vez.
     AnimationLoader::load_animations(ANIMATION_PATH "/duck.yaml", animations.animation_duck);
     AnimationLoader::load_animations(ANIMATION_PATH "/weapon.yaml", animations.animation_weapon);
     AnimationLoader::load_animations(ANIMATION_PATH "/armor.yaml", animations.animation_armor);

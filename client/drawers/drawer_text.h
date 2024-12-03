@@ -3,11 +3,11 @@
 
 
 #include <SDL2/SDL.h>
-#include <SDL2pp/SDL2pp.hh>
 #include <SDL2/SDL_ttf.h>
+#include <SDL2pp/SDL2pp.hh>
 
 
-class DrawerText{
+class DrawerText {
 private:
     SDL2pp::SDLTTF ttf;
     SDL2pp::Font font;
@@ -22,5 +22,4 @@ public:
 };
 
 
-
-#endif // DRAWER_TEXT_H
+#endif  // DRAWER_TEXT_H

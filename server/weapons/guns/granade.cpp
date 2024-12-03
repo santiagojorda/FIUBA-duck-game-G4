@@ -38,7 +38,6 @@ void Granade::trigger_out(ListProjectiles& projectiles, const uint8_t& player_id
     Gun::trigger_out(projectiles, player_id, was_dropped);
     was_dropped = true;
     is_waiting_to_explotion = true;
-
 }
 
 void Granade::handle_explotion(GameLogic& game_logic) {
@@ -53,8 +52,8 @@ void Granade::handle_explotion(GameLogic& game_logic) {
     }
 }
 
-void Granade::handle_equip(Inventory& inventory) { 
-    if(is_waiting_to_explotion){
+void Granade::handle_equip(Inventory& inventory) {
+    if (is_waiting_to_explotion) {
         return;
     }
     Gun::handle_equip(inventory);

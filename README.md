@@ -1,6 +1,4 @@
-> Hola! 👋🏼 El trabajo aun no esta finalizado, seguimos en desarrollo! 💪🏼☕ - 03/12
-
-> autores: 
+> Autores: 
 >  - Santiago Jorda (102924)
 >  - Alexia Aroa (110014) 
 >  - Felipe D'alto (110000)
@@ -69,7 +67,7 @@ Para el server en la primera:
 ````
 
 Para el cliente en la segunda 
-(por defecto se conecta en el peurto 8080)
+(por defecto se conecta en el puerto 8080)
 
 ```bash
  ./taller_client  <hostname> <servername>
@@ -90,21 +88,27 @@ Al iniciar el juego se vera una pantalla negra, una vez los jugadores esten cone
 
 Para cerrar usa la tecal "q" o "esc"
 
-controles player 1:
-- saltar -> w
-- moverse a la derecha -> d
-- moverse a la izquierda -> a
-- agacharse  -> s
-- soltar arma -> r
-- disparar -> e 
+### controles player 1:
 
-controles player 2:
-- saltar -> i
-- moverse a la derecha -> l
-- moverse a la izquierda -> j
-- agacharse  -> k
-- soltar arma -> p
-- disparar -> o 
+| Acción             | Tecla |
+|--------------------|-------|
+| Saltar             | W     |
+| Moverse a la derecha | D     |
+| Moverse a la izquierda | A     |
+| Agacharse          | S     |
+| Soltar arma        | R     |
+| Disparar           | E     |
+
+### controles player 2:
+
+| Acción             | Tecla |
+|--------------------|-------|
+| Saltar             | I     |
+| Moverse a la derecha | L     |
+| Moverse a la izquierda | J     |
+| Agacharse          | K     |
+| Soltar arma        | P     |
+| Disparar           | O     |
 
 extras:
 - q p ESC para cerrar el jeugo

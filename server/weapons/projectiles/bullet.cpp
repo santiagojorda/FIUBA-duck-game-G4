@@ -61,5 +61,3 @@ void Bullet::update(GameLogic& game_logic) {
         game_logic.move(std::dynamic_pointer_cast<Projectile>(shared_from_this()), x, y);
     }
 }
-
-
