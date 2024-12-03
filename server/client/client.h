@@ -22,6 +22,8 @@ public:
            VectorPlayerID& _players_id);
     void shutdown();
     void send_gamestate(const GameState_t& game_state);
+    void send_new_player(const uint8_t& sender);
+    void send_count_players(const uint8_t& sender);
     bool is_alive();
     ~Client();
 };

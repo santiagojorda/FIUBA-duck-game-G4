@@ -14,7 +14,13 @@ endif()
 # strongly encouraged to enable this globally to avoid conflicts between
 # -Wpedantic being enabled and -std=c++20 and -std=gnu++20 for example
 # when compiling with PCH enabled
+
 set(CMAKE_CXX_EXTENSIONS ON)
+#Qt incluye una herramienta llamada uic (User Interface Compiler) que convierte 
+#el archivo .ui en un archivo de cabecera .h que puedes incluir en el proyecto.
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
 
 
 project(taller_tp
@@ -23,6 +29,9 @@ project(taller_tp
    LANGUAGES CXX
    )
 
+
+# Encuentra Qt5 y sus modulos
+find_package(Qt5 REQUIRED COMPONENTS Core Widgets Multimedia)
 
 option(TALLER_TESTS "Enable / disable tests." ON)
 option(TALLER_CLIENT "Enable / disable client program." ON)
@@ -119,7 +128,14 @@ if(TALLER_CLIENT)
 
 
    # Link the taller_common lib target
-   target_link_libraries(taller_client taller_common SDL2pp::SDL2pp yaml-cpp::yaml-cpp)
+   target_link_libraries(taller_client
+       taller_common
+       SDL2pp::SDL2pp
+       yaml-cpp::yaml-cpp
+       Qt5::Core
+       Qt5::Widgets
+       Qt5::Multimedia
+   )
 endif()
 
 

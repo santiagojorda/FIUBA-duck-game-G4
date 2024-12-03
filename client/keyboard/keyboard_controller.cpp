@@ -71,7 +71,7 @@ void KeyboardController::procesar_keyup_player_2(SDL_Event& event) {
         case SDLK_o:
             client_event = {PLAYER_2, ActionEvent::TRIGGER_OUT};
             this->commands.push(client_event);
-        break;
+            break;
     }
 }
 

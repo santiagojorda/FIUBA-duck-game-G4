@@ -1,4 +1,5 @@
 #include "duck_state_slipping.h"
+
 #include "../player.h"
 
 #include <iostream>

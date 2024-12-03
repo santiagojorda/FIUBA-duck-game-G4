@@ -2,6 +2,7 @@
 #define CLIENT_H
 
 #include <string>
+#include <sstream>
 
 #include "../common/queue.h"
 #include "../common/socket.h"
@@ -11,13 +12,14 @@
 
 #include "client_receiver.h"
 #include "client_sender.h"
+#include "lobby/client_receiver_lobby.h"
 
 class Client {
 private:
     Socket skt;
     ClientProtocol protocol;
     Queue<ClientEvent_t> commands;
-    Queue<client_game_state_t> game_state;  // estado del juego que se recibe del servidor
+    Queue<client_game_state_t> game_state;
     ClientReceiver receiver;
     ClientSender sender;
     Drawer drawer;
@@ -28,6 +30,7 @@ public:
      */
     Client(const std::string& hostname, const std::string& servname);
 
+    Client(Socket&& socket, int cant_players);
     /*
      * Constructor para mas jugadores.
      */
@@ -42,6 +45,9 @@ public:
      * Se realiza la comunicación con el servidor, mediante el envío y recepción de mensajes.
      */
     void run();
+
+    void active_drawer();
+
 
     /*
      * Deshabilitar copias.

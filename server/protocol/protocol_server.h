@@ -31,6 +31,10 @@ public:
 
     uint8_t receive_count_players();
 
+    void send_new_player(const uint8_t& sender);
+    
+    void send_count_players(const uint8_t& sender);
+
     void receive_event(uint8_t& player_id, ActionEvent& event_id);
 
     ~ProtocolServer();

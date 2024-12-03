@@ -17,6 +17,10 @@ void Client::send_gamestate(const GameState_t& game_state) { sender.send(game_st
 
 bool Client::is_alive() { return receiver.is_alive() && sender.is_alive(); }
 
+void Client::send_new_player(const uint8_t& sender) { this->protocol.send_new_player(sender); }
+
+void Client::send_count_players(const uint8_t& sender) { this->protocol.send_count_players(sender); }
+
 void Client::shutdown() {
     skt.shutdown(2);
     skt.close();

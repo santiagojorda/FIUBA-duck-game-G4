@@ -15,7 +15,7 @@ void ClientProtocol::receive_cordinates(Coordinate& coordinate) {
 }
 
 void ClientProtocol::receive_sprite(sprite_t& sprite) {
-    uint8_t id_texture;
+    uint8_t id_texture;  // por ahora este me indica el nro de tile de 0 a 63
     this->receive_byte(id_texture);
     Coordinate coordinate;
     receive_cordinates(coordinate);
@@ -123,7 +123,7 @@ void ClientProtocol::receive_boxes(std::vector<box_t>& _boxes) {
         boxes.push_back(box);
     }
 
-    _boxes = std::move(boxes);  // para evitar copiar y mejorar eficiencia
+    _boxes = std::move(boxes);
 }
 
 void ClientProtocol::receive_floor_sprites(VectorFloorSprite& _floor_sprites) {
@@ -179,4 +179,17 @@ void ClientProtocol::receive_game_state(client_game_state_t& game_state) {
 
     game_state = client_game_state_t{
             static_cast<GameMoment>(moment), players, bullets, boxes, sprites, weapons};
+}
+
+void ClientProtocol::receive_game_data(game_data_t& data) {
+    uint8_t cantidad_players;
+    this->receive_byte(cantidad_players);
+    data.count_players = cantidad_players;
+    std::cout << "recibo data.count_players: " << static_cast<int>(data.count_players) << "\n";
+
+    for (size_t i = 0; i < cantidad_players; i++) {
+        uint8_t id_player;
+        receive_byte(id_player);
+        data.id_players.push_back(id_player);
+    }
 }
