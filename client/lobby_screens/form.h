@@ -10,6 +10,7 @@
 #include "../client.h"
 #include "../protocol/protocol_client.h"
 
+#include "constants_lobby.h"
 #include "hall.h"
 
 namespace Ui {

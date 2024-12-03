@@ -5,6 +5,7 @@
 
 #include "../client.h"
 
+#include "constants_lobby.h"
 #include "form.h"
 
 QT_BEGIN_NAMESPACE

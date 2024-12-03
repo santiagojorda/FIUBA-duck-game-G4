@@ -42,17 +42,6 @@ Client::Client(Socket&& socket, int cant_players):
 void Client::run() {
     receiver.start();
     sender.start();
-    // load_lobby();
-}
-
-void Client::load_lobby() {
-    /*QApplication a(argc, argv);
-    PrincipalScreen principal_screen;
-    principal_screen.show_screen();
-    int qt_status = a.exec(); // una vez que se cierra, se ejecuta el drawer
-    if (qt_status == SUCCESS) {
-        active_drawer();
-    }*/
 }
 
 void Client::active_drawer() {

@@ -1,5 +1,8 @@
 #include "form.h"
 
+#include <chrono>
+#include <thread>
+
 #include "../lobby/client_receiver_lobby.h"
 #include "../lobby/game_data.h"
 
@@ -59,8 +62,6 @@ bool Form::validate_form() {
 }
 
 void Form::on_buttonContinue_clicked() {
-    Queue<game_data_t> game_data;
-
     if (validate_form()) {
         hall.set_config_game(
                 std::make_tuple(this->type_screen, this->hostname, this->port, this->cant_players));
@@ -69,17 +70,18 @@ void Form::on_buttonContinue_clicked() {
         Socket skt(this->hostname.c_str(), this->servname.c_str());
         ClientProtocol protocol(skt);
 
-        // Es Host
-        if (this->type_screen == 2) {
-            protocol.send_init(0);
-            protocol.send_server_name(this->port);
-
-        } else {  // es cliente normal
+        if (this->type_screen == HOST) {
+            protocol.send_init(0);                  // se une como host
+            protocol.send_server_name(this->port);  // le mando el server ingresado por pantalla
+        } else {                                    // es cliente normal
             uint8_t byte_commad = 1;
             protocol.send_init(byte_commad);  // se une
             protocol.recv_init(
                     byte_commad);  // cantidad de partidas abiertas (falta envio de puertos)
         }
+
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+        hall.call_clients();
         ui->stackedWidgetForm->setCurrentIndex(1);
     }
 }

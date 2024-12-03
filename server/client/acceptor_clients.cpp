@@ -26,7 +26,7 @@ void AcceptorClients::listen_new_client() {
     // chequear si se envia un dummy para inicializar el game y cortar el acceptor
 
     uint8_t count_players = protocol.receive_count_players();
-    //this->monitor.send_count_players(count_players);
+    // this->monitor.send_count_players(count_players);
 
     if (count_players == BYTE_START_GAME) {
         this->stop();

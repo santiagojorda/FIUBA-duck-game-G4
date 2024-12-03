@@ -48,7 +48,6 @@ public:
 
     void active_drawer();
 
-    void load_lobby();
 
     /*
      * Deshabilitar copias.

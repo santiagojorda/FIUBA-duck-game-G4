@@ -9,6 +9,7 @@
 #include "../lobby/game_data.h"
 #include "../protocol/protocol_client.h"
 
+#include "constants_lobby.h"
 
 namespace Ui {
 class Hall;
@@ -24,6 +25,11 @@ public:
     void initialize_screen();
     void data_for_host();
     void data_for_client();
+    void set_client(std::unique_ptr<Client>&& client);
+    void set_receiver(std::unique_ptr<ClientReceiverLobby>&& receiver);
+
+    void call_clients();
+
 
 private slots:
     void on_buttonStartGame_clicked();
@@ -35,8 +41,10 @@ private:
     std::string port;
     int cant_players;
     bool is_initialized = false;
-    // Client client;
-    // Queue<game_data_t> game_data;
+    std::unique_ptr<Client> client;
+    // std::unique_ptr<ClientReceiverLobby> receiver;
+    Queue<game_data_t> game_data;
+    // std::unique_ptr<ClientProtocol> protocol;
 };
 
 #endif  // HALL_H

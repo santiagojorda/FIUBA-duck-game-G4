@@ -50,12 +50,10 @@ int main(int argc, char* argv[]) {
         
         std::string hostname = argv[1];
         std::string servname = argv[2];
-        std::cout << "Conection wiht server: " ;
         QApplication a(argc, argv);
 
         int id = QFontDatabase::addApplicationFont(
                 ":/fonts/fuentes/pixel_digivolve/Pixel_Digivolve.otf");
-        std::cout << "id: " << id << "\n";
 
         if (id == -1) {
             std::cerr << "Error al cargar la tipografía" << std::endl;
