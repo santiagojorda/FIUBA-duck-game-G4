@@ -17,6 +17,8 @@ TextureProvider::TextureProvider() {
             {WeaponTextureID::MAGNUM, "magnum"},
             {WeaponTextureID::SHOTGUN, "shotgun"},
             {WeaponTextureID::SNIPER, "sniper"},
+            {WeaponTextureID::ARMOR, "armor"},
+            {WeaponTextureID::HELMET, "helmet"},
     };
 
     textures_ducks = {
@@ -32,6 +34,18 @@ TextureProvider::TextureProvider() {
             {DuckStateType::FALLING, "falling"},     {DuckStateType::SLIPPING, "slipping"},
             {DuckStateType::PLANNING, "planning"},   {DuckStateType::IDLE, "idle"},
             {DuckStateType::DEAD, "dead"},
+    };
+
+    textures_wings_duck = {
+            {DuckStateType::JUMPING, "wings_walking_simple"},
+            {DuckStateType::RUNNING, "wings_walking_simple"},
+            {DuckStateType::CROUCHING, "wings_crouching"},
+            {DuckStateType::RECOILING, "wings_walking_simple"},
+            {DuckStateType::FALLING, "wings_walking_simple"},
+            {DuckStateType::SLIPPING, "wings_walking_simple"},
+            {DuckStateType::PLANNING, "wings_planning"},
+            {DuckStateType::IDLE, "wings_walking_simple"},
+            {DuckStateType::DEAD, "wings_walking_simple"},
     };
 
     textures_equipment_ducks = {
@@ -72,4 +86,8 @@ const std::string& TextureProvider::get_textures_box(BoxTexture id) const {
 
 const std::string& TextureProvider::get_textures_bullet(BulletTexture id) const {
     return textures_bullets.at(id);
+}
+
+const std::string& TextureProvider::get_textures_wings(DuckStateType action) const {
+    return textures_wings_duck.at(action);
 }

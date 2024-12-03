@@ -14,7 +14,7 @@ void DrawerEquipment::draw(const player_t& player, bool frame_change) {
     this->flip = static_cast<Direction>(player.is_looking) == Direction::LEFT;
     this->coordenada_x = this->flip ? player.sprite.coordinate.get_x() + config.offset_left_x :
                                       player.sprite.coordinate.get_x() + config.offset_right_x;
-    this->coordenada_y = player.sprite.coordinate.get_y() + config.offset_y - OFFSET_Y_DUCK;
+    this->coordenada_y = player.sprite.coordinate.get_y() + config.offset_y;
     this->scale_width = config.scale_width;
     this->scale_height = config.scale_height;
     if (frame_change) {
