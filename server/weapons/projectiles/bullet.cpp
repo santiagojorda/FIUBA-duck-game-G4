@@ -68,6 +68,3 @@ void Bullet::handle_collision(Player& player, GameLogic& game_logic) {
         die();
     }
 }
-
-
-

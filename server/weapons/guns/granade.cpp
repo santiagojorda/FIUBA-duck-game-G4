@@ -51,9 +51,9 @@ void Granade::handle_explotion(GameLogic& game_logic) {
     }
 }
 
-void Granade::handle_equip(Inventory& inventory) { 
-    if(is_countdown_enabled){
-        (void)inventory; 
+void Granade::handle_equip(Inventory& inventory) {
+    if (is_countdown_enabled) {
+        (void)inventory;
         die();
         return;
     }

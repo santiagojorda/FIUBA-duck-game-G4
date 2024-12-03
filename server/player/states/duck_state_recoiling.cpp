@@ -17,7 +17,7 @@ void DuckStateRecoiling::update_state(Player& player, GameLogic& game_logic) {
     (void)game_logic;
     (void)player;
     tick++;
-    if(tick % TICKS_TO_FINISH_STATE == 0){
+    if (tick % TICKS_TO_FINISH_STATE == 0) {
         player.idle();
     }
     if (has_reached_max_frames()) {

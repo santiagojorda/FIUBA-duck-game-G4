@@ -3,7 +3,7 @@
 #include "ui_form.h"
 
 Form::Form(QWidget* parent):
-        QWidget(parent), ui(new Ui::Form), hostname(""), port(""), cant_players(0) {
+        QWidget(parent), ui(new Ui::Form), hostname(""), servname(""), port(""), cant_players(0) {
 
     ui->setupUi(this);
     ui->stackedWidgetForm->insertWidget(1, &hall);
@@ -13,6 +13,10 @@ Form::Form(QWidget* parent):
 }
 
 void Form::set_type_screen(int type_screen) { this->type_screen = type_screen; }
+
+void Form::set_hostname(std::string _hostname) { this->hostname = _hostname; }
+
+void Form::set_servname(std::string _servname) { this->servname = _servname; }
 
 Form::~Form() { delete ui; }
 
@@ -56,6 +60,26 @@ void Form::on_buttonContinue_clicked() {
         hall.set_config_game(
                 std::make_tuple(this->type_screen, this->hostname, this->port, this->cant_players));
         hall.initialize_screen();
+
+        Socket skt(this->hostname.c_str(), this->servname.c_str());
+        ClientProtocol protocol(skt);
+
+        // Es Host
+        if (this->type_screen == 2) {
+            protocol.send_init(0);
+            protocol.send_server_name(this->port);
+        } else {  // es cliente normal
+            uint8_t byte_commad = 1;
+            protocol.send_init(byte_commad);  // se une
+            protocol.recv_init(
+                    byte_commad);  // cantidad de partidas abiertas (falta envio de puertos)
+
+            // este esta bien, activa los threads
+            Client client(hostname, this->port, this->cant_players);
+            client.run();
+            client.active_drawer();
+            QApplication::quit();
+        }
         ui->stackedWidgetForm->setCurrentIndex(1);
     }
 }

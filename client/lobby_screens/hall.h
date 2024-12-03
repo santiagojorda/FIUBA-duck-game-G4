@@ -3,6 +3,9 @@
 
 #include <QWidget>
 
+#include "../../common/socket.h"
+#include "../protocol/protocol_client.h"
+
 namespace Ui {
 class Hall;
 }
@@ -15,6 +18,8 @@ public:
     ~Hall();
     void set_config_game(std::tuple<int, std::string, std::string, int> config);
     void initialize_screen();
+    void set_client_host();
+    void set_client();
 
 private slots:
     void on_buttonStartGame_clicked();

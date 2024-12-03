@@ -6,6 +6,7 @@
 class Banana: public Gun {
 private:
     bool is_ready_to_slide;
+
 public:
     explicit Banana(const Coordinate& _coordinate);
 

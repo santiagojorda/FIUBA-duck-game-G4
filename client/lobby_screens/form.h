@@ -3,6 +3,12 @@
 
 #include <QPainter>
 #include <QWidget>
+#include <memory>
+#include <stdexcept>
+
+#include "../../common/socket.h"
+#include "../client.h"
+#include "../protocol/protocol_client.h"
 
 #include "hall.h"
 
@@ -17,18 +23,11 @@ public:
     explicit Form(QWidget* parent = nullptr);
     ~Form();
     void set_type_screen(int type_screen);
+    void set_hostname(std::string _hostname);
+    void set_servname(std::string _servname);
+
     void initialize_screen();
 
-    /*
-    protected:
-        void paintEvent(QPaintEvent *event) override {
-            QPainter painter(this);
-            painter.setRenderHint(QPainter::SmoothPixmapTransform);
-            QPixmap background(":/images/DuckSelection.png");
-            painter.setOpacity(0.5);
-            painter.drawPixmap(0, 0, width(), height(), background);
-        }
-    */
 private slots:
     void on_buttonContinue_clicked();
 
@@ -42,10 +41,13 @@ private:
     Ui::Form* ui;
     Hall hall;
     std::string hostname;
+    std::string servname;
+
     std::string port;
     int cant_players;
     int type_screen;
     bool is_initialized = false;
+
     bool validate_form();
 };
 

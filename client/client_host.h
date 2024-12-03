@@ -4,7 +4,7 @@
 
 #include "client.h"
 
-class ClientHost : public Thread{
+class ClientHost : public Thread {
 private:
     Client host;
     const std::string& hostname;

@@ -44,7 +44,6 @@ public:
     void send_init(const uint8_t& init);
 
 
-
     /*
      * recive el mensaje de inicio, siendo este la cantidad de jugadores en el juego.
      */

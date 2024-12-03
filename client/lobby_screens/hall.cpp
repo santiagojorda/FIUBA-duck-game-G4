@@ -30,4 +30,9 @@ void Hall::initialize_screen() {
 
 Hall::~Hall() { delete ui; }
 
-void Hall::on_buttonStartGame_clicked() { QApplication::quit(); }
+void Hall::on_buttonStartGame_clicked() {
+    Socket skt_dumy(this->hostname.c_str(), this->port.c_str());
+    ClientProtocol protocol(skt_dumy);
+    protocol.send_init(0xFF);
+    QApplication::quit();
+}

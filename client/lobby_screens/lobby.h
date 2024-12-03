@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+#include "../client.h"
+
 #include "form.h"
 
 QT_BEGIN_NAMESPACE
@@ -15,7 +17,7 @@ class Lobby: public QWidget {
     Q_OBJECT
 
 public:
-    Lobby(QWidget* parent = nullptr);
+    Lobby(std::string hostname, std::string servname, QWidget* parent = nullptr);
     ~Lobby();
 
 private slots:
@@ -28,5 +30,7 @@ private slots:
 private:
     Ui::Lobby* ui;
     Form form;
+    std::string hostname;
+    std::string servname;
 };
 #endif  // LOBBY_H

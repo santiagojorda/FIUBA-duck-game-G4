@@ -4,7 +4,7 @@
 #include "../lobby_screens/lobby.h"
 
 class PrincipalScreen {
-    Lobby screen;
+    // Lobby screen;
 
 private:
 public:
