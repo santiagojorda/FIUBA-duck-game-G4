@@ -30,7 +30,7 @@ Menos SDL2, Cmake se encarga de de instalar las dependencias necesarias
 1 - En la terminal ejecutar 
 ```bash
 sudo apt-get install libjpeg-dev libpng-dev libfreetype-dev libopusfile-dev libflac-dev libxmp-dev libfluidsynth-dev libwavpack-dev cmake libmodplug-dev libsdl2-dev
-````
+```
 2 - se deben descargar los siguietes .zip
 
 
@@ -47,7 +47,7 @@ cd build
 cmake ..
 make -j4
 sudo make install
-````
+```
 
 4 - Ahora dentro de la carpeta de del repo FIUBA-duck-game-G4
 
@@ -56,7 +56,7 @@ mkdir build
 cd build
 cmake ..
 sudo make install
-````
+```
 
 ## Ejecutar
 Se requieren dos terminales 
@@ -64,29 +64,64 @@ Se requieren dos terminales
 Para el server en la primera:
 ```bash
  ./taller_server <servername>
-````
+```
 
 Para el cliente en la segunda 
 (por defecto se conecta en el puerto 8080)
 
 ```bash
  ./taller_client  <hostname> <servername>
-````
+```
 
 ### Ejemplo
 - Servidor: 
-````bash  
+```bash  
 ./taller_server 8080
-````
+```
 - Cliente:
-````bash  
-/taller_client 127.0.0.1 8080
-````
+```bash  
+/taller_client localhost 8080
+```
+
+Al ingresar el cliente, se abrirá la siguiente pantalla.
+
+<image src="imgs/lobby1.png" alt="">
+
+En caso de unirse a una partida o crear una nueva, se le abrirá el siguiente form.
+
+<image src="imgs/lobby2.png" alt="">
+
+Es obligatorio completar todos los campos para avanzar a la siguiente pantalla, en caso de algún faltante, se tira un mensaje debajo del input indicando el error.
+
+<image src="imgs/lobby3.png" alt="">
+
+Como máximo sobre un dispositivo pueden haber 2 jugadores.
+
+<image src="imgs/lobby4.png" alt="">
+
+El hostname debe ser el mismo con que el segundo parámetro que ingresamos por comando, en este caso, `localhost`
+Ingresamos con el puerto 8081 y con 2 jugadores.
+
+<image src="imgs/lobby7.png" alt="">
+
+### Host (Botón new game)
+Para esta ocasión, se eligió jugar en el dispositivo con 2 jugadores. En caso de ser host, aparecerá una pantalla donde tendrá permitido iniciar la partida con el botón "Start Game", sumado a una segunda pantalla que quedará en negro.
+
+<image src="imgs/lobby5.png" alt="">
+
+### Client Join (Botón join game)
+Para el cliente que se quiera unir, tiene que ingresar un puerto que esté disponible. En este caso, el puerto 8081. Ingresamos con 1 jugador.
+Se le abrirá un nueva pantalla.
+
+<image src="imgs/lobby8.png" alt="">
+
+Una vez que el host le de a Start Game, se empezará la partida con todos los jugadores.
+
+<image src="imgs/lobby9.png" alt="">
 
 ## Jugar 
-Al iniciar el juego se vera una pantalla negra, una vez los jugadores esten conectados se debe apretar la tecla '"m" para lanzar el juego.
 
-Para cerrar usa la tecal "q" o "esc"
+Para cerrar usa la tecla "q" o "esc"
 
 ### controles player 1:
 
@@ -110,15 +145,14 @@ Para cerrar usa la tecal "q" o "esc"
 | Soltar arma        | P     |
 | Disparar           | O     |
 
-extras:
-- q p ESC para cerrar el jeugo
+Extras:
 
-Las partidas se reinician cuando queda un jugador con vida, el ganador sera el primeor en optener 10 vitorias.
+Las partidas se reinician cuando queda un jugador con vida, el ganador será el primero en obtener 10 vitorias.
 
 ## Terminar 
 Una vez vean la pantalla End Game, la tecla q cierra el juego, para cerrar el server deben mandar una 'q' por consola de comandos 
 
 - server:
-````bash  
+````bash
 q
 ````

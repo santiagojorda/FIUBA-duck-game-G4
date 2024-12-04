@@ -10,7 +10,6 @@ Server::Server(std::string& server_name) : skt(server_name.c_str()),  monitor(),
 void Server::run(){
     this->is_alive = true;
 
-    std::cout << "SERVER OPEN "  << std::endl;
     try {
         while (this->is_alive) {
             std::string server_name;

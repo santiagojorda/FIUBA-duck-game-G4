@@ -6,7 +6,6 @@ Lobby::Lobby(std::string hostname, std::string servname, QWidget* parent):
         QWidget(parent), ui(new Ui::Lobby), hostname(hostname), servname(servname) {
     ui->setupUi(this);                          // el actual es index 0
     ui->stackedWidget->insertWidget(1, &form);  // insertamos en index 1
-    std::cout << "carga el lobby?\n";
 }
 
 Lobby::~Lobby() { delete ui; }

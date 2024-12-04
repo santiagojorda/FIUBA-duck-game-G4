@@ -185,8 +185,7 @@ void ClientProtocol::receive_game_data(game_data_t& data) {
     uint8_t cantidad_players;
     this->receive_byte(cantidad_players);
     data.count_players = cantidad_players;
-    std::cout << "recibo data.count_players: " << static_cast<int>(data.count_players) << "\n";
-
+  
     for (size_t i = 0; i < cantidad_players; i++) {
         uint8_t id_player;
         receive_byte(id_player);
