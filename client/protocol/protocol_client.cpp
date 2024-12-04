@@ -163,6 +163,15 @@ void ClientProtocol::receive_weapons(VectorGuns& _weapons) {
     }
 }
 
+void ClientProtocol::receive_statistics(game_statistics_t& statistics){
+    uint8_t rounds = 0;
+    uint8_t id_winer = 0xFF;
+    this->receive_byte(rounds);
+    this->receive_byte(id_winer);
+    statistics = {rounds, id_winer};
+}
+
+
 void ClientProtocol::receive_game_state(client_game_state_t& game_state) {
     uint8_t moment = 0xFF;
     this->receive_byte(moment);
@@ -176,9 +185,10 @@ void ClientProtocol::receive_game_state(client_game_state_t& game_state) {
     receive_floor_sprites(sprites);
     VectorGuns weapons;
     receive_weapons(weapons);
-
+    game_statistics_t statistics;
+    receive_statistics(statistics);
     game_state = client_game_state_t{
-            static_cast<GameMoment>(moment), players, bullets, boxes, sprites, weapons};
+            static_cast<GameMoment>(moment), players, bullets, boxes, sprites, weapons, statistics};
 }
 
 void ClientProtocol::receive_game_data(game_data_t& data) {

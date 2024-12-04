@@ -100,6 +100,15 @@ void ProtocolServer::send_map_items_state(GameState_t& state) {
     }
 }
 
+void ProtocolServer::send_statistics_state(GameState_t& state){
+    uint8_t rounds = state.statistics.rounds;
+    uint8_t id_winer = state.statistics.id_winer;
+    //uint8_t rounds = state.statistics.rounds;
+    this->send_byte(rounds);
+    this->send_byte(id_winer);
+}
+
+
 void ProtocolServer::send_game_state(GameState_t& state) {
     send_byte (static_cast<uint8_t>( state.moment));  
     send_players_state(state);
@@ -107,6 +116,7 @@ void ProtocolServer::send_game_state(GameState_t& state) {
     send_boxes_state(state);
     send_scenario_state(state);
     send_map_items_state(state);
+    send_statistics_state(state);
 }
 
 uint8_t ProtocolServer::receive_count_players() {

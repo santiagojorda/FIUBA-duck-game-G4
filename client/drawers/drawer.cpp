@@ -70,7 +70,10 @@ void Drawer::run() try {
 
 
         if( actual_game_state.moment == GameMoment::DISPLAY_INFO){
-            drewer_text.draw(renderer, "WINER");
+            
+            std::string winner_text = "Player-" + std::to_string((int)actual_game_state.statistics.id_winer) +"  win: " 
+             +std::to_string((int)actual_game_state.statistics.rounds);
+            drewer_text.draw(renderer, winner_text);
         }
         if( actual_game_state.moment == GameMoment::FINISHED){
             drewer_text.draw(renderer, "GAME END");
