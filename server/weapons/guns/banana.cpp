@@ -15,7 +15,7 @@ void Banana::trigger_out(ListProjectiles& projectiles, const uint8_t& player_id,
 }
 
 void Banana::on_collision_with(Player& player, GameLogic& game_logic) {
-    std::cout << "Collision banana con player" << std::endl;
+
     (void)game_logic;
     player.on_collision_with(std::dynamic_pointer_cast<Equippable>(shared_from_this()), game_logic);
 

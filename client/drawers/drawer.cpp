@@ -2,6 +2,7 @@
 
 #include "../../common/sleep_special.h"
 
+
 #include "drawer_text.h"
 
 using namespace SDL2pp;
@@ -36,10 +37,7 @@ void Drawer::run() try {
 
     // ---------------------------- Iniciar partida primer escenario ----------------------------
     // Mientras no reciba un primer escenario, queda en el ciclo
-    /*while (!game_state.try_pop(actual_game_state)) { TODO: cambiar a pop
-         std::cout << "Loading..." << std::endl;
-         std::this_thread::sleep_for(std::chrono::milliseconds(MILISECONDS_30_FPS));
-     }*/
+
 
     // -----------------------------------------------------------------------------------------
     while (true) {
@@ -58,7 +56,10 @@ void Drawer::run() try {
         update_zoom(zoom_handler, main_texture);
 
         if (actual_game_state.moment == GameMoment::DISPLAY_INFO) {
-            drewer_text.draw(renderer, "WINER");
+                        std::string winner_text =
+                    "Player-" + std::to_string((int)actual_game_state.statistics.id_winer) +
+                    "  win: " + std::to_string((int)actual_game_state.statistics.rounds);
+            drewer_text.draw(renderer, winner_text);
         }
         if (actual_game_state.moment == GameMoment::FINISHED) {
             drewer_text.draw(renderer, "GAME END");

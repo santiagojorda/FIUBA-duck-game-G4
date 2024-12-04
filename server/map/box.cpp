@@ -37,12 +37,10 @@ void Box::drop_weapon(GameLogic& game_logic){
 }
 
 void Box::handle_collision(std::shared_ptr<Collidable> other, GameLogic& game_logic) {
-    std::cout << "Handling collision with box" << std::endl;
     other->on_collision_with(std::dynamic_pointer_cast<Box>(shared_from_this()), game_logic);
 }
 
 void Box::on_collision_with(std::shared_ptr<Projectile> projectile, GameLogic& game_logic) {
-    std::cout << "Box collided with projectile" << std::endl;
     projectile->on_collision_with(std::dynamic_pointer_cast<Box>(shared_from_this()), game_logic);
     if(!is_open()){
         open(game_logic);

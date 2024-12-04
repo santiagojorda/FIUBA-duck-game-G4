@@ -30,7 +30,6 @@ void Projectile::on_collision_with(std::shared_ptr<Box> box, GameLogic& game_log
     die();
 }
 void Projectile::handle_collision(std::shared_ptr<Collidable> other, GameLogic& game_logic) {
-    std::cout << "handle_sollision projectile" << std::endl;
     other->on_collision_with(std::dynamic_pointer_cast<Projectile>(shared_from_this()), game_logic);   
 };
 

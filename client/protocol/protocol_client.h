@@ -34,6 +34,8 @@ private:
 
     void receive_floor_sprite(floor_sprite_t& sprite);
 
+    void receive_statistics(game_statistics_t& statistics);
+
 
 public:
     /*
@@ -62,10 +64,6 @@ public:
      */
     void send_action(uint8_t& id_jugador, ActionEvent& type_action);
 
-    /*
-     *
-     */
-    void receive_zoom_details(zoom_t zoom);
 
     /*
      *

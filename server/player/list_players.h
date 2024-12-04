@@ -9,9 +9,7 @@
 class ListPlayers: public std::list<Player> {
 private:
 public:
-    ListPlayers() { 
-        std::cout << "se creo list player" << std::endl;
-    }
+    ListPlayers() {     }
 
     void add_player(const Player& player) { this->push_back(player); }
 
@@ -26,7 +24,7 @@ public:
     }
 
     ~ListPlayers() {
-        std::cout << "se elimino list player" << std::endl;
+
     }
 };
 

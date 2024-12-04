@@ -124,8 +124,6 @@ void Player::handle_collision(std::shared_ptr<Collidable> other, GameLogic& game
 
 
 void Player::on_collision_with(std::shared_ptr<Equippable> item, GameLogic& game_logic) { 
-    std::cout << "Collision Player con item" << std::endl;
-    // item->on_collision_with(*this, game_logic);    
     if(!is_slipping()){
         equip(item);
     }

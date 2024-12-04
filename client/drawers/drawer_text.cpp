@@ -9,7 +9,7 @@ void DrawerText::draw(SDL2pp::Renderer& renderer, const std::string& text) {
                                 font.RenderText_Blended(text, SDL_Color{255, 0, 255, 255}));
 
     renderer.Copy(text_sprite, SDL2pp::NullOpt,
-                  SDL2pp::Rect(renderer.GetOutputWidth() / 2, renderer.GetOutputHeight() / 3,
+                  SDL2pp::Rect(renderer.GetOutputWidth() / 4, renderer.GetOutputHeight() / 3,
                                text_sprite.GetWidth(), text_sprite.GetHeight()));
 }
 

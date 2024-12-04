@@ -9,38 +9,6 @@
 #define SUCCESS 0
 #define ERROR -1
 
-std::string menu_terminal(ClientProtocol& protocol, bool& host) {
-    std::string command;
-    std::cout << "[1] Host" << std::endl;
-    std::cout << "[2] Join" << std::endl;
-    std::cout << "Enter your choice: ";
-    std::cin >> command;
-    uint8_t byte_commad;
-    switch (command[0]) {
-        case '1':
-            std::cout << "Creating a game on: ";
-            protocol.send_init(0); // indicar host o join
-            std::cin >> command;
-            protocol.send_server_name(command); // le manda el puerto
-            host = true;
-            break;
-        case '2':
-            std::cout << "Joining a game on: " << std::endl;
-            byte_commad = 1;
-            protocol.send_init(byte_commad); // indicar host o join
-            protocol.recv_init(byte_commad); // cantidad de partidas abiertas
-            for (size_t i = 0; i < (size_t)byte_commad; i++) {
-                std::cout << "[" << i << "] Join ?" << std::endl;
-            }
-            std::cin >> command;
-            break;
-        default:
-            std::cout << "Invalid input. Please try again." << std::endl;
-    }
-
-    return command; // Return the user's input
-}
-
 int main(int argc, char* argv[]) {
     try {
         if (argc != ARGS_EXPECTED_CLIENT) {
