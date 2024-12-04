@@ -2,7 +2,6 @@
 
 #include "../../common/sleep_special.h"
 
-
 #include "drawer_text.h"
 
 using namespace SDL2pp;
@@ -56,7 +55,7 @@ void Drawer::run() try {
         update_zoom(zoom_handler, main_texture);
 
         if (actual_game_state.moment == GameMoment::DISPLAY_INFO) {
-                        std::string winner_text =
+            std::string winner_text =
                     "Player-" + std::to_string((int)actual_game_state.statistics.id_winer) +
                     "  win: " + std::to_string((int)actual_game_state.statistics.rounds);
             drewer_text.draw(renderer, winner_text);
