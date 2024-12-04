@@ -30,7 +30,7 @@ void DrawerPlayer::draw(const player_t& player) {
                 texture_provider.get_duck_action_texture(static_cast<DuckStateType>(player.state));
         this->render();
     } catch (...) {
-        std::cout << "No hay textura del estado: " << (uint8_t)player.state << std::endl;
+        std::cerr << "No hay textura del estado: " << (uint8_t)player.state << std::endl;
     }
     if (static_cast<int>(player.inventory.helmet) != 0) {
         this->update_helmet(player);
@@ -44,8 +44,7 @@ void DrawerPlayer::draw(const player_t& player) {
         this->frame = static_cast<int>(player.frame);
         this->update_weapon(player);
     }
-    
-    
+
 
     update_wings(static_cast<DuckStateType>(player.state));
 }
@@ -73,10 +72,6 @@ void DrawerPlayer::update_wings(DuckStateType duck_status) {
         return;
     }
 
-    /**
-    if (duck_status == DuckStateType::PLANNING) {
-        this->frame = UNIQUE_FRAME;
-    }*/
 
     this->type_animation = texture_provider.get_textures_wings(duck_status);
     auto config = this->animations.at(this->type_animation).get_config_screen();

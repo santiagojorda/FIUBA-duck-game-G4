@@ -80,18 +80,7 @@ void KeyboardController::procesar_keydown(SDL_Event& event) {
         case SDLK_ESCAPE:
         case SDLK_q:
             throw std::runtime_error("Cierre del juego");
-        case SDLK_m:  // tecla m : Iniciar juego
-            try {
-                std::cout << "Presiono m" << std::endl;
-
-                Socket skt("localhost", "8080");
-                ClientProtocol protocol(skt);
-                protocol.send_init(0xFF);
-                std::cout << "iniciar juego" << std::endl;
-            } catch (const std::exception& e) {
-                std::cerr << "error en case " << e.what() << '\n';
-            }
-
+        default:
             break;
     }
 }

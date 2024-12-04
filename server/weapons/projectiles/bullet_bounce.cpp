@@ -12,7 +12,7 @@ void BulletBounce::bounce(const Positionable& surface) { (void)surface; }
 void BulletBounce::on_collision_with(std::shared_ptr<Ground> surface, GameLogic& game_logic) {
     (void)surface;
     (void)game_logic;
-    this->direction = direction == Direction::RIGHT? Direction::LEFT : Direction::RIGHT; 
+    this->direction = direction == Direction::RIGHT ? Direction::LEFT : Direction::RIGHT;
 
     this->dispersion_angle += DISPERSION_ANGLE;
 }

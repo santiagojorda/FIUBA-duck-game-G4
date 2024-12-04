@@ -163,7 +163,7 @@ void ClientProtocol::receive_weapons(VectorGuns& _weapons) {
     }
 }
 
-void ClientProtocol::receive_statistics(game_statistics_t& statistics){
+void ClientProtocol::receive_statistics(game_statistics_t& statistics) {
     uint8_t rounds = 0;
     uint8_t id_winer = 0xFF;
     this->receive_byte(rounds);
@@ -195,7 +195,6 @@ void ClientProtocol::receive_game_data(game_data_t& data) {
     uint8_t cantidad_players;
     this->receive_byte(cantidad_players);
     data.count_players = cantidad_players;
-    std::cout << "recibo data.count_players: " << static_cast<int>(data.count_players) << "\n";
 
     for (size_t i = 0; i < cantidad_players; i++) {
         uint8_t id_player;

@@ -22,5 +22,5 @@ void Event::execute_player_action(GameLogic& game_logic, const uint8_t& player_i
 }
 
 Event::~Event() {
-    std::cout << "Se elimino action evento de player: " << (int)player_id << std::endl;
+
 }

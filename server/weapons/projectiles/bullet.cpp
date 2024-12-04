@@ -42,7 +42,6 @@ void Bullet::update(GameLogic& game_logic) {
 
     if ((steps * HORIZONTAL_STEP) / (TILE_SIZE_BULLET) >= (int)range_tiles) {
         die();
-        std::cout << "Bala muere, completo su rango" << std::endl;
         return;
     }
 
@@ -61,5 +60,3 @@ void Bullet::update(GameLogic& game_logic) {
         game_logic.move(std::dynamic_pointer_cast<Projectile>(shared_from_this()), x, y);
     }
 }
-
-

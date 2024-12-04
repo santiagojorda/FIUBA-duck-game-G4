@@ -4,11 +4,11 @@
 #include "../../common/game_moment.h"
 
 #include "elements.h"
+#include "game_statistics.h"
 #include "vector_floor_sprite.h"
 #include "vector_guns.h"
 #include "vector_player.h"
 #include "vector_sprite.h"
-#include "game_statistics.h"
 
 struct client_game_state_t {
     GameMoment moment;

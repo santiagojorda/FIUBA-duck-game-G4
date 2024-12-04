@@ -1,7 +1,7 @@
 #include "drawer.h"
 
-
 #include "../../common/sleep_special.h"
+
 #include "drawer_text.h"
 
 using namespace SDL2pp;
@@ -36,10 +36,7 @@ void Drawer::run() try {
 
     // ---------------------------- Iniciar partida primer escenario ----------------------------
     // Mientras no reciba un primer escenario, queda en el ciclo
-    /*while (!game_state.try_pop(actual_game_state)) { TODO: cambiar a pop
-         std::cout << "Loading..." << std::endl;
-         std::this_thread::sleep_for(std::chrono::milliseconds(MILISECONDS_30_FPS));
-     }*/
+
 
     // -----------------------------------------------------------------------------------------
     while (true) {
@@ -68,14 +65,14 @@ void Drawer::run() try {
         }
 
 
+        if (actual_game_state.moment == GameMoment::DISPLAY_INFO) {
 
-        if( actual_game_state.moment == GameMoment::DISPLAY_INFO){
-            
-            std::string winner_text = "Player-" + std::to_string((int)actual_game_state.statistics.id_winer) +"  win: " 
-             +std::to_string((int)actual_game_state.statistics.rounds);
+            std::string winner_text =
+                    "Player-" + std::to_string((int)actual_game_state.statistics.id_winer) +
+                    "  win: " + std::to_string((int)actual_game_state.statistics.rounds);
             drewer_text.draw(renderer, winner_text);
         }
-        if( actual_game_state.moment == GameMoment::FINISHED){
+        if (actual_game_state.moment == GameMoment::FINISHED) {
             drewer_text.draw(renderer, "GAME END");
         }
         this->renderer.Present();
@@ -237,14 +234,7 @@ void Drawer::init_scenery(const client_game_state_t& actual_game_state) {
                 this->renderer, player.sprite.id_texture, this->animations.animation_duck,
                 this->animations.animation_weapon, this->animations.animation_armor);
 
-        std::cout << "player.sprite.id_texture o sea id pato: " << player.sprite.id_texture << "\n";
         drawers.players[i] = new_player;
-
-        /*
-                drawers.players[player.sprite.id_texture] = std::make_unique<DrawerPlayer>(
-                        this->renderer, player.sprite.id_texture, this->animations.animation_duck,
-                        this->animations.animation_weapon, this->animations.animation_armor);
-                drawers.players[player.sprite.id_texture]->draw(player);*/
     }
 }
 

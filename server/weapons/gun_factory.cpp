@@ -30,7 +30,6 @@ GunFactory::GunFactory() {
 
 
 std::shared_ptr<Gun> GunFactory::create_gun(const int& id_weapon, const Coordinate& _coordinate) {
-    std::cout << id_weapon << std::endl;
     return map_guns[static_cast<WeaponTextureID>(id_weapon)](_coordinate);
 }
 

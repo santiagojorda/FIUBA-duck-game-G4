@@ -51,15 +51,9 @@ void Client::active_drawer() {
     this->commands.close();
 }
 
-/**
-void Client::generate_conection() {
-    Socket skt(this->hostname.c_str(), this->servname.c_str());
-    ClientProtocol protocol(skt);
-    protocol.send_init(0xFF);
-} */
 
 Client::~Client(){
-    std::cout << "destructor client\n";
+
     receiver.stop();
     sender.stop();
 

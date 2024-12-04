@@ -22,7 +22,6 @@ public:
 
 
     void update(GameLogic& game_logic) override;
-
 };
 
 #endif
