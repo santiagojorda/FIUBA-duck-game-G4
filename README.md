@@ -38,7 +38,16 @@ sudo apt-get install libjpeg-dev libpng-dev libfreetype-dev libopusfile-dev libf
 - libsdl2-mixer (2.6.3, https://github.com/libsdl-org/SDL_mixer/releases/tag/release-2.6.3)
 - libsdl2-ttf (2.20.2, https://github.com/libsdl-org/SDL_ttf/releases/tag/release-2.20.2)
 
-3 - descompirmir y en cada una de las carpetas ejecutar 
+3 - Instalar QT
+Tirar los siguientes comandos en una consola para instalar librerias asociadas a QT
+
+sudo apt-get  install qtcreator qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools
+
+sudo apt-get install libqt5charts5-dev libqt5datavisualization5-dev libqt5gamepad5-dev libqt5gstreamer-dev libqt5networkauth5-dev libqt5opengl5-dev libqt5remoteobjects5-dev libqt5scxml5-dev libqt5sensors5-dev libqt5serialbus5-dev libqt5serialport5-dev libqt5svg5-dev libqt5texttospeech5-dev libqt5virtualkeyboard5-dev libqt5waylandclient5-dev libqt5waylandcompositor5-dev libqt5webkit5-dev libqt5webchannel5-dev libqt5websockets5-dev libqt5webview5-dev libqt5x11extras5-dev libqt5xmlpatterns5-dev
+
+sudo apt-get install qtmultimedia5-dev
+
+4 - descompirmir y en cada una de las carpetas ejecutar 
 
 ```bash
 cd nombre_de_la carpeta_descomprimida
@@ -49,7 +58,7 @@ make -j4
 sudo make install
 ```
 
-4 - Ahora dentro de la carpeta de del repo FIUBA-duck-game-G4
+5 - Ahora dentro de la carpeta de del repo FIUBA-duck-game-G4
 
 ```bash
 mkdir build
